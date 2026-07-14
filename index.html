@@ -8,13 +8,14 @@
         :root {
             --bg-color: #161616;
             --sidebar-color: #1f1f1f;
-            --card-bg: #282828;
+            --card-bg: #242424;
             --text-main: #ffffff;
             --text-muted: #8a8a8e;
             --accent-color: #fa233b; 
             --border-radius: 12px;
             --player-bg: rgba(35, 35, 35, 0.85);
             --glass-bg: rgba(22, 22, 22, 0.7);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -52,6 +53,7 @@
             color: var(--text-main);
             letter-spacing: -0.5px;
             padding-left: 10px;
+            cursor: pointer;
         }
 
         .menu-label {
@@ -95,7 +97,81 @@
             position: relative;
         }
 
-        /* ÁREA FIXA SUPERIOR (EFEITO VIDRO) */
+        /* SEÇÃO 1: DASHBOARD (TELA INICIAL COM TODOS OS ÁLBUNS) */
+        .dashboard-section {
+            display: block; /* Visível por padrão */
+            padding: 40px;
+            overflow-y: auto;
+            height: 100%;
+            padding-bottom: 140px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+        }
+
+        .album-card {
+            background-color: var(--card-bg);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .album-card:hover {
+            transform: translateY(-5px);
+            background-color: #2d2d2d;
+            border-color: #3a3a3c;
+        }
+
+        .album-art-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; 
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .album-art-wrapper img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .album-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .album-card-artist {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* SEÇÃO 2: DETALHES DO ÁLBUM (ESTILO FOTO COM CABEÇALHO FIXO) */
+        .album-detail-section {
+            display: none; /* Escondido por padrão, aparece ao clicar */
+            flex-direction: column;
+            height: 100vh;
+        }
+
         .sticky-album-header {
             background-color: var(--glass-bg);
             backdrop-filter: blur(30px);
@@ -110,387 +186,191 @@
             z-index: 10;
         }
 
+        .back-btn {
+            background: none; border: none;
+            color: var(--accent-color);
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; margin-bottom: 12px;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+
         .album-art {
-            width: 190px;
-            height: 190px;
-            border-radius: 8px;
-            object-fit: cover;
+            width: 190px; height: 190px;
+            border-radius: 8px; object-fit: cover;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             flex-shrink: 0;
         }
 
         .album-info-block {
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             justify-content: center;
         }
 
         .album-title-header {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
+            font-size: 26px; font-weight: 700;
+            margin-bottom: 4px; letter-spacing: -0.5px;
         }
 
         .album-artist-header {
-            font-size: 20px;
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-size: 20px; color: var(--accent-color);
+            font-weight: 600; margin-bottom: 4px;
         }
 
         .album-meta {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+            font-size: 12px; color: var(--text-muted); margin-bottom: 15px;
         }
 
         .album-description {
-            font-size: 13px;
-            color: #cccccc;
-            line-height: 1.5;
-            max-width: 650px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Limita a 3 linhas */
-            -webkit-box-orient: vertical;  
-            overflow: hidden;
-            margin-bottom: 15px;
+            font-size: 13px; color: #cccccc; line-height: 1.5;
+            max-width: 650px; display: -webkit-box;
+            -webkit-line-clamp: 3; -webkit-box-orient: vertical;  
+            overflow: hidden; margin-bottom: 15px;
         }
 
         .more-btn {
-            color: #ffffff;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 11px;
-            border: none;
-            background: none;
-            letter-spacing: 0.5px;
+            color: #ffffff; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; font-size: 11px;
+            border: none; background: none; letter-spacing: 0.5px;
         }
 
         .play-album-btn {
-            background-color: #ffffff;
-            color: #000000;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 5px;
-            width: fit-content;
-            transition: transform 0.2s;
+            background-color: #ffffff; color: #000000; border: none;
+            padding: 10px 24px; border-radius: 20px;
+            font-weight: 600; font-size: 14px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 5px; width: fit-content; transition: transform 0.2s;
         }
 
-        .play-album-btn:hover {
-            transform: scale(1.02);
-        }
+        .play-album-btn:hover { transform: scale(1.02); }
 
-        /* CORPO DE MÚSICAS ROLÁVEL */
         .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 30px 140px 30px; /* Margem extra embaixo para o player flutuante */
+            flex: 1; overflow-y: auto;
+            padding: 20px 30px 140px 30px; 
         }
 
-        /* LISTA DE MÚSICAS (TRACKLIST) */
         .tracklist {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1200px;
+            display: flex; flex-direction: column; width: 100%; max-width: 1200px;
         }
 
         .track-row {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
+            display: flex; align-items: center; padding: 12px 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            border-radius: 6px;
-            transition: background-color 0.2s;
+            cursor: pointer; border-radius: 6px; transition: background-color 0.2s;
         }
 
-        .track-row:hover {
-            background-color: rgba(255, 255, 255, 0.04);
-        }
+        .track-row:hover { background-color: rgba(255, 255, 255, 0.04); }
+        .track-row.playing { background-color: #8e001c !important; color: #ffffff; }
 
-        .track-row.playing {
-            background-color: #8e001c !important;
-            color: #ffffff;
-        }
+        .track-number { width: 35px; color: var(--text-muted); font-size: 14px; }
+        .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
+        .track-title { flex: 1; font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .track-number {
-            width: 35px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .track-row.playing .track-number {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .track-title {
-            flex: 1;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* O MINI-PLAYER FLUTUANTE ESTILO A FOTO */
+        /* PLAYER FLUTUANTE */
         .floating-player-wrapper {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 580px;
-            background-color: var(--player-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            z-index: 100;
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%); width: 90%; max-width: 580px;
+            background-color: var(--player-bg); backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 10px 18px; display: flex;
+            align-items: center; justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); z-index: 100;
         }
 
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .player-controls { display: flex; align-items: center; gap: 16px; }
+        .control-btn { background: none; border: none; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.85; transition: opacity 0.2s; }
+        .control-btn:hover { opacity: 1; }
 
-        .control-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.85;
-            transition: opacity 0.2s;
-        }
+        .center-meta { flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 15px; overflow: hidden; }
+        .player-cover-mini { width: 38px; height: 38px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+        .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
+        .player-song-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-song-artist { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+        .player-right-options { display: flex; align-items: center; gap: 10px; color: var(--text-muted); }
 
-        .control-btn:hover {
-            opacity: 1;
-        }
-
-        .center-meta {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 0 15px;
-            overflow: hidden;
-        }
-
-        .player-cover-mini {
-            width: 38px;
-            height: 38px;
-            border-radius: 4px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .player-song-details {
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .player-song-title {
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .player-song-artist {
-            font-size: 11px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 1px;
-        }
-
-        .player-right-options {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-muted);
-        }
-
-        /* MODAL POP-UP (MAIS INFORMAÇÕES) */
+        /* MODAL POP-UP */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            padding: 20px;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px;
         }
+        .modal-content { background-color: #222; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; border: 1px solid #333; position: relative; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
+        .modal-text { font-size: 14px; line-height: 1.6; color: #eee; margin-top: 10px; }
 
-        .modal-content {
-            background-color: #222;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 100%;
-            border: 1px solid #333;
-            position: relative;
-        }
+        .dashboard-section::-webkit-scrollbar, .scrollable-content::-webkit-scrollbar, aside::-webkit-scrollbar { width: 6px; }
+        .dashboard-section::-webkit-scrollbar-thumb, .scrollable-content::-webkit-scrollbar-thumb, aside::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        .modal-close {
-            position: absolute;
-            top: 15px; right: 15px;
-            background: none; border: none;
-            color: white; font-size: 18px; cursor: pointer;
-        }
-
-        .modal-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #eee;
-            margin-top: 10px;
-        }
-
-        /* CUSTOMIZAÇÃO DE SCROLL (ESTILO MACOOS/APPLE) */
-        .scrollable-content::-webkit-scrollbar, aside::-webkit-scrollbar {
-            width: 6px;
-        }
-        .scrollable-content::-webkit-scrollbar-thumb, aside::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-
-        /* RESPONSIVIDADE PARA CELULAR */
+        /* MOBILE */
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; max-height: 140px; border-right: none; border-bottom: 1px solid #2a2a2a; padding: 15px; }
+            .brand-title { margin-bottom: 10px; }
+            .aside-albums-list { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+            .menu-item { margin-bottom: 0; }
 
-            aside {
-                width: 100%;
-                height: auto;
-                max-height: 140px;
-                border-right: none;
-                border-bottom: 1px solid #2a2a2a;
-                padding: 15px;
-            }
+            .dashboard-section { padding: 20px 15px 140px 15px; }
+            .album-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-            .brand-title {
-                margin-bottom: 10px;
-            }
-
-            .aside-albums-list {
-                display: flex;
-                gap: 10px;
-                overflow-x: auto;
-                padding-bottom: 5px;
-            }
-
-            .menu-item {
-                margin-bottom: 0;
-            }
-
-            .sticky-album-header {
-                padding: 15px;
-                gap: 15px;
-            }
-
-            .album-art {
-                width: 90px;
-                height: 90px;
-            }
-
-            .album-title-header {
-                font-size: 18px;
-            }
-
-            .album-artist-header {
-                font-size: 15px;
-            }
-
-            .album-description {
-                display: none; /* Oculta o mini texto no celular para poupar tela */
-            }
-            
-            .more-btn {
-                display: block;
-                margin-bottom: 8px;
-            }
-
-            .play-album-btn {
-                padding: 6px 16px;
-                font-size: 12px;
-            }
-
-            .scrollable-content {
-                padding: 10px 15px 140px 15px;
-            }
-
-            .floating-player-wrapper {
-                bottom: 15px;
-                width: 94%;
-            }
+            .sticky-album-header { padding: 15px; gap: 15px; flex-direction: column; }
+            .album-art { width: 90px; height: 90px; }
+            .album-title-header { font-size: 18px; }
+            .album-artist-header { font-size: 15px; }
+            .album-description { display: none; }
+            .more-btn { display: block; margin-bottom: 8px; }
+            .play-album-btn { padding: 6px 16px; font-size: 12px; }
+            .scrollable-content { padding: 10px 15px 140px 15px; }
+            .floating-player-wrapper { bottom: 15px; width: 94%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR COM LISTA DE ÁLBUNS -->
     <aside>
-        <div class="brand-title">Discografia Britney Spears</div>
-        <div class="menu-label">Álbuns</div>
+        <div class="brand-title" onclick="showDashboard()">Discografia Britney Spears</div>
+        <div class="menu-label">Navegação</div>
+        <div class="menu-item active" id="menuHomeBtn" onclick="showDashboard()">Início / Dashboard</div>
+        
+        <div class="menu-label" style="margin-top: 15px;">Álbuns</div>
         <div class="aside-albums-list" id="asideAlbumsList">
-            <!-- Álbuns da barra lateral injetados via JavaScript -->
-        </div>
+            </div>
     </aside>
 
-    <!-- ÁREA DO CONTEÚDO -->
     <main>
-        <!-- CABEÇALHO DO ÁLBUM FIXO (Efeito Vidro / Blur) -->
-        <div class="sticky-album-header">
-            <img id="albumArt" class="album-art" src="450x600bb.webp" alt="Capa do Álbum">
-            <div class="album-info-block">
-                <div id="albumTitle" class="album-title-header">...Baby One More Time</div>
-                <div id="albumArtist" class="album-artist-header">Britney Spears</div>
-                <div class="album-meta">Pop • 1999</div>
-                
-                <div class="album-description">
-                    "...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso. A audaciosa introdução de seu primeiro single — a faixa-título de sua estreia completa — foi uma apresentação apropriada para a mulher que eventualmente se tornaria o rosto do pop adolescente dos anos 2000, misturando angústia na medida certa com refrões que grudam no cérebro, batidas marcantes e o carisma inegável de Spears.
+        
+        <section id="dashboardSection" class="dashboard-section">
+            <h1 class="section-title">Álbuns Disponíveis</h1>
+            <div class="album-grid" id="albumGrid">
                 </div>
-                <button class="more-btn" onclick="openModal()">Mais</button>
-                
-                <button class="play-album-btn" onclick="playAlbumFromStart()">
-                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Play
-                </button>
-            </div>
-        </div>
+        </section>
 
-        <!-- CORPO DAS MÚSICAS ROLÁVEL -->
-        <div class="scrollable-content">
-            <div class="tracklist" id="tracklist">
-                <!-- Injetado por JS -->
+        <section id="albumDetailSection" class="album-detail-section">
+            <div class="sticky-album-header">
+                <div style="width: 100%; display: block; position: absolute; top: 10px; left: 30px;">
+                    <button class="back-btn" onclick="showDashboard()">
+                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg> Voltar
+                    </button>
+                </div>
+                <img id="albumArt" class="album-art" src="" alt="Capa">
+                <div class="album-info-block" style="margin-top: 15px;">
+                    <div id="albumTitle" class="album-title-header"></div>
+                    <div id="albumArtist" class="album-artist-header"></div>
+                    <div class="album-meta"></div>
+                    
+                    <div class="album-description"></div>
+                    <button class="more-btn" onclick="openModal()">Mais</button>
+                    
+                    <button class="play-album-btn" onclick="playAlbumFromStart()">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Play
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- PLAYER FLUTUANTE CENTRALIZADO (Estilo Foto) -->
+            <div class="scrollable-content">
+                <div class="tracklist" id="tracklist">
+                    </div>
+            </div>
+        </section>
+
         <div class="floating-player-wrapper">
             <div class="player-controls">
                 <button class="control-btn" onclick="prevTrack()">
@@ -505,7 +385,7 @@
             </div>
 
             <div class="center-meta">
-                <img id="miniPlayerArt" class="player-cover-mini" src="450x600bb.webp" alt="">
+                <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
                 <div class="player-song-details">
                     <span id="miniPlayerTitle" class="player-song-title">Não reproduzindo</span>
                     <span id="miniPlayerArtist" class="player-song-artist">-</span>
@@ -513,24 +393,19 @@
             </div>
 
             <div class="player-right-options">
-                <!-- Ícones estéticos da barra direita do player -->
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
             </div>
         </div>
     </main>
 
-    <!-- POP-UP MODAL (TEXTO COMPLETO) -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
             <h3 style="margin-bottom: 10px;">Sobre o Álbum</h3>
-            <p class="modal-text">
-                "...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso. A audaciosa introdução de seu primeiro single — a faixa-título de sua estreia completa — foi uma apresentação apropriada para a mulher que eventualmente se tornaria o rosto do pop adolescente dos anos 2000, misturando angústia na medida certa com refrões que grudam no cérebro, batidas marcantes e o carisma inegável de Spears.
-            </p>
+            <p class="modal-text"></p>
         </div>
     </div>
 
-    <!-- AUDIO ELEMENT Oculto -->
     <audio id="audioElement"></audio>
 
     <script>
@@ -538,6 +413,7 @@
         const albums = [
             {
                 id: "baby-one-more-time",
+                folder: "01 - Baby One More Time", 
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
                 cover: "450x600bb.webp",
@@ -563,33 +439,61 @@
                     { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
                 ]
             }
-            // Quando for colocar os novos 8 álbuns basta adicionar objetos semelhantes bem aqui abaixo separados por vírgula.
         ];
 
-        let selectedAlbum = albums[0];
+        let selectedAlbum = null;
         let currentTrackIndex = 0;
+        let playingAlbum = null; // Guarda qual álbum está de fato tocando no player
         const audio = document.getElementById('audioElement');
         const playIcon = document.getElementById('playIcon');
 
-        // Renderizar os álbuns disponíveis na barra lateral
+        // Renderiza o Dashboard inicial e a Sidebar
+        function initApp() {
+            renderSidebar();
+            renderDashboard();
+        }
+
         function renderSidebar() {
             const listContainer = document.getElementById('asideAlbumsList');
             listContainer.innerHTML = '';
-            albums.forEach((album, index) => {
+            albums.forEach((album) => {
                 const item = document.createElement('div');
-                item.className = `menu-item ${selectedAlbum.id === album.id ? 'active' : ''}`;
+                item.className = `menu-item ${selectedAlbum && selectedAlbum.id === album.id ? 'active' : ''}`;
                 item.innerText = album.title;
-                item.onclick = () => selectAlbum(album);
+                item.onclick = () => openAlbum(album);
                 listContainer.appendChild(item);
             });
         }
 
-        // Carregar um álbum específico na tela principal
-        function selectAlbum(album) {
+        function renderDashboard() {
+            const grid = document.getElementById('albumGrid');
+            grid.innerHTML = '';
+            albums.forEach(album => {
+                const card = document.createElement('div');
+                card.className = 'album-card';
+                card.onclick = () => openAlbum(album);
+                card.innerHTML = `
+                    <div class="album-art-wrapper">
+                        <img src="${album.folder}/${album.cover}" alt="${album.title}">
+                    </div>
+                    <div class="album-card-title">${album.title}</div>
+                    <div class="album-card-artist">${album.artist}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Transiciona e mostra a tela do álbum selecionado
+        function openAlbum(album) {
             selectedAlbum = album;
             renderSidebar();
+            document.getElementById('menuHomeBtn').classList.remove('active');
 
-            document.getElementById('albumArt').src = album.cover;
+            document.getElementById('dashboardSection').style.display = 'none';
+            document.getElementById('albumDetailSection').style.display = 'flex';
+
+            const fullCoverPath = `${album.folder}/${album.cover}`;
+            document.getElementById('albumArt').src = fullCoverPath;
             document.getElementById('albumTitle').innerText = album.title;
             document.getElementById('albumArtist').innerText = album.artist;
             document.querySelector('.album-meta').innerText = `${album.genre} • ${album.year}`;
@@ -613,16 +517,28 @@
             updateTracklistVisuals();
         }
 
-        // Tocar uma música específica por Index
+        // Volta para a tela inicial com todos os álbuns
+        function showDashboard() {
+            selectedAlbum = null;
+            renderSidebar();
+            document.getElementById('menuHomeBtn').classList.add('active');
+            document.getElementById('dashboardSection').style.display = 'block';
+            document.getElementById('albumDetailSection').style.display = 'none';
+        }
+
         function playTrack(index) {
             currentTrackIndex = index;
-            const track = selectedAlbum.tracks[index];
+            playingAlbum = selectedAlbum; // O álbum tocando passa a ser o selecionado atual
+            const track = playingAlbum.tracks[index];
 
-            document.getElementById('miniPlayerArt').src = selectedAlbum.cover;
+            const fullCoverPath = `${playingAlbum.folder}/${playingAlbum.cover}`;
+            const fullAudioPath = `${playingAlbum.folder}/${track.file}`;
+
+            document.getElementById('miniPlayerArt').src = fullCoverPath;
             document.getElementById('miniPlayerTitle').innerText = track.title;
-            document.getElementById('miniPlayerArtist').innerText = selectedAlbum.artist;
+            document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
 
-            audio.src = track.file;
+            audio.src = fullAudioPath;
             audio.play();
 
             updatePlayButton(true);
@@ -635,7 +551,10 @@
 
         function togglePlay() {
             if (!audio.src) {
-                playAlbumFromStart();
+                if(albums.length > 0) {
+                    selectedAlbum = albums[0];
+                    playAlbumFromStart();
+                }
                 return;
             }
             if (audio.paused) {
@@ -658,36 +577,42 @@
 
         function updateTracklistVisuals() {
             document.querySelectorAll('.track-row').forEach(row => row.classList.remove('playing'));
-            const activeRow = document.getElementById(`track-${currentTrackIndex}`);
-            if (activeRow && !audio.paused) {
-                activeRow.classList.add('playing');
+            
+            // Só destaca a música visualmente se o álbum aberto na tela for o mesmo álbum que está reproduzindo
+            if (playingAlbum && selectedAlbum && playingAlbum.id === selectedAlbum.id) {
+                const activeRow = document.getElementById(`track-${currentTrackIndex}`);
+                if (activeRow && !audio.paused) {
+                    activeRow.classList.add('playing');
+                }
             }
         }
 
         function nextTrack() {
+            if (!playingAlbum) return;
             let nextIndex = currentTrackIndex + 1;
-            if (nextIndex >= selectedAlbum.tracks.length) nextIndex = 0;
+            if (nextIndex >= playingAlbum.tracks.length) nextIndex = 0;
+            
+            // Sincroniza o contexto caso o usuário mude de faixa pelo player flutuante
+            selectedAlbum = playingAlbum;
             playTrack(nextIndex);
         }
 
         function prevTrack() {
+            if (!playingAlbum) return;
             let prevIndex = currentTrackIndex - 1;
-            if (prevIndex < 0) prevIndex = selectedAlbum.tracks.length - 1;
+            if (prevIndex < 0) prevIndex = playingAlbum.tracks.length - 1;
+            
+            selectedAlbum = playingAlbum;
             playTrack(prevIndex);
         }
 
         audio.addEventListener('ended', nextTrack);
 
-        // FUNÇÕES DO MODAL (POP-UP)
-        function openModal() {
-            document.getElementById('textModal').style.display = 'flex';
-        }
-        function closeModal() {
-            document.getElementById('textModal').style.display = 'none';
-        }
+        function openModal() { document.getElementById('textModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('textModal').style.display = 'none'; }
 
-        // Inicializar aplicação carregando o primeiro álbum
-        selectAlbum(albums[0]);
+        // Inicializar aplicação carregando o Dashboard inicial
+        initApp();
     </script>
 </body>
 </html>
