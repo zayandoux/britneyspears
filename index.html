@@ -12,8 +12,8 @@
             --text-muted: #8a8a8e;
             --accent-color: #fa233b; 
             --border-radius: 12px;
-            --player-bg: rgba(30, 30, 30, 0.88);
-            --glass-bg: rgba(22, 22, 22, 0.75);
+            --player-bg: rgba(35, 35, 35, 0.9);
+            --glass-bg: rgba(22, 22, 22, 0.7);
             --transition: all 0.3s ease;
         }
 
@@ -29,11 +29,11 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
+            flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* CONTEÚDO PRINCIPAL (OCUPA 100% DA LARGURA) */
         main {
             flex: 1;
             display: flex;
@@ -45,34 +45,34 @@
         /* SEÇÃO 1: DASHBOARD (TELA INICIAL) */
         .dashboard-section {
             display: block;
-            padding: 40px 60px;
+            padding: 40px;
             overflow-y: auto;
             height: 100%;
             padding-bottom: 160px;
         }
 
-        .header-bar {
+        .section-header-bar {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 30px;
+            align-items: center;
+            margin-bottom: 25px;
         }
 
         .section-title {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         .album-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
         }
 
         .album-card {
             background-color: var(--card-bg);
-            padding: 18px;
+            padding: 16px;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
@@ -103,7 +103,7 @@
         }
 
         .album-card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
@@ -116,7 +116,7 @@
             color: var(--text-muted);
         }
 
-        /* SEÇÃO 2: DETALHES DO ÁLBUM (Capa 50% Maior) */
+        /* SEÇÃO 2: DETALHES DO ÁLBUM (CABEÇALHO FIXO) */
         .album-detail-section {
             display: none;
             flex-direction: column;
@@ -128,9 +128,9 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px 60px 30px 60px;
+            padding: 40px 40px 30px 40px;
             display: flex;
-            gap: 35px;
+            gap: 40px;
             align-items: flex-start;
             position: sticky;
             top: 0;
@@ -145,40 +145,53 @@
             display: inline-flex; align-items: center; gap: 4px;
         }
 
-        /* CAPA AUMENTADA EM 50% (De 190px para 285px) */
+        /* CAPA 50% MAIOR (Subiu de 190px para ~285px) */
         .album-art {
             width: 285px; 
             height: 285px;
             border-radius: 12px; 
             object-fit: cover;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             flex-shrink: 0;
         }
 
         .album-info-block {
-            display: flex; flex-direction: column;
+            display: flex; 
+            flex-direction: column;
             justify-content: center;
+            margin-top: 25px;
         }
 
         .album-title-header {
-            font-size: 32px; font-weight: 700;
-            margin-bottom: 6px; letter-spacing: -0.5px;
+            font-size: 32px; 
+            font-weight: 800;
+            margin-bottom: 6px; 
+            letter-spacing: -0.5px;
         }
 
         .album-artist-header {
-            font-size: 22px; color: var(--accent-color);
-            font-weight: 600; margin-bottom: 6px;
+            font-size: 22px; 
+            color: var(--accent-color);
+            font-weight: 600; 
+            margin-bottom: 6px;
         }
 
         .album-meta {
-            font-size: 13px; color: var(--text-muted); margin-bottom: 18px;
+            font-size: 13px; 
+            color: var(--text-muted); 
+            margin-bottom: 15px;
         }
 
         .album-description {
-            font-size: 14px; color: #cccccc; line-height: 1.5;
-            max-width: 750px; display: -webkit-box;
-            -webkit-line-clamp: 3; -webkit-box-orient: vertical;  
-            overflow: hidden; margin-bottom: 15px;
+            font-size: 14px; 
+            color: #cccccc; 
+            line-height: 1.6;
+            max-width: 750px; 
+            display: -webkit-box;
+            -webkit-line-clamp: 3; 
+            -webkit-box-orient: vertical;  
+            overflow: hidden; 
+            margin-bottom: 15px;
         }
 
         .more-btn {
@@ -189,7 +202,7 @@
 
         .play-album-btn {
             background-color: #ffffff; color: #000000; border: none;
-            padding: 10px 26px; border-radius: 20px;
+            padding: 12px 28px; border-radius: 24px;
             font-weight: 600; font-size: 14px; cursor: pointer;
             display: inline-flex; align-items: center; gap: 8px;
             margin-top: 10px; width: fit-content; transition: transform 0.2s;
@@ -199,7 +212,7 @@
 
         .scrollable-content {
             flex: 1; overflow-y: auto;
-            padding: 20px 60px 160px 60px; 
+            padding: 20px 40px 160px 40px; 
         }
 
         .tracklist {
@@ -207,7 +220,7 @@
         }
 
         .track-row {
-            display: flex; align-items: center; padding: 12px 15px;
+            display: flex; align-items: center; padding: 14px 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             cursor: pointer; border-radius: 6px; transition: background-color 0.2s;
         }
@@ -215,71 +228,93 @@
         .track-row:hover { background-color: rgba(255, 255, 255, 0.04); }
         .track-row.playing { background-color: #8e001c !important; color: #ffffff; }
 
-        .track-number { width: 35px; color: var(--text-muted); font-size: 14px; }
+        .track-number { width: 40px; color: var(--text-muted); font-size: 14px; }
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
-        .track-title { flex: 1; font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER FLUTUANTE COMPLETO (COM VOLUME E BARRA DE PROGRESSO/TEMPO) */
+        /* PLAYER FLUTUANTE EXPANDIDO (COM BARRA DE TEMPO E VOLUME) */
         .floating-player-wrapper {
-            position: absolute; bottom: 25px; left: 50%;
-            transform: translateX(-50%); width: 92%; max-width: 780px;
+            position: absolute; bottom: 30px; left: 50%;
+            transform: translateX(-50%); width: 92%; max-width: 800px;
             background-color: var(--player-bg); backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px; padding: 12px 20px; display: flex;
-            align-items: center; justify-content: space-between; gap: 20px;
+            align-items: center; gap: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6); z-index: 100;
         }
 
-        .player-left-group {
-            display: flex; align-items: center; gap: 14px; width: 220px; flex-shrink: 0;
-        }
-
-        .player-cover-mini { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
-        .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
-        .player-song-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .player-song-artist { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
-
-        .player-center-group {
-            flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; max-width: 360px;
-        }
-
-        .player-controls { display: flex; align-items: center; gap: 18px; }
+        .player-controls { display: flex; align-items: center; gap: 14px; }
         .control-btn { background: none; border: none; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.85; transition: opacity 0.2s; }
         .control-btn:hover { opacity: 1; }
 
-        /* BARRA DE PROGRESSO & TEMPO DA MÚSICA */
-        .progress-container {
-            width: 100%; display: flex; align-items: center; gap: 10px;
+        .center-meta { display: flex; align-items: center; gap: 12px; width: 180px; overflow: hidden; flex-shrink: 0; }
+        .player-cover-mini { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+        .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
+        .player-song-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-song-artist { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+
+        /* LINHA DE PROGRESSO (TIMELINE) */
+        .timeline-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            min-width: 150px;
         }
 
-        .time-text { font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; width: 30px; text-align: center; }
-
         .progress-bar-bg {
-            flex: 1; height: 4px; background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 2px; cursor: pointer; position: relative;
+            flex: 1;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .progress-bar-bg:hover {
+            height: 6px;
         }
 
         .progress-bar-fill {
-            height: 100%; width: 0%; background-color: #ffffff; border-radius: 2px; position: relative;
+            height: 100%;
+            width: 0%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            position: absolute;
+            top: 0; left: 0;
         }
 
-        .progress-bar-bg:hover .progress-bar-fill {
-            background-color: var(--accent-color);
+        /* CONTROLE DE VOLUME */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 110px;
+            flex-shrink: 0;
         }
 
-        /* CONTROLE DE VOLUME NA DIREITA */
-        .player-right-group {
-            display: flex; align-items: center; gap: 8px; width: 140px; justify-content: flex-end; flex-shrink: 0;
+        .volume-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
         }
 
-        .volume-bar {
-            width: 70px; height: 4px; -webkit-appearance: none; appearance: none;
-            background: rgba(255, 255, 255, 0.2); border-radius: 2px; outline: none; cursor: pointer;
-        }
-
-        .volume-bar::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none; width: 10px; height: 10px;
-            border-radius: 50%; background: #ffffff; cursor: pointer;
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
         }
 
         /* MODAL POP-UP */
@@ -295,49 +330,50 @@
         .dashboard-section::-webkit-scrollbar, .scrollable-content::-webkit-scrollbar { width: 6px; }
         .dashboard-section::-webkit-scrollbar-thumb, .scrollable-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* RESPONSIVIDADE */
+        /* MOBILE */
         @media (max-width: 768px) {
             .dashboard-section { padding: 20px 15px 160px 15px; }
             .album-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-            .sticky-album-header { padding: 15px; gap: 15px; flex-direction: column; }
-            .album-art { width: 140px; height: 140px; } /* Ajuste proporcional no mobile */
-            .album-title-header { font-size: 20px; }
-            .album-artist-header { font-size: 16px; }
+            .sticky-album-header { padding: 20px 15px; gap: 20px; flex-direction: column; }
+            .album-art { width: 100%; height: auto; max-width: 240px; margin: 0 auto; }
+            .album-info-block { margin-top: 5px; text-align: center; align-items: center; }
+            .album-title-header { font-size: 22px; }
+            .album-artist-header { font-size: 18px; }
             .album-description { display: none; }
             .more-btn { display: block; margin-bottom: 8px; }
-            .play-album-btn { padding: 6px 16px; font-size: 12px; }
             .scrollable-content { padding: 10px 15px 160px 15px; }
-
-            .floating-player-wrapper { bottom: 15px; width: 94%; padding: 10px 12px; }
-            .player-left-group { width: 140px; }
-            .player-right-group { display: none; } /* Esconde controle de volume no celular pra economizar espaço */
+            
+            .floating-player-wrapper { bottom: 15px; width: 94%; flex-direction: column; gap: 8px; padding: 12px; }
+            .center-meta { width: 100%; justify-content: center; }
+            .timeline-container { width: 100%; }
+            .volume-container { display: none; } /* Esconde volume no celular para poupar espaço */
         }
     </style>
 </head>
 <body>
 
     <main>
-        <!-- TELA 1: DASHBOARD (SEÇÃO DE ÁLBUNS) -->
+        <!-- TELA 1: DASHBOARD (TELA INICIAL DISCOGRAFIA) -->
         <section id="dashboardSection" class="dashboard-section">
-            <div class="header-bar">
+            <div class="section-header-bar">
                 <h1 class="section-title">Discografia Britney Spears</h1>
             </div>
             <div class="album-grid" id="albumGrid">
-                <!-- Cards dos álbuns -->
+                <!-- Cards injetados por JS -->
             </div>
         </section>
 
-        <!-- TELA 2: DETALHES DO ÁLBUM -->
+        <!-- TELA 2: DETALHES DO ÁLBUM (CABEÇALHO VIDRO FIXO + CAPA +50%) -->
         <section id="albumDetailSection" class="album-detail-section">
             <div class="sticky-album-header">
-                <div style="width: 100%; display: block; position: absolute; top: 10px; left: 60px;">
+                <div style="width: 100%; display: block; position: absolute; top: 15px; left: 40px;">
                     <button class="back-btn" onclick="showDashboard()">
-                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg> Voltar para Álbuns
+                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg> Voltar para a Discografia
                     </button>
                 </div>
                 <img id="albumArt" class="album-art" src="" alt="Capa">
-                <div class="album-info-block" style="margin-top: 15px;">
+                <div class="album-info-block">
                     <div id="albumTitle" class="album-title-header"></div>
                     <div id="albumArtist" class="album-artist-header"></div>
                     <div class="album-meta"></div>
@@ -351,18 +387,28 @@
                 </div>
             </div>
 
-            <!-- Lista de Músicas -->
             <div class="scrollable-content">
                 <div class="tracklist" id="tracklist">
-                    <!-- Faixas do Álbum -->
+                    <!-- Injetado por JS -->
                 </div>
             </div>
         </section>
 
-        <!-- PLAYER FLUTUANTE CENTRALIZADO COM PROGRESSO E VOLUME -->
+        <!-- PLAYER FLUTUANTE CENTRALIZADO COM CONTROLES COMPLETOS -->
         <div class="floating-player-wrapper">
-            <!-- Esquerda: Capa + Detalhes -->
-            <div class="player-left-group">
+            <div class="player-controls">
+                <button class="control-btn" onclick="prevTrack()">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button class="control-btn" onclick="togglePlay()">
+                    <svg id="playIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <button class="control-btn" onclick="nextTrack()">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
+                </button>
+            </div>
+
+            <div class="center-meta">
                 <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
                 <div class="player-song-details">
                     <span id="miniPlayerTitle" class="player-song-title">Não reproduzindo</span>
@@ -370,38 +416,24 @@
                 </div>
             </div>
 
-            <!-- Centro: Botões + Barra de Tempo Interativa -->
-            <div class="player-center-group">
-                <div class="player-controls">
-                    <button class="control-btn" onclick="prevTrack()">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-                    </button>
-                    <button class="control-btn" onclick="togglePlay()">
-                        <svg id="playIcon" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                    <button class="control-btn" onclick="nextTrack()">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
-                    </button>
+            <!-- BARRA DE PROGRESSO E TEMPOS DA MÚSICA -->
+            <div class="timeline-container">
+                <span id="timeCurrent">0:00</span>
+                <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
                 </div>
-
-                <div class="progress-container">
-                    <span id="currentTime" class="time-text">0:00</span>
-                    <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
-                        <div class="progress-bar-fill" id="progressBarFill"></div>
-                    </div>
-                    <span id="durationTime" class="time-text">0:00</span>
-                </div>
+                <span id="timeRemaining">-0:00</span>
             </div>
 
-            <!-- Direita: Controle de Volume -->
-            <div class="player-right-group">
+            <!-- CONTROLE DE VOLUME -->
+            <div class="volume-container">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-                <input type="range" class="volume-bar" id="volumeControl" min="0" max="1" step="0.01" value="1" oninput="changeVolume(this.value)">
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this.value)">
             </div>
         </div>
     </main>
 
-    <!-- MODAL POP-UP (SOBRE O ÁLBUM) -->
+    <!-- POP-UP MODAL (MAIS INFORMAÇÕES) -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
@@ -413,11 +445,10 @@
     <audio id="audioElement"></audio>
 
     <script>
-        // BANCO DE DADOS DOS ÁLBUNS
         const albums = [
             {
                 id: "baby-one-more-time",
-                folder: "01 Baby One More Time", 
+                folder: "01 - Baby One More Time", 
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
                 cover: "450x600bb.webp",
@@ -450,9 +481,14 @@
         let playingAlbum = null; 
         const audio = document.getElementById('audioElement');
         const playIcon = document.getElementById('playIcon');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const progressBarBg = document.getElementById('progressBarBg');
+        const timeCurrent = document.getElementById('timeCurrent');
+        const timeRemaining = document.getElementById('timeRemaining');
 
         function initApp() {
             renderDashboard();
+            audio.volume = 0.8; // Inicializa volume padrão alto
         }
 
         function renderDashboard() {
@@ -584,26 +620,32 @@
             playTrack(prevIndex);
         }
 
-        // ATUALIZAÇÃO DA BARRA DE TEMPO EM TEMPO REAL
+        // ATUALIZAR BARRA DE PROGRESSO E TEMPOS DINAMICAMENTE
         audio.addEventListener('timeupdate', () => {
             if (!audio.duration) return;
-            const current = audio.currentTime;
-            const duration = audio.duration;
-            
-            // Atualiza largura da barra
-            const pct = (current / duration) * 100;
-            document.getElementById('progressBarFill').style.width = `${pct}%`;
-            
-            // Atualiza textos
-            document.getElementById('currentTime').innerText = formatTime(current);
-            document.getElementById('durationTime').innerText = formatTime(duration);
+
+            // Calcula porcentagem da barra
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBarFill.style.width = `${percent}%`;
+
+            // Formata tempo decorrido (ex: 1:23)
+            timeCurrent.innerText = formatTime(audio.currentTime);
+
+            // Formata tempo restante (ex: -2:45)
+            const remaining = audio.duration - audio.currentTime;
+            timeRemaining.innerText = "-" + formatTime(remaining);
         });
 
-        // CLIQUE NA BARRA DE PROGRESSO PARA AVANÇAR/VOLTAR A MÚSICA
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // PERMITIR CLICAR NA BARRA PARA AVANÇAR/RETROCEDER MÚSICA
         function seekAudio(event) {
-            if (!audio.duration) return;
-            const bg = document.getElementById('progressBarBg');
-            const rect = bg.getBoundingClientRect();
+            if (!audio.src || !audio.duration) return;
+            const rect = progressBarBg.getBoundingClientRect();
             const clickX = event.clientX - rect.left;
             const width = rect.width;
             const newTime = (clickX / width) * audio.duration;
@@ -611,18 +653,11 @@
         }
 
         // CONTROLE DE VOLUME
-        function changeVolume(val) {
-            audio.volume = val;
-        }
-
-        function formatTime(secs) {
-            const m = Math.floor(secs / 60);
-            const s = Math.floor(secs % 60);
-            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        function setVolume(value) {
+            audio.volume = value;
         }
 
         audio.addEventListener('ended', nextTrack);
-
         function openModal() { document.getElementById('textModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('textModal').style.display = 'none'; }
 
