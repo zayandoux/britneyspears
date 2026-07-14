@@ -233,14 +233,14 @@
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
         .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER FLUTUANTE MODIFICADO: display none por padrão */
+        /* PLAYER FLUTUANTE: display: none por padrão */
         .floating-player-wrapper {
             position: absolute; bottom: 30px; left: 50%;
             transform: translateX(-50%); width: 92%; max-width: 800px;
             background-color: var(--player-bg); backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px; padding: 12px 20px; 
-            display: none; /* <-- Alterado para iniciar oculto */
+            display: none; 
             align-items: center; gap: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6); z-index: 100;
         }
@@ -353,7 +353,6 @@
             .more-btn { display: block; margin: 0 auto 15px auto; }
             .right-tracklist-block { overflow-y: visible; }
             
-            /* Mantém a consistência de ocultação responsiva também */
             .floating-player-wrapper { bottom: 15px; width: 94%; flex-direction: column; gap: 8px; padding: 12px; }
             .center-meta { width: 100%; justify-content: center; }
             .timeline-container { width: 100%; }
@@ -364,7 +363,6 @@
 <body>
 
     <main>
-        <!-- TELA 1: DASHBOARD -->
         <section id="dashboardSection" class="dashboard-section">
             <div class="section-header-bar">
                 <h1 class="section-title">Discografia Britney Spears</h1>
@@ -372,7 +370,6 @@
             <div class="album-grid" id="albumGrid"></div>
         </section>
 
-        <!-- TELA 2: DETALHES DO ÁLBUM -->
         <section id="albumDetailSection" class="album-detail-section">
             <div class="top-nav-bar">
                 <button class="back-btn" onclick="showDashboard()">
@@ -399,7 +396,6 @@
             </div>
         </section>
 
-        <!-- PLAYER FLUTUANTE (Id adicionado para manipulação via JS) -->
         <div class="floating-player-wrapper" id="mainFloatingPlayer">
             <div class="player-controls">
                 <button class="control-btn" onclick="prevTrack()">
@@ -442,7 +438,6 @@
         </div>
     </main>
 
-    <!-- POP-UP MODAL -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
@@ -465,22 +460,23 @@
                 genre: "Pop",
                 description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso. A audaciosa introdução de seu primeiro single — a faixa-título de sua estreia completa — foi uma apresentação apropriada para a mulher que eventualmente se tornaria o rosto do pop adolescente dos anos 2000, misturando angústia na medida certa com refrões que grudam no cérebro, batidas marcantes e o carisma inegável de Spears.',
                 tracks: [
-                    { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears Baby One More Time.mp3" },
-                    { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears Crazy (You Drive Me).mp3" },
-                    { num: "3", title: "Sometimes", file: "03 - Britney Spears Sometimes.mp3" },
-                    { num: "4", title: "Soda Pop", file: "04 - Britney Spears Soda Pop.mp3" },
-                    { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears Born To Make You Happy.mp3" },
-                    { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears From The Bottom Of My Broken Heart.mp3" },
-                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears I Will Be There.mp3" },
-                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears I Will Still Love You (Duet With Don Philip).mp3" },
-                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears Deep In My Heart.mp3" },
-                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears Thinkin' About You.mp3" },
-                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears E-Mail My Heart.mp3" },
-                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears The Beat Goes On.mp3" },
-                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears I'll Never Stop Loving You.mp3" },
-                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears Autumn Goodbye.mp3" },
-                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears Baby One More Time (Davidson Ospina Radio Mix).mp3" },
-                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears Baby One More Time (Boy Wunder Radio Mix).mp3" }
+                    /* CAMINHOS DOS ARQUIVOS DE ÁUDIO CORRIGIDOS COM OS TRAÇOS EXATOS */
+                    { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
+                    { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
+                    { num: "3", title: "Sometimes", file: "03 - Britney Spears - Sometimes.mp3" },
+                    { num: "4", title: "Soda Pop", file: "04 - Britney Spears - Soda Pop.mp3" },
+                    { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears - Born To Make You Happy.mp3" },
+                    { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears - From The Bottom Of My Broken Heart.mp3" },
+                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3" },
+                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears - I Will Still Love You (Duet With Don Philip).mp3" },
+                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears - Deep In My Heart.mp3" },
+                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears - Thinkin' About You.mp3" },
+                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears - E-Mail My Heart.mp3" },
+                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears - The Beat Goes On.mp3" },
+                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears - I'll Never Stop Loving You.mp3" },
+                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears - Autumn Goodbye.mp3" },
+                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3" },
+                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
                 ]
             }
         ];
@@ -570,7 +566,7 @@
             playingAlbum = selectedAlbum; 
             const track = playingAlbum.tracks[index];
 
-            // Torna o player visível assim que a música começa a tocar
+            // Torna o player visível
             document.getElementById('mainFloatingPlayer').style.display = 'flex';
 
             document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${playingAlbum.cover}`;
