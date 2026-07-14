@@ -116,14 +116,13 @@
             color: var(--text-muted);
         }
 
-        /* SEÇÃO 2: DETALHES DO ÁLBUM (LAYOUT LATERAL / SPLIT) */
+        /* SEÇÃO 2: DETALHES DO ÁLBUM (LAYOUT LATERAL) */
         .album-detail-section {
             display: none;
             flex-direction: column;
             height: 100vh;
         }
 
-        /* Topo da navegação */
         .top-nav-bar {
             background-color: var(--bg-color);
             padding: 20px 40px 10px 40px;
@@ -138,7 +137,6 @@
             display: inline-flex; align-items: center; gap: 4px;
         }
 
-        /* Container principal dividido em 2 colunas */
         .detail-split-container {
             display: flex;
             flex: 1;
@@ -213,7 +211,7 @@
 
         .play-album-btn:hover { transform: scale(1.02); }
 
-        /* Coluna Direita: Lista de Músicas com Scroll Independente */
+        /* Coluna Direita: Lista de Músicas com Scroll */
         .right-tracklist-block {
             flex: 1;
             overflow-y: auto;
@@ -258,7 +256,7 @@
         .player-song-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .player-song-artist { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
 
-        /* LINHA DE PROGRESSO (TIMELINE) */
+        /* LINHA DE PROGRESSO */
         .timeline-container {
             flex: 1;
             display: flex;
@@ -333,7 +331,6 @@
         .dashboard-section::-webkit-scrollbar, .right-tracklist-block::-webkit-scrollbar { width: 6px; }
         .dashboard-section::-webkit-scrollbar-thumb, .right-tracklist-block::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* REGRAS RESPONSIVAS (Muda para coluna normal em telas pequenas/celulares) */
         @media (max-width: 820px) {
             .dashboard-section { padding: 20px 15px 160px 15px; }
             .album-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
@@ -356,29 +353,21 @@
 <body>
 
     <main>
-        <!-- TELA 1: DASHBOARD -->
         <section id="dashboardSection" class="dashboard-section">
             <div class="section-header-bar">
                 <h1 class="section-title">Discografia Britney Spears</h1>
             </div>
-            <div class="album-grid" id="albumGrid">
-                <!-- Cards injetados por JS -->
-            </div>
+            <div class="album-grid" id="albumGrid"></div>
         </section>
 
-        <!-- TELA 2: DETALHES DO ÁLBUM -->
         <section id="albumDetailSection" class="album-detail-section">
-            <!-- Barra de topo para o Botão Voltar -->
             <div class="top-nav-bar">
                 <button class="back-btn" onclick="showDashboard()">
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg> Voltar para a Discografia
                 </button>
             </div>
 
-            <!-- Container Split (Esquerda: Capa/Info | Direita: Musicas) -->
             <div class="detail-split-container">
-                
-                <!-- Bloco Esquerdo -->
                 <div class="left-album-block">
                     <img id="albumArt" class="album-art" src="" alt="Capa">
                     <div id="albumTitle" class="album-title-header"></div>
@@ -391,17 +380,12 @@
                     </button>
                 </div>
 
-                <!-- Bloco Direito -->
                 <div class="right-tracklist-block">
-                    <div class="tracklist" id="tracklist">
-                        <!-- Injetado por JS -->
-                    </div>
+                    <div class="tracklist" id="tracklist"></div>
                 </div>
-
             </div>
         </section>
 
-        <!-- PLAYER FLUTUANTE CENTRALIZADO -->
         <div class="floating-player-wrapper">
             <div class="player-controls">
                 <button class="control-btn" onclick="prevTrack()">
@@ -423,7 +407,6 @@
                 </div>
             </div>
 
-            <!-- BARRA DE PROGRESSO -->
             <div class="timeline-container">
                 <span id="timeCurrent">0:00</span>
                 <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
@@ -432,7 +415,6 @@
                 <span id="timeRemaining">-0:00</span>
             </div>
 
-            <!-- CONTROLE DE VOLUME -->
             <div class="volume-container">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
                 <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this.value)">
@@ -440,7 +422,6 @@
         </div>
     </main>
 
-    <!-- POP-UP MODAL -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
@@ -521,18 +502,21 @@
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('albumDetailSection').style.display = 'flex';
 
-            const fullCoverPath = `${album.folder}/${album.cover}`;
-            document.getElementById('albumArt').src = fullCoverPath;
+            document.getElementById('albumArt').src = `${album.folder}/${album.cover}`;
             document.getElementById('albumTitle').innerText = album.title;
             document.getElementById('albumArtist').innerText = album.artist;
             document.querySelector('.album-meta').innerText = `${album.genre} • ${album.year}`;
             document.querySelector('.album-description').innerText = album.description;
             document.querySelector('.modal-text').innerText = album.description;
 
+            renderTracklist();
+        }
+
+        function renderTracklist() {
             const tracklistEl = document.getElementById('tracklist');
             tracklistEl.innerHTML = '';
 
-            album.tracks.forEach((track, index) => {
+            selectedAlbum.tracks.forEach((track, index) => {
                 const row = document.createElement('div');
                 row.className = 'track-row';
                 row.id = `track-${index}`;
@@ -557,22 +541,19 @@
             playingAlbum = selectedAlbum; 
             const track = playingAlbum.tracks[index];
 
-            const fullCoverPath = `${playingAlbum.folder}/${playingAlbum.cover}`;
-            const fullAudioPath = `${playingAlbum.folder}/${track.file}`;
-
-            document.getElementById('miniPlayerArt').src = fullCoverPath;
+            document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${playingAlbum.cover}`;
             document.getElementById('miniPlayerTitle').innerText = track.title;
             document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
 
-            audio.src = fullAudioPath;
-            audio.play();
+            audio.src = `${playingAlbum.folder}/${track.file}`;
+            audio.play().catch(err => console.log("Erro ao reproduzir áudio:", err));
 
             updatePlayButton(true);
             updateTracklistVisuals();
         }
 
         function playAlbumFromStart() {
-            playTrack(0);
+            if (selectedAlbum) playTrack(0);
         }
 
         function togglePlay() {
@@ -584,7 +565,7 @@
                 return;
             }
             if (audio.paused) {
-                audio.play();
+                audio.play().catch(err => console.log(err));
                 updatePlayButton(true);
             } else {
                 audio.pause();
@@ -613,30 +594,24 @@
 
         function nextTrack() {
             if (!playingAlbum) return;
-            let nextIndex = currentTrackIndex + 1;
-            if (nextIndex >= playingAlbum.tracks.length) nextIndex = 0;
-            selectedAlbum = playingAlbum;
-            playTrack(nextIndex);
+            currentTrackIndex++;
+            if (currentTrackIndex >= playingAlbum.tracks.length) currentTrackIndex = 0;
+            playTrack(currentTrackIndex);
         }
 
         function prevTrack() {
             if (!playingAlbum) return;
-            let prevIndex = currentTrackIndex - 1;
-            if (prevIndex < 0) prevIndex = playingAlbum.tracks.length - 1;
-            selectedAlbum = playingAlbum;
-            playTrack(prevIndex);
+            currentTrackIndex--;
+            if (currentTrackIndex < 0) currentTrackIndex = playingAlbum.tracks.length - 1;
+            playTrack(currentTrackIndex);
         }
 
         audio.addEventListener('timeupdate', () => {
             if (!audio.duration) return;
-
             const percent = (audio.currentTime / audio.duration) * 100;
             progressBarFill.style.width = `${percent}%`;
-
             timeCurrent.innerText = formatTime(audio.currentTime);
-
-            const remaining = audio.duration - audio.currentTime;
-            timeRemaining.innerText = "-" + formatTime(remaining);
+            timeRemaining.innerText = "-" + formatTime(audio.duration - audio.currentTime);
         });
 
         function formatTime(seconds) {
@@ -649,15 +624,10 @@
             if (!audio.src || !audio.duration) return;
             const rect = progressBarBg.getBoundingClientRect();
             const clickX = event.clientX - rect.left;
-            const width = rect.width;
-            const newTime = (clickX / width) * audio.duration;
-            audio.currentTime = newTime;
+            audio.currentTime = (clickX / rect.width) * audio.duration;
         }
 
-        function setVolume(value) {
-            audio.volume = value;
-        }
-
+        function setVolume(value) { audio.volume = value; }
         audio.addEventListener('ended', nextTrack);
         function openModal() { document.getElementById('textModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('textModal').style.display = 'none'; }
