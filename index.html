@@ -543,32 +543,21 @@
                     { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
                 ]
             },
-            {
-                id: "oops-i-did-it-again",
-                folder: "02 Oops I Did It Again", // Corrigido sem três pontos
-                title: "Oops!... I Did It Again",
-                artist: "Britney Spears",
-                cover: "oops.jfif",
-                hasVersions: true,
-                versions: [
-                    {
-                        versionName: "Oops!... I Did It Again",
-                        cover: "oops.jfif",
-                        video: "oops.mp4",
-                        year: "2000",
-                        genre: "Pop",
-                        description: 'O segundo álbum de estúdio de Britney Spears consolidou seu status de fenômeno pop global. Lançado em maio de 2000, quebrou recordes de vendas massivas em sua primeira semana e emplacou hits inesquecíveis liderados pela icônica faixa-título.'
-                    },
-                    {
-                        versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
-                        cover: "oops 25.jpeg", 
-                        video: "oops 25.mp4",  
-                        year: "2025",
-                        genre: "Pop",
-                        description: 'Edição comemorativa especial celebrando os 25 anos de um dos álbuns mais marcantes da história da música pop, trazendo artes atualizadas e resgatando o impacto atemporal de Britney no novo milênio.'
-                    }
-                ],
-                tracks: [
+{
+    id: "oops-i-did-it-again",
+    folder: "02 Oops I Did It Again",
+    title: "Oops!... I Did It Again",
+    artist: "Britney Spears",
+    hasVersions: true,
+    versions: [
+        {
+            versionName: "Oops!... I Did It Again",
+            cover: "oops.jfif",
+            video: "oops.mp4",
+            year: "2000",
+            genre: "Pop",
+            description: '...',
+            tracks: [
                     { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!... I Did It Again.mp3" },
                     { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
                     { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' on My Door.mp3" },
@@ -580,9 +569,26 @@
                     { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
                     { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
                     { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
-                    { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" }
-                ]
-            }
+                    { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
+                    { num: "13", title: "Girl In The Mirron", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
+                    { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All" },
+                    { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" }
+            ]
+        },
+        {
+            versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
+            cover: "oops 25.jpeg", 
+            video: "oops 25.mp4",  
+            year: "2025",
+            genre: "Pop",
+            description: '...',
+            tracks: [
+                { num: "1", title: "Oops!... I Did It Again (Remaster)", file: "versao25/01_remaster.mp3" },
+                // ... adicione as músicas desta versão aqui
+            ]
+        }
+    ]
+}
         ];
 
         let selectedAlbum = null;
@@ -699,23 +705,23 @@
             renderTracklist();
         }
 
-        function renderTracklist() {
-            const tracklistEl = document.getElementById('tracklist');
-            tracklistEl.innerHTML = '';
+       function renderTracklist() {
+    const tracklistEl = document.getElementById('tracklist');
+    tracklistEl.innerHTML = '';
+    
+    // Se houver uma versão selecionada, usa as tracks dela; senão, usa a padrão
+    const tracks = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : selectedAlbum.tracks;
 
-            selectedAlbum.tracks.forEach((track, index) => {
-                const row = document.createElement('div');
-                row.className = 'track-row';
-                row.id = `track-${index}`;
-                row.onclick = () => playTrack(index);
-                row.innerHTML = `
-                    <div class="track-number">${track.num}</div>
-                    <div class="track-title">${track.title}</div>
-                `;
-                tracklistEl.appendChild(row);
-            });
-            updateTracklistVisuals();
-        }
+    tracks.forEach((track, index) => {
+        const row = document.createElement('div');
+        row.className = 'track-row';
+        row.id = `track-${index}`;
+        row.onclick = () => playTrack(index);
+        row.innerHTML = `<div class="track-number">${track.num}</div><div class="track-title">${track.title}</div>`;
+        tracklistEl.appendChild(row);
+    });
+    updateTracklistVisuals();
+}
 
         function showDashboard() {
             selectedAlbum = null;
@@ -728,20 +734,19 @@
             document.getElementById('albumDetailSection').style.display = 'none';
         }
 
-        function playTrack(index) {
-            currentTrackIndex = index;
-            playingAlbum = selectedAlbum; 
-            const track = playingAlbum.tracks[index];
+     function playTrack(index) {
+    currentTrackIndex = index;
+    playingAlbum = selectedAlbum;
+    
+    // Define a lista de músicas correta baseada na versão selecionada
+    const trackList = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : playingAlbum.tracks;
+    const track = trackList[index];
 
-            document.getElementById('mainFloatingPlayer').style.display = 'flex';
-
-            const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
-            document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${activeCover}`;
-            document.getElementById('miniPlayerTitle').innerText = track.title;
-            document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
-
-            audio.src = `${playingAlbum.folder}/${track.file}`;
-            audio.play().catch(err => console.log("Erro ao reproduzir áudio:", err));
+    document.getElementById('mainFloatingPlayer').style.display = 'flex';
+    
+    // O áudio buscará na pasta do álbum original, mas com o nome do arquivo definido na versão
+    audio.src = `${playingAlbum.folder}/${track.file}`; 
+    audio.play();
 
             updatePlayButton(true);
             updateTracklistVisuals();
