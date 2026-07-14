@@ -519,8 +519,8 @@
                 folder: "01 Baby One More Time", 
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
-                cover: "capa.jpg",
-                video: "null",
+				video: null,
+                cover: "capa.jpg",           
                 year: "1999",
                 genre: "Pop",
                 description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso.',
@@ -584,8 +584,21 @@
             genre: "Pop",
             description: '...',
             tracks: [
-                { num: "1", title: "Oops!... I Did It Again (Remaster)", file: "versao25/01_remaster.mp3" },
-                // ... adicione as músicas desta versão aqui
+                    { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!...I Did It Again.mp3" },
+                    { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
+                    { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' On My Door.mp3" },
+                    { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
+                    { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" },
+                    { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
+                    { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
+                    { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss from You.mp3" },
+                    { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
+                    { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
+                    { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
+                    { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
+                    { num: "13", title: "Girl In The Mirron", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
+                    { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All" },
+                    { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" }
             ]
         }
     ]
@@ -675,30 +688,42 @@
     document.getElementById('dashboardSection').style.display = 'none';
     document.getElementById('albumDetailSection').style.display = 'flex';
 
-    const artEl = document.getElementById('albumArt');
-    const videoEl = document.getElementById('albumVideo');
-
+    // 1. Define os dados com base na versão ou no álbum padrão
     const title = version ? version.versionName : album.title;
     const coverFile = version ? version.cover : album.cover;
-    // Verifica se a versão tem vídeo, senão usa o do álbum, se existir
     const videoFile = (version && version.video) ? version.video : (album.video || null);
-    
-    // ... (atualização dos textos permanece igual)
+    const year = version ? version.year : album.year;
+    const genre = version ? version.genre : album.genre;
+    const description = version ? version.description : album.description;
 
-    // Lógica para alternar entre Imagem e Vídeo
-    if (videoFile) {
-        artEl.style.display = 'none';
-        videoEl.src = `${album.folder}/${videoFile}`;
-        videoEl.style.display = 'block';
-        videoEl.play().catch(err => console.log("Vídeo:", err));
-    } else {
-        // Se não tiver vídeo, esconde o elemento de vídeo e mostra a imagem
-        videoEl.style.display = 'none';
-        videoEl.pause();
-        videoEl.src = ""; // Limpa o src para parar o carregamento
-        artEl.src = `${album.folder}/${coverFile}`;
-        artEl.style.display = 'block';
-    }
+    // 2. Atualiza os elementos de texto (Garanta que os IDs existam no HTML)
+    document.getElementById('albumTitle').innerText = title;
+    document.getElementById('albumArtist').innerText = album.artist;
+    
+    // Atualiza a meta (Gênero e Ano) - Verifique se a classe está correta
+    document.querySelector('.album-meta').innerText = `${genre} • ${year}`;
+    
+    // Atualiza as descrições
+    document.querySelector('.album-description').innerText = description;
+    document.querySelector('.modal-text').innerText = description;
+
+    // 3. Lógica de Mídia (Capa ou Vídeo)
+    const artEl = document.getElementById('albumArt');
+const videoEl = document.getElementById('albumVideo');
+
+if (videoFile && videoFile !== "") {
+    artEl.style.display = 'none';
+    videoEl.style.display = 'block';
+    videoEl.src = `${album.folder}/${videoFile}`;
+    videoEl.play().catch(err => console.log("Vídeo não carregado:", err));
+} else {
+    videoEl.style.display = 'none';
+    videoEl.pause();
+    videoEl.src = "";
+    
+    artEl.src = `${album.folder}/${coverFile}`;
+    artEl.style.display = 'block';
+}
 
     renderTracklist();
 }
