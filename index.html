@@ -520,7 +520,7 @@
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
                 cover: "capa.jpg",
-                video: "capa.jpg",
+                video: "null",
                 year: "1999",
                 genre: "Pop",
                 description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso.',
@@ -669,42 +669,39 @@
         }
 
         function openAlbum(album, version) {
-            selectedAlbum = album;
-            selectedVersion = version;
+    selectedAlbum = album;
+    selectedVersion = version;
 
-            document.getElementById('dashboardSection').style.display = 'none';
-            document.getElementById('albumDetailSection').style.display = 'flex';
+    document.getElementById('dashboardSection').style.display = 'none';
+    document.getElementById('albumDetailSection').style.display = 'flex';
 
-            const artEl = document.getElementById('albumArt');
-            const videoEl = document.getElementById('albumVideo');
+    const artEl = document.getElementById('albumArt');
+    const videoEl = document.getElementById('albumVideo');
 
-            const title = version ? version.versionName : album.title;
-            const coverFile = version ? version.cover : album.cover;
-            const videoFile = version ? version.video : (album.video || null);
-            const year = version ? version.year : album.year;
-            const genre = version ? version.genre : album.genre;
-            const description = version ? version.description : album.description;
+    const title = version ? version.versionName : album.title;
+    const coverFile = version ? version.cover : album.cover;
+    // Verifica se a versão tem vídeo, senão usa o do álbum, se existir
+    const videoFile = (version && version.video) ? version.video : (album.video || null);
+    
+    // ... (atualização dos textos permanece igual)
 
-            document.getElementById('albumTitle').innerText = title;
-            document.getElementById('albumArtist').innerText = album.artist;
-            document.querySelector('.album-meta').innerText = `${genre} • ${year}`;
-            document.querySelector('.album-description').innerText = description;
-            document.querySelector('.modal-text').innerText = description;
+    // Lógica para alternar entre Imagem e Vídeo
+    if (videoFile) {
+        artEl.style.display = 'none';
+        videoEl.src = `${album.folder}/${videoFile}`;
+        videoEl.style.display = 'block';
+        videoEl.play().catch(err => console.log("Vídeo:", err));
+    } else {
+        // Se não tiver vídeo, esconde o elemento de vídeo e mostra a imagem
+        videoEl.style.display = 'none';
+        videoEl.pause();
+        videoEl.src = ""; // Limpa o src para parar o carregamento
+        artEl.src = `${album.folder}/${coverFile}`;
+        artEl.style.display = 'block';
+    }
 
-            if (videoFile) {
-                artEl.style.display = 'none';
-                videoEl.src = `${album.folder}/${videoFile}`;
-                videoEl.style.display = 'block';
-                videoEl.play().catch(err => console.log("Auto-video playback bloqueado:", err));
-            } else {
-                videoEl.style.display = 'none';
-                videoEl.pause();
-                artEl.src = `${album.folder}/${coverFile}`;
-                artEl.style.display = 'block';
-            }
-
-            renderTracklist();
-        }
+    renderTracklist();
+}
 
        function renderTracklist() {
     const tracklistEl = document.getElementById('tracklist');
