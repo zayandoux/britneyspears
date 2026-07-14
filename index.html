@@ -152,30 +152,31 @@
             flex-direction: column;
         }
 
-        /* Container que força a proporção 1:1 (Quadrado Perfeito) */
+       /* 1. Container que força a proporção quadrada (1:1) perfeita e infalível */
         .album-media-container {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            padding-top: 100%; /* Truque clássico: força altura igual à largura */
+            position: relative;
             border-radius: 12px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             margin-bottom: 20px;
             overflow: hidden;
-            position: relative;
             background-color: #000;
         }
 
-        /* Força tanto a foto quanto o vídeo a se comportarem de forma idêntica e quadrada */
+        /* 2. Força tanto a imagem como o vídeo a cobrir o quadrado sem distorcer */
         .album-art, .album-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; /* Corta e preenche o quadrado sem esticar */
             position: absolute;
-            top: 0; left: 0;
+            top: 0; 
+            left: 0;
             display: block;
         }
 
         .album-video {
-            display: none;
+            display: none; /* Controlado pelo JavaScript */
         }
 
         .album-title-header {
