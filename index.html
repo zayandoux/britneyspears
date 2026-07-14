@@ -520,6 +520,7 @@
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
                 cover: "capa.jpg",
+                video: "baby.mp4",
                 year: "1999",
                 genre: "Pop",
                 description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso.',
@@ -560,8 +561,8 @@
                     },
                     {
                         versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
-                        cover: "oops 25.jpeg", // Corrigido com espaço
-                        video: "oops 25.mp4",  // Corrigido com espaço
+                        cover: "oops 25.jpeg", 
+                        video: "oops 25.mp4",  
                         year: "2025",
                         genre: "Pop",
                         description: 'Edição comemorativa especial celebrando os 25 anos de um dos álbuns mais marcantes da história da música pop, trazendo artes atualizadas e resgatando o impacto atemporal de Britney no novo milênio.'
@@ -672,7 +673,7 @@
 
             const title = version ? version.versionName : album.title;
             const coverFile = version ? version.cover : album.cover;
-            const videoFile = version ? version.video : null;
+            const videoFile = version ? version.video : (album.video || null);
             const year = version ? version.year : album.year;
             const genre = version ? version.genre : album.genre;
             const description = version ? version.description : album.description;
