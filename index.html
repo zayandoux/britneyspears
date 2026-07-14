@@ -738,19 +738,26 @@
     currentTrackIndex = index;
     playingAlbum = selectedAlbum;
     
-    // Define a lista de músicas correta baseada na versão selecionada
+    // Define a lista correta
     const trackList = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : playingAlbum.tracks;
     const track = trackList[index];
 
     document.getElementById('mainFloatingPlayer').style.display = 'flex';
     
-    // O áudio buscará na pasta do álbum original, mas com o nome do arquivo definido na versão
+    // ATUALIZAÇÃO: Busca o cover da versão ou do álbum
+    const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
+    document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${activeCover}`;
+    
+    // ATUALIZAÇÃO: Exibe título e artista
+    document.getElementById('miniPlayerTitle').innerText = track.title;
+    document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
+
     audio.src = `${playingAlbum.folder}/${track.file}`; 
     audio.play();
 
-            updatePlayButton(true);
-            updateTracklistVisuals();
-        }
+    updatePlayButton(true);
+    updateTracklistVisuals();
+}
 
         function playAlbumFromStart() {
             if (selectedAlbum) playTrack(0);
@@ -791,12 +798,14 @@
             }
         }
 
-        function nextTrack() {
-            if (!playingAlbum) return;
-            currentTrackIndex++;
-            if (currentTrackIndex >= playingAlbum.tracks.length) currentTrackIndex = 0;
-            playTrack(currentTrackIndex);
-        }
+       function nextTrack() {
+    if (!playingAlbum) return;
+    const trackList = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : playingAlbum.tracks;
+    
+    currentTrackIndex++;
+    if (currentTrackIndex >= trackList.length) currentTrackIndex = 0;
+    playTrack(currentTrackIndex);
+}
 
         function prevTrack() {
             if (!playingAlbum) return;
