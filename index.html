@@ -152,13 +152,27 @@
             flex-direction: column;
         }
 
-        .album-art {
+        .album-media-container {
             width: 100%;
             aspect-ratio: 1 / 1;
             border-radius: 12px; 
-            object-fit: cover;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            background-color: #000;
+        }
+
+        .album-art, .album-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; left: 0;
+        }
+
+        .album-video {
+            display: none;
         }
 
         .album-title-header {
@@ -233,7 +247,7 @@
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
         .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER FLUTUANTE: display: none por padrão */
+        /* PLAYER FLUTUANTE */
         .floating-player-wrapper {
             position: absolute; bottom: 30px; left: 50%;
             transform: translateX(-50%); width: 92%; max-width: 800px;
@@ -328,7 +342,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* MODAL POP-UP */
+        /* MODAIS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
@@ -337,6 +351,40 @@
         .modal-content { background-color: #222; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; border: 1px solid #333; position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
         .modal-text { font-size: 14px; line-height: 1.6; color: #eee; margin-top: 10px; }
+
+        /* MODAL DE VERSÕES (NOVO) */
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .version-card {
+            background-color: #2c2c2c;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .version-card:hover {
+            background-color: #383838;
+            border-color: var(--accent-color);
+        }
+        .version-card img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .version-card span {
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            color: #fff;
+        }
 
         .dashboard-section::-webkit-scrollbar, .right-tracklist-block::-webkit-scrollbar { width: 6px; }
         .dashboard-section::-webkit-scrollbar-thumb, .right-tracklist-block::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
@@ -348,7 +396,7 @@
             .top-nav-bar { padding: 15px 15px 5px 15px; }
             .detail-split-container { display: flex; flex-direction: column; overflow-y: auto; padding: 10px 15px 160px 15px; gap: 25px; }
             .left-album-block { width: 100%; text-align: center; align-items: center; }
-            .album-art { max-width: 240px; margin: 0 auto 15px auto; }
+            .album-media-container { max-width: 240px; margin: 0 auto 15px auto; }
             .album-description { display: none; }
             .more-btn { display: block; margin: 0 auto 15px auto; }
             .right-tracklist-block { overflow-y: visible; }
@@ -379,7 +427,10 @@
 
             <div class="detail-split-container">
                 <div class="left-album-block">
-                    <img id="albumArt" class="album-art" src="" alt="Capa">
+                    <div class="album-media-container">
+                        <img id="albumArt" class="album-art" src="" alt="Capa">
+                        <video id="albumVideo" class="album-video" loop muted playsinline></video>
+                    </div>
                     <div id="albumTitle" class="album-title-header"></div>
                     <div id="albumArtist" class="album-artist-header"></div>
                     <div class="album-meta"></div>
@@ -438,11 +489,21 @@
         </div>
     </main>
 
+    <!-- MODAL DE TEXTO (SOBRE O ÁLBUM) -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
             <h3 style="margin-bottom: 10px;">Sobre o Álbum</h3>
             <p class="modal-text"></p>
+        </div>
+    </div>
+
+    <!-- MODAL DE VERSÕES (NOVO) -->
+    <div class="modal-overlay" id="versionModal" onclick="closeVersionModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px;">
+            <button class="modal-close" onclick="closeVersionModal()">✕</button>
+            <h3 style="margin-bottom: 5px;" id="versionModalTitle">Escolha a Versão</h3>
+            <div class="version-grid" id="versionGrid"></div>
         </div>
     </div>
 
@@ -458,9 +519,8 @@
                 cover: "capa.jpg",
                 year: "1999",
                 genre: "Pop",
-                description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso. A audaciosa introdução de seu primeiro single — a faixa-título de sua estreia completa — foi uma apresentação apropriada para a mulher que eventualmente se tornaria o rosto do pop adolescente dos anos 2000, misturando angústia na medida certa com refrões que grudam no cérebro, batidas marcantes e o carisma inegável de Spears.',
+                description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso.',
                 tracks: [
-                    /* CAMINHOS DOS ARQUIVOS DE ÁUDIO CORRIGIDOS COM OS TRAÇOS EXATOS */
                     { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
                     { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
                     { num: "3", title: "Sometimes", file: "03 - Britney Spears - Sometimes.mp3" },
@@ -478,10 +538,51 @@
                     { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3" },
                     { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
                 ]
+            },
+            {
+                id: "oops-i-did-it-again",
+                folder: "02 Oops I Did It Again",
+                title: "Oops!... I Did It Again",
+                artist: "Britney Spears",
+                cover: "oops.jfif", // Capa padrão que aparece no Grid inicial
+                hasVersions: true,
+                versions: [
+                    {
+                        versionName: "Oops!... I Did It Again",
+                        cover: "oops.jfif",
+                        video: "oops.mp4",
+                        year: "2000",
+                        genre: "Pop",
+                        description: 'O segundo álbum de estúdio de Britney Spears consolidou seu status de fenômeno pop global. Lançado em maio de 2000, quebrou recordes de vendas massivas em sua primeira semana e emplacou hits inesquecíveis liderados pela icônica faixa-título.'
+                    },
+                    {
+                        versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
+                        cover: "oops25.jpeg",
+                        video: "oops25.mp4",
+                        year: "2025",
+                        genre: "Pop",
+                        description: 'Edição comemorativa especial celebrando os 25 anos de um dos álbuns mais marcantes da história da música pop, trazendo artes atualizadas e resgatando o impacto atemporal de Britney no novo milênio.'
+                    }
+                ],
+                tracks: [
+                    { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!... I Did It Again.mp3" },
+                    { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
+                    { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' on My Door.mp3" },
+                    { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
+                    { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be the Last to Know.mp3" },
+                    { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
+                    { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
+                    { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss from You.mp3" },
+                    { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
+                    { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
+                    { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
+                    { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" }
+                ]
             }
         ];
 
         let selectedAlbum = null;
+        let selectedVersion = null;
         let currentTrackIndex = 0;
         let playingAlbum = null; 
         const audio = document.getElementById('audioElement');
@@ -498,7 +599,7 @@
             document.addEventListener('click', (e) => {
                 const container = document.getElementById('volumeContainer');
                 const popover = document.getElementById('volumePopover');
-                if (!container.contains(e.target)) {
+                if (container && !container.contains(e.target)) {
                     popover.classList.remove('active');
                 }
             });
@@ -510,7 +611,7 @@
             albums.forEach(album => {
                 const card = document.createElement('div');
                 card.className = 'album-card';
-                card.onclick = () => openAlbum(album);
+                card.onclick = () => handleAlbumClick(album);
                 card.innerHTML = `
                     <div class="album-art-wrapper">
                         <img src="${album.folder}/${album.cover}" alt="${album.title}">
@@ -522,17 +623,76 @@
             });
         }
 
-        function openAlbum(album) {
+        function handleAlbumClick(album) {
+            if (album.hasVersions) {
+                openVersionModal(album);
+            } else {
+                openAlbum(album, null);
+            }
+        }
+
+        function openVersionModal(album) {
+            const modal = document.getElementById('versionModal');
+            const grid = document.getElementById('versionGrid');
+            document.getElementById('versionModalTitle').innerText = album.title;
+            grid.innerHTML = '';
+
+            album.versions.forEach(ver => {
+                const item = document.createElement('div');
+                item.className = 'version-card';
+                item.onclick = () => {
+                    closeVersionModal();
+                    openAlbum(album, ver);
+                };
+                item.innerHTML = `
+                    <img src="${album.folder}/${ver.cover}" alt="${ver.versionName}">
+                    <span>${ver.versionName}</span>
+                `;
+                grid.appendChild(item);
+            });
+            modal.style.display = 'flex';
+        }
+
+        function closeVersionModal() {
+            document.getElementById('versionModal').style.display = 'none';
+        }
+
+        function openAlbum(album, version) {
             selectedAlbum = album;
+            selectedVersion = version;
+
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('albumDetailSection').style.display = 'flex';
 
-            document.getElementById('albumArt').src = `${album.folder}/${album.cover}`;
-            document.getElementById('albumTitle').innerText = album.title;
+            const artEl = document.getElementById('albumArt');
+            const videoEl = document.getElementById('albumVideo');
+
+            // Determina as metas e mídias baseadas se há uma versão ativa ou álbum simples
+            const title = version ? version.versionName : album.title;
+            const coverFile = version ? version.cover : album.cover;
+            const videoFile = version ? version.video : null;
+            const year = version ? version.year : album.year;
+            const genre = version ? version.genre : album.genre;
+            const description = version ? version.description : album.description;
+
+            document.getElementById('albumTitle').innerText = title;
             document.getElementById('albumArtist').innerText = album.artist;
-            document.querySelector('.album-meta').innerText = `${album.genre} • ${album.year}`;
-            document.querySelector('.album-description').innerText = album.description;
-            document.querySelector('.modal-text').innerText = album.description;
+            document.querySelector('.album-meta').innerText = `${genre} • ${year}`;
+            document.querySelector('.album-description').innerText = description;
+            document.querySelector('.modal-text').innerText = description;
+
+            // Gerenciamento de Vídeo vs Imagem Estática na Capa
+            if (videoFile) {
+                artEl.style.display = 'none';
+                videoEl.src = `${album.folder}/${videoFile}`;
+                videoEl.style.display = 'block';
+                videoEl.play().catch(err => console.log("Auto-video playback bloqueado ou falhou:", err));
+            } else {
+                videoEl.style.display = 'none';
+                videoEl.pause();
+                artEl.src = `${album.folder}/${coverFile}`;
+                artEl.style.display = 'block';
+            }
 
             renderTracklist();
         }
@@ -557,6 +717,12 @@
 
         function showDashboard() {
             selectedAlbum = null;
+            selectedVersion = null;
+            // Pausa o vídeo da capa interna ao sair para economizar performance
+            const videoEl = document.getElementById('albumVideo');
+            videoEl.pause();
+            videoEl.src = "";
+
             document.getElementById('dashboardSection').style.display = 'block';
             document.getElementById('albumDetailSection').style.display = 'none';
         }
@@ -566,10 +732,11 @@
             playingAlbum = selectedAlbum; 
             const track = playingAlbum.tracks[index];
 
-            // Torna o player visível
             document.getElementById('mainFloatingPlayer').style.display = 'flex';
 
-            document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${playingAlbum.cover}`;
+            // No mini player flutuante usa a capa da versão ativa ou do álbum
+            const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
+            document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${activeCover}`;
             document.getElementById('miniPlayerTitle').innerText = track.title;
             document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
 
@@ -587,8 +754,7 @@
         function togglePlay() {
             if (!audio.src) {
                 if(albums.length > 0) {
-                    selectedAlbum = albums[0];
-                    playAlbumFromStart();
+                    handleAlbumClick(albums[0]);
                 }
                 return;
             }
