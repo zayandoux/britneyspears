@@ -233,7 +233,7 @@
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
         .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER FLUTUANTE: display: none por padrão */
+        /* PLAYER FLUTUANTE DE BAIXO */
         .floating-player-wrapper {
             position: absolute; bottom: 30px; left: 50%;
             transform: translateX(-50%); width: 92%; max-width: 800px;
@@ -275,94 +275,107 @@
             position: relative;
             cursor: pointer;
         }
-        
         .progress-bar-bg:hover { height: 6px; }
+        .progress-bar-fill { height: 100%; width: 0%; background-color: #ffffff; border-radius: 2px; position: absolute; top: 0; left: 0; }
 
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background-color: #ffffff;
-            border-radius: 2px;
-            position: absolute;
-            top: 0; left: 0;
-        }
-
-        /* CONTROLE DE VOLUME VERTICAL POPOVER */
-        .volume-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            flex-shrink: 0;
-        }
-
-        .volume-btn {
-            background: none; border: none; color: #ffffff; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; height: 100%; opacity: 0.85; transition: opacity 0.2s;
-        }
-
+        /* CONTROLE DE VOLUME SELETOR */
+        .volume-container { position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex-shrink: 0; }
+        .volume-btn { background: none; border: none; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; opacity: 0.85; transition: opacity 0.2s; }
         .volume-btn:hover { opacity: 1; }
-
-        .volume-popover {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            background-color: #242424; border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 10px; border-radius: 20px; display: none;
-            flex-direction: column; align-items: center; height: 140px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 110;
-        }
-
+        .volume-popover { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); background-color: #242424; border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px 10px; border-radius: 20px; display: none; flex-direction: column; align-items: center; height: 140px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 110; }
         .volume-popover.active { display: flex; }
+        .volume-slider-vertical { -webkit-appearance: none; appearance: none; width: 4px; height: 100px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; outline: none; writing-mode: vertical-lr; direction: rtl; cursor: pointer; }
+        .volume-slider-vertical::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #ffffff; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
-        .volume-slider-vertical {
-            -webkit-appearance: none; appearance: none; width: 4px; height: 100px;
-            background: rgba(255, 255, 255, 0.2); border-radius: 2px; outline: none;
-            writing-mode: vertical-lr; direction: rtl; cursor: pointer;
-        }
-
-        .volume-slider-vertical::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none; width: 12px; height: 12px;
-            border-radius: 50%; background: #ffffff; cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        /* MODAL POP-UP */
+        /* MODAL TRANSPARENTE ESTILO VIDRO (GLASSMORPHISM) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px;
         }
-        .modal-content { background-color: #222; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; border: 1px solid #333; position: relative; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
-        .modal-text { font-size: 14px; line-height: 1.6; color: #eee; margin-top: 10px; }
+        .modal-content { 
+            background: rgba(40, 40, 40, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            padding: 35px; border-radius: 20px; max-width: 750px; width: 100%; 
+            position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            display: flex; gap: 30px;
+        }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; opacity: 0.6; }
+        .modal-close:hover { opacity: 1; }
+        
+        /* Divisões do Modal */
+        .modal-left-player { width: 200px; display: flex; flex-direction: column; align-items: center; border-right: 1px solid rgba(255,255,255,0.08); padding-right: 25px; justify-content: center; }
+        .modal-right-text { flex: 1; overflow-y: auto; max-height: 300px; padding-right: 5px; }
+        .modal-text { font-size: 14.5px; line-height: 1.6; color: #eee; }
+        
+        /* Botões do Player Interno do Modal */
+        .modal-player-art { width: 120px; height: 120px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .modal-controls-row { display: flex; align-items: center; gap: 15px; margin-top: 5px; }
 
-        .dashboard-section::-webkit-scrollbar, .right-tracklist-block::-webkit-scrollbar { width: 6px; }
-        .dashboard-section::-webkit-scrollbar-thumb, .right-tracklist-block::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        /* TELA DE LETRAS EM TELA CHEIA (CONCEITO APPLE MUSIC) */
+        .lyrics-screen-overlay {
+            position: fixed; top: 10px; left: 10px; right: 10px; bottom: 10px;
+            background-color: #111; border-radius: 20px;
+            display: none; z-index: 300;
+            overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .lyrics-blur-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; filter: blur(50px) brightness(0.25); transform: scale(1.2); z-index: -1; }
+        .lyrics-split-layout { display: flex; width: 100%; height: 100%; }
+        
+        /* Painel Esquerdo da Letra: Capa Gigante */
+        .lyrics-left-panel { width: 45%; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 60px; border-right: 1px solid rgba(255, 255, 255, 0.05); }
+        .lyrics-cover-giant { width: 100%; max-width: 360px; aspect-ratio: 1 / 1; border-radius: 16px; object-fit: cover; box-shadow: 0 20px 45px rgba(0,0,0,0.6); margin-bottom: 30px; }
+        .lyrics-song-title { font-size: 28px; font-weight: 800; color: #fff; line-height: 1.2; }
+        .lyrics-song-artist { font-size: 18px; color: var(--accent-color); margin-top: 6px; font-weight: 600; }
+        
+        /* Painel Direito da Letra: Rolo Sincronizado */
+        .lyrics-right-panel { width: 55%; display: flex; flex-direction: column; height: 100%; position: relative; }
+        .lyrics-header { display: flex; justify-content: flex-end; align-items: center; padding: 30px 40px; position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
+        .close-lyrics-btn { background: rgba(255, 255, 255, 0.1); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .close-lyrics-btn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
+        .lyrics-body-content { flex: 1; overflow-y: auto; padding: 120px 60px 120px 40px; scroll-behavior: smooth; display: flex; flex-direction: column; }
+        .lyrics-text-container { width: 100%; font-size: 28px; font-weight: 700; line-height: 1.6; color: rgba(255, 255, 255, 0.25); letter-spacing: -0.5px; display: flex; flex-direction: column; gap: 24px; }
+        .lyric-line { cursor: pointer; transition: all 0.3s ease; text-align: left; transform-origin: left center; }
+        .lyric-line:hover { color: rgba(255, 255, 255, 0.8); }
+        .lyric-line.active { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); transform: scale(1.04); }
+
+        .dashboard-section::-webkit-scrollbar, .right-tracklist-block::-webkit-scrollbar, .lyrics-body-content::-webkit-scrollbar, .modal-right-text::-webkit-scrollbar { width: 6px; }
+        .dashboard-section::-webkit-scrollbar-thumb, .right-tracklist-block::-webkit-scrollbar-thumb, .lyrics-body-content::-webkit-scrollbar-thumb, .modal-right-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
         @media (max-width: 820px) {
             .dashboard-section { padding: 20px 15px 160px 15px; }
             .album-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-
-            .top-nav-bar { padding: 15px 15px 5px 15px; }
             .detail-split-container { display: flex; flex-direction: column; overflow-y: auto; padding: 10px 15px 160px 15px; gap: 25px; }
             .left-album-block { width: 100%; text-align: center; align-items: center; }
             .album-art { max-width: 240px; margin: 0 auto 15px auto; }
             .album-description { display: none; }
-            .more-btn { display: block; margin: 0 auto 15px auto; }
-            .right-tracklist-block { overflow-y: visible; }
+            .modal-content { flex-direction: column; gap: 20px; max-height: 90vh; overflow-y: auto; }
+            .modal-left-player { width: 100%; border-right: none; padding-right: 0; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
             
             .floating-player-wrapper { bottom: 15px; width: 94%; flex-direction: column; gap: 8px; padding: 12px; }
             .center-meta { width: 100%; justify-content: center; }
             .timeline-container { width: 100%; }
             .volume-container { display: none; }
+
+            .lyrics-screen-overlay { top: 0; left: 0; right: 0; bottom: 0; border-radius: 0; border: none; }
+            .lyrics-split-layout { flex-direction: column; }
+            .lyrics-left-panel { width: 100%; height: auto; padding: 40px 20px 20px 20px; align-items: center; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .lyrics-cover-giant { max-width: 140px; margin-bottom: 15px; }
+            .lyrics-song-title { font-size: 20px; text-align: center; }
+            .lyrics-right-panel { width: 100%; flex: 1; }
+            .lyrics-body-content { padding: 60px 20px; }
+            .lyrics-text-container { font-size: 20px; text-align: center; align-items: center; }
+            .lyric-line { text-align: center; transform-origin: center center; }
         }
     </style>
 </head>
 <body>
 
     <main>
+        <!-- TELA 1: DASHBOARD -->
         <section id="dashboardSection" class="dashboard-section">
             <div class="section-header-bar">
                 <h1 class="section-title">Discografia Britney Spears</h1>
@@ -370,6 +383,7 @@
             <div class="album-grid" id="albumGrid"></div>
         </section>
 
+        <!-- TELA 2: DETALHES DO ÁLBUM -->
         <section id="albumDetailSection" class="album-detail-section">
             <div class="top-nav-bar">
                 <button class="back-btn" onclick="showDashboard()">
@@ -396,13 +410,14 @@
             </div>
         </section>
 
+        <!-- PLAYER FLUTUANTE DE BAIXO -->
         <div class="floating-player-wrapper" id="mainFloatingPlayer">
             <div class="player-controls">
                 <button class="control-btn" onclick="prevTrack()">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                 </button>
                 <button class="control-btn" onclick="togglePlay()">
-                    <svg id="playIcon" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="playIconSvg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </button>
                 <button class="control-btn" onclick="nextTrack()">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
@@ -425,6 +440,13 @@
                 <span id="timeRemaining">-0:00</span>
             </div>
 
+            <!-- BOTÃO PARA ABRIR TELA CHEIA DE LETRA -->
+            <button class="control-btn" onclick="openLyricsScreen()" title="Letras da música" style="margin-left: 5px;">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 9h2c0 .55-.45 1-1 1s-1-.45-1-1zm6-12c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-2.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                </svg>
+            </button>
+
             <div class="volume-container" id="volumeContainer">
                 <button class="volume-btn" onclick="toggleVolumePopover(event)">
                     <svg id="volumeIcon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
@@ -436,13 +458,57 @@
                 </div>
             </div>
         </div>
+
+        <!-- TELA DE LETRAS EM TELA CHEIA -->
+        <section id="lyricsScreen" class="lyrics-screen-overlay">
+            <div id="lyricsBlurBg" class="lyrics-blur-bg"></div>
+            
+            <div class="lyrics-split-layout">
+                <div class="lyrics-left-panel">
+                    <img id="lyricsPlayerArt" class="lyrics-cover-giant" src="" alt="">
+                    <div id="lyricsPlayerTitle" class="lyrics-song-title">Música</div>
+                    <div id="lyricsPlayerArtist" class="lyrics-song-artist">Artista</div>
+                </div>
+                
+                <div class="lyrics-right-panel">
+                    <div class="lyrics-header">
+                        <button class="close-lyrics-btn" onclick="closeLyricsScreen()">✕</button>
+                    </div>
+                    <div class="lyrics-body-content" id="lyricsBodyContent">
+                        <div id="lyricsTextContainer" class="lyrics-text-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- MODAL SOBRE O ÁLBUM (ESTILO VIDRO + PLAYER NA ESQUERDA) -->
     <div class="modal-overlay" id="textModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="closeModal()">✕</button>
-            <h3 style="margin-bottom: 10px;">Sobre o Álbum</h3>
-            <p class="modal-text"></p>
+            
+            <!-- LADO ESQUERDO DO MODAL: CONTROLES DO PLAYER -->
+            <div class="modal-left-player">
+                <img id="modalPlayerArt" class="modal-player-art" src="" alt="">
+                <div style="font-size: 13px; font-weight:600; text-align:center; max-width:160px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" id="modalTrackTitle">Nenhuma música</div>
+                <div class="modal-controls-row">
+                    <button class="control-btn" onclick="prevTrack()">
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button class="control-btn" onclick="togglePlay()">
+                        <svg class="playIconSvg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button class="control-btn" onclick="nextTrack()">
+                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- LADO DIREITO DO MODAL: TEXTO EXPLICATIVO -->
+            <div class="modal-right-text">
+                <h3 style="margin-bottom: 12px; font-size: 18px;">Sobre o Álbum</h3>
+                <p class="modal-text"></p>
+            </div>
         </div>
     </div>
 
@@ -460,23 +526,67 @@
                 genre: "Pop",
                 description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso. A audaciosa introdução de seu primeiro single — a faixa-título de sua estreia completa — foi uma apresentação apropriada para a mulher que eventualmente se tornaria o rosto do pop adolescente dos anos 2000, misturando angústia na medida certa com refrões que grudam no cérebro, batidas marcantes e o carisma inegável de Spears.',
                 tracks: [
-                    /* CAMINHOS DOS ARQUIVOS DE ÁUDIO CORRIGIDOS COM OS TRAÇOS EXATOS */
-                    { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
-                    { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
-                    { num: "3", title: "Sometimes", file: "03 - Britney Spears - Sometimes.mp3" },
-                    { num: "4", title: "Soda Pop", file: "04 - Britney Spears - Soda Pop.mp3" },
-                    { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears - Born To Make You Happy.mp3" },
-                    { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears - From The Bottom Of My Broken Heart.mp3" },
-                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3" },
-                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears - I Will Still Love You (Duet With Don Philip).mp3" },
-                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears - Deep In My Heart.mp3" },
-                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears - Thinkin' About You.mp3" },
-                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears - E-Mail My Heart.mp3" },
-                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears - The Beat Goes On.mp3" },
-                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears - I'll Never Stop Loving You.mp3" },
-                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears - Autumn Goodbye.mp3" },
-                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3" },
-                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
+                    { 
+                        num: "1", 
+                        title: "...Baby One More Time", 
+                        file: "01 - Britney Spears - Baby One More Time.mp3",
+                        /* SUA LETRA E DIRECIONAMENTO DE TEMPO COMPLETO EXATO EM SEGUNDOS */
+                        lyrics: [
+                            { time: 1.50, text: "Oh, baby, baby" },
+                            { time: 6.68, text: "Oh, baby, baby" },
+                            { time: 11.77, text: "Oh, baby, baby, how was I supposed to know" },
+                            { time: 18.82, text: "That something wasn't right here?" },
+                            { time: 22.23, text: "Oh, baby, baby, I shouldn't have let you go" },
+                            { time: 29.42, text: "And now you're out of sight, yeah" },
+                            { time: 32.31, text: "Show me how you want it to be, tell me, baby" },
+                            { time: 38.99, text: "'Cause I need to know now, oh, because" },
+                            { time: 43.11, text: "My loneliness is killin' me (and I)" },
+                            { time: 48.23, text: "I must confess, I still believe (still believe)" },
+                            { time: 53.37, text: "When I'm not with you, I lose my mind, give me a sign" },
+                            { time: 60.65, text: "Hit me, baby, one more time" },
+                            { time: 63.82, text: "Oh, baby, baby, the reason I breathe is you (oh, yeah)" },
+                            { time: 70.62, text: "Boy, you got me blinded" },
+                            { time: 73.78, text: "Oh, pretty baby, there's nothing that I wouldn't do" },
+                            { time: 81.09, text: "It's not the way I planned it" },
+                            { time: 83.70, text: "Show me how you want it to be, tell me, baby" },
+                            { time: 90.43, text: "'Cause I need to know now, oh, because" },
+                            { time: 94.56, text: "My loneliness is killin' me (and I)" },
+                            { time: 99.66, text: "I must confess, I still believe (still believe)" },
+                            { time: 104.79, text: "When I'm not with you, I lose my mind, give me a sign" },
+                            { time: 111.92, text: "Hit me, baby, one more time" },
+                            { time: 115.28, text: "Oh, baby, baby (oh-oh)" },
+                            { time: 120.18, text: "Oh, baby, baby (eh-eh-yeah)" },
+                            { time: 125.46, text: "Oh, baby, baby, how was I supposed to know?" },
+                            { time: 135.83, text: "Oh, pretty baby, I shouldn't have let you go" },
+                            { time: 144.64, text: "I must confess that my loneliness is killin' me now" },
+                            { time: 153.04, text: "Don't you know I still believe" },
+                            { time: 157.07, text: "That you will be here, and give me a sign?" },
+                            { time: 163.65, text: "Hit me, baby, one more time" },
+                            { time: 166.79, text: "My loneliness is killin' me (and I)" },
+                            { time: 171.98, text: "I must confess, I still believe (still believe)" },
+                            { time: 176.93, text: "When I'm not with you, I lose my mind, give me a sign" },
+                            { time: 184.26, text: "Hit me, baby, one more time" },
+                            { time: 186.50, text: "I must confess that my loneliness is killin' me now" },
+                            { time: 194.07, text: "Don't you know I still believe" },
+                            { time: 198.28, text: "That you will be here, and give me a sign?" },
+                            { time: 204.81, text: "Hit me, baby, one more time" }
+                        ]
+                    },
+                    { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "3", title: "Sometimes", file: "03 - Britney Spears - Sometimes.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "4", title: "Soda Pop", file: "04 - Britney Spears - Soda Pop.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears - Born To Make You Happy.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears - From The Bottom Of My Broken Heart.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears - I Will Still Love You (Duet With Don Philip).mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears - Deep In My Heart.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears - Thinkin' About You.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears - E-Mail My Heart.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears - The Beat Goes On.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears - I'll Never Stop Loving You.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears - Autumn Goodbye.mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] },
+                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3", lyrics: [{ time: 0, text: "Letra indisponível para esta faixa." }] }
                 ]
             }
         ];
@@ -484,8 +594,8 @@
         let selectedAlbum = null;
         let currentTrackIndex = 0;
         let playingAlbum = null; 
+        let lyricElements = [];
         const audio = document.getElementById('audioElement');
-        const playIcon = document.getElementById('playIcon');
         const progressBarFill = document.getElementById('progressBarFill');
         const progressBarBg = document.getElementById('progressBarBg');
         const timeCurrent = document.getElementById('timeCurrent');
@@ -498,9 +608,7 @@
             document.addEventListener('click', (e) => {
                 const container = document.getElementById('volumeContainer');
                 const popover = document.getElementById('volumePopover');
-                if (!container.contains(e.target)) {
-                    popover.classList.remove('active');
-                }
+                if (!container.contains(e.target)) popover.classList.remove('active');
             });
         }
 
@@ -512,9 +620,7 @@
                 card.className = 'album-card';
                 card.onclick = () => openAlbum(album);
                 card.innerHTML = `
-                    <div class="album-art-wrapper">
-                        <img src="${album.folder}/${album.cover}" alt="${album.title}">
-                    </div>
+                    <div class="album-art-wrapper"><img src="${album.folder}/${album.cover}" alt="${album.title}"></div>
                     <div class="album-card-title">${album.title}</div>
                     <div class="album-card-artist">${album.artist}</div>
                 `;
@@ -540,16 +646,12 @@
         function renderTracklist() {
             const tracklistEl = document.getElementById('tracklist');
             tracklistEl.innerHTML = '';
-
             selectedAlbum.tracks.forEach((track, index) => {
                 const row = document.createElement('div');
                 row.className = 'track-row';
                 row.id = `track-${index}`;
                 row.onclick = () => playTrack(index);
-                row.innerHTML = `
-                    <div class="track-number">${track.num}</div>
-                    <div class="track-title">${track.title}</div>
-                `;
+                row.innerHTML = `<div class="track-number">${track.num}</div><div class="track-title">${track.title}</div>`;
                 tracklistEl.appendChild(row);
             });
             updateTracklistVisuals();
@@ -566,30 +668,57 @@
             playingAlbum = selectedAlbum; 
             const track = playingAlbum.tracks[index];
 
-            // Torna o player visível
             document.getElementById('mainFloatingPlayer').style.display = 'flex';
 
-            document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${playingAlbum.cover}`;
+            const coverUrl = `${playingAlbum.folder}/${playingAlbum.cover}`;
+            document.getElementById('miniPlayerArt').src = coverUrl;
             document.getElementById('miniPlayerTitle').innerText = track.title;
             document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
 
+            // Sincroniza informações com o player interno do Modal
+            document.getElementById('modalPlayerArt').src = coverUrl;
+            document.getElementById('modalTrackTitle').innerText = track.title;
+
+            // Sincroniza informações com a tela cheia de letras
+            document.getElementById('lyricsPlayerArt').src = coverUrl;
+            document.getElementById('lyricsBlurBg').style.backgroundImage = `url('${coverUrl}')`;
+            document.getElementById('lyricsPlayerTitle').innerText = track.title;
+            document.getElementById('lyricsPlayerArtist').innerText = playingAlbum.artist;
+            
+            buildLyrics(track.lyrics);
+
             audio.src = `${playingAlbum.folder}/${track.file}`;
-            audio.play().catch(err => console.log("Erro ao reproduzir áudio:", err));
+            audio.play().catch(err => console.log("Erro ao reproduzir:", err));
 
             updatePlayButton(true);
             updateTracklistVisuals();
         }
 
-        function playAlbumFromStart() {
-            if (selectedAlbum) playTrack(0);
+        function buildLyrics(lyricsArray) {
+            const container = document.getElementById('lyricsTextContainer');
+            container.innerHTML = '';
+            lyricElements = [];
+
+            if (!lyricsArray || lyricsArray.length === 0) {
+                container.innerText = "Letra indisponível.";
+                return;
+            }
+
+            lyricsArray.forEach((line) => {
+                const el = document.createElement('div');
+                el.className = 'lyric-line';
+                el.innerText = line.text;
+                el.onclick = () => { audio.currentTime = line.time; };
+                container.appendChild(el);
+                lyricElements.push({ time: line.time, element: el });
+            });
         }
+
+        function playAlbumFromStart() { if (selectedAlbum) playTrack(0); }
 
         function togglePlay() {
             if (!audio.src) {
-                if(albums.length > 0) {
-                    selectedAlbum = albums[0];
-                    playAlbumFromStart();
-                }
+                if(albums.length > 0) { selectedAlbum = albums[0]; playAlbumFromStart(); }
                 return;
             }
             if (audio.paused) {
@@ -603,20 +732,21 @@
         }
 
         function updatePlayButton(isPlaying) {
-            if (isPlaying) {
-                playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-            } else {
-                playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
-            }
+            const icons = document.querySelectorAll('.playIconSvg');
+            icons.forEach(icon => {
+                if (isPlaying) {
+                    icon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+                } else {
+                    icon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+                }
+            });
         }
 
         function updateTracklistVisuals() {
             document.querySelectorAll('.track-row').forEach(row => row.classList.remove('playing'));
             if (playingAlbum && selectedAlbum && playingAlbum.id === selectedAlbum.id) {
                 const activeRow = document.getElementById(`track-${currentTrackIndex}`);
-                if (activeRow && !audio.paused) {
-                    activeRow.classList.add('playing');
-                }
+                if (activeRow && !audio.paused) activeRow.classList.add('playing');
             }
         }
 
@@ -640,6 +770,27 @@
             progressBarFill.style.width = `${percent}%`;
             timeCurrent.innerText = formatTime(audio.currentTime);
             timeRemaining.innerText = "-" + formatTime(audio.duration - audio.currentTime);
+
+            if (lyricElements.length > 0) {
+                const currentTime = audio.currentTime;
+                let activeIndex = -1;
+
+                for (let i = 0; i < lyricElements.length; i++) {
+                    if (currentTime >= lyricElements[i].time) activeIndex = i;
+                    else break;
+                }
+
+                lyricElements.forEach((item, index) => {
+                    if (index === activeIndex) {
+                        if (!item.element.classList.contains('active')) {
+                            item.element.classList.add('active');
+                            item.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                        item.element.classList.remove('active');
+                    }
+                });
+            }
         });
 
         function formatTime(seconds) {
@@ -651,31 +802,36 @@
         function seekAudio(event) {
             if (!audio.src || !audio.duration) return;
             const rect = progressBarBg.getBoundingClientRect();
-            const clickX = event.clientX - rect.left;
-            audio.currentTime = (clickX / rect.width) * audio.duration;
+            audio.currentTime = ((event.clientX - rect.left) / rect.width) * audio.duration;
         }
 
-        function toggleVolumePopover(event) {
-            event.stopPropagation();
-            const popover = document.getElementById('volumePopover');
-            popover.classList.toggle('active');
-        }
+        function toggleVolumePopover(event) { event.stopPropagation(); document.getElementById('volumePopover').classList.toggle('active'); }
+        function setVolume(value) { audio.volume = value; }
 
-        function setVolume(value) { 
-            audio.volume = value; 
-            const volumeIcon = document.getElementById('volumeIcon');
-            
-            if (parseFloat(value) === 0) {
-                volumeIcon.innerHTML = `<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>`;
-            } else if (parseFloat(value) < 0.5) {
-                volumeIcon.innerHTML = `<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>`;
-            } else {
-                volumeIcon.innerHTML = `<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>`;
-            }
+        function openLyricsScreen() {
+            if (!playingAlbum) return;
+            document.getElementById('lyricsScreen').style.display = 'block';
+            setTimeout(() => {
+                const activeLine = document.querySelector('.lyric-line.active');
+                if (activeLine) activeLine.scrollIntoView({ behavior: 'auto', block: 'center' });
+            }, 50);
         }
+        function closeLyricsScreen() { document.getElementById('lyricsScreen').style.display = 'none'; }
 
         audio.addEventListener('ended', nextTrack);
-        function openModal() { document.getElementById('textModal').style.display = 'flex'; }
+        
+        function openModal() { 
+            if(selectedAlbum) {
+                const coverUrl = `${selectedAlbum.folder}/${selectedAlbum.cover}`;
+                document.getElementById('modalPlayerArt').src = coverUrl;
+                if(playingAlbum && playingAlbum.id === selectedAlbum.id) {
+                    document.getElementById('modalTrackTitle').innerText = playingAlbum.tracks[currentTrackIndex].title;
+                } else {
+                    document.getElementById('modalTrackTitle').innerText = selectedAlbum.tracks[0].title;
+                }
+            }
+            document.getElementById('textModal').style.display = 'flex'; 
+        }
         function closeModal() { document.getElementById('textModal').style.display = 'none'; }
 
         initApp();
