@@ -169,6 +169,7 @@
             object-fit: cover;
             position: absolute;
             top: 0; left: 0;
+            display: block; 
         }
 
         .album-video {
@@ -540,11 +541,12 @@
                 ]
             },
             {
+           {
                 id: "oops-i-did-it-again",
-                folder: "02 Oops!... I Did It Again",
+                folder: "02 Oops I Did It Again", // Pasta alterada de "02 Oops!... I Did It Again" para "02 Oops I Did It Again"
                 title: "Oops!... I Did It Again",
                 artist: "Britney Spears",
-                cover: "oops.jfif", // Capa padrão que aparece no Grid inicial
+                cover: "oops.jfif", 
                 hasVersions: true,
                 versions: [
                     {
@@ -557,8 +559,8 @@
                     },
                     {
                         versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
-                        cover: "oops25.jpeg",
-                        video: "oops25.mp4",
+                        cover: "oops 25.jpeg", // Corrigido para espaço
+                        video: "oops 25.mp4",  // Corrigido para espaço
                         year: "2025",
                         genre: "Pop",
                         description: 'Edição comemorativa especial celebrando os 25 anos de um dos álbuns mais marcantes da história da música pop, trazendo artes atualizadas e resgatando o impacto atemporal de Britney no novo milênio.'
@@ -685,7 +687,8 @@
             if (videoFile) {
                 artEl.style.display = 'none';
                 videoEl.src = `${album.folder}/${videoFile}`;
-                videoEl.style.display = 'block';
+                videoEl.style.display = 'block'; 
+                videoEl.style.height = '100%'; // Garante que a altura cubra o container quadrado
                 videoEl.play().catch(err => console.log("Auto-video playback bloqueado ou falhou:", err));
             } else {
                 videoEl.style.display = 'none';
