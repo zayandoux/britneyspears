@@ -152,6 +152,7 @@
             flex-direction: column;
         }
 
+        /* Container que força a proporção 1:1 (Quadrado Perfeito) */
         .album-media-container {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -163,13 +164,14 @@
             background-color: #000;
         }
 
+        /* Força tanto a foto quanto o vídeo a se comportarem de forma idêntica e quadrada */
         .album-art, .album-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0; left: 0;
-            display: block; 
+            display: block;
         }
 
         .album-video {
@@ -353,7 +355,7 @@
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
         .modal-text { font-size: 14px; line-height: 1.6; color: #eee; margin-top: 10px; }
 
-        /* MODAL DE VERSÕES (NOVO) */
+        /* MODAL DE VERSÕES */
         .version-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -499,7 +501,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE VERSÕES (NOVO) -->
+    <!-- MODAL DE VERSÕES -->
     <div class="modal-overlay" id="versionModal" onclick="closeVersionModal()">
         <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px;">
             <button class="modal-close" onclick="closeVersionModal()">✕</button>
@@ -509,8 +511,7 @@
     </div>
 
     <audio id="audioElement"></audio>
-
-    <script>
+<script>
         const albums = [
             {
                 id: "baby-one-more-time",
@@ -541,12 +542,11 @@
                 ]
             },
             {
-           {
                 id: "oops-i-did-it-again",
-                folder: "02 Oops I Did It Again", // Pasta alterada de "02 Oops!... I Did It Again" para "02 Oops I Did It Again"
+                folder: "02 Oops I Did It Again", // Corrigido sem três pontos
                 title: "Oops!... I Did It Again",
                 artist: "Britney Spears",
-                cover: "oops.jfif", 
+                cover: "oops.jfif",
                 hasVersions: true,
                 versions: [
                     {
@@ -559,8 +559,8 @@
                     },
                     {
                         versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
-                        cover: "oops 25.jpeg", // Corrigido para espaço
-                        video: "oops 25.mp4",  // Corrigido para espaço
+                        cover: "oops 25.jpeg", // Corrigido com espaço
+                        video: "oops 25.mp4",  // Corrigido com espaço
                         year: "2025",
                         genre: "Pop",
                         description: 'Edição comemorativa especial celebrando os 25 anos de um dos álbuns mais marcantes da história da música pop, trazendo artes atualizadas e resgatando o impacto atemporal de Britney no novo milênio.'
@@ -669,7 +669,6 @@
             const artEl = document.getElementById('albumArt');
             const videoEl = document.getElementById('albumVideo');
 
-            // Determina as metas e mídias baseadas se há uma versão ativa ou álbum simples
             const title = version ? version.versionName : album.title;
             const coverFile = version ? version.cover : album.cover;
             const videoFile = version ? version.video : null;
@@ -683,13 +682,11 @@
             document.querySelector('.album-description').innerText = description;
             document.querySelector('.modal-text').innerText = description;
 
-            // Gerenciamento de Vídeo vs Imagem Estática na Capa
             if (videoFile) {
                 artEl.style.display = 'none';
                 videoEl.src = `${album.folder}/${videoFile}`;
-                videoEl.style.display = 'block'; 
-                videoEl.style.height = '100%'; // Garante que a altura cubra o container quadrado
-                videoEl.play().catch(err => console.log("Auto-video playback bloqueado ou falhou:", err));
+                videoEl.style.display = 'block';
+                videoEl.play().catch(err => console.log("Auto-video playback bloqueado:", err));
             } else {
                 videoEl.style.display = 'none';
                 videoEl.pause();
@@ -721,7 +718,6 @@
         function showDashboard() {
             selectedAlbum = null;
             selectedVersion = null;
-            // Pausa o vídeo da capa interna ao sair para economizar performance
             const videoEl = document.getElementById('albumVideo');
             videoEl.pause();
             videoEl.src = "";
@@ -737,7 +733,6 @@
 
             document.getElementById('mainFloatingPlayer').style.display = 'flex';
 
-            // No mini player flutuante usa a capa da versão ativa ou do álbum
             const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
             document.getElementById('miniPlayerArt').src = `${playingAlbum.folder}/${activeCover}`;
             document.getElementById('miniPlayerTitle').innerText = track.title;
