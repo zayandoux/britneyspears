@@ -644,9 +644,11 @@
                     { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" },
 					{ num: "16", title: "Heart", file: "16 - Britney Spears - Heart.mp3" }
             ]   
-        }
-    ]
-}
+        },
+	]
+},
+
+
         ];
 
         let selectedAlbum = null;
@@ -959,10 +961,8 @@ function prevTrack() {
         function closeModal() { document.getElementById('textModal').style.display = 'none'; }
 		function toggleTheme() {
             document.body.classList.toggle('light-mode');
-            // Opcional: Salvar no navegador
             localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
         }
-
         initApp();
 		
     </script>
