@@ -961,7 +961,7 @@
                 folder: "01 Baby One More Time", 
                 title: "...Baby One More Time",
                 artist: "Britney Spears",
-	        video: null,
+	            video: null,
                 cover: "capa.jpg", 
                 year: "1999",
                 genre: "Pop",
@@ -1133,43 +1133,41 @@
         }
 
         function initApp() {
-    renderDashboard();
-    audio.volume = 0.8;
-    
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        document.getElementById('themeToggle').checked = true;
-    }
+            renderDashboard();
+            audio.volume = 0.8;
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                document.getElementById('themeToggle').checked = true;
+            }
 
-    const savedBgStyle = localStorage.getItem('bgStyle') || 'default';
-    document.getElementById('bgStyleSelector').value = savedBgStyle;
-    applyBackgroundStyle(savedBgStyle);
+            const savedBgStyle = localStorage.getItem('bgStyle') || 'default';
+            document.getElementById('bgStyleSelector').value = savedBgStyle;
+            applyBackgroundStyle(savedBgStyle);
 
-    document.addEventListener('click', (e) => {
-        const container = document.getElementById('volumeContainer');
-        const popover = document.getElementById('volumePopover');
-        if (container && !container.contains(e.target)) {
-            popover.classList.remove('active');
+            document.addEventListener('click', (e) => {
+                const container = document.getElementById('volumeContainer');
+                const popover = document.getElementById('volumePopover');
+                if (container && !container.contains(e.target)) {
+                    popover.classList.remove('active');
+                }
+            });
+
+            // --- MEDIA SESSION: CONTROLES DA TELA DE BLOQUEIO ---
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('play', () => {
+                    audio.play();
+                    updatePlayButton(true);
+                });
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    audio.pause();
+                    updatePlayButton(false);
+                });
+                navigator.mediaSession.setActionHandler('previoustrack', prevTrack);
+                navigator.mediaSession.setActionHandler('nexttrack', nextTrack);
+            }
         }
-    });
-
-    // --- CÓDIGO NOVO: CONTROLES DA TELA DE BLOQUEIO ---
-    if ('mediaSession' in navigator) {
-        navigator.mediaSession.setActionHandler('play', () => {
-            audio.play();
-            updatePlayButton(true);
-        });
-        navigator.mediaSession.setActionHandler('pause', () => {
-            audio.pause();
-            updatePlayButton(false);
-        });
-        navigator.mediaSession.setActionHandler('previoustrack', prevTrack);
-        navigator.mediaSession.setActionHandler('nexttrack', nextTrack);
-    }
-    // --------------------------------------------------
-}
-
 
         function renderDashboard() {
             const grid = document.getElementById('albumGrid');
@@ -1303,47 +1301,50 @@
         }
 
         function playTrack(index) {
-    currentTrackIndex = index;
-    playingAlbum = selectedAlbum;
-    
-    if(playingTracks.length === 0) {
-        playingTracks = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : playingAlbum.tracks;
-    }
-    const track = playingTracks[index];
+            currentTrackIndex = index;
+            playingAlbum = selectedAlbum;
+            
+            if(playingTracks.length === 0) {
+                playingTracks = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : playingAlbum.tracks;
+            }
+            const track = playingTracks[index];
 
-    const player = document.getElementById('mainFloatingPlayer');
-    player.style.display = 'flex';
-    document.body.classList.add('player-active'); 
-    
-    const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
-    const coverUrl = `${playingAlbum.folder}/${activeCover}`; // Caminho da imagem
-    
-    document.getElementById('miniPlayerArt').src = coverUrl;
-    document.getElementById('miniPlayerTitle').innerText = track.title;
-    document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
+            const player = document.getElementById('mainFloatingPlayer');
+            player.style.display = 'flex';
+            document.body.classList.add('player-active'); 
+            
+            const activeCover = selectedVersion ? selectedVersion.cover : playingAlbum.cover;
+            const coverPath = `${playingAlbum.folder}/${activeCover}`;
+            
+            document.getElementById('miniPlayerArt').src = coverPath;
+            document.getElementById('miniPlayerTitle').innerText = track.title;
+            document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
 
-    // --- CÓDIGO NOVO: MEDIA SESSION API ---
-    if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-            title: track.title,
-            artist: playingAlbum.artist,
-            album: playingAlbum.title,
-            artwork: [
-                { src: coverUrl, sizes: '512x512', type: 'image/jpeg' },
-                { src: coverUrl, sizes: '256x256', type: 'image/jpeg' }
-            ]
-        });
-    }
-    // --------------------------------------
+            // --- MEDIA SESSION: DADOS PARA TELA DE BLOQUEIO ---
+            if ('mediaSession' in navigator) {
+                // Truque para pegar a URL absoluta caso o celular não entenda caminhos relativos
+                const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                const absoluteCoverUrl = baseUrl + coverPath;
 
-    audio.src = `${playingAlbum.folder}/${track.file}`; 
-    audio.load(); 
-    audio.play().catch(err => console.log("Erro ao reproduzir áudio:", err));
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: track.title,
+                    artist: playingAlbum.artist,
+                    album: playingAlbum.title,
+                    artwork: [
+                        { src: absoluteCoverUrl, sizes: '512x512', type: 'image/jpeg' },
+                        { src: absoluteCoverUrl, sizes: '256x256', type: 'image/jpeg' }
+                    ]
+                });
+            }
 
-    preLoadNextTrack();
-    updatePlayButton(true);
-    updateTracklistVisuals();
-}
+            audio.src = `${playingAlbum.folder}/${track.file}`; 
+            audio.load(); 
+            audio.play().catch(err => console.log("Erro ao reproduzir áudio:", err));
+
+            preLoadNextTrack();
+            updatePlayButton(true);
+            updateTracklistVisuals();
+        }
 
         function preLoadNextTrack() {
             if (currentTrackIndex < playingTracks.length - 1) {
