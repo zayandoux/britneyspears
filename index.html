@@ -1,10 +1,3 @@
-Ajustei o código para resolver exatamente esses pontos de design e transição de áudio.
-Aqui estão as melhorias aplicadas:
- * Mesmo fundo.png para as duas versões do Oops!: Removi a lógica diferenciada. Agora, ambas as versões do álbum Oops!... I Did It Again buscam o arquivo fundo.png na mesma pasta do álbum.
- * Player Mobile e Botão Voltar: Redesenhei o player flutuante no mobile para que ele use um layout de grade compacto, sem quebras de linha estranhas. O botão "Voltar para a Discografia" ganhou mais destaque visual e espaçamento para facilitar o toque em telas menores.
- * Fim da sobreposição de elementos: O painel de configurações (onde fica a opção de tema e estilo de fundo) agora se esconde automaticamente no mobile sempre que o player estiver ativo. Além disso, o player flutuante agora tem um recuo correto para não cobrir nenhum botão essencial.
- * Transição Contínua (Gapless Playback): Para evitar aquele pequeno silêncio/atraso entre faixas (comum em álbuns conceituais ou com transições diretas), adicionei um evento de pré-carregamento (preload="auto") e uma lógica de transição instantânea no JavaScript assim que a música termina.
-Aqui está o código completo e corrigido:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
