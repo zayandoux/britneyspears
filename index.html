@@ -1,15 +1,3 @@
-Sim, existem alguns erros estruturais e de lógica no código (tanto no HTML quanto no JavaScript) que podem impedir o funcionamento correto ou causar comportamentos inesperados.
-Abaixo estão listados os principais problemas identificados e, em seguida, a solução corrigida:
-1. Erros de Estrutura HTML
- * Tags duplicadas: A tag <main> está duplicada e aberta duas vezes seguidas (<main> <main>).
- * Tag <head> sem fechamento: A tag </head> não foi fechada. Em vez disso, o código passa direto para o <body>.
- * Posicionamento do Switch de Tema: O HTML do switch de tema está inserido dentro da tag <head>, o que é semanticamente incorreto. Elementos visíveis devem ficar estritamente dentro do <body>.
-2. Erros de Lógica no JavaScript (Erros Críticos)
- * Erro de digitação em propriedades de dados: Na versão comemorativa do álbum Oops!... I Did It Again, a faixa 13 está mapeada com o nome de propriedade errado "Mirron" em vez de "Mirror" (embora o arquivo esteja correto), mas o erro maior está no arquivo da faixa 14 ("You Got It All"), que está sem a extensão .mp3 no final do nome do arquivo de áudio.
- * Duplicação de IDs com o repeat de álbum: Se você selecionar a versão de 25 anos do Oops!, as faixas 15 e 16 possuem o mesmo num: "15" e num: "16", porém apontam para o mesmo arquivo "15 - Britney Spears - Heart.mp3" e "16 - Britney Spears - Heart.mp3". (Verifique se o arquivo físico da faixa 16 existe).
- * Uso incorreto de variáveis globais e selectedVersion: Na função nextTrack(), a lógica tenta ler selectedVersion.tracks. Se você mudar de álbum ou usar o modo "Todos os Álbuns", o player pode se perder tentando acessar as faixas de um álbum antigo enquanto reproduz outro. O correto é basear o avanço de faixas estritamente em uma lista de faixas ativa (ex: currentTracklist).
-Código Corrigido e Otimizado
-Aqui está o código com as correções aplicadas (tags HTML fechadas devidamente, switch reposicionado dentro do body, main duplicado removido, correção de extensões e ajuste lógico nas trocas de faixa):
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
