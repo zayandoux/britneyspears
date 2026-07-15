@@ -13,7 +13,7 @@
             --text-muted: #8a8a8e;
             --accent-color: #fa233b; 
             --border-radius: 12px;
-            --player-bg: rgba(35, 35, 35, 0.95);
+            --player-bg: rgba(30, 30, 30, 0.65); /* Fundo do player mais translúcido para o efeito vidro */
             --glass-bg: rgba(22, 22, 22, 0.7);
             --transition: all 0.3s ease;
             --blur-overlay-opacity: 0; /* Controlado dinamicamente via JS */
@@ -24,7 +24,7 @@
             --bg-color: #f5f5f5; 
             --text-main: #121212; 
             --card-bg: #ffffff;
-            --player-bg: rgba(240, 240, 240, 0.95);
+            --player-bg: rgba(255, 255, 255, 0.65); /* Player claro translúcido */
         }
         body.light-mode .album-card { border: 1px solid #ddd; }
         body.light-mode .album-card-title { color: #121212; }
@@ -35,7 +35,7 @@
         body.light-mode .modal-close { color: #121212; }
         body.light-mode .track-row { border-bottom: 1px solid rgba(0,0,0,0.05); }
         body.light-mode .track-row:hover { background-color: rgba(0,0,0,0.05); }
-        body.light-mode .floating-player-wrapper { border: 1px solid #ddd; color: #121212; }
+        body.light-mode .floating-player-wrapper { border: 1px solid rgba(0, 0, 0, 0.08); color: #121212; }
         body.light-mode .control-btn, body.light-mode .volume-btn { color: #121212; }
         body.light-mode #repeatBtn { color: #121212 !important; }
         body.light-mode .timeline-container { color: #666666; }
@@ -47,33 +47,33 @@
         body.light-mode .version-card span { color: #121212; }
         body.light-mode .version-card:hover { background-color: #dddddd; }
 
-        /* BACKDROP BORRADO (Efeito Arte do Álbum) */
+        /* BACKDROP BORRADO (Efeito Arte do Álbum Suavizado) */
         .dynamic-blur-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover;
             background-position: center;
-            filter: blur(40px) brightness(0.4);
-            transform: scale(1.1); /* Evita bordas brancas no blur */
+            filter: blur(25px) brightness(0.3) saturate(0.9); /* Reduzido de 40px para 25px para menos "melado" */
+            transform: scale(1.08); /* Evita bordas brancas */
             z-index: -2;
             opacity: var(--blur-overlay-opacity);
             transition: opacity 0.5s ease, background-image 0.5s ease;
         }
         body.light-mode .dynamic-blur-bg {
-            filter: blur(40px) brightness(0.95) saturate(1.2);
+            filter: blur(25px) brightness(0.9) saturate(1);
         }
 
-        /* Camada escura por cima do fundo para dar contraste ao texto */
+        /* Camada escura para dar contraste e suavizar ainda mais o fundo */
         .dynamic-blur-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(22, 22, 22, 0.45);
+            background: rgba(18, 18, 18, 0.55); /* Levemente mais escuro para o texto saltar aos olhos */
             z-index: -1;
             opacity: var(--blur-overlay-opacity);
             transition: opacity 0.5s ease;
         }
         body.light-mode .dynamic-blur-overlay {
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.6);
         }
 
         * {
@@ -151,14 +151,14 @@
 
         /* Adaptação de cartões para quando o tema de fundo está ativo */
         body.bg-art-active .album-card {
-            background-color: rgba(36, 36, 36, 0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05);
+            background-color: rgba(36, 36, 36, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
         }
         body.bg-art-active.light-mode .album-card {
-            background-color: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(0,0,0,0.08);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0,0,0,0.06);
         }
 
         .album-art-wrapper {
@@ -317,15 +317,15 @@
 
         /* Efeito de vidro na lista de reprodução quando fundo ativo */
         body.bg-art-active .right-tracklist-block {
-            background: rgba(35, 35, 35, 0.4);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(35, 35, 35, 0.35);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-radius: 16px;
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
         }
         body.bg-art-active.light-mode .right-tracklist-block {
-            background: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.4);
             border: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -346,16 +346,18 @@
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
         .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER FLUTUANTE */
+        /* PLAYER FLUTUANTE COM EFEITO VIDRO (GLASSMORPHISM) */
         .floating-player-wrapper {
             position: absolute; bottom: 30px; left: 50%;
             transform: translateX(-50%); width: 92%; max-width: 800px;
-            background-color: var(--player-bg); backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: var(--player-bg); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Borda fina clara para efeito reflexo do vidro */
             border-radius: 16px; padding: 12px 20px; 
             display: none; 
             align-items: center; gap: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6); z-index: 100;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4); z-index: 100;
         }
 
         .player-controls { display: flex; align-items: center; gap: 14px; }
@@ -421,12 +423,13 @@
 
         .volume-popover {
             position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            background-color: #242424; border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(30, 30, 30, 0.8); border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             padding: 15px 10px; border-radius: 20px; display: none;
             flex-direction: column; align-items: center; height: 140px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 110;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 110;
         }
-        body.light-mode .volume-popover { background-color: #ffffff; border: 1px solid #ccc; }
+        body.light-mode .volume-popover { background-color: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.1); }
 
         .volume-popover.active { display: flex; }
 
@@ -716,7 +719,7 @@
     <audio id="audioElement"></audio>
 
     <script>
-        // LISTA DE ÁLBUNS COM VARIÁVEIS DE IMAGEM DE FUNDO PERSONALIZADAS
+        // LISTA DE ÁLBUNS COM ARQUIVOS AUTOMÁTICOS
         const albums = [
             {
                 id: "baby-one-more-time",
@@ -725,7 +728,6 @@
                 artist: "Britney Spears",
 				video: null,
                 cover: "capa.jpg", 
-                bgBackground: "fundo.png", // <--- LOCAL PARA SEU ARQUIVO DE FUNDO PERSONALIZADO          
                 year: "1999",
                 genre: "Pop",
 				description: 'Álbum de estreia de Britney Spears...',
@@ -759,7 +761,6 @@
                     {
                         versionName: "Oops!... I Did It Again",
                         cover: "oops.jfif",
-                        bgBackground: "fundo.png", // <--- LOCAL PARA SEU ARQUIVO DE FUNDO PERSONALIZADO
                         video: "oops.mp4",
                         year: "2000",
                         genre: "Pop",
@@ -785,7 +786,7 @@
                     {
                         versionName: "Oops!... I Did It Again (25th Anniversary Edition)",
                         cover: "oops 25.jpeg", 
-                        bgBackground: "fundo_25.png", // <--- LOCAL PARA SEU ARQUIVO DE FUNDO PERSONALIZADO
+                        isSpecialAnniversary: true, // Tag interna auxiliar para puxar fundo_25.png automaticamente
                         video: "oops 25.mp4",  
                         year: "2025",
                         genre: "Pop",
@@ -817,7 +818,6 @@
                 artist: "Britney Spears",
                 year: "2001",
                 cover: "capa.jpg",
-                bgBackground: "fundo.png", // <--- LOCAL PARA SEU ARQUIVO DE FUNDO PERSONALIZADO
                 video: "video.mp4", 
                 description: "Terceiro álbum autointitulado...",
                 tracks: [
@@ -1191,12 +1191,16 @@
             const blurBg = document.getElementById('dynamicBlurBg');
 
             if (selectedAlbum) {
-                // Pega o arquivo de fundo personalizado definido no objeto. 
-                // Se não estiver setado, herda a capa do próprio álbum/versão como plano de fundo reserva.
                 const activeFolder = selectedAlbum.folder;
-                const activeBgFile = selectedVersion 
-                    ? (selectedVersion.bgBackground || selectedVersion.cover) 
-                    : (selectedAlbum.bgBackground || selectedAlbum.cover);
+                
+                // REGRA AUTOMÁTICA DE FUNDO:
+                // Se for a versão de 25 anos do Oops!, procura por "fundo_25.png"
+                // Se for qualquer outro álbum ou versão, busca automaticamente "fundo.png"
+                let activeBgFile = "fundo.png";
+                
+                if (selectedVersion && selectedVersion.isSpecialAnniversary) {
+                    activeBgFile = "fundo_25.png";
+                }
 
                 blurBg.style.backgroundImage = `url('${activeFolder}/${activeBgFile}')`;
             } else {
