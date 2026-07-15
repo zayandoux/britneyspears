@@ -418,7 +418,13 @@
             .top-nav-bar { padding: 15px 15px 5px 15px; }
             .detail-split-container { display: flex; flex-direction: column; overflow-y: auto; padding: 10px 15px 160px 15px; gap: 25px; }
             .left-album-block { width: 100%; text-align: center; align-items: center; }
-            .album-media-container { max-width: 240px; margin: 0 auto 15px auto; }
+            .album-media-container { 
+               width: 100%;             /* Ocupa a largura disponível no celular */
+               max-width: 320px;        /* Define um limite máximo elegante para telas menores */
+               aspect-ratio: 1 / 1;     /* Garante a proporção matemática de quadrado perfeita */
+               margin: 0 auto 15px auto; 
+          }
+
             .album-description { display: none; }
             .more-btn { display: block; margin: 0 auto 15px auto; }
             .right-tracklist-block { overflow-y: visible; }
