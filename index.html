@@ -174,7 +174,7 @@
         }
         body.bg-art-active.light-mode .album-card {
             background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .album-art-wrapper {
@@ -486,27 +486,39 @@
             opacity: 1; 
             transform: scale(1.12);
         }
-        .control-btn.active { 
+
+        /* ALEATÓRIO ATIVO: AGORA FICA VERMELHO COMO O PLAY ANTIGO */
+        .control-btn.active.shuffle-btn { 
             color: var(--accent-color) !important; 
             opacity: 1;
+            filter: drop-shadow(0 2px 6px rgba(250, 35, 59, 0.4));
         }
 
-        /* BOTÃO DE PLAY/PAUSE REDONDO */
+        /* BOTÃO DE PLAY/PAUSE REDONDO - AGORA CINZA SUTIL */
         .play-pause-btn {
-            background-color: var(--accent-color) !important;
+            background-color: #444446 !important;
             color: #ffffff !important;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(250, 35, 59, 0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             opacity: 1 !important;
+        }
+        body.light-mode .play-pause-btn {
+            background-color: #e5e5ea !important;
+            color: #1d1d1f !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
         .play-pause-btn:hover {
             transform: scale(1.15) !important;
-            box-shadow: 0 6px 14px rgba(250, 35, 59, 0.6);
+            background-color: #545456 !important;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+        }
+        body.light-mode .play-pause-btn:hover {
+            background-color: #d1d1d6 !important;
         }
         .play-pause-btn svg {
-            fill: #ffffff !important;
+            fill: currentColor !important;
         }
 
         /* REPETIDOR COM DESIGN APPLE MUSIC-LIKE */
@@ -915,7 +927,7 @@
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                     </button>
 
-                    <!-- Play/Pause com design Circular -->
+                    <!-- Play/Pause com design Circular (Cinza) -->
                     <button class="control-btn play-pause-btn" onclick="togglePlay()" title="Reproduzir / Pausar">
                         <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
