@@ -25,7 +25,7 @@
             --text-main: #1d1d1f; 
             --card-bg: #ffffff;
             --text-muted: #86868b;
-            --player-bg: rgba(255, 255, 255, 0.8); 
+            --player-bg: rgba(255, 255, 255, 0.85); 
         }
         body.light-mode .album-card { border: 1px solid #e5e5e7; }
         body.light-mode .album-card-title { color: #1d1d1f; }
@@ -166,15 +166,16 @@
             border-color: #ccc;
         }
 
+        /* AJUSTE: Vidro muito mais sutil nos cards para ver melhor o fundo */
         body.bg-art-active .album-card {
-            background-color: rgba(36, 36, 36, 0.3); 
-            backdrop-filter: blur(6px); 
-            -webkit-backdrop-filter: blur(6px);
-            border: 1px solid rgba(255,255,255,0.08);
+            background-color: rgba(36, 36, 36, 0.15); 
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         body.bg-art-active.light-mode .album-card {
-            background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(0,0,0,0.05);
+            background-color: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .album-art-wrapper {
@@ -351,17 +352,18 @@
             padding-right: 10px;
         }
 
+        /* AJUSTE: Vidro reduzido na lista de faixas para dar maior visibilidade ao fundo */
         body.bg-art-active .right-tracklist-block {
-            background: rgba(35, 35, 35, 0.25); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(35, 35, 35, 0.15); 
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
             border-radius: 16px;
             padding: 20px;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         body.bg-art-active.light-mode .right-tracklist-block {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .tracklist {
@@ -411,7 +413,7 @@
             100% { transform: scaleY(1.1); }
         }
 
-        /* NOVO DESIGN DO PLAYER FLUTUANTE (GLASSMORPHISM ELEGANTE) */
+        /* PLAYER FLUTUANTE (GLASSMORPHISM) */
         .floating-player-wrapper {
             position: fixed; 
             bottom: 30px; 
@@ -487,16 +489,16 @@
             transform: scale(1.12);
         }
 
-        /* ALEATÓRIO ATIVO: AGORA FICA VERMELHO COMO O PLAY ANTIGO */
+        /* ALEATÓRIO ATIVO: FICA VERMELHO */
         .control-btn.active.shuffle-btn { 
             color: var(--accent-color) !important; 
             opacity: 1;
             filter: drop-shadow(0 2px 6px rgba(250, 35, 59, 0.4));
         }
 
-        /* BOTÃO DE PLAY/PAUSE REDONDO - AGORA CINZA SUTIL */
+        /* BOTÃO DE PLAY/PAUSE - AJUSTADO PARA CORREÇÃO DE CONTRASTE NO CLARO/ESCURO */
         .play-pause-btn {
-            background-color: #444446 !important;
+            background-color: #444446 !important; /* Cinza médio no modo escuro */
             color: #ffffff !important;
             width: 40px;
             height: 40px;
@@ -504,10 +506,11 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             opacity: 1 !important;
         }
+        /* AJUSTE ESSENCIAL: Escurecido o play/pause no tema claro para não sumir */
         body.light-mode .play-pause-btn {
-            background-color: #e5e5ea !important;
-            color: #1d1d1f !important;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            background-color: #515154 !important; /* Cinza escuro para excelente contraste */
+            color: #ffffff !important; /* Ícone permanece nítido em branco */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
         .play-pause-btn:hover {
             transform: scale(1.15) !important;
@@ -515,7 +518,7 @@
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
         }
         body.light-mode .play-pause-btn:hover {
-            background-color: #d1d1d6 !important;
+            background-color: #3a3a3c !important; /* Hover ainda mais contrastante no claro */
         }
         .play-pause-btn svg {
             fill: currentColor !important;
@@ -567,7 +570,7 @@
             transition: width 0.1s linear;
         }
         
-        /* Indicador do progresso (thumb invisível que aparece no hover) */
+        /* Indicador do progresso (thumb) */
         .progress-bar-bg::after {
             content: '';
             position: absolute;
@@ -764,7 +767,7 @@
             
             body.bg-art-active .right-tracklist-block {
                 padding: 12px;
-                backdrop-filter: blur(6px); 
+                backdrop-filter: blur(2px); 
             }
 
             /* RECONSTRUÇÃO COMPACTA DO PLAYER NO MOBILE */
@@ -901,10 +904,10 @@
             </div>
         </section>
 
-        <!-- PLAYER FLUTUANTE REESTRUTURADO & ULTRA-MODERNO -->
+        <!-- PLAYER FLUTUANTE -->
         <div class="floating-player-wrapper" id="mainFloatingPlayer">
             
-            <!-- Detalhes da faixa (Alinhado à esquerda no desktop) -->
+            <!-- Detalhes da faixa -->
             <div class="center-meta">
                 <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
                 <div class="player-song-details">
@@ -927,7 +930,7 @@
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                     </button>
 
-                    <!-- Play/Pause com design Circular (Cinza) -->
+                    <!-- Play/Pause com design Circular (Cinza Inteligente) -->
                     <button class="control-btn play-pause-btn" onclick="togglePlay()" title="Reproduzir / Pausar">
                         <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
@@ -1443,8 +1446,6 @@
             if (!audio.duration) return;
             const percent = (audio.currentTime / audio.duration) * 100;
             progressBarFill.style.width = `${percent}%`;
-            
-            // Define variável CSS inline para controlar a posição do indicador dinâmico (Thumb)
             progressBarBg.style.setProperty('--progress-percent', `${percent}%`);
             
             timeCurrent.innerText = formatTime(audio.currentTime);
