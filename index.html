@@ -70,14 +70,14 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover;
             background-position: center;
-            filter: blur(25px) brightness(0.4) saturate(1.2); 
+            filter: blur(5px) brightness(1) saturate(1.2); 
             transform: scale(1.1); 
             z-index: -2;
             opacity: var(--blur-overlay-opacity);
             transition: opacity 0.8s ease, background-image 0.8s ease;
         }
         body.light-mode .dynamic-blur-bg {
-            filter: blur(25px) brightness(0.85) saturate(1.2);
+            filter: blur(5px) brightness(1.5) saturate(1.2);
         }
 
         .dynamic-blur-overlay {
@@ -166,15 +166,15 @@
             border-color: #ccc;
         }
 
-        /* Vidro sutil nos cards (AJUSTADO PARA 50% MENOS OPACIDADE) */
+        /* Vidro sutil nos cards para ver melhor o fundo */
         body.bg-art-active .album-card {
-            background-color: rgba(36, 36, 36, 0.075); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            background-color: rgba(36, 36, 36, 0.15); 
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(255,255,255,0.05);
         }
         body.bg-art-active.light-mode .album-card {
-            background-color: rgba(255, 255, 255, 0.125);
+            background-color: rgba(255, 255, 255, 0.25);
             border: 1px solid rgba(0,0,0,0.03);
         }
 
@@ -310,7 +310,7 @@
         .album-meta {
             font-size: 13px; 
             color: var(--text-muted); 
-            margin-bottom: 16px; 
+            margin-bottom: 16px; /* Ajustado espaçamento após remover a descrição */
             transition: color 0.3s;
         }
 
@@ -338,17 +338,17 @@
             padding-right: 10px;
         }
 
-        /* Vidro reduzido na lista de faixas (AJUSTADO PARA 50% MENOS OPACIDADE) */
+        /* Vidro reduzido na lista de faixas */
         body.bg-art-active .right-tracklist-block {
-            background: rgba(35, 35, 35, 0.075); 
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(35, 35, 35, 0.15); 
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
             border-radius: 16px;
             padding: 20px;
             border: 1px solid rgba(255,255,255,0.04);
         }
         body.bg-art-active.light-mode .right-tracklist-block {
-            background: rgba(255, 255, 255, 0.125);
+            background: rgba(255, 255, 255, 0.25);
             border: 1px solid rgba(0,0,0,0.03);
         }
 
@@ -745,7 +745,7 @@
             
             body.bg-art-active .right-tracklist-block {
                 padding: 12px;
-                backdrop-filter: blur(8px); 
+                backdrop-filter: blur(2px); 
             }
 
             .floating-player-wrapper { 
@@ -1104,7 +1104,7 @@
         let currentTrackIndex = 0;
         let playingAlbum = null; 
         let playingTracks = []; 
-        let currentRepeatMode = 0;
+        let currentRepeatMode = 0; // 0 = Off, 1 = Repetir Música, 2 = Repetir Álbum, 3 = Repetir Discografia
         let isShuffleActive = false;
         const audio = document.getElementById('audioElement');
         const playIcon = document.getElementById('playIcon');
