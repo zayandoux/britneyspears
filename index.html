@@ -162,7 +162,7 @@
             display: flex;
             flex: 1;
             overflow: hidden;
-            padding: 10px 40px 20px 40px;
+            padding: 10px 40px 150px 40px;
             gap: 50px;
         }
 
@@ -643,19 +643,46 @@
                     { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All" },
                     { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" },
 					{ num: "16", title: "Heart", file: "16 - Britney Spears - Heart.mp3" }
-            ]   
+          ]   
         },
-	]
-},
-
-
-        ];
-
+	  ]
+    },
+{
+            id: "britney", 
+            folder: "03 Britney",
+            title: "Britney",
+            artist: "Britney Spears",
+            year: "2001",
+            cover: "capa.jpg",
+            video: "video.mp4", 
+            description: "...",
+            tracks: [
+                { num: "1", title: "I'm A Slave 4 U", file: "01 - Britney Spears - I'm A Slave 4 U.mp3" },
+                { num: "2", title: "Overprotected", file: "02 - Britney Spears - Overprotected.mp3" },
+				{ num: "3", title: "Lonely", file: "03 - Britney Spears - Lonely.mp3" },
+				{ num: "4", title: "I'm Not A Girl, Not Yet A Woman", file: "04 - Britney Spears - I'm Not A Girl, Not Yet A Woman.mp3" },
+				{ num: "5", title: "Boys", file: "05 - Britney Spears - Boys.mp3" },
+				{ num: "6", title: "Anticipating", file: "06 - Britney Spears - Anticipating.mp3" },
+				{ num: "7", title: "I Love Rock 'n' Roll", file: "07 - Britney Spears - I Love Rock 'n' Roll.mp3" },
+				{ num: "8", title: "Cinderella", file: "08 - Britney Spears - Cinderella.mp3" },
+				{ num: "9", title: "Let Me Be", file: "09 - Britney Spears - Let Me Be.mp3" },
+				{ num: "10", title: "Bombastic Love", file: "10 - Britney Spears - Bombastic Love.mp3" },
+				{ num: "11", title: "That's Where You Take Me", file: "11 - Britney Spears - That's Where You Take Me.mp3" },
+				{ num: "12", title: "When I Found You", file: "12 - Britney Spears - When I Found You.mp3" },
+				{ num: "13", title: "I Run Away", file: "13 - Britney Spears - I Run Away.mp3" },
+				{ num: "14", title: "What It's Like To Be Me", file: "14 - Britney Spears - What It's Like To Be Me.mp3" },
+				{ num: "15", title: "Before The Goodbye", file: "15 - Britney Spears - Before The Goodbye.mp3" }
+            ]
+        },
+			
+		
+];
+	   
         let selectedAlbum = null;
         let selectedVersion = null;
         let currentTrackIndex = 0;
         let playingAlbum = null; 
-		let currentRepeatMode = 0;
+        let currentRepeatMode = 0;
         const audio = document.getElementById('audioElement');
         const playIcon = document.getElementById('playIcon');
         const progressBarFill = document.getElementById('progressBarFill');
