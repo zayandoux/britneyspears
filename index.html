@@ -7,51 +7,53 @@
 	
     <style>
         :root {
-            --bg-color: #161616;
-            --card-bg: #242424;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
             --text-main: #ffffff;
-            --text-muted: #8a8a8e;
+            --text-muted: #a0a0a5;
             --accent-color: #fa233b; 
             --border-radius: 12px;
-            --player-bg: rgba(30, 30, 30, 0.85); 
+            --player-bg: rgba(24, 24, 24, 0.75); 
             --glass-bg: rgba(22, 22, 22, 0.5);
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --blur-overlay-opacity: 0; 
         }
 
         /* AJUSTES PARA MODO CLARO */
         body.light-mode { 
-            --bg-color: #f5f5f5; 
-            --text-main: #121212; 
+            --bg-color: #f5f5f7; 
+            --text-main: #1d1d1f; 
             --card-bg: #ffffff;
-            --player-bg: rgba(255, 255, 255, 0.9); 
+            --text-muted: #86868b;
+            --player-bg: rgba(255, 255, 255, 0.8); 
         }
-        body.light-mode .album-card { border: 1px solid #ddd; }
-        body.light-mode .album-card-title { color: #121212; }
-        body.light-mode .album-card-artist { color: #666666; }
+        body.light-mode .album-card { border: 1px solid #e5e5e7; }
+        body.light-mode .album-card-title { color: #1d1d1f; }
+        body.light-mode .album-card-artist { color: #86868b; }
         body.light-mode .top-nav-bar { background-color: transparent; }
-        body.light-mode .modal-content { background-color: #ffffff; color: #121212; border: 1px solid #ccc; }
-        body.light-mode .modal-text { color: #333333; }
-        body.light-mode .modal-close { color: #121212; }
+        body.light-mode .modal-content { background-color: #ffffff; color: #1d1d1f; border: 1px solid #e5e5e7; }
+        body.light-mode .modal-text { color: #515154; }
+        body.light-mode .modal-close { color: #1d1d1f; }
         body.light-mode .track-row { border-bottom: 1px solid rgba(0,0,0,0.05); }
-        body.light-mode .track-row:hover { background-color: rgba(0,0,0,0.05); }
-        body.light-mode .floating-player-wrapper { border: 1px solid rgba(0, 0, 0, 0.15); color: #121212; }
-        body.light-mode .control-btn, body.light-mode .volume-btn { color: #121212; }
-        body.light-mode .repeat-btn-text, body.light-mode .shuffle-btn { color: #121212 !important; }
-        body.light-mode .timeline-container { color: #666666; }
-        body.light-mode .progress-bar-bg { background-color: rgba(0, 0, 0, 0.15); }
+        body.light-mode .track-row:hover { background-color: rgba(0,0,0,0.03); }
+        body.light-mode .floating-player-wrapper { border: 1px solid rgba(0, 0, 0, 0.08); color: #1d1d1f; }
+        body.light-mode .control-btn, body.light-mode .volume-btn { color: #1d1d1f; }
+        body.light-mode .control-btn:not(.active):not(.play-pause-btn) { color: #515154; }
+        body.light-mode .repeat-btn-text, body.light-mode .shuffle-btn { color: #1d1d1f !important; }
+        body.light-mode .timeline-container { color: #86868b; }
+        body.light-mode .progress-bar-bg { background-color: rgba(0, 0, 0, 0.1); }
         body.light-mode .progress-bar-fill { background-color: var(--accent-color); }
         
         body.light-mode .version-card { background-color: #eaeaea; }
-        body.light-mode .version-card span { color: #121212; }
+        body.light-mode .version-card span { color: #1d1d1f; }
         body.light-mode .version-card:hover { background-color: #dddddd; }
 
         /* AJUSTES DE CONTRASTE NO MODO ARTE DO ÁLBUM */
         body.bg-art-active {
-            --text-muted: #e1e1e6; /* Cinza claro bem legível */
+            --text-muted: #e1e1e6;
         }
         body.bg-art-active.light-mode {
-            --text-muted: #2c2c2e; /* Escuro legível no claro */
+            --text-muted: #2c2c2e;
         }
         body.bg-art-active .album-meta {
             color: var(--text-main) !important;
@@ -68,26 +70,26 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover;
             background-position: center;
-            filter: blur(8px) brightness(0.45) saturate(1.1); 
-            transform: scale(1.03); 
+            filter: blur(25px) brightness(0.4) saturate(1.2); 
+            transform: scale(1.1); 
             z-index: -2;
             opacity: var(--blur-overlay-opacity);
-            transition: opacity 0.5s ease, background-image 0.5s ease;
+            transition: opacity 0.8s ease, background-image 0.8s ease;
         }
         body.light-mode .dynamic-blur-bg {
-            filter: blur(8px) brightness(0.9) saturate(1.1);
+            filter: blur(25px) brightness(0.85) saturate(1.2);
         }
 
         .dynamic-blur-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(18, 18, 18, 0.35); 
+            background: rgba(18, 18, 18, 0.2); 
             z-index: -1;
             opacity: var(--blur-overlay-opacity);
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
         }
         body.light-mode .dynamic-blur-overlay {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -157,9 +159,10 @@
             transform: translateY(-5px);
             background-color: #2d2d2d;
             border-color: #3a3a3c;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         body.light-mode .album-card:hover {
-            background-color: #f0f0f0;
+            background-color: #f0f0f2;
             border-color: #ccc;
         }
 
@@ -223,7 +226,6 @@
             background-color: transparent;
         }
 
-        /* BOTÃO VOLTAR OTIMIZADO */
         .back-btn {
             background: rgba(35, 35, 35, 0.95); 
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -240,6 +242,7 @@
         }
         .back-btn:hover {
             background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
         }
         body.light-mode .back-btn {
             background: rgba(240, 240, 240, 0.95);
@@ -408,76 +411,168 @@
             100% { transform: scaleY(1.1); }
         }
 
-        /* PLAYER FLUTUANTE REESTRUTURADO */
+        /* NOVO DESIGN DO PLAYER FLUTUANTE (GLASSMORPHISM ELEGANTE) */
         .floating-player-wrapper {
             position: fixed; 
             bottom: 30px; 
             left: 50%;
             transform: translateX(-50%); 
             width: 92%; 
-            max-width: 850px;
+            max-width: 900px;
             background-color: var(--player-bg); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.12); 
-            border-radius: 18px; 
-            padding: 14px 22px; 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 24px; 
+            padding: 16px 24px; 
             display: none; 
             align-items: center; 
             justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.45); 
+            gap: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
             z-index: 9999; 
+            transition: var(--transition);
         }
 
-        /* INFORMAÇÕES DO ÁLBUM (PRIMEIRO) */
+        /* INFORMAÇÕES DO ÁLBUM (ESQUERDA) */
         .center-meta { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
-            width: 200px; 
+            gap: 14px; 
+            width: 220px; 
             overflow: hidden; 
             flex-shrink: 0; 
         }
-        .player-cover-mini { width: 42px; height: 42px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+        .player-cover-mini { 
+            width: 48px; 
+            height: 48px; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            flex-shrink: 0; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
         .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
-        .player-song-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .player-song-artist { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+        .player-song-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-song-artist { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 
-        /* BOTÕES DE CONTROLE (SEGUNDO) */
-        .player-controls { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-        .control-btn { background: none; border: none; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.85; transition: opacity 0.2s; }
-        .control-btn:hover { opacity: 1; }
-        .control-btn.active { color: var(--accent-color) !important; }
-
-        /* TIMELINE (TERCEIRO) */
-        .timeline-container {
+        /* PAINEL DE CONTROLE CENTRALIZADO */
+        .player-control-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             flex: 1;
+            gap: 10px;
+        }
+
+        .player-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 18px; 
+            flex-shrink: 0; 
+        }
+
+        .control-btn { 
+            background: none; 
+            border: none; 
+            color: #ffffff; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            opacity: 0.7; 
+            transition: var(--transition); 
+        }
+        .control-btn:hover { 
+            opacity: 1; 
+            transform: scale(1.12);
+        }
+        .control-btn.active { 
+            color: var(--accent-color) !important; 
+            opacity: 1;
+        }
+
+        /* BOTÃO DE PLAY/PAUSE REDONDO */
+        .play-pause-btn {
+            background-color: var(--accent-color) !important;
+            color: #ffffff !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(250, 35, 59, 0.4);
+            opacity: 1 !important;
+        }
+        .play-pause-btn:hover {
+            transform: scale(1.15) !important;
+            box-shadow: 0 6px 14px rgba(250, 35, 59, 0.6);
+        }
+        .play-pause-btn svg {
+            fill: #ffffff !important;
+        }
+
+        /* REPETIDOR COM DESIGN APPLE MUSIC-LIKE */
+        .repeat-btn-text {
+            background: rgba(255, 255, 255, 0.08) !important;
+            padding: 4px 10px !important;
+            border-radius: 12px !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.3px;
+        }
+        body.light-mode .repeat-btn-text {
+            background: rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* TIMELINE CONTROLLER */
+        .timeline-container {
+            width: 100%;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 11px;
             color: var(--text-muted);
             font-weight: 500;
-            min-width: 150px;
         }
 
         .progress-bar-bg {
             flex: 1;
-            height: 4px;
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 2px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: 3px;
             position: relative;
             cursor: pointer;
+            transition: height 0.2s ease;
         }
-        .progress-bar-bg:hover { height: 6px; }
+        .progress-bar-bg:hover { 
+            height: 8px; 
+        }
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background-color: #ffffff;
-            border-radius: 2px;
+            background-color: var(--accent-color);
+            border-radius: 3px;
             position: absolute;
             top: 0; left: 0;
+            transition: width 0.1s linear;
+        }
+        
+        /* Indicador do progresso (thumb invisível que aparece no hover) */
+        .progress-bar-bg::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: var(--progress-percent, 0%);
+            width: 12px;
+            height: 12px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            transition: transform 0.15s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .progress-bar-bg:hover::after {
+            transform: translate(-50%, -50%) scale(1);
         }
 
         /* VOLUME */
@@ -486,26 +581,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             flex-shrink: 0;
         }
         .volume-btn {
             background: none; border: none; color: #ffffff; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            width: 100%; height: 100%; opacity: 0.85; transition: opacity 0.2s;
+            width: 100%; height: 100%; opacity: 0.7; transition: var(--transition);
         }
-        .volume-btn:hover { opacity: 1; }
+        .volume-btn:hover { 
+            opacity: 1; 
+            transform: scale(1.08);
+        }
 
         .volume-popover {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            background-color: rgba(30, 30, 30, 0.85); border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 15px 10px; border-radius: 20px; display: none;
-            flex-direction: column; align-items: center; height: 140px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 110;
+            position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%);
+            background-color: rgba(28, 28, 30, 0.95); border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 16px 12px; border-radius: 20px; display: none;
+            flex-direction: column; align-items: center; height: 150px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); z-index: 110;
         }
-        body.light-mode .volume-popover { background-color: rgba(255, 255, 255, 0.85); border: 1px solid rgba(0, 0, 0, 0.1); }
+        body.light-mode .volume-popover { background-color: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0, 0, 0, 0.08); }
         .volume-popover.active { display: flex; }
 
         .volume-slider-vertical {
@@ -524,10 +622,10 @@
         /* MODAIS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            background-color: rgba(0,0,0,0.75); backdrop-filter: blur(15px);
             display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px;
         }
-        .modal-content { background-color: #222; padding: 30px; border-radius: 12px; max-width: 500px; width: 100%; border: 1px solid #333; position: relative; }
+        .modal-content { background-color: #1e1e1e; padding: 30px; border-radius: 16px; max-width: 500px; width: 100%; border: 1px solid rgba(255,255,255,0.08); position: relative; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
         .modal-text { font-size: 14px; line-height: 1.6; color: #eee; margin-top: 10px; }
 
@@ -538,23 +636,24 @@
             margin-top: 20px;
         }
         .version-card {
-            background-color: #2c2c2c;
+            background-color: #2c2c2e;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             text-align: center;
             transition: var(--transition);
             border: 1px solid transparent;
         }
         .version-card:hover {
-            background-color: #383838;
+            background-color: #3a3a3c;
             border-color: var(--accent-color);
+            transform: scale(1.02);
         }
         .version-card img {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 10px;
         }
         .version-card span {
@@ -576,16 +675,16 @@
             display: flex; 
             align-items: center; 
             gap: 15px; 
-            background: rgba(35, 35, 35, 0.95); 
+            background: rgba(35, 35, 35, 0.9); 
             padding: 6px 14px;
             border-radius: 30px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         body.light-mode .settings-bar {
-            background: rgba(240, 240, 240, 0.95);
+            background: rgba(240, 240, 240, 0.9);
             border: 1px solid rgba(0, 0, 0, 0.08);
         }
 
@@ -656,15 +755,15 @@
                 backdrop-filter: blur(6px); 
             }
 
-            /* RECONSTRUÇÃO DO PLAYER FLUTUANTE NO MOBILE */
+            /* RECONSTRUÇÃO COMPACTA DO PLAYER NO MOBILE */
             .floating-player-wrapper { 
                 display: none; 
                 flex-direction: column;
-                gap: 8px;
-                bottom: 20px; 
-                width: 90%; 
-                padding: 12px 14px;
-                border-radius: 16px;
+                gap: 12px;
+                bottom: 15px; 
+                width: 92%; 
+                padding: 14px 16px;
+                border-radius: 20px;
                 z-index: 10000;
             }
 
@@ -673,32 +772,50 @@
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
-                gap: 12px;
+                gap: 10px;
             }
 
             .center-meta {
                 flex: 1;
                 width: auto;
                 min-width: 0;
+                gap: 10px;
+            }
+            .player-cover-mini {
+                width: 42px;
+                height: 42px;
+            }
+
+            .player-control-center {
+                flex: none;
+                width: auto;
+                flex-direction: row;
             }
 
             .player-controls {
-                gap: 12px;
+                gap: 10px;
             }
-            .control-btn svg { width: 20px; height: 20px; }
-            #playIcon { width: 24px; height: 24px; }
+            .control-btn svg { width: 18px; height: 18px; }
+            .play-pause-btn {
+                width: 36px;
+                height: 36px;
+            }
+            .play-pause-btn svg {
+                width: 16px;
+                height: 16px;
+            }
 
-            /* Exibe o botão de modo no mobile */
             .repeat-btn-text {
                 font-size: 10px !important;
-                display: block !important;
+                display: inline-block !important;
             }
 
-            /* Timeline abaixo no mobile */
+            /* Timeline ganha maior evidência abaixo */
             .timeline-container { 
                 width: 100%; 
-                margin-top: 2px;
+                margin-top: 4px;
                 min-width: unset;
+                padding: 0 4px;
             }
             
             .volume-container { display: none; } 
@@ -772,55 +889,61 @@
             </div>
         </section>
 
-        <!-- PLAYER FLUTUANTE ADAPTÁVEL -->
+        <!-- PLAYER FLUTUANTE REESTRUTURADO & ULTRA-MODERNO -->
         <div class="floating-player-wrapper" id="mainFloatingPlayer">
             
-            <div class="player-upper-row">
-                <!-- Informações do Álbum/Música -->
-                <div class="center-meta">
-                    <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
-                    <div class="player-song-details">
-                        <span id="miniPlayerTitle" class="player-song-title">Não reproduzindo</span>
-                        <span id="miniPlayerArtist" class="player-song-artist">-</span>
-                    </div>
+            <!-- Detalhes da faixa (Alinhado à esquerda no desktop) -->
+            <div class="center-meta">
+                <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+                <div class="player-song-details">
+                    <span id="miniPlayerTitle" class="player-song-title">Não reproduzindo</span>
+                    <span id="miniPlayerArtist" class="player-song-artist">-</span>
                 </div>
-                
-                <!-- Botões de Controle -->
+            </div>
+            
+            <!-- Painel de Controles e Timeline Integrado (Centro) -->
+            <div class="player-control-center">
+                <!-- Botões principais de reprodução -->
                 <div class="player-controls">
-                    <!-- Botão Aleatório (Exibido no Desktop) -->
-                    <button class="control-btn shuffle-btn" id="shuffleBtn" onclick="toggleShuffle()" style="margin-right: 5px;">
+                    <!-- Botão Aleatório -->
+                    <button class="control-btn shuffle-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Aleatório">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
                     </button>
 
-                    <button class="control-btn" onclick="prevTrack()">
+                    <!-- Anterior -->
+                    <button class="control-btn" onclick="prevTrack()" title="Anterior">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                     </button>
-                    <button class="control-btn" onclick="togglePlay()">
-                        <svg id="playIcon" width="22" height="22" fill="#fa233b" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+
+                    <!-- Play/Pause com design Circular -->
+                    <button class="control-btn play-pause-btn" onclick="togglePlay()" title="Reproduzir / Pausar">
+                        <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <button class="control-btn" onclick="nextTrack()">
+
+                    <!-- Próximo -->
+                    <button class="control-btn" onclick="nextTrack()" title="Próxima">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
                     </button>
                     
-                    <!-- Botão de Repetição Adaptado para Mobile/Desktop -->
-                    <button class="control-btn repeat-btn-text" id="repeatBtn" onclick="toggleRepeatMode()" style="margin-left: 5px;">
-                        <span id="repeatText">Modo: Off</span>
+                    <!-- Repetição Estilo Apple Music -->
+                    <button class="control-btn repeat-btn-text" id="repeatBtn" onclick="toggleRepeatMode()" title="Modo de Repetição">
+                        <span id="repeatText">Off</span>
                     </button>
                 </div>
-            </div>
 
-            <!-- Timeline (Barra de progresso) -->
-            <div class="timeline-container">
-                <span id="timeCurrent">0:00</span>
-                <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
-                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                <!-- Timeline de progresso -->
+                <div class="timeline-container">
+                    <span id="timeCurrent">0:00</span>
+                    <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
+                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                    <span id="timeRemaining">-0:00</span>
                 </div>
-                <span id="timeRemaining">-0:00</span>
             </div>
 
-            <!-- Volume (Somente Desktop) -->
+            <!-- Volume (Direita - Ocultado no Mobile) -->
             <div class="volume-container" id="volumeContainer">
-                <button class="volume-btn" onclick="toggleVolumePopover(event)">
+                <button class="volume-btn" onclick="toggleVolumePopover(event)" title="Volume">
                     <svg id="volumeIcon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
                     </svg>
@@ -938,7 +1061,7 @@
                             { num: "13", title: "Girl In The Mirror", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
                             { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All.mp3" },
                             { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" },
-                            { num: "16", title: "Walk On By (Bonus)", file: "15 - Britney Spears - Heart.mp3" } // Faixa extra teste para validação de maior número de faixas
+                            { num: "16", title: "Walk On By (Bonus)", file: "15 - Britney Spears - Heart.mp3" }
                         ]   
                     }
                 ]
@@ -989,10 +1112,10 @@
         function toggleRepeatMode() {
             currentRepeatMode = (currentRepeatMode + 1) % 4;
             const btn = document.getElementById('repeatText');
-            if (currentRepeatMode === 0) btn.innerText = "Modo: Off";
-            else if (currentRepeatMode === 1) btn.innerText = "Repetir: Música";
-            else if (currentRepeatMode === 2) btn.innerText = "Repetir: Álbum";
-            else if (currentRepeatMode === 3) btn.innerText = "Repetir: Discografia";
+            if (currentRepeatMode === 0) btn.innerText = "Off";
+            else if (currentRepeatMode === 1) btn.innerText = "Música";
+            else if (currentRepeatMode === 2) btn.innerText = "Álbum";
+            else if (currentRepeatMode === 3) btn.innerText = "Disco";
         }
 
         function toggleShuffle() {
@@ -1241,13 +1364,11 @@
         function nextTrack() {
             if (!playingAlbum || playingTracks.length === 0) return;
 
-            // 1. REPETIR MÚSICA (Modo 1)
             if (currentRepeatMode === 1) {
                 playTrack(currentTrackIndex);
                 return;
             }
 
-            // Se o modo aleatório estiver ligado, escolhe uma música aleatória
             if (isShuffleActive) {
                 const randomIndex = Math.floor(Math.random() * playingTracks.length);
                 playTrack(randomIndex);
@@ -1257,18 +1378,15 @@
             if (currentTrackIndex < playingTracks.length - 1) {
                 playTrack(currentTrackIndex + 1);
             } else {
-                // 2. REPETIR ÁLBUM (Modo 2)
                 if (currentRepeatMode === 2) {
                     playTrack(0);
                 } 
-                // 3. REPETIR DISCOGRAFIA (Modo 3 com regra de versão com mais músicas)
                 else if (currentRepeatMode === 3) {
                     const albumIndex = albums.findIndex(a => a.id === playingAlbum.id);
                     if (albumIndex < albums.length - 1) {
                         const nextAlbum = albums[albumIndex + 1];
                         
                         let targetVersion = null;
-                        // Se o próximo álbum tiver múltiplas versões, escolhemos a versão com mais faixas
                         if (nextAlbum.hasVersions) {
                             targetVersion = nextAlbum.versions.reduce((prev, current) => {
                                 return (prev.tracks.length > current.tracks.length) ? prev : current;
@@ -1279,7 +1397,6 @@
                         playingTracks = targetVersion ? targetVersion.tracks : nextAlbum.tracks;
                         playTrack(0);
                     } else {
-                        // Se for o último álbum, volta para o primeiro da discografia
                         const firstAlbum = albums[0];
                         let firstVersion = null;
                         if (firstAlbum.hasVersions) {
@@ -1314,6 +1431,10 @@
             if (!audio.duration) return;
             const percent = (audio.currentTime / audio.duration) * 100;
             progressBarFill.style.width = `${percent}%`;
+            
+            // Define variável CSS inline para controlar a posição do indicador dinâmico (Thumb)
+            progressBarBg.style.setProperty('--progress-percent', `${percent}%`);
+            
             timeCurrent.innerText = formatTime(audio.currentTime);
             timeRemaining.innerText = "-" + formatTime(audio.duration - audio.currentTime);
         });
