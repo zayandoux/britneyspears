@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<div class="switch-container">
+        <label class="switch">
+            <input type="checkbox" onclick="toggleTheme()">
+            <span class="slider"></span>
+        </label>
+    </div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discografia Britney Spears</title>
+	
     <style>
+	
         :root {
             --bg-color: #161616;
             --card-bg: #242424;
@@ -16,6 +24,17 @@
             --glass-bg: rgba(22, 22, 22, 0.7);
             --transition: all 0.3s ease;
         }
+		/* Adição para Modo Claro */
+        body.light-mode { background-color: #f5f5f5; color: #121212; }
+        body.light-mode .album-card { background-color: #ffffff; border: 1px solid #ddd; }
+        body.light-mode .album-card-title { color: #121212; }
+        body.light-mode .album-card-artist { color: #666666; }
+        body.light-mode .top-nav-bar { background-color: #f5f5f5; }
+        body.light-mode .modal-content { background-color: #fff; color: #000; border: 1px solid #ccc; }
+        body.light-mode .track-row { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        body.light-mode .track-row:hover { background-color: rgba(0,0,0,0.05); }
+        body.light-mode .floating-player-wrapper { background-color: rgba(240,240,240,0.9); border: 1px solid #ddd; color: #121212; }
+        body.light-mode .control-btn, body.light-mode .volume-btn { color: #121212; }
 
         * {
             box-sizing: border-box;
@@ -26,12 +45,14 @@
         }
 
         body {
+		
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+			
         }
 
         main {
@@ -141,7 +162,7 @@
             display: flex;
             flex: 1;
             overflow: hidden;
-            padding: 10px 40px 160px 40px;
+            padding: 10px 40px 20px 40px;
             gap: 50px;
         }
 
@@ -219,11 +240,19 @@
         }
 
         .play-album-btn {
-            background-color: #ffffff; color: #000000; border: none;
-            padding: 12px 28px; border-radius: 24px;
-            font-weight: 600; font-size: 14px; cursor: pointer;
-            display: inline-flex; align-items: center; gap: 8px;
-            width: fit-content; transition: transform 0.2s;
+            background-color: var(--accent-color); 
+            color: #ffffff; 
+            border: none;
+            padding: 12px 28px; 
+            border-radius: 24px;
+            font-weight: 600; 
+            font-size: 14px; 
+            cursor: pointer;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            width: fit-content; 
+            transition: transform 0.2s;
         }
 
         .play-album-btn:hover { transform: scale(1.02); }
@@ -346,6 +375,7 @@
             -webkit-appearance: none; appearance: none; width: 12px; height: 12px;
             border-radius: 50%; background: #ffffff; cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+
         }
 
         /* MODAIS */
@@ -412,6 +442,13 @@
             .timeline-container { width: 100%; }
             .volume-container { display: none; }
         }
+		.switch-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent-color); }
+        input:checked + .slider:before { transform: translateX(24px); }
     </style>
 </head>
 <body>
@@ -442,7 +479,6 @@
                     <div id="albumArtist" class="album-artist-header"></div>
                     <div class="album-meta"></div>
                     <div class="album-description"></div>
-                    <button class="more-btn" onclick="openModal()">Mais</button>
                     <button class="play-album-btn" onclick="playAlbumFromStart()">
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Play
                     </button>
@@ -529,7 +565,8 @@
                 cover: "capa.jpg",           
                 year: "1999",
                 genre: "Pop",
-                description: '"...Baby One More Time" de Britney Spears não começa apenas, ele se anuncia: Seus primeiros segundos combinam um piano forte, guitarra wah-wah e o "baby, baby" cheio de atitude da estrela teen-pop em um momento que é parte grito de guerra, parte apelo ansioso.',
+				description: '...',
+				
                 tracks: [
                     { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
                     { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
@@ -563,7 +600,7 @@
             video: "oops.mp4",
             year: "2000",
             genre: "Pop",
-            description: '...',
+
             tracks: [
                     { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!...I Did It Again.mp3" },
                     { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
@@ -913,13 +950,21 @@ function prevTrack() {
             } else {
                 volumeIcon.innerHTML = `<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>`;
             }
+			
+			
         }
 
         audio.addEventListener('ended', nextTrack);
         function openModal() { document.getElementById('textModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('textModal').style.display = 'none'; }
+		function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            // Opcional: Salvar no navegador
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
 
         initApp();
+		
     </script>
 </body>
 </html>
