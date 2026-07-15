@@ -166,7 +166,7 @@
             border-color: #ccc;
         }
 
-        /* AJUSTE: Vidro muito mais sutil nos cards para ver melhor o fundo */
+        /* Vidro sutil nos cards para ver melhor o fundo */
         body.bg-art-active .album-card {
             background-color: rgba(36, 36, 36, 0.15); 
             backdrop-filter: blur(2px); 
@@ -310,22 +310,8 @@
         .album-meta {
             font-size: 13px; 
             color: var(--text-muted); 
-            margin-bottom: 12px;
+            margin-bottom: 16px; /* Ajustado espaçamento após remover a descrição */
             transition: color 0.3s;
-        }
-
-        .album-description {
-            font-size: 13.5px; 
-            color: #cccccc; 
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 4; 
-            -webkit-box-orient: vertical;  
-            overflow: hidden; 
-            margin-bottom: 10px;
-        }
-        body.light-mode .album-description {
-            color: #555555;
         }
 
         .play-album-btn {
@@ -352,7 +338,7 @@
             padding-right: 10px;
         }
 
-        /* AJUSTE: Vidro reduzido na lista de faixas para dar maior visibilidade ao fundo */
+        /* Vidro reduzido na lista de faixas */
         body.bg-art-active .right-tracklist-block {
             background: rgba(35, 35, 35, 0.15); 
             backdrop-filter: blur(2px); 
@@ -413,7 +399,7 @@
             100% { transform: scaleY(1.1); }
         }
 
-        /* PLAYER FLUTUANTE (GLASSMORPHISM) */
+        /* PLAYER FLUTUANTE */
         .floating-player-wrapper {
             position: fixed; 
             bottom: 30px; 
@@ -436,7 +422,6 @@
             transition: var(--transition);
         }
 
-        /* INFORMAÇÕES DO ÁLBUM (ESQUERDA) */
         .center-meta { 
             display: flex; 
             align-items: center; 
@@ -457,7 +442,6 @@
         .player-song-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .player-song-artist { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
 
-        /* PAINEL DE CONTROLE CENTRALIZADO */
         .player-control-center {
             display: flex;
             flex-direction: column;
@@ -489,16 +473,15 @@
             transform: scale(1.12);
         }
 
-        /* ALEATÓRIO ATIVO: FICA VERMELHO */
         .control-btn.active.shuffle-btn { 
             color: var(--accent-color) !important; 
             opacity: 1;
             filter: drop-shadow(0 2px 6px rgba(250, 35, 59, 0.4));
         }
 
-        /* BOTÃO DE PLAY/PAUSE - AJUSTADO PARA CORREÇÃO DE CONTRASTE NO CLARO/ESCURO */
+        /* BOTÃO DE PLAY/PAUSE */
         .play-pause-btn {
-            background-color: #444446 !important; /* Cinza médio no modo escuro */
+            background-color: #444446 !important; 
             color: #ffffff !important;
             width: 40px;
             height: 40px;
@@ -506,10 +489,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             opacity: 1 !important;
         }
-        /* AJUSTE ESSENCIAL: Escurecido o play/pause no tema claro para não sumir */
         body.light-mode .play-pause-btn {
-            background-color: #515154 !important; /* Cinza escuro para excelente contraste */
-            color: #ffffff !important; /* Ícone permanece nítido em branco */
+            background-color: #515154 !important; 
+            color: #ffffff !important; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
         .play-pause-btn:hover {
@@ -518,13 +500,12 @@
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
         }
         body.light-mode .play-pause-btn:hover {
-            background-color: #3a3a3c !important; /* Hover ainda mais contrastante no claro */
+            background-color: #3a3a3c !important; 
         }
         .play-pause-btn svg {
             fill: currentColor !important;
         }
 
-        /* REPETIDOR COM DESIGN APPLE MUSIC-LIKE */
         .repeat-btn-text {
             background: rgba(255, 255, 255, 0.08) !important;
             padding: 4px 10px !important;
@@ -537,7 +518,6 @@
             background: rgba(0, 0, 0, 0.05) !important;
         }
 
-        /* TIMELINE CONTROLLER */
         .timeline-container {
             width: 100%;
             display: flex;
@@ -570,7 +550,6 @@
             transition: width 0.1s linear;
         }
         
-        /* Indicador do progresso (thumb) */
         .progress-bar-bg::after {
             content: '';
             position: absolute;
@@ -681,7 +660,7 @@
         .dashboard-section::-webkit-scrollbar, .right-tracklist-block::-webkit-scrollbar { width: 6px; }
         .dashboard-section::-webkit-scrollbar-thumb, .right-tracklist-block::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-        /* CONFIGURAÇÕES DO PAINEL DE CONTROLE FIXO */
+        /* CONFIGURAÇÕES */
         .settings-bar { 
             position: fixed; 
             top: 20px; 
@@ -762,7 +741,6 @@
                 margin: 0 auto 10px auto; 
             }
             
-            .album-description { display: none; }
             .right-tracklist-block { overflow-y: visible; }
             
             body.bg-art-active .right-tracklist-block {
@@ -770,7 +748,6 @@
                 backdrop-filter: blur(2px); 
             }
 
-            /* RECONSTRUÇÃO COMPACTA DO PLAYER NO MOBILE */
             .floating-player-wrapper { 
                 display: none; 
                 flex-direction: column;
@@ -825,7 +802,6 @@
                 display: inline-block !important;
             }
 
-            /* Timeline ganha maior evidência abaixo */
             .timeline-container { 
                 width: 100%; 
                 margin-top: 4px;
@@ -892,7 +868,6 @@
                     <div id="albumTitle" class="album-title-header"></div>
                     <div id="albumArtist" class="album-artist-header"></div>
                     <div class="album-meta"></div>
-                    <div class="album-description"></div>
                     <button class="play-album-btn" onclick="playAlbumFromStart()">
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Play
                     </button>
@@ -907,7 +882,6 @@
         <!-- PLAYER FLUTUANTE -->
         <div class="floating-player-wrapper" id="mainFloatingPlayer">
             
-            <!-- Detalhes da faixa -->
             <div class="center-meta">
                 <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
                 <div class="player-song-details">
@@ -916,37 +890,29 @@
                 </div>
             </div>
             
-            <!-- Painel de Controles e Timeline Integrado (Centro) -->
             <div class="player-control-center">
-                <!-- Botões principais de reprodução -->
                 <div class="player-controls">
-                    <!-- Botão Aleatório -->
                     <button class="control-btn shuffle-btn" id="shuffleBtn" onclick="toggleShuffle()" title="Aleatório">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
                     </button>
 
-                    <!-- Anterior -->
                     <button class="control-btn" onclick="prevTrack()" title="Anterior">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                     </button>
 
-                    <!-- Play/Pause com design Circular (Cinza Inteligente) -->
                     <button class="control-btn play-pause-btn" onclick="togglePlay()" title="Reproduzir / Pausar">
                         <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
 
-                    <!-- Próximo -->
                     <button class="control-btn" onclick="nextTrack()" title="Próxima">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
                     </button>
                     
-                    <!-- Repetição Estilo Apple Music -->
                     <button class="control-btn repeat-btn-text" id="repeatBtn" onclick="toggleRepeatMode()" title="Modo de Repetição">
                         <span id="repeatText">Off</span>
                     </button>
                 </div>
 
-                <!-- Timeline de progresso -->
                 <div class="timeline-container">
                     <span id="timeCurrent">0:00</span>
                     <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
@@ -956,7 +922,6 @@
                 </div>
             </div>
 
-            <!-- Volume (Direita - Ocultado no Mobile) -->
             <div class="volume-container" id="volumeContainer">
                 <button class="volume-btn" onclick="toggleVolumePopover(event)" title="Volume">
                     <svg id="volumeIcon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
@@ -1235,7 +1200,6 @@
             document.getElementById('albumTitle').innerText = title;
             document.getElementById('albumArtist').innerText = album.artist;
             document.querySelector('.album-meta').innerText = `${genre} • ${year}`;
-            document.querySelector('.album-description').innerText = description;
             document.querySelector('.modal-text').innerText = description;
 
             const artEl = document.getElementById('albumArt');
