@@ -115,8 +115,8 @@
         .album-card-artist { font-size: 13px; color: var(--text-muted); text-align: center; }
 
         /* DETALHES DO ÁLBUM E LAYOUT DESKTOP */
-        .album-detail-section { display: none; flex-direction: column; height: 100vh; overflow: hidden; padding-bottom: 120px; }
-        .top-nav-bar { background-color: var(--bg-color); padding: 0px 40px 10px 40px; flex-shrink: 0; transition: background-color 0.3s; z-index: 10; }
+        .album-detail-section { display: none; flex-direction: column; height: 100vh; overflow: hidden; }
+        .top-nav-bar { background-color: var(--bg-color); padding: 20px 40px 10px 40px; flex-shrink: 0; transition: background-color 0.3s; z-index: 10; }
         body.bg-art-active .top-nav-bar { background-color: transparent; }
         .back-btn { background: rgba(35, 35, 35, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-main); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: var(--transition); }
         .back-btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.02); }
@@ -124,12 +124,11 @@
 
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
-        /* RETORNADO AO TAMANHO GRANDE ORIGINAL (440px) */
-        .left-album-block { width: 440px; flex-shrink: 0; display: flex; flex-direction: column; }
-        
-        .album-media-container { width: 100%; aspect-ratio: 1 / 1; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; -webkit-mask-image: -webkit-radial-gradient(white, black); }
-        .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; border-radius: 16px; }
+        .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
+        .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
+        .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
         .album-video { display: none; }
+
 
         .right-content-block { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         .album-header-top { display: flex; flex-direction: column; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
@@ -385,8 +384,24 @@
             .top-nav-bar { padding: 15px 15px 5px 15px; display: flex; justify-content: flex-start; background-color: transparent; }
             .album-detail-section { overflow-y: auto !important; height: 100vh !important; -webkit-overflow-scrolling: touch; padding-bottom: 150px; }
             .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 10px 15px 20px 15px; gap: 25px; height: auto; }
-            .left-album-block { width: 100% !important; max-width: none !important; min-width: 0 !important; text-align: center; align-items: center; }
-            .album-media-container { width: 100%; max-width: 280px; aspect-ratio: 1 / 1; padding-top: 0; margin: 0 auto 10px auto; }
+            .left-album-block { 
+               width: 440px; 
+               height: 440px;
+               flex-shrink: 0; 
+               display: flex; 
+               flex-direction: column; 
+}
+            .album-media-container { 
+               width: 100%; 
+               height: 100%;
+               aspect-ratio: 1 / 1; 
+               position: relative; 
+               border-radius: 16px; 
+               box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+               overflow: hidden; 
+               background-color: #000; 
+               flex-shrink: 0;
+}
             .album-header-top { align-items: center; text-align: center; border: none; padding-bottom: 0; margin-bottom: 10px; }
             .album-title-header { font-size: 22px; }
             .album-header-body { flex-direction: column; overflow: visible; gap: 15px; }
