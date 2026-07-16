@@ -433,6 +433,17 @@
         @media (min-width: 821px) {
             .expanded-player-mobile { display: none !important; }
         }
+		body.player-active .detail-split-container {
+                padding-bottom: 120px !important;
+                transition: padding-bottom 0.3s ease;
+        }
+
+        @media (max-width: 820px) {
+            body.player-active .album-detail-section {
+                padding-bottom: 220px !important; /* Abre espaço extra no celular */
+                transition: padding-bottom 0.3s ease;
+            }
+        }
     </style>
 </head>
 <body>
@@ -886,6 +897,7 @@
         function showDashboard() {
             document.getElementById('albumVideo').pause(); document.getElementById('dashboardSection').style.display = 'block';
             document.getElementById('albumDetailSection').style.display = 'none'; selectedAlbum = null; 
+			document.body.classList.remove('player-active');
             updateDynamicBackground(); updateCarousel(); 
         }
 
@@ -898,6 +910,7 @@
             player.style.display = 'flex';
             player.classList.remove('player-collapsed'); 
             updateCollapseButtonIcon();
+			document.body.classList.add('player-active');
 
             const coverPath = `${playingAlbum.folder}/${selectedVersion ? selectedVersion.cover : playingAlbum.cover}`;
             document.getElementById('miniPlayerArt').src = coverPath; document.getElementById('miniPlayerTitle').innerText = track.title; document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
@@ -1005,6 +1018,7 @@
             const player = document.getElementById('mainFloatingPlayer');
             player.classList.toggle('player-collapsed');
             updateCollapseButtonIcon();
+            document.body.classList.add('player-active');
         }
 
         function updateCollapseButtonIcon() {
