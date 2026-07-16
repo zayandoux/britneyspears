@@ -98,21 +98,27 @@
 
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
-        /* DESKTOP: O vídeo/Capa agora está com 480px (50% maior) */
         .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
         .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
         .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
         .album-video { display: none; }
 
-        /* DESKTOP: Lado direito: Info no topo, lista no meio, player em baixo */
         .right-content-block { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        .album-header-info { display: flex; flex-direction: column; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        body.light-mode .album-header-info { border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
-        .album-title-header { font-size: 32px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
+        /* NOVO LAYOUT DO CABEÇALHO PARA DIVIDIR LISTA DE MÚSICA AO LADO DO NOME */
+        .album-header-top { display: flex; flex-direction: column; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        body.light-mode .album-header-top { border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        
+        .album-title-header { font-size: 29px; /* -10% do tamanho antigo */ font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px; }
+        
+        .album-header-body { display: flex; flex: 1; overflow: hidden; gap: 30px; }
+        
+        .album-info-side { display: flex; flex-direction: column; min-width: 170px; flex-shrink: 0; }
         .album-artist-header { font-size: 18px; color: var(--accent-color); font-weight: 600; margin-bottom: 8px; }
         .album-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
-        .play-album-btn { background-color: var(--accent-color); color: #ffffff; border: none; padding: 14px 32px; border-radius: 30px; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; width: fit-content; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(250, 35, 59, 0.4); }
+        
+        /* BOTÃO PLAY REDUZIDO */
+        .play-album-btn { background-color: var(--accent-color); color: #ffffff; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; width: fit-content; transition: transform 0.2s; box-shadow: 0 4px 15px rgba(250, 35, 59, 0.4); }
         .play-album-btn:hover { transform: scale(1.04); }
 
         .right-tracklist-block { flex: 1; overflow-y: auto; padding-right: 15px; margin-bottom: 15px; }
@@ -123,9 +129,11 @@
         .track-row { display: flex; align-items: center; padding: 14px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); cursor: pointer; border-radius: 6px; transition: background-color 0.2s; }
         .track-row:hover { background-color: rgba(255, 255, 255, 0.04); }
         .track-row.playing { background-color: var(--accent-color) !important; color: #ffffff; }
-        .track-number { width: 40px; color: var(--text-muted); font-size: 14px; }
+        
+        /* NOME DA MÚSICA 20% MENOR */
+        .track-number { width: 40px; color: var(--text-muted); font-size: 12px; }
         .track-row.playing .track-number { color: rgba(255, 255, 255, 0.7); }
-        .track-title { flex: 1; font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .track-title { flex: 1; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .equalizer { display: none; align-items: flex-end; gap: 2px; width: 20px; height: 15px; margin-right: 20px; }
         .track-row.playing .equalizer { display: flex; }
@@ -217,9 +225,7 @@
         input:checked + .slider { background-color: var(--accent-color); }
         input:checked + .slider:before { transform: translateX(22px); }
 
-        /* ========================================================
-           NOVO: PLAYER TELA CHEIA MOBILE (Estilo Spotify/iOS)
-           ======================================================== */
+        /* PLAYER TELA CHEIA MOBILE */
         .expanded-player-mobile {
             position: fixed; top: 100%; left: 0; width: 100vw; height: 100vh;
             background-color: rgba(20, 20, 20, 0.95);
@@ -262,19 +268,21 @@
             
             .detail-split-container { display: flex; flex-direction: column; overflow-y: auto; padding: 10px 15px 220px 15px; gap: 20px; }
             
-            /* No celular, o tamanho da imagem/vídeo volta para o padrão */
             .left-album-block { width: 100%; text-align: center; align-items: center; }
             .album-media-container { width: 100%; max-width: 280px; aspect-ratio: 1 / 1; padding-top: 0; margin: 0 auto 10px auto; }
             
-            .album-header-info { align-items: center; text-align: center; border: none; padding-bottom: 0; margin-bottom: 10px; }
-            .album-title-header { font-size: 24px; }
+            .album-header-top { align-items: center; text-align: center; border: none; padding-bottom: 0; margin-bottom: 10px; }
+            .album-title-header { font-size: 22px; } /* Adaptado -10% pro celular */
+            
+            /* Retorna para layout em coluna no celular */
+            .album-header-body { flex-direction: column; overflow: visible; gap: 15px; }
+            .album-info-side { align-items: center; text-align: center; min-width: auto; }
             
             .right-content-block { overflow: visible; }
-            .right-tracklist-block { overflow-y: visible; padding-right: 0; }
+            .right-tracklist-block { overflow-y: visible; padding-right: 0; margin-bottom: 0; }
             
             body.bg-art-active .right-tracklist-block { padding: 12px; backdrop-filter: blur(2px); }
 
-            /* Volta o mini-player para flutuar na parte inferior no celular */
             .floating-player-wrapper { 
                 position: fixed; 
                 display: none; 
@@ -294,7 +302,6 @@
             .player-cover-mini { width: 44px; height: 44px; }
             .player-song-title { font-size: 14px; }
 
-            /* Esconde controles grandes no mini-player mobile */
             .player-control-center { flex: none; width: auto; flex-direction: row; }
             .timeline-container, .shuffle-btn, .repeat-btn-text, .volume-container { display: none !important; }
             
@@ -307,7 +314,6 @@
             .bg-style-selector { font-size: 11px; }
         }
         
-        /* Oculta player expandido no Desktop */
         @media (min-width: 821px) {
             .expanded-player-mobile { display: none !important; }
         }
@@ -347,7 +353,6 @@
             </div>
 
             <div class="detail-split-container">
-                <!-- Lado Esquerdo: Capa/Vídeo -->
                 <div class="left-album-block">
                     <div class="album-media-container">
                         <img id="albumArt" class="album-art" src="" alt="Capa">
@@ -355,22 +360,25 @@
                     </div>
                 </div>
 
-                <!-- Lado Direito: Informações, Lista de Músicas e Player Desktop -->
                 <div class="right-content-block">
-                    <div class="album-header-info">
+                    <div class="album-header-top">
                         <h1 id="albumTitle" class="album-title-header"></h1>
-                        <h2 id="albumArtist" class="album-artist-header"></h2>
-                        <div class="album-meta"></div>
-                        <button class="play-album-btn" onclick="playAlbumFromStart()">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Reproduzir
-                        </button>
                     </div>
 
-                    <div class="right-tracklist-block">
-                        <div class="tracklist" id="tracklist"></div>
+                    <div class="album-header-body">
+                        <div class="album-info-side">
+                            <h2 id="albumArtist" class="album-artist-header"></h2>
+                            <div class="album-meta"></div>
+                            <button class="play-album-btn" onclick="playAlbumFromStart()">
+                                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Reproduzir
+                            </button>
+                        </div>
+
+                        <div class="right-tracklist-block">
+                            <div class="tracklist" id="tracklist"></div>
+                        </div>
                     </div>
 
-                    <!-- PLAYER PRINCIPAL (Ancorado embaixo da lista no PC) -->
                     <div class="floating-player-wrapper" id="mainFloatingPlayer" onclick="openExpandedPlayer()">
                         <div class="center-meta">
                             <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
@@ -420,7 +428,6 @@
             </div>
         </section>
 
-        <!-- TELA CHEIA MOBILE (EXPANDIDO) -->
         <div id="expandedPlayerMobile" class="expanded-player-mobile">
             <div class="exp-header">
                 <div class="exp-drag-handle"></div>
@@ -459,7 +466,6 @@
 
     </main>
 
-    <!-- MODAL VERSÕES -->
     <div class="modal-overlay" id="versionModal" onclick="closeVersionModal()">
         <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px;">
             <button class="modal-close" onclick="closeVersionModal()">✕</button>
@@ -471,7 +477,6 @@
     <audio id="audioElement" preload="auto"></audio>
 
     <script>
-        // SEU ARRAY DE ÁLBUNS AQUI (mantido o original para não quebrar seus links)
         const albums = [
             {
                 id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: null, cover: "capa.jpg", year: "1999", genre: "Pop",
@@ -702,7 +707,6 @@
             document.getElementById('miniPlayerTitle').innerText = track.title;
             document.getElementById('miniPlayerArtist').innerText = playingAlbum.artist;
             
-            // Sincroniza o player expandido mobile
             document.getElementById('expArt').src = coverPath;
             document.getElementById('expTitle').innerText = track.title;
             document.getElementById('expArtist').innerText = playingAlbum.artist;
@@ -767,13 +771,11 @@
             const percent = (audio.currentTime / audio.duration) * 100;
             const formatTime = (seconds) => `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`;
             
-            // Desktop/Mini player
             progressBarFill.style.width = `${percent}%`;
             progressBarBg.style.setProperty('--progress-percent', `${percent}%`);
             document.getElementById('timeCurrent').innerText = formatTime(audio.currentTime);
             document.getElementById('timeRemaining').innerText = "-" + formatTime(audio.duration - audio.currentTime);
             
-            // Mobile Expanded Player
             expProgressBarFill.style.width = `${percent}%`;
             expProgressBarBg.style.setProperty('--exp-progress', `${percent}%`);
             document.getElementById('expTimeCurrent').innerText = formatTime(audio.currentTime);
@@ -793,9 +795,6 @@
         function setVolume(value) { audio.volume = value; }
         audio.addEventListener('ended', nextTrack);
 
-        /* =====================================
-           LOGICA PLAYER EXPANDIDO (TELA CHEIA)
-           ===================================== */
         const expPlayer = document.getElementById('expandedPlayerMobile');
         
         function openExpandedPlayer() {
@@ -821,7 +820,6 @@
             }, {passive: true});
         }
         
-        /* TEMAS E ESTILOS */
         function toggleShuffle() { isShuffleActive = !isShuffleActive; document.getElementById('shuffleBtn').classList.toggle('active'); }
         function toggleRepeatMode() {
             currentRepeatMode = (currentRepeatMode + 1) % 4;
