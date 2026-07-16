@@ -1,3 +1,9 @@
+Compreendi perfeitamente. Vamos resolver todos esses pontos para deixar o sistema impecável:
+ * Correção do Corte nos Cards (Desktop): O problema ocorria porque a altura da tela era limitada a 70vh (70% da tela), o que cortava o card quando ele ficava gigante. Adicionei uma min-height (altura mínima) segura e liberei o scroll vertical da página inicial. Agora, se a sua tela for menor, ele não corta os cards, permitindo que você desça a tela.
+ * Tema Apenas no Álbum: Alterei a lógica do JavaScript. Agora, na página inicial, o fundo sempre será padrão (preto ou branco, dependendo do modo). O fundo dinâmico e pesado só será ativado quando você entrar no álbum.
+ * Volta do Grid no Mobile: Separei a interface. O celular não carregará mais o carrossel. Ele voltará para a grade com 2 colunas e rolagem normal, exatamente como era no início.
+ * Músicas Restauradas: Coloquei de volta as mais de 60 faixas exatas que você tinha mapeado no seu primeiro código.
+Aqui está o código completo e corrigido. Substitua tudo por este:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -27,7 +33,7 @@
             --text-muted: #86868b;
             --player-bg: rgba(255, 255, 255, 0.85); 
         }
-        body.light-mode .album-card { border: 1px solid #e5e5e7; }
+        body.light-mode .grid-card { border: 1px solid #e5e5e7; }
         body.light-mode .album-card-title { color: #1d1d1f; }
         body.light-mode .album-card-artist { color: #86868b; }
         body.light-mode .top-nav-bar { background-color: transparent; }
@@ -73,21 +79,28 @@
         body { background-color: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; transition: background-color 0.3s, color 0.3s; }
         main { flex: 1; display: flex; flex-direction: column; height: 100vh; position: relative; }
 
-        /* DASHBOARD: CARROSSEL 3D */
-        .dashboard-section { display: block; padding: 40px; height: 100%; position: relative; overflow: hidden; }
+        /* DASHBOARD */
+        .dashboard-section { display: block; padding: 40px; height: 100%; position: relative; overflow-y: auto; overflow-x: hidden; }
         .section-header-bar { display: flex; justify-content: center; align-items: center; margin-bottom: 20px; z-index: 10; position: relative; }
         .section-title { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; text-align: center; }
         
+        /* GRID MOBILE (Escondido no PC) */
+        .album-grid { display: none; }
+        .grid-card { background-color: var(--card-bg); padding: 16px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; }
+        .grid-card:hover { transform: translateY(-5px); background-color: #2d2d2d; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        
+        /* CARROSSEL 3D (Desktop) */
         .carousel-container {
             position: relative;
             width: 100%;
             height: 70vh;
+            min-height: 580px; /* Evita que o card gigante corte embaixo */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             margin-top: 10px;
-            perspective: 2000px; /* Profundidade maior para o leque 3D */
+            perspective: 2000px; 
             transform-style: preserve-3d;
         }
 
@@ -119,17 +132,15 @@
         }
         body.light-mode .carousel-nav { background: rgba(255, 255, 255, 0.7); color: #1d1d1f; border: 1px solid rgba(0, 0, 0, 0.1); }
         .carousel-nav:hover { background: var(--accent-color); color: white; transform: translateY(-50%) scale(1.1); border-color: transparent; }
-        
         .carousel-nav.prev { left: 20px; }
         .carousel-nav.next { right: 20px; }
 
-        /* CARDS DO ÁLBUM NO CARROSSEL (Tamanho aumentado em 50%) */
-        .album-card { 
+        /* CARDS DO CARROSSEL (Estilo Desktop 420px) */
+        .carousel-card { 
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 420px; /* Aumentado em 50% (era 280px) */
-            max-width: 85vw;
+            width: 420px;
             transform: translate(-50%, -50%);
             background-color: var(--card-bg); 
             padding: 24px; 
@@ -146,16 +157,14 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
-        .album-card:hover { background-color: #2d2d2d; border-color: #4a4a4c; }
-        body.light-mode .album-card:hover { background-color: #f0f0f2; border-color: #ccc; }
-        body.bg-art-active .album-card { background-color: rgba(36, 36, 36, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); }
-        body.bg-art-active.light-mode .album-card { background-color: rgba(255, 255, 255, 0.25); border: 1px solid rgba(0,0,0,0.05); }
+        .carousel-card:hover { background-color: #2d2d2d; border-color: #4a4a4c; }
+        body.light-mode .carousel-card:hover { background-color: #f0f0f2; border-color: #ccc; }
         
+        /* Capa comum a Grid e Carrossel */
         .album-art-wrapper { position: relative; width: 100%; padding-top: 100%; border-radius: 10px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
         .album-art-wrapper img { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; 
             image-rendering: -webkit-optimize-contrast; image-rendering: auto;
-            transform: translateZ(0); -webkit-transform: translateZ(0);
         }
         .album-card-title { font-size: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; text-align: center; }
         .album-card-artist { font-size: 16px; color: var(--text-muted); text-align: center; }
@@ -312,37 +321,23 @@
         .exp-play-btn { width: 65px; height: 65px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 1; }
         .exp-play-btn:active { transform: scale(0.95); }
 
-        /* RESPONSIVIDADE E DISPOSITIVOS MÓVEIS */
+        /* RESPONSIVIDADE E DISPOSITIVOS MÓVEIS (VIRA GRID) */
         @media (max-width: 820px) {
-            .dashboard-section { padding: 20px 15px 180px 15px; overflow-y: auto; }
-            .carousel-container { height: 50vh; }
-            .carousel-nav { display: none; } /* Oculta setas no mobile (usa o arraste suave) */
+            .dashboard-section { padding: 20px 15px 180px 15px; overflow-y: auto; overflow-x: hidden; }
             
-            /* Ajuste de escala do card para telas menores */
-            .album-card { 
-                width: 270px; 
-                padding: 16px;
-            } 
-            .album-card-title { font-size: 16px; }
-            .album-card-artist { font-size: 13px; }
+            /* OCULTA CARROSSEL NO MOBILE E MOSTRA A GRID */
+            .carousel-container { display: none; }
+            .album-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+            
+            .album-art-wrapper { margin-bottom: 12px; }
+            .album-card-title { font-size: 14px; }
+            .album-card-artist { font-size: 12px; }
 
             .top-nav-bar { padding: 15px 15px 5px 15px; display: flex; justify-content: flex-start; background-color: transparent; }
             
-            /* FIX CRÍTICO MOBILE: Torna a tela de detalhes totalmente rolável para cima nativamente */
-            .album-detail-section {
-                overflow-y: auto !important;
-                height: 100vh !important;
-                -webkit-overflow-scrolling: touch;
-            }
+            .album-detail-section { overflow-y: auto !important; height: 100vh !important; -webkit-overflow-scrolling: touch; }
 
-            .detail-split-container { 
-                display: flex; 
-                flex-direction: column; 
-                overflow: visible !important; 
-                padding: 10px 15px 220px 15px; 
-                gap: 25px; 
-                height: auto;
-            }
+            .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 10px 15px 220px 15px; gap: 25px; height: auto; }
             
             .left-album-block { width: 100%; text-align: center; align-items: center; }
             .album-media-container { width: 100%; max-width: 280px; aspect-ratio: 1 / 1; padding-top: 0; margin: 0 auto 10px auto; }
@@ -355,14 +350,7 @@
             
             .right-content-block { overflow: visible !important; height: auto; }
             
-            /* Permite carregar todas as músicas de forma fluida sem corte */
-            .right-tracklist-block { 
-                overflow: visible !important; 
-                height: auto;
-                max-height: none !important;
-                padding-right: 0; 
-                margin-bottom: 0; 
-            }
+            .right-tracklist-block { overflow: visible !important; height: auto; max-height: none !important; padding-right: 0; margin-bottom: 0; }
             
             body.bg-art-active .right-tracklist-block { padding: 12px; backdrop-filter: blur(10px); }
 
@@ -426,6 +414,9 @@
                     <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
                 </button>
             </div>
+
+            <div class="album-grid" id="albumGrid"></div>
+
         </section>
 
         <section id="albumDetailSection" class="album-detail-section">
@@ -555,6 +546,7 @@
     <audio id="audioElement" preload="auto"></audio>
 
     <script>
+        // MÚSICAS COMPLETAS RESTAURADAS
         const albums = [
             {
                 id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: null, cover: "capa.jpg", year: "1999", genre: "Pop",
@@ -565,7 +557,16 @@
                     { num: "4", title: "Soda Pop", file: "04 - Britney Spears - Soda Pop.mp3" },
                     { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears - Born To Make You Happy.mp3" },
                     { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears - From The Bottom Of My Broken Heart.mp3" },
-                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3" }
+                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3" },
+                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears - I Will Still Love You (Duet With Don Philip).mp3" },
+                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears - Deep In My Heart.mp3" },
+                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears - Thinkin' About You.mp3" },
+                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears - E-Mail My Heart.mp3" },
+                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears - The Beat Goes On.mp3" },
+                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears - I'll Never Stop Loving You.mp3" },
+                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears - Autumn Goodbye.mp3" },
+                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3" },
+                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
                 ]
             },
             {
@@ -578,7 +579,17 @@
                             { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
                             { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' On My Door.mp3" },
                             { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
-                            { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" }
+                            { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" },
+                            { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
+                            { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
+                            { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss from You.mp3" },
+                            { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
+                            { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
+                            { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
+                            { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
+                            { num: "13", title: "Girl In The Mirror", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
+                            { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All.mp3" },
+                            { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" }
                         ]
                     },
                     {
@@ -588,6 +599,17 @@
                             { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
                             { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' On My Door.mp3" },
                             { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
+                            { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" },
+                            { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
+                            { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
+                            { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss from You.mp3" },
+                            { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
+                            { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
+                            { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
+                            { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
+                            { num: "13", title: "Girl In The Mirror", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
+                            { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All.mp3" },
+                            { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" },
                             { num: "16", title: "Walk On By (Bonus)", file: "15 - Britney Spears - Heart.mp3" }
                         ]   
                     }
@@ -600,7 +622,17 @@
                     { num: "2", title: "Overprotected", file: "02 - Britney Spears - Overprotected.mp3" },
                     { num: "3", title: "Lonely", file: "03 - Britney Spears - Lonely.mp3" },
                     { num: "4", title: "I'm Not A Girl, Not Yet A Woman", file: "04 - Britney Spears - I'm Not A Girl, Not Yet A Woman.mp3" },
-                    { num: "5", title: "Boys", file: "05 - Britney Spears - Boys.mp3" }
+                    { num: "5", title: "Boys", file: "05 - Britney Spears - Boys.mp3" },
+                    { num: "6", title: "Anticipating", file: "06 - Britney Spears - Anticipating.mp3" },
+                    { num: "7", title: "I Love Rock 'n' Roll", file: "07 - Britney Spears - I Love Rock 'n' Roll.mp3" },
+                    { num: "8", title: "Cinderella", file: "08 - Britney Spears - Cinderella.mp3" },
+                    { num: "9", title: "Let Me Be", file: "09 - Britney Spears - Let Me Be.mp3" },
+                    { num: "10", title: "Bombastic Love", file: "10 - Britney Spears - Bombastic Love.mp3" },
+                    { num: "11", title: "That's Where You Take Me", file: "11 - Britney Spears - That's Where You Take Me.mp3" },
+                    { num: "12", title: "When I Found You", file: "12 - Britney Spears - When I Found You.mp3" },
+                    { num: "13", title: "I Run Away", file: "13 - Britney Spears - I Run Away.mp3" },
+                    { num: "14", title: "What It's Like To Be Me", file: "14 - Britney Spears - What It's Like To Be Me.mp3" },
+                    { num: "15", title: "Before The Goodbye", file: "15 - Britney Spears - Before The Goodbye.mp3" }
                 ]
             },
             {
@@ -610,7 +642,17 @@
                     { num: "2", title: "(I Got That) Boom Boom", file: "02 (I Got That) Boom Boom.m4a" },
                     { num: "3", title: "Showdown", file: "03 Showdown.m4a" },
                     { num: "4", title: "Breathe On Me", file: "04 Breathe On Me.m4a" },
-                    { num: "5", title: "Early Mornin'", file: "05 Early Mornin'.m4a" }
+                    { num: "5", title: "Early Mornin'", file: "05 Early Mornin'.m4a" },
+                    { num: "6", title: "Toxic", file: "06 Toxic.m4a" },
+                    { num: "7", title: "Outrageous", file: "07 Outrageous.m4a" },
+                    { num: "8", title: "Touch of My Hand", file: "08 Touch of My Hand.m4a" },
+                    { num: "9", title: "The Hook Up", file: "09 The Hook Up.m4a" },
+                    { num: "10", title: "Shadow", file: "10 Shadow.m4a" },
+                    { num: "11", title: "Brave New Girl", file: "11 Brave New Girl.m4a" },
+                    { num: "12", title: "Everytime", file: "12 Everytime.m4a" },
+                    { num: "13", title: "Me Against the Music (Desi Kulcha)", file: "13 Me Against the Music.m4a" },
+                    { num: "14", title: "The Answer", file: "14 The Answer.m4a" },
+                    { num: "15", title: "Don't Hang Up", file: "15 Dont Hang Up.mp3" }
                 ]
             }			
         ];
@@ -655,15 +697,18 @@
             window.addEventListener('resize', updateCarousel);
         }
 
-        /* LÓGICA DO CARROSSEL 3D DE ULTRA FLUIDEZ */
+        /* LÓGICA DE INTERFACE: CARROSSEL (PC) E GRID (MOBILE) */
         function renderDashboard() {
             const track = document.getElementById('albumCarousel');
+            const grid = document.getElementById('albumGrid');
             track.innerHTML = '';
+            grid.innerHTML = '';
             
             albums.forEach((album, index) => {
-                const card = document.createElement('div');
-                card.className = 'album-card';
-                card.onclick = () => {
+                // 1. Cria Card pro Carrossel (Desktop)
+                const cCard = document.createElement('div');
+                cCard.className = 'carousel-card';
+                cCard.onclick = () => {
                     if (currentCarouselIndex === index) {
                         handleAlbumClick(album);
                     } else {
@@ -671,38 +716,46 @@
                         updateCarousel();
                     }
                 };
-                card.innerHTML = `
+                cCard.innerHTML = `
                     <div class="album-art-wrapper">
                         <img src="${album.folder}/${album.cover}" alt="${album.title}">
                     </div>
                     <div class="album-card-title">${album.title}</div>
                     <div class="album-card-artist">${album.artist}</div>
                 `;
-                track.appendChild(card);
+                track.appendChild(cCard);
+
+                // 2. Cria Card pra Grid (Mobile)
+                const gCard = document.createElement('div');
+                gCard.className = 'grid-card';
+                gCard.onclick = () => handleAlbumClick(album);
+                gCard.innerHTML = `
+                    <div class="album-art-wrapper">
+                        <img src="${album.folder}/${album.cover}" alt="${album.title}">
+                    </div>
+                    <div class="album-card-title">${album.title}</div>
+                    <div class="album-card-artist">${album.artist}</div>
+                `;
+                grid.appendChild(gCard);
             });
             
-            carouselCards = document.querySelectorAll('#albumCarousel .album-card');
+            carouselCards = document.querySelectorAll('#albumCarousel .carousel-card');
             updateCarousel();
-            initCarouselSwipe();
         }
 
         function updateCarousel() {
-            const isMobile = window.innerWidth <= 820;
-            const space = isMobile ? 120 : 340; // Distanciamento maior para dar efeito de leque aberto
-
+            const space = 340; 
             carouselCards.forEach((card, i) => {
                 const offset = i - currentCarouselIndex;
                 const sign = Math.sign(offset);
                 const absOffset = Math.abs(offset);
                 
                 if (absOffset === 0) {
-                    // Item central com pop-out 3D
                     card.style.transform = `translate(-50%, -50%) scale(1.15) translateZ(150px) rotateY(0deg)`;
                     card.style.zIndex = 10;
                     card.style.opacity = 1;
                     card.style.pointerEvents = 'auto';
                 } else {
-                    // Itens em leque aberto com rotação 3D projetada para trás
                     const tx = sign * space * (absOffset === 1 ? 1 : 1.7);
                     const rot = sign * -35 * (absOffset === 1 ? 1 : 1.3);
                     const tz = -150 * absOffset;
@@ -713,14 +766,6 @@
                     card.style.pointerEvents = absOffset === 1 ? 'auto' : 'none';
                 }
             });
-
-            // Fundo Dinâmico na Home
-            if (document.body.classList.contains('bg-art-active')) {
-                const centerAlbum = albums[currentCarouselIndex];
-                if(centerAlbum) {
-                    document.getElementById('dynamicBlurBg').style.backgroundImage = `url('${centerAlbum.folder}/fundo.png')`;
-                }
-            }
         }
 
         function nextCarousel() {
@@ -740,7 +785,7 @@
         /* CONTROLES DE TECLADO (PC) */
         function initKeyboardControls() {
             document.addEventListener('keydown', (e) => {
-                if (document.getElementById('dashboardSection').style.display !== 'none') {
+                if (document.getElementById('dashboardSection').style.display !== 'none' && window.innerWidth > 820) {
                     if (e.key === 'ArrowRight') {
                         nextCarousel();
                     } else if (e.key === 'ArrowLeft') {
@@ -751,27 +796,6 @@
                     }
                 }
             });
-        }
-
-        /* ARRASTAR NO MOBILE (SWIPE) */
-        function initCarouselSwipe() {
-            const track = document.getElementById('carouselContainer');
-            let startX = 0;
-            let endX = 0;
-
-            track.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-            }, {passive: true});
-
-            track.addEventListener('touchend', e => {
-                endX = e.changedTouches[0].clientX;
-                const threshold = 40;
-                if (startX - endX > threshold) {
-                    nextCarousel();
-                } else if (endX - startX > threshold) {
-                    prevCarousel();
-                }
-            }, {passive: true});
         }
 
         function handleAlbumClick(album) { album.hasVersions ? openVersionModal(album) : openAlbum(album, null); }
@@ -834,6 +858,8 @@
             document.getElementById('albumVideo').pause();
             document.getElementById('dashboardSection').style.display = 'block';
             document.getElementById('albumDetailSection').style.display = 'none';
+            selectedAlbum = null; // Limpa o álbum ativo para desligar o tema do fundo
+            updateDynamicBackground(); 
             updateCarousel(); 
         }
 
@@ -975,28 +1001,27 @@
             applyBackgroundStyle(document.getElementById('bgStyleSelector').value); 
         }
         
+        /* CONTROLE DO BACKGROUND DINÂMICO */
         function applyBackgroundStyle(style) {
             if (style === 'art') { 
                 document.body.classList.add('bg-art-active'); 
                 document.documentElement.style.setProperty('--blur-overlay-opacity', '1'); 
-                updateDynamicBackground(); 
             } else { 
                 document.body.classList.remove('bg-art-active'); 
                 document.documentElement.style.setProperty('--blur-overlay-opacity', '0'); 
-                document.getElementById('dynamicBlurBg').style.backgroundImage = 'none'; 
             }
+            updateDynamicBackground();
         }
         
         function updateDynamicBackground() {
-            if (!document.body.classList.contains('bg-art-active')) return;
+            const blurBg = document.getElementById('dynamicBlurBg');
             
-            if (document.getElementById('albumDetailSection').style.display === 'flex' && selectedAlbum) {
-                document.getElementById('dynamicBlurBg').style.backgroundImage = `url('${selectedAlbum.folder}/fundo.png')`;
+            // Só coloca o tema dinâmico se a opção estiver ativada E o usuário estiver dentro de um álbum.
+            if (document.body.classList.contains('bg-art-active') && document.getElementById('albumDetailSection').style.display === 'flex' && selectedAlbum) {
+                blurBg.style.backgroundImage = `url('${selectedAlbum.folder}/fundo.png')`;
             } else {
-                const centerAlbum = albums[currentCarouselIndex];
-                if(centerAlbum) {
-                    document.getElementById('dynamicBlurBg').style.backgroundImage = `url('${centerAlbum.folder}/fundo.png')`;
-                }
+                // Na página inicial (dashboard), o fundo fica neutro.
+                blurBg.style.backgroundImage = 'none';
             }
         }
 
@@ -1004,3 +1029,4 @@
     </script>
 </body>
 </html>
+
