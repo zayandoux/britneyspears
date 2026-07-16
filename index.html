@@ -43,7 +43,6 @@
         body.light-mode .timeline-container { color: #86868b; }
         body.light-mode .progress-bar-bg { background-color: rgba(0, 0, 0, 0.1); }
         body.light-mode .progress-bar-fill { background-color: var(--accent-color); }
-        
         body.light-mode .version-card { background-color: #eaeaea; }
         body.light-mode .version-card span { color: #1d1d1f; }
         body.light-mode .version-card:hover { background-color: #dddddd; }
@@ -99,13 +98,13 @@
 
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
-        /* O vídeo/Capa agora está 50% maior no desktop (480px em vez de 320px) */
+        /* DESKTOP: O vídeo/Capa agora está com 480px (50% maior) */
         .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
         .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
         .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
         .album-video { display: none; }
 
-        /* Lado direito: Info no topo, lista, player em baixo */
+        /* DESKTOP: Lado direito: Info no topo, lista no meio, player em baixo */
         .right-content-block { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
         .album-header-info { display: flex; flex-direction: column; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
@@ -137,9 +136,9 @@
         .eq-bar-3 { height: 60%; animation-delay: 0.5s; }
         @keyframes bounce { 10% { transform: scaleY(0.3); } 100% { transform: scaleY(1.1); } }
 
-        /* PLAYER FLUTUANTE (No PC, ele fica embaixo da lista de músicas) */
+        /* PLAYER FLUTUANTE (No PC, ele fica embaixo da lista de músicas na coluna direita) */
         .floating-player-wrapper {
-            position: relative; /* Mudou de fixed para relative no desktop */
+            position: relative; 
             width: 100%; 
             background-color: var(--player-bg); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
@@ -153,10 +152,9 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
             transition: var(--transition);
             flex-shrink: 0;
-            cursor: pointer; /* Para abrir no mobile */
+            cursor: pointer; 
         }
         
-        /* Previne que clicar nos botões abra o player mobile */
         .player-control-center, .volume-container, .center-meta img { cursor: default; }
 
         .center-meta { display: flex; align-items: center; gap: 14px; width: 250px; overflow: hidden; flex-shrink: 0; pointer-events: none;}
@@ -264,7 +262,7 @@
             
             .detail-split-container { display: flex; flex-direction: column; overflow-y: auto; padding: 10px 15px 220px 15px; gap: 20px; }
             
-            /* Retorna o tamanho da imagem/vídeo para o padrão no mobile */
+            /* No celular, o tamanho da imagem/vídeo volta para o padrão */
             .left-album-block { width: 100%; text-align: center; align-items: center; }
             .album-media-container { width: 100%; max-width: 280px; aspect-ratio: 1 / 1; padding-top: 0; margin: 0 auto 10px auto; }
             
@@ -276,7 +274,7 @@
             
             body.bg-art-active .right-tracklist-block { padding: 12px; backdrop-filter: blur(2px); }
 
-            /* Volta o mini-player para flutuar no rodapé no mobile */
+            /* Volta o mini-player para flutuar na parte inferior no celular */
             .floating-player-wrapper { 
                 position: fixed; 
                 display: none; 
@@ -296,7 +294,7 @@
             .player-cover-mini { width: 44px; height: 44px; }
             .player-song-title { font-size: 14px; }
 
-            /* Esconde controles secundários no mini-player mobile */
+            /* Esconde controles grandes no mini-player mobile */
             .player-control-center { flex: none; width: auto; flex-direction: row; }
             .timeline-container, .shuffle-btn, .repeat-btn-text, .volume-container { display: none !important; }
             
@@ -309,7 +307,7 @@
             .bg-style-selector { font-size: 11px; }
         }
         
-        /* Ocultar player expandido no Desktop */
+        /* Oculta player expandido no Desktop */
         @media (min-width: 821px) {
             .expanded-player-mobile { display: none !important; }
         }
@@ -349,7 +347,7 @@
             </div>
 
             <div class="detail-split-container">
-                <!-- Esquerda: Apenas a Arte/Vídeo Maior -->
+                <!-- Lado Esquerdo: Capa/Vídeo -->
                 <div class="left-album-block">
                     <div class="album-media-container">
                         <img id="albumArt" class="album-art" src="" alt="Capa">
@@ -357,7 +355,7 @@
                     </div>
                 </div>
 
-                <!-- Direita: Informações, Lista e Player -->
+                <!-- Lado Direito: Informações, Lista de Músicas e Player Desktop -->
                 <div class="right-content-block">
                     <div class="album-header-info">
                         <h1 id="albumTitle" class="album-title-header"></h1>
@@ -372,7 +370,7 @@
                         <div class="tracklist" id="tracklist"></div>
                     </div>
 
-                    <!-- PLAYER PRINCIPAL (Ancorado aqui no Desktop) -->
+                    <!-- PLAYER PRINCIPAL (Ancorado embaixo da lista no PC) -->
                     <div class="floating-player-wrapper" id="mainFloatingPlayer" onclick="openExpandedPlayer()">
                         <div class="center-meta">
                             <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
@@ -418,7 +416,6 @@
                             <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this.value)">
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -474,7 +471,7 @@
     <audio id="audioElement" preload="auto"></audio>
 
     <script>
-        // Array de Álbuns (mantido o seu original)
+        // SEU ARRAY DE ÁLBUNS AQUI (mantido o original para não quebrar seus links)
         const albums = [
             {
                 id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: null, cover: "capa.jpg", year: "1999", genre: "Pop",
@@ -804,7 +801,7 @@
         function openExpandedPlayer() {
             if (window.innerWidth <= 820) {
                 expPlayer.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Evita scroll na página por trás
+                document.body.style.overflow = 'hidden'; 
             }
         }
         
@@ -819,7 +816,6 @@
             expPlayer.addEventListener('touchmove', e => {
                 const currentY = e.touches[0].clientY;
                 if (currentY > touchStartY && (currentY - touchStartY) > 50) {
-                    // Se arrastou pra baixo e não está usando um range slider
                     if(e.target.tagName !== "INPUT") closeExpandedPlayer();
                 }
             }, {passive: true});
