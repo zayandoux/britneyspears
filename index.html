@@ -1,3 +1,9 @@
+Feito! Fiz os ajustes no seu código para deixar tudo exatamente como você pediu.
+Aqui está o que foi alterado:
+ * Arte do Mini Player: Alterada de redonda para quadrada com cantos suavemente arredondados (border-radius: 8px).
+ * Corte reto no MP4: O problema de vídeos não respeitarem as bordas arredondadas nos navegadores (especialmente no Safari/iOS) foi corrigido forçando a máscara com -webkit-mask-image no container da mídia.
+ * Engrenagem (Configurações): O botão foi removido do player inferior e posicionado fixo no canto superior direito do site. O script e a adaptação mobile também foram atualizados para reconhecer a nova posição do menu.
+Aqui está o código completo corrigido:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -124,8 +130,10 @@
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
         .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
-        .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
-        .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
+        
+        /* CORREÇÃO DO CORTE DO MP4 */
+        .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; -webkit-mask-image: -webkit-radial-gradient(white, black); }
+        .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; border-radius: 16px; }
         .album-video { display: none; }
 
         .right-content-block { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
@@ -160,14 +168,14 @@
         .eq-bar-1 { height: 30%; animation-delay: 0.1s; } .eq-bar-2 { height: 100%; animation-delay: 0.3s; } .eq-bar-3 { height: 60%; animation-delay: 0.5s; }
         @keyframes bounce { 10% { transform: scaleY(0.3); } 100% { transform: scaleY(1.1); } }
 
-        /* PLAYER FLUTUANTE AJUSTADO (DIREITA, MENOR) */
+        /* PLAYER FLUTUANTE AJUSTADO */
         .floating-player-wrapper {
             position: fixed; 
             bottom: 25px; 
-            right: 40px; /* Alinhado à direita */
+            right: 40px; 
             left: auto;
             transform: none;
-            width: 500px; /* Largura compacta similar à lista de músicas */
+            width: 500px; 
             background-color: var(--player-bg); 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             border: 1px solid rgba(255, 255, 255, 0.15); 
@@ -186,7 +194,9 @@
         .player-control-center, .volume-container, .center-meta img { cursor: default; }
         .center-meta { display: flex; align-items: center; gap: 12px; width: 140px; overflow: hidden; flex-shrink: 0; pointer-events: none;}
         
-        .player-cover-mini { width: 46px; height: 46px; border-radius: 60px; object-fit: cover; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.4); background-color: var(--card-bg); overflow: hidden; }
+        /* CORREÇÃO DO MINI PLAYER: Borda com leve curvatura (8px) ao invés de redonda */
+        .player-cover-mini { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.4); background-color: var(--card-bg); overflow: hidden; }
+        
         .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
         .player-song-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .player-song-artist { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
@@ -220,10 +230,48 @@
         body.light-mode .volume-slider { background: rgba(0, 0, 0, 0.15); }
         body.light-mode .volume-slider::-webkit-slider-thumb { background: var(--accent-color); }
 
-        /* MENU DE CONFIGURAÇÕES EMBUTIDO (POPUP) */
+        /* NOVA POSIÇÃO DAS CONFIGURAÇÕES (SUPERIOR DIREITA) */
+        .top-right-settings {
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .settings-btn-top {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .settings-btn-top:hover {
+            background: var(--accent-color);
+            transform: scale(1.1);
+            border-color: transparent;
+        }
+
+        body.light-mode .settings-btn-top {
+            background: rgba(255, 255, 255, 0.7);
+            color: #1d1d1f;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* MENU DE CONFIGURAÇÕES EMBUTIDO (POPUP) REPOSICIONADO */
         .settings-popup {
             position: absolute;
-            bottom: calc(100% + 15px);
+            top: 55px; /* Abre logo abaixo do botão superior */
             right: 0;
             background: var(--player-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -234,7 +282,6 @@
             flex-direction: column;
             gap: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            z-index: 100000;
             cursor: default;
             min-width: 180px;
         }
@@ -317,7 +364,6 @@
             .right-tracklist-block { overflow: visible !important; height: auto; max-height: none !important; padding-right: 0; margin-bottom: 0; }
             body.bg-art-active .right-tracklist-block { padding: 12px; backdrop-filter: blur(10px); }
 
-            /* Voltar player pro centro no mobile */
             .floating-player-wrapper { 
                 bottom: 15px; left: 50%; right: auto; transform: translateX(-50%); width: 92%; padding: 10px 16px;
                 border-radius: 16px;
@@ -333,13 +379,9 @@
             .play-pause-btn { width: 40px; height: 40px; }
             .play-pause-btn svg { width: 18px; height: 18px; }
             
-            /* Ajuste do popup no mobile para centralizar */
-            .settings-popup {
-                right: 50%;
-                transform: translateX(50%);
-                width: 200px;
-                bottom: calc(100% + 10px);
-            }
+            /* Ajuste posições no mobile */
+            .top-right-settings { top: 15px; right: 15px; }
+            .settings-popup { right: 0; width: 200px; top: 54px; }
         }
         
         @media (min-width: 821px) {
@@ -353,6 +395,33 @@
     <div class="dynamic-blur-overlay"></div>
 
     <main>
+        <div class="top-right-settings">
+            <button class="settings-btn-top" onclick="toggleSettings(event)">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                </svg>
+            </button>
+            <div class="settings-popup" id="settingsPopup" onclick="event.stopPropagation()">
+                <select class="bg-style-selector" id="layoutSelector" onchange="changeLayout()">
+                    <option value="carousel">Visual: Carrossel</option>
+                    <option value="grid">Visual: Grade</option>
+                </select>
+                
+                <select class="bg-style-selector" id="bgStyleSelector" onchange="changeBackgroundStyle()">
+                    <option value="default">Tema: Padrão</option>
+                    <option value="art">Tema: Arte do Álbum</option>
+                </select>
+                
+                <div class="switch-row">
+                    <span>Modo Claro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
         <section id="dashboardSection" class="dashboard-section">
             <div class="section-header-bar">
                 <h1 class="section-title">Discografia Britney Spears</h1>
@@ -407,27 +476,6 @@
         </section>
 
         <div class="floating-player-wrapper" id="mainFloatingPlayer" onclick="openExpandedPlayer()">
-            
-            <div class="settings-popup" id="settingsPopup" onclick="event.stopPropagation()">
-                <select class="bg-style-selector" id="layoutSelector" onchange="changeLayout()">
-                    <option value="carousel">Visual: Carrossel</option>
-                    <option value="grid">Visual: Grade</option>
-                </select>
-                
-                <select class="bg-style-selector" id="bgStyleSelector" onchange="changeBackgroundStyle()">
-                    <option value="default">Tema: Padrão</option>
-                    <option value="art">Tema: Arte do Álbum</option>
-                </select>
-                
-                <div class="switch-row">
-                    <span>Modo Claro</span>
-                    <label class="switch">
-                        <input type="checkbox" id="themeToggle" onclick="toggleTheme()">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-
             <div class="center-meta">
                 <img id="miniPlayerArt" class="player-cover-mini" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
                 <div class="player-song-details">
@@ -464,12 +512,6 @@
             </div>
 
             <div class="volume-container" onclick="event.stopPropagation()">
-                <button class="control-btn" onclick="toggleSettings(event)" style="margin-right: 5px;">
-                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-                    </svg>
-                </button>
-
                 <button class="volume-btn">
                     <svg id="volumeIcon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
@@ -676,10 +718,10 @@
             initKeyboardControls();
             window.addEventListener('resize', updateCarousel);
             
-            // Fechar popup de configurações ao clicar fora
+            // Fechar popup de configurações ao clicar fora atualizado com a nova classe
             document.addEventListener('click', function(event) {
                 const popup = document.getElementById('settingsPopup');
-                if (popup && popup.classList.contains('show') && !event.target.closest('.floating-player-wrapper')) {
+                if (popup && popup.classList.contains('show') && !event.target.closest('.top-right-settings')) {
                     popup.classList.remove('show');
                 }
             });
@@ -877,7 +919,6 @@
             if (document.body.classList.contains('bg-art-active') && document.getElementById('albumDetailSection').style.display === 'flex' && selectedAlbum) { blurBg.style.backgroundImage = `url('${selectedAlbum.folder}/fundo.png')`; } else { blurBg.style.backgroundImage = 'none'; }
         }
         
-        // Função do menu popup de configurações
         function toggleSettings(event) {
             event.stopPropagation();
             document.getElementById('settingsPopup').classList.toggle('show');
@@ -887,3 +928,4 @@
     </script>
 </body>
 </html>
+
