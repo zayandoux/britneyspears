@@ -55,14 +55,19 @@
         body.bg-art-active .track-number { color: var(--text-main) !important; font-weight: bold; }
 
         /* BACKDROP */
-        .dynamic-blur-bg {
+           .dynamic-blur-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover; background-position: center;
-            filter: blur(8px) brightness(0.8) saturate(1.2); transform: scale(1.1); 
-            z-index: -2; opacity: var(--blur-overlay-opacity);
+            filter: blur(2px) brightness(0.9) saturate(1.2); transform: scale(1.1); /* <--- opacidade modo escuro
             transition: opacity 0.8s ease, background-image 0.8s ease;
         }
-        body.light-mode .dynamic-blur-bg { filter: blur(8px) brightness(1.2) saturate(1.2); }
+        body.light-mode .dynamic-blur-bg { filter: blur(2px) brightness(1.2) saturate(1.2); } /*  <--- opacidade modo claro
+        .dynamic-blur-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(18, 18, 18, 0.25); z-index: -1; /* <--- Reduzi a opacidade da película escura de 0.4 para 0.25 */
+            opacity: var(--blur-overlay-opacity); transition: opacity 0.8s ease;
+        }
+        body.light-mode .dynamic-blur-overlay { background: rgba(255, 255, 255, 0.15); } /* <--- Reduzi no modo claro de 0.3 para 0.15 */
         .dynamic-blur-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(18, 18, 18, 0.4); z-index: -1;
