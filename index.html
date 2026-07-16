@@ -87,10 +87,10 @@
         .grid-card { background-color: var(--card-bg); padding: 20px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .grid-card:hover { transform: translateY(-5px); background-color: #2d2d2d; box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: #4a4a4c; }
         
-        /* CARROSSEL 3D REDUZIDO EM 30% (Desktop) */
+        /* CARROSSEL 3D AJUSTADO PARA NÃO TER CORTES */
         .carousel-container {
-            position: relative; width: 100%; height: 50vh; min-height: 400px;
-            display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: 10px; perspective: 2000px; transform-style: preserve-3d;
+            position: relative; width: 100%; height: 50vh; min-height: 450px;
+            display: flex; align-items: center; justify-content: center; overflow: visible; margin-top: 10px; perspective: 2000px; transform-style: preserve-3d;
         }
         .carousel-track { position: relative; width: 100%; max-width: 1200px; height: 100%; transform-style: preserve-3d; }
         .carousel-nav {
@@ -124,8 +124,8 @@
 
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
-        /* CORREÇÃO DO TAMANHO DA ARTE E VÍDEO NO PC (ALTURA RESPONSIVA BASEADA NA TELA) */
-        .left-album-block { width: 38vh; max-width: 440px; min-width: 280px; flex-shrink: 0; display: flex; flex-direction: column; }
+        /* RETORNADO AO TAMANHO GRANDE ORIGINAL (440px) */
+        .left-album-block { width: 440px; flex-shrink: 0; display: flex; flex-direction: column; }
         
         .album-media-container { width: 100%; aspect-ratio: 1 / 1; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; -webkit-mask-image: -webkit-radial-gradient(white, black); }
         .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; border-radius: 16px; }
@@ -163,7 +163,7 @@
         .eq-bar-1 { height: 30%; animation-delay: 0.1s; } .eq-bar-2 { height: 100%; animation-delay: 0.3s; } .eq-bar-3 { height: 60%; animation-delay: 0.5s; }
         @keyframes bounce { 10% { transform: scaleY(0.3); } 100% { transform: scaleY(1.1); } }
 
-        /* PLAYER FLUTUANTE AJUSTADO */
+        /* PLAYER FLUTUANTE */
         .floating-player-wrapper {
             position: fixed; 
             bottom: 25px; 
@@ -186,7 +186,7 @@
             cursor: pointer; 
         }
         
-        /* ESTILOS DO BOTÃO DE RECOLHER E ESTADO COLAPSADO */
+        /* BOTÃO DE RECOLHER */
         .player-toggle-slide-btn {
             background: none;
             border: none;
@@ -227,8 +227,6 @@
         
         .player-control-center, .volume-container, .center-meta img { cursor: default; }
         .center-meta { display: flex; align-items: center; gap: 12px; width: 140px; overflow: hidden; flex-shrink: 0; pointer-events: none;}
-        
-        /* CORREÇÃO DO MINI PLAYER: Borda com leve curvatura (8px) ao invés de redonda */
         .player-cover-mini { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.4); background-color: var(--card-bg); overflow: hidden; }
         
         .player-song-details { overflow: hidden; display: flex; flex-direction: column; }
@@ -264,7 +262,7 @@
         body.light-mode .volume-slider { background: rgba(0, 0, 0, 0.15); }
         body.light-mode .volume-slider::-webkit-slider-thumb { background: var(--accent-color); }
 
-        /* NOVA POSIÇÃO DAS CONFIGURAÇÕES (SUPERIOR DIREITA) */
+        /* CONFIGURAÇÕES */
         .top-right-settings {
             position: fixed;
             top: 25px;
@@ -302,10 +300,9 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* MENU DE CONFIGURAÇÕES EMBUTIDO (POPUP) REPOSICIONADO */
         .settings-popup {
             position: absolute;
-            top: 55px; /* Abre logo abaixo do botão superior */
+            top: 55px; 
             right: 0;
             background: var(--player-bg);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -510,6 +507,7 @@
         </section>
 
         <div class="floating-player-wrapper" id="mainFloatingPlayer" onclick="handlePlayerWrapperClick(event)">
+            <!-- BOTÃO DE SETA PARA RECOLHER O PLAYER -->
             <button class="player-toggle-slide-btn" id="playerCollapseBtn" title="Recolher/Expandir Player">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" id="playerCollapseIcon">
                     <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
@@ -758,7 +756,6 @@
             initKeyboardControls();
             window.addEventListener('resize', updateCarousel);
             
-            // Fechar popup de configurações ao clicar fora atualizado com a nova classe
             document.addEventListener('click', function(event) {
                 const popup = document.getElementById('settingsPopup');
                 if (popup && popup.classList.contains('show') && !event.target.closest('.top-right-settings')) {
@@ -799,7 +796,7 @@
         }
 
         function updateCarousel() {
-            const space = 238; /* Reduzido em 30% (de 340 para 238) */
+            const space = 238; 
             carouselCards.forEach((card, i) => {
                 const offset = i - currentCarouselIndex; const sign = Math.sign(offset); const absOffset = Math.abs(offset);
                 if (absOffset === 0) {
@@ -884,7 +881,7 @@
             
             const player = document.getElementById('mainFloatingPlayer');
             player.style.display = 'flex';
-            player.classList.remove('player-collapsed'); // Garante que o player reabra se um som novo começar
+            player.classList.remove('player-collapsed'); 
             updateCollapseButtonIcon();
 
             const coverPath = `${playingAlbum.folder}/${selectedVersion ? selectedVersion.cover : playingAlbum.cover}`;
@@ -970,11 +967,9 @@
             document.getElementById('settingsPopup').classList.toggle('show');
         }
 
-        /* LÓGICAS DO BOTÃO DE RECOLHER/EXPANDIR PLAYER */
         function handlePlayerWrapperClick(event) {
             const player = document.getElementById('mainFloatingPlayer');
             
-            // Se o player estiver escondido/recolhido, qualquer clique nele restaura o visual original
             if (player.classList.contains('player-collapsed')) {
                 player.classList.remove('player-collapsed');
                 updateCollapseButtonIcon();
@@ -982,14 +977,12 @@
                 return;
             }
             
-            // Se o clique foi diretamente no botão de recolher
             if (event.target.closest('#playerCollapseBtn')) {
                 event.stopPropagation();
                 togglePlayerCollapse();
                 return;
             }
             
-            // Continua para abrir o reprodutor estendido caso esteja em um dispositivo móvel
             openExpandedPlayer();
         }
 
@@ -1003,10 +996,8 @@
             const player = document.getElementById('mainFloatingPlayer');
             const icon = document.getElementById('playerCollapseIcon');
             if (player.classList.contains('player-collapsed')) {
-                // Seta apontando para esquerda (indicando que vai puxar o player de volta)
                 icon.innerHTML = `<path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>`;
             } else {
-                // Seta apontando para a direita (indicando que vai recolher)
                 icon.innerHTML = `<path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>`;
             }
         }
