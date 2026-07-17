@@ -1,3 +1,12 @@
+O mistério do botão sumido foi desvendado! 🕵️‍♂️
+O que estava acontecendo?
+Dentro das regras de estilo para celular (@media (max-width: 820px)), existia uma linha configurada assim:
+.timeline-container, .shuffle-btn, .repeat-btn-text, .volume-slider { display: none !important; }
+
+Essa linha foi feita para esconder esses elementos do mini player inferior no mobile. Porém, como o botão de repetição da tela cheia também usava a classe .repeat-btn-text, o !important acabou escondendo ele por tabela.
+A Solução
+Ajustei o seletor no CSS para que ele esconda esses itens apenas dentro do mini player (.floating-player-wrapper), deixando os botões da tela cheia mobile livres para aparecerem perfeitamente.
+Aqui está o seu código totalmente corrigido e pronto para uso:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -449,7 +458,12 @@
             .player-cover-mini { width: 44px; height: 44px; }
             .player-song-title { font-size: 14px; }
             .player-control-center { flex: none; width: auto; min-width: 0; flex-direction: row; }
-            .timeline-container, .shuffle-btn, .repeat-btn-text, .volume-slider { display: none !important; }
+            
+            /* CORREÇÃO AQUI: Esconde apenas os botões do mini player inferior, mantendo os do player expandido visíveis */
+            .floating-player-wrapper .timeline-container, 
+            .floating-player-wrapper .shuffle-btn, 
+            .floating-player-wrapper .repeat-btn-text, 
+            .floating-player-wrapper .volume-slider { display: none !important; }
             
             .player-controls { gap: 10px; }
             .control-btn svg { width: 18px; height: 18px; }
@@ -821,7 +835,7 @@
             document.getElementById('bgStyleSelector').value = savedBgStyle;
             applyBackgroundStyle(savedBgStyle);
 
-            updateRepeatVisuals(); // Inicializa os textos e cores dos botões de repetição
+            updateRepeatVisuals();
 
             if ('mediaSession' in navigator) {
                 navigator.mediaSession.setActionHandler('play', () => { audio.play(); updatePlayButton(true); });
@@ -1137,7 +1151,6 @@
             updateRepeatVisuals();
         }
 
-        /* ATUALIZADOR VISUAL DE LEGENDA E COR DO REPETE (DESKTOP/MOBILE) */
         function updateRepeatVisuals() {
             const dText = document.getElementById('repeatText');
             const mText = document.getElementById('mobileRepeatText');
