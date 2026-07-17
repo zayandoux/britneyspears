@@ -140,9 +140,7 @@
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
         .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
-        
-        /* ATUALIZADO: PROPORÇÃO 120/131 */
-        .album-media-container { width: 100%; aspect-ratio: 120 / 131; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
+        .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
         .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
         .album-video { display: none; }
 
@@ -366,9 +364,7 @@
         
         .exp-header { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; position: relative; }
         .exp-drag-handle { width: 40px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; }
-        
-        /* ATUALIZADO: PROPORÇÃO 120/131 NO MOBILE EXTENDIDO */
-        .exp-art-container { width: 100%; aspect-ratio: 120 / 131; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 40px; background-color: #000; position: relative; }
+        .exp-art-container { width: 100%; aspect-ratio: 1/1; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 40px; background-color: #000; position: relative; }
         .exp-art-container img, .exp-art-container video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: block; }
         
         .exp-info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
@@ -397,15 +393,9 @@
             .album-art-wrapper { margin-bottom: 12px; }
             .album-card-title { font-size: 14px; }
             .album-card-artist { font-size: 12px; }
-            
-            /* ATUALIZADO: BARRA SUPERIOR FIXA PARA SEGURAR O BOTAO VOLTAR NO TOPO */
-            .top-nav-bar { position: fixed; top: 0; left: 0; width: 100%; padding: 15px; display: flex; justify-content: flex-start; background-color: transparent; z-index: 100000; pointer-events: none; }
-            .back-btn { pointer-events: auto; } /* Só o botão voltar intercepta o toque, liberando o scroll do fundo */
-            
+            .top-nav-bar { padding: 15px 15px 5px 15px; display: flex; justify-content: flex-start; background-color: transparent; }
             .album-detail-section { overflow-y: auto !important; height: 100vh !important; -webkit-overflow-scrolling: touch; padding-bottom: 150px; }
-            
-            /* ATUALIZADO: PADDING SUPERIOR AUMENTADO PARA O CONTEÚDO NÃO FICAR ATRÁS DO BOTAO VOLTAR FIXO */
-            .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 60px 15px 20px 15px; gap: 25px; height: auto; }
+            .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 10px 15px 20px 15px; gap: 25px; height: auto; }
             
             .left-album-block { 
                width: 100%; 
@@ -416,8 +406,6 @@
                display: flex; 
                flex-direction: column; 
             }
-            
-            /* ATUALIZADO: PROPORÇÃO 120/131 NO MOBILE TAMBÉM */
             .album-media-container { 
                width: 100%; 
                height: auto;
@@ -808,7 +796,36 @@
                     { num: "19", title: "Rock Boy", file: "19 Rock Boy.mp3" }
 
                 ]
-            }
+            },
+{
+    "id": "femme-fatale",
+    "folder": "07 Femme Fatale",
+    "title": "Femme Fatale",
+    "artist": "Britney Spears",
+    "year": "2011",
+    "genre": "Pop",
+    "cover": "capa.jpg",
+    "video": "video.mp4",
+    "tracks": [
+        { "num": "1", "title": "Till The World Ends", "file": "01 Till The World Ends.mp3" },
+        { "num": "2", "title": "Hold It Against Me ", "file": "02 Hold It Against Me .mp3" },
+        { "num": "3", "title": "Inside Out", "file": "03 Inside Out.mp3" },
+        { "num": "4", "title": "I Wanna Go", "file": "04 I Wanna Go.mp3" },
+        { "num": "5", "title": "How I Roll", "file": "05 How I Roll.mp3" },
+        { "num": "6", "title": "(Drop Dead) Beautiful (Feat. Sabi)", "file": "06 (Drop Dead) Beautiful (Feat. Sabi).mp3" },
+        { "num": "7", "title": "Seal It With A Kiss", "file": "07 Seal It With A Kiss.mp3" },
+        { "num": "8", "title": "Big Fat Bass (Feat. Will.i.am)", "file": "08 Big Fat Bass (Feat. Will.i.am).mp3" },
+        { "num": "9", "title": "Trouble For Me", "file": "09 Trouble For Me.mp3" },
+        { "num": "10", "title": "Trip To Your Heart", "file": "10 Trip To Your Heart.mp3" },
+        { "num": "11", "title": "Gasoline", "file": "11 Gasoline.mp3" },
+        { "num": "12", "title": "Criminal", "file": "12 Criminal.mp3" },
+        { "num": "13", "title": "Up N' Down", "file": "13 Up N' Down.mp3" },
+        { "num": "14", "title": "He About To Lose Me", "file": "14 He About To Lose Me.mp3" },
+        { "num": "15", "title": "Selfish", "file": "15 Selfish.mp3" },
+        { "num": "16", "title": "Don't Keep Me Waiting", "file": "16 Don't Keep Me Waiting.mp3" },
+        { "num": "17", "title": "Scary", "file": "17 Scary.mp3" }
+    ]
+}
         
         ];
 	   
@@ -1225,3 +1242,4 @@
     </script>
 </body>
 </html>
+
