@@ -140,7 +140,9 @@
         .detail-split-container { display: flex; flex: 1; overflow: hidden; padding: 10px 40px 30px 40px; gap: 50px; }
         
         .left-album-block { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; }
-        .album-media-container { width: 100%; padding-top: 100%; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
+        
+        /* ATUALIZADO: PROPORÇÃO 120/131 */
+        .album-media-container { width: 100%; aspect-ratio: 120 / 131; position: relative; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; background-color: #000; }
         .album-art, .album-video { width: 100% !important; height: 100% !important; object-fit: cover !important; position: absolute; top: 0; left: 0; display: block; }
         .album-video { display: none; }
 
@@ -364,7 +366,9 @@
         
         .exp-header { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; position: relative; }
         .exp-drag-handle { width: 40px; height: 5px; background: rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; }
-        .exp-art-container { width: 100%; aspect-ratio: 1/1; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 40px; background-color: #000; position: relative; }
+        
+        /* ATUALIZADO: PROPORÇÃO 120/131 NO MOBILE EXTENDIDO */
+        .exp-art-container { width: 100%; aspect-ratio: 120 / 131; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 40px; background-color: #000; position: relative; }
         .exp-art-container img, .exp-art-container video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: block; }
         
         .exp-info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
@@ -379,7 +383,7 @@
         .exp-time-row { display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 500; }
 
         .exp-controls { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; }
-        .exp-btn { background: none; border: none; color: white; opacity: 0.8; padding: 10px; }
+        .exp-btn { background: none; border: none; color: white; opacity: 0.8; padding: 10px; transition: var(--transition); }
         .exp-btn:active { opacity: 0.5; }
         .exp-play-btn { width: 65px; height: 65px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 1; }
         .exp-play-btn:active { transform: scale(0.95); }
@@ -393,9 +397,18 @@
             .album-art-wrapper { margin-bottom: 12px; }
             .album-card-title { font-size: 14px; }
             .album-card-artist { font-size: 12px; }
-            .top-nav-bar { padding: 15px 15px 5px 15px; display: flex; justify-content: flex-start; background-color: transparent; }
+            
+            .top-nav-bar { position: fixed; top: 0; left: 0; width: 100%; padding: 15px; display: flex; justify-content: flex-start; background-color: transparent; z-index: 100000; pointer-events: none; }
+            
+            /* ATUALIZADO: FIXADO O BOTÃO VOLTAR PARA ACOMPANHAR O SCROLL DO CELULAR */
+            .back-btn { position: fixed !important; top: 15px; left: 15px; z-index: 100001; pointer-events: auto; }
+            
+            /* ATUALIZADO: COR DE ATIVAÇÃO NOS BOTÕES DO PLAYER MÓBILE */
+            .exp-btn.active { color: var(--accent-color) !important; opacity: 1; filter: drop-shadow(0 2px 6px rgba(250, 35, 59, 0.4)); }
+            
             .album-detail-section { overflow-y: auto !important; height: 100vh !important; -webkit-overflow-scrolling: touch; padding-bottom: 150px; }
-            .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 10px 15px 20px 15px; gap: 25px; height: auto; }
+            
+            .detail-split-container { display: flex; flex-direction: column; overflow: visible !important; padding: 60px 15px 20px 15px; gap: 25px; height: auto; }
             
             .left-album-block { 
                width: 100%; 
@@ -406,10 +419,11 @@
                display: flex; 
                flex-direction: column; 
             }
+            
             .album-media-container { 
                width: 100%; 
                height: auto;
-               aspect-ratio: 1 / 1; 
+               aspect-ratio: 120 / 131; 
                position: relative; 
                border-radius: 16px; 
                box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
@@ -624,11 +638,15 @@
                 </div>
             </div>
             <div class="exp-controls">
-                <button class="exp-btn" onclick="toggleShuffle()"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg></button>
+                <!-- ATUALIZADO: ID ADICIONADO PARA FUNCIONAR O ALEATÓRIO NO MOBILE -->
+                <button class="exp-btn" id="expShuffleBtn" onclick="toggleShuffle()"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg></button>
                 <button class="exp-btn" onclick="prevTrack()"><svg width="36" height="36" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
                 <button class="exp-play-btn" onclick="togglePlay()"><svg id="expPlayIcon" width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
                 <button class="exp-btn" onclick="nextTrack()"><svg width="36" height="36" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg></button>
-                <button class="exp-btn" onclick="toggleRepeatMode()"><svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg></button>
+                <!-- ATUALIZADO: BOTAO DE REPETIR DO MOBILE ESTILIZADO E FUNCIONAL IGUAL O DESKTOP -->
+                <button class="exp-btn repeat-btn-text" id="expRepeatBtn" onclick="toggleRepeatMode()">
+                    <span id="expRepeatText">Off</span>
+                </button>
             </div>
         </div>
     </main>
@@ -646,7 +664,7 @@
     <script>
         const albums = [
             {
-                id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: "video.mp4", cover: "capa.jpg", year: "1999", genre: "Pop",
+                id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: null, cover: "capa.jpg", year: "1999", genre: "Pop",
                 tracks: [
                     { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
                     { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
@@ -796,36 +814,7 @@
                     { num: "19", title: "Rock Boy", file: "19 Rock Boy.mp3" }
 
                 ]
-            },
-{
-    "id": "femme-fatale",
-    "folder": "07 Femme Fatale",
-    "title": "Femme Fatale",
-    "artist": "Britney Spears",
-    "year": "2011",
-    "genre": "Pop",
-    "cover": "capa.jpg",
-    "video": "video.mp4",
-    "tracks": [
-        { "num": "1", "title": "Till The World Ends", "file": "01 Till The World Ends.mp3" },
-        { "num": "2", "title": "Hold It Against Me ", "file": "02 Hold It Against Me .mp3" },
-        { "num": "3", "title": "Inside Out", "file": "03 Inside Out.mp3" },
-        { "num": "4", "title": "I Wanna Go", "file": "04 I Wanna Go.mp3" },
-        { "num": "5", "title": "How I Roll", "file": "05 How I Roll.mp3" },
-        { "num": "6", "title": "(Drop Dead) Beautiful (Feat. Sabi)", "file": "06 (Drop Dead) Beautiful (Feat. Sabi).mp3" },
-        { "num": "7", "title": "Seal It With A Kiss", "file": "07 Seal It With A Kiss.mp3" },
-        { "num": "8", "title": "Big Fat Bass (Feat. Will.i.am)", "file": "08 Big Fat Bass (Feat. Will.i.am).mp3" },
-        { "num": "9", "title": "Trouble For Me", "file": "09 Trouble For Me.mp3" },
-        { "num": "10", "title": "Trip To Your Heart", "file": "10 Trip To Your Heart.mp3" },
-        { "num": "11", "title": "Gasoline", "file": "11 Gasoline.mp3" },
-        { "num": "12", "title": "Criminal", "file": "12 Criminal.mp3" },
-        { "num": "13", "title": "Up N' Down", "file": "13 Up N' Down.mp3" },
-        { "num": "14", "title": "He About To Lose Me", "file": "14 He About To Lose Me.mp3" },
-        { "num": "15", "title": "Selfish", "file": "15 Selfish.mp3" },
-        { "num": "16", "title": "Don't Keep Me Waiting", "file": "16 Don't Keep Me Waiting.mp3" },
-        { "num": "17", "title": "Scary", "file": "17 Scary.mp3" }
-    ]
-}
+            }
         
         ];
 	   
@@ -1175,14 +1164,30 @@
             expPlayer.addEventListener('touchmove', e => { const currentY = e.touches[0].clientY; if (currentY > touchStartY && (currentY - touchStartY) > 50) { if(e.target.tagName !== "INPUT") closeExpandedPlayer(); } }, {passive: true});
         }
         
-        function toggleShuffle() { isShuffleActive = !isShuffleActive; document.getElementById('shuffleBtn').classList.toggle('active'); }
+        // ATUALIZADO: toggleShuffle e toggleRepeatMode agora alteram os botões da versão de PC e também do Mobile expandido.
+        function toggleShuffle() { 
+            isShuffleActive = !isShuffleActive; 
+            document.getElementById('shuffleBtn').classList.toggle('active'); 
+            
+            const expShuffleBtn = document.getElementById('expShuffleBtn');
+            if (expShuffleBtn) {
+                expShuffleBtn.classList.toggle('active');
+            }
+        }
         
         function toggleRepeatMode() {
-            currentRepeatMode = (currentRepeatMode + 1) % 4; const btn = document.getElementById('repeatText');
-            if (currentRepeatMode === 0) btn.innerText = "Off"; 
-            else if (currentRepeatMode === 1) btn.innerText = "Música"; 
-            else if (currentRepeatMode === 2) btn.innerText = "Álbum"; 
-            else btn.innerText = "Disco";
+            currentRepeatMode = (currentRepeatMode + 1) % 4; 
+            const btn = document.getElementById('repeatText');
+            const expBtn = document.getElementById('expRepeatText');
+            
+            let text = "";
+            if (currentRepeatMode === 0) text = "Off"; 
+            else if (currentRepeatMode === 1) text = "Música"; 
+            else if (currentRepeatMode === 2) text = "Álbum"; 
+            else text = "Disco";
+            
+            if (btn) btn.innerText = text;
+            if (expBtn) expBtn.innerText = text;
         }
         
         function toggleTheme() { document.body.classList.toggle('light-mode'); localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); }
@@ -1242,4 +1247,3 @@
     </script>
 </body>
 </html>
-
