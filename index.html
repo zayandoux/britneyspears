@@ -1023,7 +1023,11 @@
                 navigator.mediaSession.metadata = new MediaMetadata({ title: track.title, artist: playingAlbum.artist, album: playingAlbum.title, artwork: [{ src: absoluteCoverUrl, sizes: '512x512', type: 'image/jpeg' }] });
                 navigator.mediaSession.playbackState = "playing"; // ATUALIZA TELA DE BLOQUEIO
             }
-            audio.src = `${playingAlbum.folder}/${track.file}`; audio.play().catch(()=>{}); updatePlayButton(true); updateTracklistVisuals();
+            const pastaFinal = track.folder || playingAlbum.folder;
+            audio.src = `${pastaFinal}/${track.file}`; 
+            audio.play().catch(()=>{}); 
+            updatePlayButton(true); 
+            updateTracklistVisuals();
         }
 
         function playAlbumFromStart() { if (selectedAlbum) { playingAlbum = selectedAlbum; playingTracks = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : selectedAlbum.tracks; playTrack(0); } }
