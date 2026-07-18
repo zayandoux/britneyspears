@@ -589,7 +589,6 @@
                 </button>
             </div>
 
-            <!-- AS CATEGORIAS -->
             <h2 class="category-title">Álbuns Principais</h2>
             <div class="album-grid" id="albumGrid"></div>
 
@@ -608,7 +607,7 @@
                 <div class="left-album-block">
                     <div class="album-media-container">
                         <img id="albumArt" class="album-art" src="" alt="Capa">
-                        <video id="albumVideo" class="album-video" loop muted playsinline></video>
+                        <video id="albumVideo" class="album-video" loop muted playsinline onerror="this.style.display='none'; document.getElementById('albumArt').style.display='block';"></video>
                     </div>
                 </div>
 
@@ -690,7 +689,7 @@
             </div>
             <div class="exp-art-container">
                 <img id="expArt" src="" alt="Capa">
-                <video id="expVideo" loop muted playsinline></video>
+                <video id="expVideo" loop muted playsinline onerror="this.style.display='none'; document.getElementById('expArt').style.display='block';"></video>
             </div>
             <div class="exp-info-row">
                 <div class="exp-text">
@@ -1147,11 +1146,20 @@
             const videoFile = (version && version.video) ? version.video : (album.video || null);
             const artEl = document.getElementById('albumArt'); const videoEl = document.getElementById('albumVideo');
 
+            // ATUALIZAÇÃO NO CÓDIGO JS AQUI: 
+            // O src da capa precisa ser sempre atribuído caso o navegador precise fazer o fallback para ela
+            artEl.src = `${album.folder}/${version ? version.cover : album.cover}`;
+            
             if (videoFile && videoFile !== "") {
-                artEl.style.display = 'none'; videoEl.style.display = 'block'; videoEl.src = `${album.folder}/${videoFile}`; videoEl.play().catch(()=>{});
+                artEl.style.display = 'none'; 
+                videoEl.style.display = 'block'; 
+                videoEl.src = `${album.folder}/${videoFile}`; 
+                videoEl.play().catch(()=>{});
             } else {
-                videoEl.style.display = 'none'; videoEl.pause(); videoEl.src = "";
-                artEl.src = `${album.folder}/${version ? version.cover : album.cover}`; artEl.style.display = 'block';
+                videoEl.style.display = 'none'; 
+                videoEl.pause(); 
+                videoEl.src = "";
+                artEl.style.display = 'block';
             }
             updateDynamicBackground(); renderTracklist();
         }
@@ -1210,6 +1218,9 @@
                 videoFile = playingAlbum.video;
             }
 
+            // ATUALIZAÇÃO NO CÓDIGO JS AQUI (mesma lógica)
+            expArtEl.src = coverPath;
+            
             if (videoFile && videoFile !== "") {
                 expArtEl.style.display = 'none';
                 expVideoEl.style.display = 'block';
@@ -1219,7 +1230,6 @@
                 expVideoEl.style.display = 'none';
                 expVideoEl.pause();
                 expVideoEl.src = "";
-                expArtEl.src = coverPath;
                 expArtEl.style.display = 'block';
             }
 
@@ -1447,4 +1457,3 @@
     </script>
 </body>
 </html>
-
