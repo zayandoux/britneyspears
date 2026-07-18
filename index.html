@@ -1,3 +1,4 @@
+Aqui está o código completo, já com todas as alterações aplicadas. Copie e substitua no seu arquivo:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -181,6 +182,21 @@
         .play-album-btn:hover { transform: scale(1.04); }
 
         .right-tracklist-block { flex: 1; overflow-y: auto; padding-right: 15px; margin-bottom: 15px; }
+
+        /* SEPARADOR DE DISCOS */
+        .disc-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin: 20px 0 10px 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 5px;
+        }
+        body.light-mode .disc-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
 
         .tracklist { display: flex; flex-direction: column; width: 100%; }
         .track-row { display: flex; align-items: center; padding: 14px 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); cursor: pointer; border-radius: 6px; transition: background-color 0.2s; }
@@ -939,15 +955,18 @@
                     { "num": "18", "title": "Mood Ring (By Demand)", "file": "18. Mood Ring (By Demand).mp3" },
                     { "num": "19", "title": "Swimming In The Stars", "file": "19. Swimming In The Stars.mp3" },
                     { "num": "20", "title": "Matches", "file": "20. Matches.mp3" }
-    ]
-},
+                ]
+            },
 
-            // ADICIONADO: NOVA CATEGORIA (COMPILAÇÕES OFICIAIS) MODELO
+            // CATEGORIA: COMPILAÇÕES OFICIAIS (COM EXEMPLO DE DOIS DISCOS APLICADO)
             {
                 id: "my-prerogative", folder: "10 My Prerogative", title: "Greatest Hits: My Prerogative", artist: "Britney Spears", year: "2004", genre: "Pop", cover: "capa.jpg", video: "video.mp4", type: "compilation",
                 tracks: [
-                    { "num": "1", "title": "My Prerogative", "file": "01 My Prerogative.mp3" },
-                    { "num": "2", "title": "Toxic", "file": "02 Toxic.mp3" }
+                    { "disc": "Disco 1", "num": "1", "title": "My Prerogative", "file": "01 My Prerogative.mp3" },
+                    { "disc": "Disco 1", "num": "2", "title": "Toxic", "file": "02 Toxic.mp3" },
+                    
+                    { "disc": "Disco 2", "num": "1", "title": "I'm a Slave 4 U", "file": "03 I'm a Slave 4 U.mp3" },
+                    { "disc": "Disco 2", "num": "2", "title": "Oops!... I Did It Again", "file": "04 Oops!... I Did It Again.mp3" }
                 ]
             }
         ];
@@ -1142,7 +1161,17 @@
             const tracklistEl = document.getElementById('tracklist'); tracklistEl.innerHTML = '';
             const tracks = (selectedVersion && selectedVersion.tracks) ? selectedVersion.tracks : selectedAlbum.tracks;
 
+            let currentDisc = null;
+
             tracks.forEach((track, index) => {
+                if (track.disc && track.disc !== currentDisc) {
+                    currentDisc = track.disc;
+                    const discHeader = document.createElement('div');
+                    discHeader.className = 'disc-header';
+                    discHeader.innerText = currentDisc;
+                    tracklistEl.appendChild(discHeader);
+                }
+
                 const row = document.createElement('div'); row.className = 'track-row'; row.id = `track-${index}`;
                 row.onclick = () => { playingAlbum = selectedAlbum; playingTracks = tracks; playTrack(index); };
                 row.innerHTML = `<div class="equalizer"><div class="eq-bar eq-bar-1"></div><div class="eq-bar eq-bar-2"></div><div class="eq-bar eq-bar-3"></div></div><div class="track-number">${track.num}</div><div class="track-title">${track.title}</div>`;
@@ -1166,9 +1195,6 @@
             
             const player = document.getElementById('mainFloatingPlayer');
             player.style.display = 'flex';
-            
-            // REMOVIDO: player.classList.remove('player-collapsed'); 
-            // Agora ele não será forçado a abrir cada vez que pula de música.
             
             updateCollapseButtonIcon();
 			document.body.classList.add('player-active');
@@ -1226,8 +1252,6 @@
                 updatePlayButton(true); 
             } else { 
                 audio.pause(); 
-                if(v1) v1.pause();
-                if(v2) v2.pause();
                 updatePlayButton(false); 
             }
             updateTracklistVisuals();
@@ -1424,3 +1448,4 @@
     </script>
 </body>
 </html>
+
