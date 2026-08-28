@@ -12,89 +12,89 @@
       "year": "1999",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "01%20Baby%20One%20More%20Time/capa.jpg",
-      "animatedCoverPath": "01%20Baby%20One%20More%20Time/video.mp4",
-      "backgroundPath": "01%20Baby%20One%20More%20Time/fundo.png",
+      "coverPath": "media/albuns/01%20Baby%20One%20More%20Time/capa.jpg",
+      "animatedCoverPath": "media/albuns/01%20Baby%20One%20More%20Time/video.mp4",
+      "backgroundPath": "media/albuns/01%20Baby%20One%20More%20Time/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "...Baby One More Time",
-          "audioPath": "01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
         },
         {
           "number": "2",
           "title": "(You Drive Me) Crazy",
-          "audioPath": "01%20Baby%20One%20More%20Time/02%20-%20Britney%20Spears%20-%20Crazy%20(You%20Drive%20Me).mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/02%20-%20Britney%20Spears%20-%20Crazy%20(You%20Drive%20Me).mp3"
         },
         {
           "number": "3",
           "title": "Sometimes",
-          "audioPath": "01%20Baby%20One%20More%20Time/03%20-%20Britney%20Spears%20-%20Sometimes.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/03%20-%20Britney%20Spears%20-%20Sometimes.mp3"
         },
         {
           "number": "4",
           "title": "Soda Pop",
-          "audioPath": "01%20Baby%20One%20More%20Time/04%20-%20Britney%20Spears%20-%20Soda%20Pop.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/04%20-%20Britney%20Spears%20-%20Soda%20Pop.mp3"
         },
         {
           "number": "5",
           "title": "Born To Make You Happy",
-          "audioPath": "01%20Baby%20One%20More%20Time/05%20-%20Britney%20Spears%20-%20Born%20To%20Make%20You%20Happy.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/05%20-%20Britney%20Spears%20-%20Born%20To%20Make%20You%20Happy.mp3"
         },
         {
           "number": "6",
           "title": "From The Bottom Of My Broken Heart",
-          "audioPath": "01%20Baby%20One%20More%20Time/06%20-%20Britney%20Spears%20-%20From%20The%20Bottom%20Of%20My%20Broken%20Heart.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/06%20-%20Britney%20Spears%20-%20From%20The%20Bottom%20Of%20My%20Broken%20Heart.mp3"
         },
         {
           "number": "7",
           "title": "I Will Be There",
-          "audioPath": "01%20Baby%20One%20More%20Time/07%20-%20Britney%20Spears%20-%20I%20Will%20Be%20There.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/07%20-%20Britney%20Spears%20-%20I%20Will%20Be%20There.mp3"
         },
         {
           "number": "8",
           "title": "I Will Still Love You (Duet With Don Philip)",
-          "audioPath": "01%20Baby%20One%20More%20Time/08%20-%20Britney%20Spears%20-%20I%20Will%20Still%20Love%20You%20(Duet%20With%20Don%20Philip).mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/08%20-%20Britney%20Spears%20-%20I%20Will%20Still%20Love%20You%20(Duet%20With%20Don%20Philip).mp3"
         },
         {
           "number": "9",
           "title": "Deep In My Heart",
-          "audioPath": "01%20Baby%20One%20More%20Time/09%20-%20Britney%20Spears%20-%20Deep%20In%20My%20Heart.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/09%20-%20Britney%20Spears%20-%20Deep%20In%20My%20Heart.mp3"
         },
         {
           "number": "10",
           "title": "Thinkin' About You",
-          "audioPath": "01%20Baby%20One%20More%20Time/10%20-%20Britney%20Spears%20-%20Thinkin'%20About%20You.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/10%20-%20Britney%20Spears%20-%20Thinkin'%20About%20You.mp3"
         },
         {
           "number": "11",
           "title": "E-Mail My Heart",
-          "audioPath": "01%20Baby%20One%20More%20Time/11%20-%20Britney%20Spears%20-%20E-Mail%20My%20Heart.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/11%20-%20Britney%20Spears%20-%20E-Mail%20My%20Heart.mp3"
         },
         {
           "number": "12",
           "title": "The Beat Goes On",
-          "audioPath": "01%20Baby%20One%20More%20Time/12%20-%20Britney%20Spears%20-%20The%20Beat%20Goes%20On.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/12%20-%20Britney%20Spears%20-%20The%20Beat%20Goes%20On.mp3"
         },
         {
           "number": "13",
           "title": "I'll Never Stop Loving You",
-          "audioPath": "01%20Baby%20One%20More%20Time/13%20-%20Britney%20Spears%20-%20I'll%20Never%20Stop%20Loving%20You.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/13%20-%20Britney%20Spears%20-%20I'll%20Never%20Stop%20Loving%20You.mp3"
         },
         {
           "number": "14",
           "title": "Autumn Goodbye",
-          "audioPath": "01%20Baby%20One%20More%20Time/14%20-%20Britney%20Spears%20-%20Autumn%20Goodbye.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/14%20-%20Britney%20Spears%20-%20Autumn%20Goodbye.mp3"
         },
         {
           "number": "15",
           "title": "Baby One More Time (Davidson Ospina Radio Mix)",
-          "audioPath": "01%20Baby%20One%20More%20Time/15%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time%20(Davidson%20Ospina%20Radio%20Mix).mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/15%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time%20(Davidson%20Ospina%20Radio%20Mix).mp3"
         },
         {
           "number": "16",
           "title": "Baby One More Time (Boy Wunder Radio Mix)",
-          "audioPath": "01%20Baby%20One%20More%20Time/16%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time%20(Boy%20Wunder%20Radio%20Mix).mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/16%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time%20(Boy%20Wunder%20Radio%20Mix).mp3"
         }
       ]
     },
@@ -103,91 +103,91 @@
       "title": "Oops!... I Did It Again",
       "artist": "Britney Spears",
       "category": "main",
-      "coverPath": "02%20Oops%20I%20Did%20It%20Again/oops.jfif",
-      "backgroundPath": "02%20Oops%20I%20Did%20It%20Again/fundo.png",
+      "coverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.jfif",
+      "backgroundPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/fundo.png",
       "versions": [
         {
           "id": "version-1",
           "title": "Oops!... I Did It Again",
           "year": "2000",
           "genre": "Pop",
-          "coverPath": "02%20Oops%20I%20Did%20It%20Again/oops.jfif",
-          "animatedCoverPath": "02%20Oops%20I%20Did%20It%20Again/oops.mp4",
+          "coverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.jfif",
+          "animatedCoverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.mp4",
           "tracks": [
             {
               "number": "1",
               "title": "Oops!... I Did It Again",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
             },
             {
               "number": "2",
               "title": "Stronger",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
             },
             {
               "number": "3",
               "title": "Don't Go Knockin' on My Door",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
             },
             {
               "number": "4",
               "title": "(I Can't Get No) Satisfaction",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
             },
             {
               "number": "5",
               "title": "Don't Let Me Be the Last to Know",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
             },
             {
               "number": "6",
               "title": "What U See (Is What U Get)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/06%20-%20Britney%20Spears%20-%20What%20U%20See%20(Is%20What%20U%20Get).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/06%20-%20Britney%20Spears%20-%20What%20U%20See%20(Is%20What%20U%20Get).mp3"
             },
             {
               "number": "7",
               "title": "Lucky",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
             },
             {
               "number": "8",
               "title": "One Kiss from You",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
             },
             {
               "number": "9",
               "title": "Where Are You Now",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
             },
             {
               "number": "10",
               "title": "Can't Make You Love Me",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/10%20-%20Britney%20Spears%20-%20Can't%20Make%20You%20Love%20Me.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/10%20-%20Britney%20Spears%20-%20Can't%20Make%20You%20Love%20Me.mp3"
             },
             {
               "number": "11",
               "title": "When Your Eyes Say It",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
             },
             {
               "number": "12",
               "title": "Dear Diary",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
             },
             {
               "number": "13",
               "title": "Girl In The Mirror",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
             },
             {
               "number": "14",
               "title": "You Got It All",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
             },
             {
               "number": "15",
               "title": "Heart",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/15%20-%20Britney%20Spears%20-%20Heart.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/15%20-%20Britney%20Spears%20-%20Heart.mp3"
             }
           ]
         },
@@ -196,118 +196,118 @@
           "title": "Oops!... I Did It Again (25th Anniversary)",
           "year": "2025",
           "genre": "Pop",
-          "coverPath": "02%20Oops%20I%20Did%20It%20Again/oops%2025.jpeg",
-          "animatedCoverPath": "02%20Oops%20I%20Did%20It%20Again/oops%2025.mp4",
+          "coverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops%2025.jpeg",
+          "animatedCoverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops%2025.mp4",
           "tracks": [
             {
               "number": "1",
               "title": "Oops!... I Did It Again",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
             },
             {
               "number": "2",
               "title": "Stronger",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
             },
             {
               "number": "3",
               "title": "Don't Go Knockin' on My Door",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
             },
             {
               "number": "4",
               "title": "(I Can't Get No) Satisfaction",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
             },
             {
               "number": "5",
               "title": "Don't Let Me Be the Last to Know",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
             },
             {
               "number": "6",
               "title": "What U See (Is What U Get)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/06%20-%20Britney%20Spears%20-%20What%20U%20See%20(Is%20What%20U%20Get).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/06%20-%20Britney%20Spears%20-%20What%20U%20See%20(Is%20What%20U%20Get).mp3"
             },
             {
               "number": "7",
               "title": "Lucky",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
             },
             {
               "number": "8",
               "title": "One Kiss from You",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
             },
             {
               "number": "9",
               "title": "Where Are You Now",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
             },
             {
               "number": "10",
               "title": "Can't Make You Love Me",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/10%20-%20Britney%20Spears%20-%20Can't%20Make%20You%20Love%20Me.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/10%20-%20Britney%20Spears%20-%20Can't%20Make%20You%20Love%20Me.mp3"
             },
             {
               "number": "11",
               "title": "When Your Eyes Say It",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
             },
             {
               "number": "12",
               "title": "Dear Diary",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
             },
             {
               "number": "13",
               "title": "Girl In The Mirror",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
             },
             {
               "number": "14",
               "title": "You Got It All",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
             },
             {
               "number": "15",
               "title": "Heart",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/15%20-%20Britney%20Spears%20-%20Heart.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/15%20-%20Britney%20Spears%20-%20Heart.mp3"
             },
             {
               "number": "16",
               "title": "Walk On By",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/16%20Walk%20On%20By.mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/16%20Walk%20On%20By.mp3"
             },
             {
               "number": "17",
               "title": "Oops!...I Did It Again (Riprock 'n' Alex G. Ooops! We Remixed Again! - RadioMix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/17%20Oops!...I%20Did%20It%20Again%20(Riprock%20'n'%20Alex%20G.%20Ooops!%20We%20Remixed%20Again!%20-%20RadioMix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/17%20Oops!...I%20Did%20It%20Again%20(Riprock%20'n'%20Alex%20G.%20Ooops!%20We%20Remixed%20Again!%20-%20RadioMix).mp3"
             },
             {
               "number": "18",
               "title": "Lucky (Jack D. Elliot Radio Mix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/18%20Lucky%20(Jack%20D.%20Elliot%20Radio%20Mix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/18%20Lucky%20(Jack%20D.%20Elliot%20Radio%20Mix).mp3"
             },
             {
               "number": "19",
               "title": "Stronger (Miguel 'Migs' Vocal Mix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/19%20Stronger%20(Miguel%20'Migs'%20Vocal%20Mix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/19%20Stronger%20(Miguel%20'Migs'%20Vocal%20Mix).mp3"
             },
             {
               "number": "20",
               "title": "Don't Let Me Be The Last To Know (Thunderpuss Radio Mix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/20%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know%20(Thunderpuss%20Radio%20Mix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/20%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know%20(Thunderpuss%20Radio%20Mix).mp3"
             },
             {
               "number": "21",
               "title": "Stronger (Adamusic Remix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/21%20Stronger%20(Adamusic%20Remix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/21%20Stronger%20(Adamusic%20Remix).mp3"
             },
             {
               "number": "22",
               "title": "Oops!...I Did It Again (Pessto Remix)",
-              "audioPath": "02%20Oops%20I%20Did%20It%20Again/22%20Oops!...I%20Did%20It%20Again%20(Pessto%20Remix).mp3"
+              "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/22%20Oops!...I%20Did%20It%20Again%20(Pessto%20Remix).mp3"
             }
           ]
         }
@@ -320,84 +320,84 @@
       "year": "2001",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "03%20Britney/capa.jpg",
-      "animatedCoverPath": "03%20Britney/video.mp4",
-      "backgroundPath": "03%20Britney/fundo.png",
+      "coverPath": "media/albuns/03%20Britney/capa.jpg",
+      "animatedCoverPath": "media/albuns/03%20Britney/video.mp4",
+      "backgroundPath": "media/albuns/03%20Britney/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "I'm A Slave 4 U",
-          "audioPath": "03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
+          "audioPath": "media/albuns/03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
         },
         {
           "number": "2",
           "title": "Overprotected",
-          "audioPath": "03%20Britney/02%20-%20Britney%20Spears%20-%20Overprotected.mp3"
+          "audioPath": "media/albuns/03%20Britney/02%20-%20Britney%20Spears%20-%20Overprotected.mp3"
         },
         {
           "number": "3",
           "title": "Lonely",
-          "audioPath": "03%20Britney/03%20-%20Britney%20Spears%20-%20Lonely.mp3"
+          "audioPath": "media/albuns/03%20Britney/03%20-%20Britney%20Spears%20-%20Lonely.mp3"
         },
         {
           "number": "4",
           "title": "I'm Not A Girl, Not Yet A Woman",
-          "audioPath": "03%20Britney/04%20-%20Britney%20Spears%20-%20I'm%20Not%20A%20Girl%2C%20Not%20Yet%20A%20Woman.mp3"
+          "audioPath": "media/albuns/03%20Britney/04%20-%20Britney%20Spears%20-%20I'm%20Not%20A%20Girl%2C%20Not%20Yet%20A%20Woman.mp3"
         },
         {
           "number": "5",
           "title": "Boys",
-          "audioPath": "03%20Britney/05%20-%20Britney%20Spears%20-%20Boys.mp3"
+          "audioPath": "media/albuns/03%20Britney/05%20-%20Britney%20Spears%20-%20Boys.mp3"
         },
         {
           "number": "6",
           "title": "Anticipating",
-          "audioPath": "03%20Britney/06%20-%20Britney%20Spears%20-%20Anticipating.mp3"
+          "audioPath": "media/albuns/03%20Britney/06%20-%20Britney%20Spears%20-%20Anticipating.mp3"
         },
         {
           "number": "7",
           "title": "I Love Rock 'n' Roll",
-          "audioPath": "03%20Britney/07%20-%20Britney%20Spears%20-%20I%20Love%20Rock%20'n'%20Roll.mp3"
+          "audioPath": "media/albuns/03%20Britney/07%20-%20Britney%20Spears%20-%20I%20Love%20Rock%20'n'%20Roll.mp3"
         },
         {
           "number": "8",
           "title": "Cinderella",
-          "audioPath": "03%20Britney/08%20-%20Britney%20Spears%20-%20Cinderella.mp3"
+          "audioPath": "media/albuns/03%20Britney/08%20-%20Britney%20Spears%20-%20Cinderella.mp3"
         },
         {
           "number": "9",
           "title": "Let Me Be",
-          "audioPath": "03%20Britney/09%20-%20Britney%20Spears%20-%20Let%20Me%20Be.mp3"
+          "audioPath": "media/albuns/03%20Britney/09%20-%20Britney%20Spears%20-%20Let%20Me%20Be.mp3"
         },
         {
           "number": "10",
           "title": "Bombastic Love",
-          "audioPath": "03%20Britney/10%20-%20Britney%20Spears%20-%20Bombastic%20Love.mp3"
+          "audioPath": "media/albuns/03%20Britney/10%20-%20Britney%20Spears%20-%20Bombastic%20Love.mp3"
         },
         {
           "number": "11",
           "title": "That's Where You Take Me",
-          "audioPath": "03%20Britney/11%20-%20Britney%20Spears%20-%20That's%20Where%20You%20Take%20Me.mp3"
+          "audioPath": "media/albuns/03%20Britney/11%20-%20Britney%20Spears%20-%20That's%20Where%20You%20Take%20Me.mp3"
         },
         {
           "number": "12",
           "title": "When I Found You",
-          "audioPath": "03%20Britney/12%20-%20Britney%20Spears%20-%20When%20I%20Found%20You.mp3"
+          "audioPath": "media/albuns/03%20Britney/12%20-%20Britney%20Spears%20-%20When%20I%20Found%20You.mp3"
         },
         {
           "number": "13",
           "title": "I Run Away",
-          "audioPath": "03%20Britney/13%20-%20Britney%20Spears%20-%20I%20Run%20Away.mp3"
+          "audioPath": "media/albuns/03%20Britney/13%20-%20Britney%20Spears%20-%20I%20Run%20Away.mp3"
         },
         {
           "number": "14",
           "title": "What It's Like To Be Me",
-          "audioPath": "03%20Britney/14%20-%20Britney%20Spears%20-%20What%20It's%20Like%20To%20Be%20Me.mp3"
+          "audioPath": "media/albuns/03%20Britney/14%20-%20Britney%20Spears%20-%20What%20It's%20Like%20To%20Be%20Me.mp3"
         },
         {
           "number": "15",
           "title": "Before The Goodbye",
-          "audioPath": "03%20Britney/15%20-%20Britney%20Spears%20-%20Before%20The%20Goodbye.mp3"
+          "audioPath": "media/albuns/03%20Britney/15%20-%20Britney%20Spears%20-%20Before%20The%20Goodbye.mp3"
         }
       ]
     },
@@ -408,84 +408,84 @@
       "year": "2003",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "04%20In%20The%20Zone/capa.jfif",
-      "animatedCoverPath": "04%20In%20The%20Zone/video.mp4",
-      "backgroundPath": "04%20In%20The%20Zone/fundo.png",
+      "coverPath": "media/albuns/04%20In%20The%20Zone/capa.jfif",
+      "animatedCoverPath": "media/albuns/04%20In%20The%20Zone/video.mp4",
+      "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Me Against the Music",
-          "audioPath": "04%20In%20The%20Zone/01%20Me%20Against%20the%20Music.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/01%20Me%20Against%20the%20Music.m4a"
         },
         {
           "number": "2",
           "title": "(I Got That) Boom Boom",
-          "audioPath": "04%20In%20The%20Zone/02%20(I%20Got%20That)%20Boom%20Boom.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/02%20(I%20Got%20That)%20Boom%20Boom.m4a"
         },
         {
           "number": "3",
           "title": "Showdown",
-          "audioPath": "04%20In%20The%20Zone/03%20Showdown.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/03%20Showdown.m4a"
         },
         {
           "number": "4",
           "title": "Breathe On Me",
-          "audioPath": "04%20In%20The%20Zone/04%20Breathe%20On%20Me.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/04%20Breathe%20On%20Me.m4a"
         },
         {
           "number": "5",
           "title": "Early Mornin'",
-          "audioPath": "04%20In%20The%20Zone/05%20Early%20Mornin'.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/05%20Early%20Mornin'.m4a"
         },
         {
           "number": "6",
           "title": "Toxic",
-          "audioPath": "04%20In%20The%20Zone/06%20Toxic.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/06%20Toxic.m4a"
         },
         {
           "number": "7",
           "title": "Outrageous",
-          "audioPath": "04%20In%20The%20Zone/07%20Outrageous.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/07%20Outrageous.m4a"
         },
         {
           "number": "8",
           "title": "Touch of My Hand",
-          "audioPath": "04%20In%20The%20Zone/08%20Touch%20of%20My%20Hand.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/08%20Touch%20of%20My%20Hand.m4a"
         },
         {
           "number": "9",
           "title": "The Hook Up",
-          "audioPath": "04%20In%20The%20Zone/09%20The%20Hook%20Up.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/09%20The%20Hook%20Up.m4a"
         },
         {
           "number": "10",
           "title": "Shadow",
-          "audioPath": "04%20In%20The%20Zone/10%20Shadow.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/10%20Shadow.m4a"
         },
         {
           "number": "11",
           "title": "Brave New Girl",
-          "audioPath": "04%20In%20The%20Zone/11%20Brave%20New%20Girl.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/11%20Brave%20New%20Girl.m4a"
         },
         {
           "number": "12",
           "title": "Everytime",
-          "audioPath": "04%20In%20The%20Zone/12%20Everytime.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/12%20Everytime.m4a"
         },
         {
           "number": "13",
           "title": "Me Against the Music (Rishi Rich's Desi Kulcha Remix)",
-          "audioPath": "04%20In%20The%20Zone/13%20Me%20Against%20the%20Music%20(Rishi%20Rich's%20Desi%20Kulcha%20Remix).m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/13%20Me%20Against%20the%20Music%20(Rishi%20Rich's%20Desi%20Kulcha%20Remix).m4a"
         },
         {
           "number": "14",
           "title": "The Answer",
-          "audioPath": "04%20In%20The%20Zone/14%20The%20Answer.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/14%20The%20Answer.m4a"
         },
         {
           "number": "15",
           "title": "Don't Hang Up",
-          "audioPath": "04%20In%20The%20Zone/15%20Dont%20Hang%20Up.mp3"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/15%20Dont%20Hang%20Up.mp3"
         }
       ]
     },
@@ -496,84 +496,84 @@
       "year": "2007",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "05%20Blackout/capa.jpg",
-      "animatedCoverPath": "05%20Blackout/video.mp4",
-      "backgroundPath": "05%20Blackout/fundo.png",
+      "coverPath": "media/albuns/05%20Blackout/capa.jpg",
+      "animatedCoverPath": "media/albuns/05%20Blackout/video.mp4",
+      "backgroundPath": "media/albuns/05%20Blackout/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Gimme More",
-          "audioPath": "05%20Blackout/01%20-%20Gimme%20More%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/01%20-%20Gimme%20More%20(Main%20Version).mp3"
         },
         {
           "number": "2",
           "title": "Piece of Me",
-          "audioPath": "05%20Blackout/02%20-%20Piece%20of%20Me%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/02%20-%20Piece%20of%20Me%20(Main%20Version).mp3"
         },
         {
           "number": "3",
           "title": "Radar",
-          "audioPath": "05%20Blackout/03%20-%20Radar%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/03%20-%20Radar%20(Main%20Version).mp3"
         },
         {
           "number": "4",
           "title": "Break the Ice",
-          "audioPath": "05%20Blackout/04%20-%20Break%20the%20Ice%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/04%20-%20Break%20the%20Ice%20(Main%20Version).mp3"
         },
         {
           "number": "5",
           "title": "Heaven On Earth",
-          "audioPath": "05%20Blackout/05%20-%20Heaven%20On%20Earth%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/05%20-%20Heaven%20On%20Earth%20(Main%20Version).mp3"
         },
         {
           "number": "6",
           "title": "Get Naked (I Got a Plan)",
-          "audioPath": "05%20Blackout/06%20-%20Get%20Naked%20(I%20Got%20a%20Plan)%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/06%20-%20Get%20Naked%20(I%20Got%20a%20Plan)%20(Main%20Version).mp3"
         },
         {
           "number": "7",
           "title": "Freakshow",
-          "audioPath": "05%20Blackout/07%20-%20Freakshow%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/07%20-%20Freakshow%20(Main%20Version).mp3"
         },
         {
           "number": "8",
           "title": "Toy Soldier",
-          "audioPath": "05%20Blackout/08%20-%20Toy%20Soldier%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/08%20-%20Toy%20Soldier%20(Main%20Version).mp3"
         },
         {
           "number": "9",
           "title": "Hot as Ice",
-          "audioPath": "05%20Blackout/09%20-%20Hot%20as%20Ice%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/09%20-%20Hot%20as%20Ice%20(Main%20Version).mp3"
         },
         {
           "number": "10",
           "title": "Ooh Ooh Baby",
-          "audioPath": "05%20Blackout/10%20-%20Ooh%20Ooh%20Baby%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/10%20-%20Ooh%20Ooh%20Baby%20(Main%20Version).mp3"
         },
         {
           "number": "11",
           "title": "Perfect Lover",
-          "audioPath": "05%20Blackout/11%20-%20Perfect%20Lover%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/11%20-%20Perfect%20Lover%20(Main%20Version).mp3"
         },
         {
           "number": "12",
           "title": "Why Should I Be Sad",
-          "audioPath": "05%20Blackout/12%20-%20Why%20Should%20I%20Be%20Sad%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/12%20-%20Why%20Should%20I%20Be%20Sad%20(Main%20Version).mp3"
         },
         {
           "number": "13",
           "title": "Get Back",
-          "audioPath": "05%20Blackout/13%20-%20Get%20Back%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/13%20-%20Get%20Back%20(Main%20Version).mp3"
         },
         {
           "number": "14",
           "title": "Gimme More (Junkie XL Dub)",
-          "audioPath": "05%20Blackout/14%20-%20Gimme%20More%20(Junkie%20XL%20Dub).mp3"
+          "audioPath": "media/albuns/05%20Blackout/14%20-%20Gimme%20More%20(Junkie%20XL%20Dub).mp3"
         },
         {
           "number": "15",
           "title": "Everybody",
-          "audioPath": "05%20Blackout/15%20-%20Everybody%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/15%20-%20Everybody%20(Main%20Version).mp3"
         }
       ]
     },
@@ -584,104 +584,104 @@
       "year": "2008",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "06%20Circus/capa.jfif",
-      "animatedCoverPath": "06%20Circus/video.mp4",
-      "backgroundPath": "06%20Circus/fundo.png",
+      "coverPath": "media/albuns/06%20Circus/capa.jfif",
+      "animatedCoverPath": "media/albuns/06%20Circus/video.mp4",
+      "backgroundPath": "media/albuns/06%20Circus/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Womanizer",
-          "audioPath": "06%20Circus/01%20Womanizer.mp3"
+          "audioPath": "media/albuns/06%20Circus/01%20Womanizer.mp3"
         },
         {
           "number": "2",
           "title": "Circus",
-          "audioPath": "06%20Circus/02%20Circus.mp3"
+          "audioPath": "media/albuns/06%20Circus/02%20Circus.mp3"
         },
         {
           "number": "3",
           "title": "Out from Under",
-          "audioPath": "06%20Circus/03%20Out%20from%20Under.mp3"
+          "audioPath": "media/albuns/06%20Circus/03%20Out%20from%20Under.mp3"
         },
         {
           "number": "4",
           "title": "Kill the Lights",
-          "audioPath": "06%20Circus/04%20Kill%20the%20Lights.mp3"
+          "audioPath": "media/albuns/06%20Circus/04%20Kill%20the%20Lights.mp3"
         },
         {
           "number": "5",
           "title": "Shattered Glass",
-          "audioPath": "06%20Circus/05%20Shattered%20Glass.mp3"
+          "audioPath": "media/albuns/06%20Circus/05%20Shattered%20Glass.mp3"
         },
         {
           "number": "6",
           "title": "If U Seek Amy",
-          "audioPath": "06%20Circus/06%20If%20U%20Seek%20Amy.mp3"
+          "audioPath": "media/albuns/06%20Circus/06%20If%20U%20Seek%20Amy.mp3"
         },
         {
           "number": "7",
           "title": "Unusual You",
-          "audioPath": "06%20Circus/07%20Unusual%20You.mp3"
+          "audioPath": "media/albuns/06%20Circus/07%20Unusual%20You.mp3"
         },
         {
           "number": "8",
           "title": "Blur",
-          "audioPath": "06%20Circus/08%20Blur.mp3"
+          "audioPath": "media/albuns/06%20Circus/08%20Blur.mp3"
         },
         {
           "number": "9",
           "title": "Mmm Papi",
-          "audioPath": "06%20Circus/09%20Mmm%20Papi.mp3"
+          "audioPath": "media/albuns/06%20Circus/09%20Mmm%20Papi.mp3"
         },
         {
           "number": "10",
           "title": "Mannequin",
-          "audioPath": "06%20Circus/10%20Mannequin.mp3"
+          "audioPath": "media/albuns/06%20Circus/10%20Mannequin.mp3"
         },
         {
           "number": "11",
           "title": "Lace and Leather",
-          "audioPath": "06%20Circus/11%20Lace%20and%20Leather.mp3"
+          "audioPath": "media/albuns/06%20Circus/11%20Lace%20and%20Leather.mp3"
         },
         {
           "number": "12",
           "title": "My Baby",
-          "audioPath": "06%20Circus/12%20My%20Baby.mp3"
+          "audioPath": "media/albuns/06%20Circus/12%20My%20Baby.mp3"
         },
         {
           "number": "13",
           "title": "Radar",
-          "audioPath": "05%20Blackout/03%20-%20Radar%20(Main%20Version).mp3"
+          "audioPath": "media/albuns/05%20Blackout/03%20-%20Radar%20(Main%20Version).mp3"
         },
         {
           "number": "14",
           "title": "Rock Me In",
-          "audioPath": "06%20Circus/14%20Rock%20Me%20In.mp3"
+          "audioPath": "media/albuns/06%20Circus/14%20Rock%20Me%20In.mp3"
         },
         {
           "number": "15",
           "title": "Phonography",
-          "audioPath": "06%20Circus/15%20Phonography.mp3"
+          "audioPath": "media/albuns/06%20Circus/15%20Phonography.mp3"
         },
         {
           "number": "16",
           "title": "Amnesia",
-          "audioPath": "06%20Circus/16%20Amnesia.mp3"
+          "audioPath": "media/albuns/06%20Circus/16%20Amnesia.mp3"
         },
         {
           "number": "17",
           "title": "Trouble",
-          "audioPath": "06%20Circus/17%20Trouble.mp3"
+          "audioPath": "media/albuns/06%20Circus/17%20Trouble.mp3"
         },
         {
           "number": "18",
           "title": "Quicksand",
-          "audioPath": "06%20Circus/18%20Quicksand.mp3"
+          "audioPath": "media/albuns/06%20Circus/18%20Quicksand.mp3"
         },
         {
           "number": "19",
           "title": "Rock Boy",
-          "audioPath": "06%20Circus/19%20Rock%20Boy.mp3"
+          "audioPath": "media/albuns/06%20Circus/19%20Rock%20Boy.mp3"
         }
       ]
     },
@@ -692,94 +692,94 @@
       "year": "2011",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "07%20Femme%20Fatale/capa.jpg",
-      "animatedCoverPath": "07%20Femme%20Fatale/video.mp4",
-      "backgroundPath": "07%20Femme%20Fatale/fundo.png",
+      "coverPath": "media/albuns/07%20Femme%20Fatale/capa.jpg",
+      "animatedCoverPath": "media/albuns/07%20Femme%20Fatale/video.mp4",
+      "backgroundPath": "media/albuns/07%20Femme%20Fatale/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Till The World Ends",
-          "audioPath": "07%20Femme%20Fatale/01%20Till%20The%20World%20Ends.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/01%20Till%20The%20World%20Ends.mp3"
         },
         {
           "number": "2",
           "title": "Hold It Against Me ",
-          "audioPath": "07%20Femme%20Fatale/02%20Hold%20It%20Against%20Me%20.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/02%20Hold%20It%20Against%20Me%20.mp3"
         },
         {
           "number": "3",
           "title": "Inside Out",
-          "audioPath": "07%20Femme%20Fatale/03%20Inside%20Out.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/03%20Inside%20Out.mp3"
         },
         {
           "number": "4",
           "title": "I Wanna Go",
-          "audioPath": "07%20Femme%20Fatale/04%20I%20Wanna%20Go.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/04%20I%20Wanna%20Go.mp3"
         },
         {
           "number": "5",
           "title": "How I Roll",
-          "audioPath": "07%20Femme%20Fatale/05%20How%20I%20Roll.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/05%20How%20I%20Roll.mp3"
         },
         {
           "number": "6",
           "title": "(Drop Dead) Beautiful (Feat. Sabi)",
-          "audioPath": "07%20Femme%20Fatale/06%20(Drop%20Dead)%20Beautiful%20(Feat.%20Sabi).mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/06%20(Drop%20Dead)%20Beautiful%20featuring%20Sabi.mp3"
         },
         {
           "number": "7",
           "title": "Seal It With A Kiss",
-          "audioPath": "07%20Femme%20Fatale/07%20Seal%20It%20With%20A%20Kiss.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/07%20Seal%20It%20With%20A%20Kiss.mp3"
         },
         {
           "number": "8",
           "title": "Big Fat Bass (Feat. Will.i.am)",
-          "audioPath": "07%20Femme%20Fatale/08%20Big%20Fat%20Bass%20(Feat.%20Will.i.am).mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/08%20Big%20Fat%20Bass%20(Feat.%20Will.i.am).mp3"
         },
         {
           "number": "9",
           "title": "Trouble For Me",
-          "audioPath": "07%20Femme%20Fatale/09%20Trouble%20For%20Me.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/09%20Trouble%20For%20Me.mp3"
         },
         {
           "number": "10",
           "title": "Trip To Your Heart",
-          "audioPath": "07%20Femme%20Fatale/10%20Trip%20To%20Your%20Heart.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/10%20Trip%20To%20Your%20Heart.mp3"
         },
         {
           "number": "11",
           "title": "Gasoline",
-          "audioPath": "07%20Femme%20Fatale/11%20Gasoline.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/11%20Gasoline.mp3"
         },
         {
           "number": "12",
           "title": "Criminal",
-          "audioPath": "07%20Femme%20Fatale/12%20Criminal.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/12%20Criminal.mp3"
         },
         {
           "number": "13",
           "title": "Up N' Down",
-          "audioPath": "07%20Femme%20Fatale/13%20Up%20N'%20Down.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/13%20Up%20N'%20Down.mp3"
         },
         {
           "number": "14",
           "title": "He About To Lose Me",
-          "audioPath": "07%20Femme%20Fatale/14%20He%20About%20To%20Lose%20Me.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/14%20He%20About%20To%20Lose%20Me.mp3"
         },
         {
           "number": "15",
           "title": "Selfish",
-          "audioPath": "07%20Femme%20Fatale/15%20Selfish.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/15%20Selfish.mp3"
         },
         {
           "number": "16",
           "title": "Don't Keep Me Waiting",
-          "audioPath": "07%20Femme%20Fatale/16%20Don't%20Keep%20Me%20Waiting.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/16%20Don't%20Keep%20Me%20Waiting.mp3"
         },
         {
           "number": "17",
           "title": "Scary",
-          "audioPath": "07%20Femme%20Fatale/17%20Scary.mp3"
+          "audioPath": "media/albuns/07%20Femme%20Fatale/17%20Scary.mp3"
         }
       ]
     },
@@ -790,79 +790,79 @@
       "year": "2013",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "08%20Britney%20Jean/capa.jpg",
-      "animatedCoverPath": "08%20Britney%20Jean/video.mp4",
-      "backgroundPath": "08%20Britney%20Jean/fundo.png",
+      "coverPath": "media/albuns/08%20Britney%20Jean/capa.jpg",
+      "animatedCoverPath": "media/albuns/08%20Britney%20Jean/video.mp4",
+      "backgroundPath": "media/albuns/08%20Britney%20Jean/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Alien",
-          "audioPath": "08%20Britney%20Jean/01%20Alien.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/01%20Alien.m4a"
         },
         {
           "number": "2",
           "title": "Work B**ch",
-          "audioPath": "08%20Britney%20Jean/02%20Work%20B__ch.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/02%20Work%20B__ch.m4a"
         },
         {
           "number": "3",
           "title": "Perfume",
-          "audioPath": "08%20Britney%20Jean/03%20Perfume.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/03%20Perfume.m4a"
         },
         {
           "number": "4",
           "title": "It Should Be Easy (feat. Will.i.an)",
-          "audioPath": "08%20Britney%20Jean/04%20It%20Should%20Be%20Easy%20(feat.%20will.i.a.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/04%20It%20Should%20Be%20Easy%20(feat.%20will.i.a.m4a"
         },
         {
           "number": "5",
           "title": "Tik Tik Boom (feat. T.I.)",
-          "audioPath": "08%20Britney%20Jean/05%20Tik%20Tik%20Boom%20(feat.%20T.I.).m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/05%20Tik%20Tik%20Boom%20(feat.%20T.I.).m4a"
         },
         {
           "number": "6",
           "title": "Body Ache",
-          "audioPath": "08%20Britney%20Jean/06%20Body%20Ache.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/06%20Body%20Ache.m4a"
         },
         {
           "number": "7",
           "title": "Til It's Gone",
-          "audioPath": "08%20Britney%20Jean/07%20Til%20It_s%20Gone.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/07%20Til%20It_s%20Gone.m4a"
         },
         {
           "number": "8",
           "title": "Passenger",
-          "audioPath": "08%20Britney%20Jean/08%20Passenger.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/08%20Passenger.m4a"
         },
         {
           "number": "9",
           "title": "Chillin' With You (feat. Jamie Lynn)",
-          "audioPath": "08%20Britney%20Jean/09%20Chillin_%20With%20You%20(feat.%20Jamie%20Ly.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/09%20Chillin_%20With%20You%20(feat.%20Jamie%20Ly.m4a"
         },
         {
           "number": "10",
           "title": "Don't Cry",
-          "audioPath": "08%20Britney%20Jean/10%20Don_t%20Cry.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/10%20Don_t%20Cry.m4a"
         },
         {
           "number": "11",
           "title": "Brightest Morning Star",
-          "audioPath": "08%20Britney%20Jean/11%20Brightest%20Morning%20Star.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/11%20Brightest%20Morning%20Star.m4a"
         },
         {
           "number": "12",
           "title": "Hold On Tight",
-          "audioPath": "08%20Britney%20Jean/12%20Hold%20On%20Tight.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/12%20Hold%20On%20Tight.m4a"
         },
         {
           "number": "13",
           "title": "Now That I Found You",
-          "audioPath": "08%20Britney%20Jean/13%20Now%20That%20I%20Found%20You.m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/13%20Now%20That%20I%20Found%20You.m4a"
         },
         {
           "number": "14",
           "title": "Perfume (The Dreaming Mix)",
-          "audioPath": "08%20Britney%20Jean/14%20Perfume%20(The%20Dreaming%20Mix).m4a"
+          "audioPath": "media/albuns/08%20Britney%20Jean/14%20Perfume%20(The%20Dreaming%20Mix).m4a"
         }
       ]
     },
@@ -873,109 +873,109 @@
       "year": "2016",
       "genre": "Pop",
       "category": "main",
-      "coverPath": "09%20Glory/capa.jpg",
-      "animatedCoverPath": "09%20Glory/video.mp4",
-      "backgroundPath": "09%20Glory/fundo.png",
+      "coverPath": "media/albuns/09%20Glory/capa.jpg",
+      "animatedCoverPath": "media/albuns/09%20Glory/video.mp4",
+      "backgroundPath": "media/albuns/09%20Glory/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Invitation",
-          "audioPath": "09%20Glory/1.%20Invitation.mp3"
+          "audioPath": "media/albuns/09%20Glory/1.%20Invitation.mp3"
         },
         {
           "number": "2",
           "title": "Do You Wanna Come Over?",
-          "audioPath": "09%20Glory/2.%20Do%20You%20Wanna%20Come%20Over%EF%BC%9F.mp3"
+          "audioPath": "media/albuns/09%20Glory/2.%20Do%20You%20Wanna%20Come%20Over%EF%BC%9F.mp3"
         },
         {
           "number": "3",
           "title": "Make Me... (feat. G-Eazy)",
-          "audioPath": "09%20Glory/3.%20Make%20Me...%20(feat.%20G-Eazy).mp3"
+          "audioPath": "media/albuns/09%20Glory/3.%20Make%20Me...%20(feat.%20G-Eazy).mp3"
         },
         {
           "number": "4",
           "title": "Private Show",
-          "audioPath": "09%20Glory/4.%20Private%20Show.mp3"
+          "audioPath": "media/albuns/09%20Glory/4.%20Private%20Show.mp3"
         },
         {
           "number": "5",
           "title": "Man On The Moon",
-          "audioPath": "09%20Glory/5.%20Man%20On%20The%20Moon.mp3"
+          "audioPath": "media/albuns/09%20Glory/5.%20Man%20On%20The%20Moon.mp3"
         },
         {
           "number": "6",
           "title": "Just Luv Me",
-          "audioPath": "09%20Glory/6.%20Just%20Luv%20Me.mp3"
+          "audioPath": "media/albuns/09%20Glory/6.%20Just%20Luv%20Me.mp3"
         },
         {
           "number": "7",
           "title": "Clumsy",
-          "audioPath": "09%20Glory/7.%20Clumsy.mp3"
+          "audioPath": "media/albuns/09%20Glory/7.%20Clumsy.mp3"
         },
         {
           "number": "8",
           "title": "Slumber Party",
-          "audioPath": "09%20Glory/8.%20Slumber%20Party.mp3"
+          "audioPath": "media/albuns/09%20Glory/8.%20Slumber%20Party.mp3"
         },
         {
           "number": "9",
           "title": "Just Like Me",
-          "audioPath": "09%20Glory/9.%20Just%20Like%20Me.mp3"
+          "audioPath": "media/albuns/09%20Glory/9.%20Just%20Like%20Me.mp3"
         },
         {
           "number": "10",
           "title": "Love Me Down",
-          "audioPath": "09%20Glory/10.%20Love%20Me%20Down.mp3"
+          "audioPath": "media/albuns/09%20Glory/10.%20Love%20Me%20Down.mp3"
         },
         {
           "number": "11",
           "title": "Hard To Forget Ya",
-          "audioPath": "09%20Glory/11.%20Hard%20To%20Forget%20Ya.mp3"
+          "audioPath": "media/albuns/09%20Glory/11.%20Hard%20To%20Forget%20Ya.mp3"
         },
         {
           "number": "12",
           "title": "What You Need",
-          "audioPath": "09%20Glory/12.%20What%20You%20Need.mp3"
+          "audioPath": "media/albuns/09%20Glory/12.%20What%20You%20Need.mp3"
         },
         {
           "number": "13",
           "title": "Better",
-          "audioPath": "09%20Glory/13.%20Better.mp3"
+          "audioPath": "media/albuns/09%20Glory/13.%20Better.mp3"
         },
         {
           "number": "14",
           "title": "Change Your Mind (No Seas Cortes)",
-          "audioPath": "09%20Glory/14.%20Change%20Your%20Mind%20(No%20Seas%20Cortes).mp3"
+          "audioPath": "media/albuns/09%20Glory/14.%20Change%20Your%20Mind%20(No%20Seas%20Cortes).mp3"
         },
         {
           "number": "15",
           "title": "Liar",
-          "audioPath": "09%20Glory/15.%20Liar.mp3"
+          "audioPath": "media/albuns/09%20Glory/15.%20Liar.mp3"
         },
         {
           "number": "16",
           "title": "If I'm Dancing",
-          "audioPath": "09%20Glory/16.%20If%20I'm%20Dancing.mp3"
+          "audioPath": "media/albuns/09%20Glory/16.%20If%20I'm%20Dancing.mp3"
         },
         {
           "number": "17",
           "title": "Coupure Électrique",
-          "audioPath": "09%20Glory/17.%20Coupure%20%C3%89lectrique.mp3"
+          "audioPath": "media/albuns/09%20Glory/17.%20Coupure%20%C3%89lectrique.mp3"
         },
         {
           "number": "18",
           "title": "Mood Ring (By Demand)",
-          "audioPath": "09%20Glory/18.%20Mood%20Ring%20(By%20Demand).mp3"
+          "audioPath": "media/albuns/09%20Glory/18.%20Mood%20Ring%20(By%20Demand).mp3"
         },
         {
           "number": "19",
           "title": "Swimming In The Stars",
-          "audioPath": "09%20Glory/19.%20Swimming%20In%20The%20Stars.mp3"
+          "audioPath": "media/albuns/09%20Glory/19.%20Swimming%20In%20The%20Stars.mp3"
         },
         {
           "number": "20",
           "title": "Matches",
-          "audioPath": "09%20Glory/20.%20Matches.mp3"
+          "audioPath": "media/albuns/09%20Glory/20.%20Matches.mp3"
         }
       ]
     },
@@ -986,159 +986,159 @@
       "year": "2004",
       "genre": "Pop",
       "category": "compilation",
-      "coverPath": "10%20My%20Prerogative/capa.jpg",
-      "animatedCoverPath": "10%20My%20Prerogative/video.mp4",
-      "backgroundPath": "10%20My%20Prerogative/fundo.png",
+      "coverPath": "media/compilacoes/01%20My%20Prerogative/capa.jpg",
+      "animatedCoverPath": "media/compilacoes/01%20My%20Prerogative/video.mp4",
+      "backgroundPath": "media/compilacoes/01%20My%20Prerogative/fundo.png",
       "tracks": [
         {
           "number": "1",
           "disc": "Disco 1",
           "title": "My Prerogative",
-          "audioPath": "10%20My%20Prerogative/01%20My%20Prerogative.mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/01%20My%20Prerogative.mp3"
         },
         {
           "number": "2",
           "disc": "Disco 1",
           "title": "Toxic",
-          "audioPath": "04%20In%20The%20Zone/06%20Toxic.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/06%20Toxic.m4a"
         },
         {
           "number": "3",
           "disc": "Disco 1",
           "title": "I'm A Slave 4 U",
-          "audioPath": "03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
+          "audioPath": "media/albuns/03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
         },
         {
           "number": "4",
           "disc": "Disco 1",
           "title": "Oops!...I Did It Again",
-          "audioPath": "02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
         },
         {
           "number": "5",
           "disc": "Disco 1",
           "title": "Me Against the Music",
-          "audioPath": "04%20In%20The%20Zone/01%20Me%20Against%20the%20Music.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/01%20Me%20Against%20the%20Music.m4a"
         },
         {
           "number": "6",
           "disc": "Disco 1",
           "title": "Stronger",
-          "audioPath": "02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
         },
         {
           "number": "7",
           "disc": "Disco 1",
           "title": "Everytime",
-          "audioPath": "04%20In%20The%20Zone/12%20Everytime.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/12%20Everytime.m4a"
         },
         {
           "number": "8",
           "disc": "Disco 1",
           "title": "Baby One More Time",
-          "audioPath": "01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
         },
         {
           "number": "9",
           "disc": "Disco 1",
           "title": "(You Drive Me) Crazy [The Stop Remix!]",
-          "audioPath": "10%20My%20Prerogative/09%20(You%20Drive%20Me)%20Crazy%20%5BThe%20Stop%20Remix!%5D.mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/09%20(You%20Drive%20Me)%20Crazy%20%5BThe%20Stop%20Remix!%5D.mp3"
         },
         {
           "number": "10",
           "disc": "Disco 1",
           "title": "Boys (The Co-Ed Remix)",
-          "audioPath": "10%20My%20Prerogative/10%20Boys%20(The%20Co-Ed%20Remix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/10%20Boys%20(The%20Co-Ed%20Remix).mp3"
         },
         {
           "number": "11",
           "disc": "Disco 1",
           "title": "Sometimes",
-          "audioPath": "01%20Baby%20One%20More%20Time/03%20-%20Britney%20Spears%20-%20Sometimes.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/03%20-%20Britney%20Spears%20-%20Sometimes.mp3"
         },
         {
           "number": "12",
           "disc": "Disco 1",
           "title": "Overprotected (The Darkchild Remix)",
-          "audioPath": "10%20My%20Prerogative/12%20Overprotected%20(The%20Darkchild%20Remix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/12%20Overprotected%20(The%20Darkchild%20Remix).mp3"
         },
         {
           "number": "13",
           "disc": "Disco 1",
           "title": "Lucky",
-          "audioPath": "02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
         },
         {
           "number": "14",
           "disc": "Disco 1",
           "title": "Outrageous",
-          "audioPath": "04%20In%20The%20Zone/07%20Outrageous.m4a"
+          "audioPath": "media/albuns/04%20In%20The%20Zone/07%20Outrageous.m4a"
         },
         {
           "number": "15",
           "disc": "Disco 1",
           "title": "Don't Let Me Be The Last To Know",
-          "audioPath": "02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
         },
         {
           "number": "16",
           "disc": "Disco 1",
           "title": "Born To Make You Happy",
-          "audioPath": "01%20Baby%20One%20More%20Time/05%20-%20Britney%20Spears%20-%20Born%20To%20Make%20You%20Happy.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/05%20-%20Britney%20Spears%20-%20Born%20To%20Make%20You%20Happy.mp3"
         },
         {
           "number": "17",
           "disc": "Disco 1",
           "title": "I Love Rock 'n' Roll",
-          "audioPath": "03%20Britney/07%20-%20Britney%20Spears%20-%20I%20Love%20Rock%20'n'%20Roll.mp3"
+          "audioPath": "media/albuns/03%20Britney/07%20-%20Britney%20Spears%20-%20I%20Love%20Rock%20'n'%20Roll.mp3"
         },
         {
           "number": "18",
           "disc": "Disco 1",
           "title": "I'm Not A Girl, Not Yet A Woman",
-          "audioPath": "03%20Britney/04%20-%20Britney%20Spears%20-%20I'm%20Not%20A%20Girl%2C%20Not%20Yet%20A%20Woman.mp3"
+          "audioPath": "media/albuns/03%20Britney/04%20-%20Britney%20Spears%20-%20I'm%20Not%20A%20Girl%2C%20Not%20Yet%20A%20Woman.mp3"
         },
         {
           "number": "19",
           "disc": "Disco 1",
           "title": "(I've Just Begun) Having My Fun",
-          "audioPath": "10%20My%20Prerogative/19%20(I've%20Just%20Begun)%20Having%20My%20Fun.mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/19%20(I've%20Just%20Begun)%20Having%20My%20Fun.mp3"
         },
         {
           "number": "20",
           "disc": "Disco 1",
           "title": "Do Somethin'",
-          "audioPath": "10%20My%20Prerogative/20%20Do%20Somethin'.mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/20%20Do%20Somethin'.mp3"
         },
         {
           "number": "01",
           "disc": "Disco 2",
           "title": "Toxic (Armand Van Helden Remix)",
-          "audioPath": "10%20My%20Prerogative/21%20Toxic%20(Armand%20Van%20Helden%20Remix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/21%20Toxic%20(Armand%20Van%20Helden%20Remix).mp3"
         },
         {
           "number": "02",
           "disc": "Disco 2",
           "title": "Everytime (Hi-Bias Radio Remix)",
-          "audioPath": "10%20My%20Prerogative/22%20Everytime%20(Hi-Bias%20Radio%20Remix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/22%20Everytime%20(Hi-Bias%20Radio%20Remix).mp3"
         },
         {
           "number": "03",
           "disc": "Disco 2",
           "title": "Breathe On Me (Jaques LuCont's Thin White Duke Mix)",
-          "audioPath": "10%20My%20Prerogative/23%20Breathe%20On%20Me%20(Jaques%20LuCont's%20Thin%20White%20Duke%20Mix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/23%20Breathe%20On%20Me%20(Jaques%20LuCont's%20Thin%20White%20Duke%20Mix).mp3"
         },
         {
           "number": "04",
           "disc": "Disco 2",
           "title": "Outrageous (Junkie XL's Dancehall Mix)",
-          "audioPath": "10%20My%20Prerogative/24%20Outrageous%20(Junkie%20XL's%20Dancehall%20Mix).mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/24%20Outrageous%20(Junkie%20XL's%20Dancehall%20Mix).mp3"
         },
         {
           "number": "05",
           "disc": "Disco 2",
           "title": "Chris Cox Megamix",
-          "audioPath": "10%20My%20Prerogative/25%20Chris%20Cox%20Megamix.mp3"
+          "audioPath": "media/compilacoes/01%20My%20Prerogative/25%20Chris%20Cox%20Megamix.mp3"
         }
       ]
     },
@@ -1149,11 +1149,14 @@
       "year": "2026",
       "genre": "Demonstração",
       "category": "unreleased",
+      "coverPath": "media/albuns/01%20Baby%20One%20More%20Time/capa.jpg",
+      "animatedCoverPath": "media/albuns/01%20Baby%20One%20More%20Time/video.mp4",
+      "backgroundPath": "media/albuns/01%20Baby%20One%20More%20Time/fundo.png",
       "tracks": [
         {
           "number": "1",
           "title": "Faixa de demonstração",
-          "audioPath": "01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
         }
       ]
     }
@@ -1166,10 +1169,10 @@
       "year": "2026",
       "duration": "00:18",
       "description": "Item temporário para demonstrar a nova tela de videoclipes. Substitua os caminhos pelas artes e pelo vídeo definitivos.",
-      "thumbnailPath": "04%20In%20The%20Zone/capa.jfif",
-      "backgroundPath": "04%20In%20The%20Zone/fundo.png",
+      "thumbnailPath": "media/albuns/04%20In%20The%20Zone/capa.jfif",
+      "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
       "logoPath": "",
-      "videoPath": "04%20In%20The%20Zone/video.mp4"
+      "videoPath": "media/albuns/04%20In%20The%20Zone/video.mp4"
     }
   ],
   "shows": [
@@ -1180,10 +1183,10 @@
       "year": "2026",
       "duration": "00:18",
       "description": "Item temporário para demonstrar a nova tela de shows. Substitua os caminhos pelas artes e pelo vídeo definitivos.",
-      "thumbnailPath": "06%20Circus/capa.jfif",
-      "backgroundPath": "06%20Circus/fundo.png",
+      "thumbnailPath": "media/albuns/06%20Circus/capa.jfif",
+      "backgroundPath": "media/albuns/06%20Circus/fundo.png",
       "logoPath": "",
-      "videoPath": "06%20Circus/video.mp4"
+      "videoPath": "media/albuns/06%20Circus/video.mp4"
     }
   ]
 }

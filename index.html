@@ -594,6 +594,9 @@
 
             <h2 class="category-title">Compilações Oficiais</h2>
             <div class="album-grid" id="compilationsGrid"></div>
+
+            <h2 class="category-title">Músicas não lançadas</h2>
+            <div class="album-grid" id="unreleasedGrid"></div>
         </section>
 
         <section id="albumDetailSection" class="album-detail-section">
@@ -728,281 +731,86 @@
     <audio id="audioElement" preload="auto"></audio>
 
     <script>
-        const albums = [
-            {
-                id: "baby-one-more-time", folder: "01 Baby One More Time", title: "...Baby One More Time", artist: "Britney Spears", video: "video.mp4", cover: "capa.jpg", year: "1999", genre: "Pop", type: "main",
-                tracks: [
-                    { num: "1", title: "...Baby One More Time", file: "01 - Britney Spears - Baby One More Time.mp3" },
-                    { num: "2", title: "(You Drive Me) Crazy", file: "02 - Britney Spears - Crazy (You Drive Me).mp3" },
-                    { num: "3", title: "Sometimes", file: "03 - Britney Spears - Sometimes.mp3" },
-                    { num: "4", title: "Soda Pop", file: "04 - Britney Spears - Soda Pop.mp3" },
-                    { num: "5", title: "Born To Make You Happy", file: "05 - Britney Spears - Born To Make You Happy.mp3" },
-                    { num: "6", title: "From The Bottom Of My Broken Heart", file: "06 - Britney Spears - From The Bottom Of My Broken Heart.mp3" },
-                    { num: "7", title: "I Will Be There", file: "07 - Britney Spears - I Will Be There.mp3" },
-                    { num: "8", title: "I Will Still Love You (Duet With Don Philip)", file: "08 - Britney Spears - I Will Still Love You (Duet With Don Philip).mp3" },
-                    { num: "9", title: "Deep In My Heart", file: "09 - Britney Spears - Deep In My Heart.mp3" },
-                    { num: "10", title: "Thinkin' About You", file: "10 - Britney Spears - Thinkin' About You.mp3" },
-                    { num: "11", title: "E-Mail My Heart", file: "11 - Britney Spears - E-Mail My Heart.mp3" },
-                    { num: "12", title: "The Beat Goes On", file: "12 - Britney Spears - The Beat Goes On.mp3" },
-                    { num: "13", title: "I'll Never Stop Loving You", file: "13 - Britney Spears - I'll Never Stop Loving You.mp3" },
-                    { num: "14", title: "Autumn Goodbye", file: "14 - Britney Spears - Autumn Goodbye.mp3" },
-                    { num: "15", title: "Baby One More Time (Davidson Ospina Radio Mix)", file: "15 - Britney Spears - Baby One More Time (Davidson Ospina Radio Mix).mp3" },
-                    { num: "16", title: "Baby One More Time (Boy Wunder Radio Mix)", file: "16 - Britney Spears - Baby One More Time (Boy Wunder Radio Mix).mp3" }
-                ]
-            },
-            {
-                id: "oops-i-did-it-again", folder: "02 Oops I Did It Again", title: "Oops!... I Did It Again", artist: "Britney Spears", cover: "oops.jfif", hasVersions: true, type: "main",
-                versions: [
-                    {
-                        versionName: "Oops!... I Did It Again", cover: "oops.jfif", video: "oops.mp4", year: "2000", genre: "Pop",
-                        tracks: [
-                            { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!...I Did It Again.mp3" },
-                            { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
-                            { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' On My Door.mp3" },
-                            { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
-                            { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" },
-                            { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
-                            { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
-                            { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss From You.mp3" },
-                            { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
-                            { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
-                            { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
-                            { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
-                            { num: "13", title: "Girl In The Mirror", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
-                            { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All.mp3" },
-                            { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" }
-                        ]
-                    },
-                    {
-                        versionName: "Oops!... I Did It Again (25th Anniversary)", cover: "oops 25.jpeg", video: "oops 25.mp4", year: "2025", genre: "Pop",
-                        tracks: [
-                            { num: "1", title: "Oops!... I Did It Again", file: "01 - Britney Spears - Oops!...I Did It Again.mp3" },
-                            { num: "2", title: "Stronger", file: "02 - Britney Spears - Stronger.mp3" },
-                            { num: "3", title: "Don't Go Knockin' on My Door", file: "03 - Britney Spears - Don't Go Knockin' On My Door.mp3" },
-                            { num: "4", title: "(I Can't Get No) Satisfaction", file: "04 - Britney Spears - (I Can't Get No) Satisfaction.mp3" },
-                            { num: "5", title: "Don't Let Me Be the Last to Know", file: "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3" },
-                            { num: "6", title: "What U See (Is What U Get)", file: "06 - Britney Spears - What U See (Is What U Get).mp3" },
-                            { num: "7", title: "Lucky", file: "07 - Britney Spears - Lucky.mp3" },
-                            { num: "8", title: "One Kiss from You", file: "08 - Britney Spears - One Kiss From You.mp3" },
-                            { num: "9", title: "Where Are You Now", file: "09 - Britney Spears - Where Are You Now.mp3" },
-                            { num: "10", title: "Can't Make You Love Me", file: "10 - Britney Spears - Can't Make You Love Me.mp3" },
-                            { num: "11", title: "When Your Eyes Say It", file: "11 - Britney Spears - When Your Eyes Say It.mp3" },
-                            { num: "12", title: "Dear Diary", file: "12 - Britney Spears - Dear Diary.mp3" },
-                            { num: "13", title: "Girl In The Mirror", file: "13 - Britney Spears - Girl In The Mirror.mp3" },
-                            { num: "14", title: "You Got It All", file: "14 - Britney Spears - You Got It All.mp3" },
-                            { num: "15", title: "Heart", file: "15 - Britney Spears - Heart.mp3" },
-                            { num: "16", "title": "Walk On By", "file": "16 Walk On By.mp3" },
-                            { num: "17", "title": "Oops!...I Did It Again (Riprock 'n' Alex G. Ooops! We Remixed Again! - RadioMix)", "file": "17 Oops!...I Did It Again (Riprock 'n' Alex G. Ooops! We Remixed Again! - RadioMix).mp3" },
-                            { num: "18", "title": "Lucky (Jack D. Elliot Radio Mix)", "file": "18 Lucky (Jack D. Elliot Radio Mix).mp3" },
-                            { num: "19", "title": "Stronger (Miguel 'Migs' Vocal Mix)", "file": "19 Stronger (Miguel 'Migs' Vocal Mix).mp3" },
-                            { num: "20", "title": "Don't Let Me Be The Last To Know (Thunderpuss Radio Mix)", "file": "20 Don't Let Me Be The Last To Know (Thunderpuss Radio Mix).mp3" },
-                            { num: "21", "title": "Stronger (Adamusic Remix)", "file": "21 Stronger (Adamusic Remix).mp3" },
-                            { num: "22", "title": "Oops!...I Did It Again (Pessto Remix)", "file": "22 Oops!...I Did It Again (Pessto Remix).mp3" }
-                        ]   
-                    }
-                ]
-            },
-            {
-                id: "britney", folder: "03 Britney", title: "Britney", artist: "Britney Spears", year: "2001", genre: "Pop", cover: "capa.jpg", video: "video.mp4", type: "main",
-                tracks: [
-                    { num: "1", title: "I'm A Slave 4 U", file: "01 - Britney Spears - I'm A Slave 4 U.mp3" },
-                    { num: "2", title: "Overprotected", file: "02 - Britney Spears - Overprotected.mp3" },
-                    { num: "3", title: "Lonely", file: "03 - Britney Spears - Lonely.mp3" },
-                    { num: "4", title: "I'm Not A Girl, Not Yet A Woman", file: "04 - Britney Spears - I'm Not A Girl, Not Yet A Woman.mp3" },
-                    { num: "5", title: "Boys", file: "05 - Britney Spears - Boys.mp3" },
-                    { num: "6", title: "Anticipating", file: "06 - Britney Spears - Anticipating.mp3" },
-                    { num: "7", title: "I Love Rock 'n' Roll", file: "07 - Britney Spears - I Love Rock 'n' Roll.mp3" },
-                    { num: "8", title: "Cinderella", file: "08 - Britney Spears - Cinderella.mp3" },
-                    { num: "9", title: "Let Me Be", file: "09 - Britney Spears - Let Me Be.mp3" },
-                    { num: "10", title: "Bombastic Love", file: "10 - Britney Spears - Bombastic Love.mp3" },
-                    { num: "11", title: "That's Where You Take Me", file: "11 - Britney Spears - That's Where You Take Me.mp3" },
-                    { num: "12", title: "When I Found You", file: "12 - Britney Spears - When I Found You.mp3" },
-                    { num: "13", title: "I Run Away", file: "13 - Britney Spears - I Run Away.mp3" },
-                    { num: "14", title: "What It's Like To Be Me", file: "14 - Britney Spears - What It's Like To Be Me.mp3" },
-                    { num: "15", title: "Before The Goodbye", file: "15 - Britney Spears - Before The Goodbye.mp3" }
-                ]
-            },
-            {
-                id: "in-the-zone", folder: "04 In The Zone", title: "In The Zone", artist: "Britney Spears", year: "2003", genre: "Pop", cover: "capa.jfif", video: "video.mp4", type: "main",
-                tracks: [
-                    { num: "1", title: "Me Against the Music", file: "01 Me Against the Music.m4a" },
-                    { num: "2", title: "(I Got That) Boom Boom", file: "02 (I Got That) Boom Boom.m4a" },
-                    { num: "3", title: "Showdown", file: "03 Showdown.m4a" },
-                    { num: "4", title: "Breathe On Me", file: "04 Breathe On Me.m4a" },
-                    { num: "5", title: "Early Mornin'", file: "05 Early Mornin'.m4a" },
-                    { num: "6", title: "Toxic", file: "06 Toxic.m4a" },
-                    { num: "7", title: "Outrageous", file: "07 Outrageous.m4a" },
-                    { num: "8", title: "Touch of My Hand", file: "08 Touch of My Hand.m4a" },
-                    { num: "9", title: "The Hook Up", file: "09 The Hook Up.m4a" },
-                    { num: "10", title: "Shadow", file: "10 Shadow.m4a" },
-                    { num: "11", title: "Brave New Girl", file: "11 Brave New Girl.m4a" },
-                    { num: "12", title: "Everytime", file: "12 Everytime.m4a" },
-                    { num: "13", title: "Me Against the Music (Rishi Rich's Desi Kulcha Remix)", file: "13 Me Against the Music (Rishi Rich's Desi Kulcha Remix).m4a" },
-                    { num: "14", title: "The Answer", file: "14 The Answer.m4a" },
-                    { num: "15", title: "Don't Hang Up", file: "15 Dont Hang Up.mp3" }
-                ]
-            },
-            {
-                id: "blackout", folder: "05 Blackout", title: "Blackout", artist: "Britney Spears", year: "2007", genre: "Pop", cover: "capa.jpg", video: "video.mp4", type: "main",
-                tracks: [
-                    { num: "1", title: "Gimme More", file: "01 - Gimme More (Main Version).mp3" },
-                    { num: "2", title: "Piece of Me", file: "02 - Piece of Me (Main Version).mp3" },
-                    { num: "3", title: "Radar", file: "03 - Radar (Main Version).mp3" },
-                    { num: "4", title: "Break the Ice", file: "04 - Break the Ice (Main Version).mp3" },
-                    { num: "5", title: "Heaven On Earth", file: "05 - Heaven On Earth (Main Version).mp3" },
-                    { num: "6", title: "Get Naked (I Got a Plan)", file: "06 - Get Naked (I Got a Plan) (Main Version).mp3" },
-                    { num: "7", title: "Freakshow", file: "07 - Freakshow (Main Version).mp3" },
-                    { num: "8", title: "Toy Soldier", file: "08 - Toy Soldier (Main Version).mp3" },
-                    { num: "9", title: "Hot as Ice", file: "09 - Hot as Ice (Main Version).mp3" },
-                    { num: "10", title: "Ooh Ooh Baby", file: "10 - Ooh Ooh Baby (Main Version).mp3" },
-                    { num: "11", title: "Perfect Lover", file: "11 - Perfect Lover (Main Version).mp3" },
-                    { num: "12", title: "Why Should I Be Sad", file: "12 - Why Should I Be Sad (Main Version).mp3" },
-                    { num: "13", title: "Get Back", file: "13 - Get Back (Main Version).mp3" },
-                    { num: "14", title: "Gimme More (Junkie XL Dub)", file: "14 - Gimme More (Junkie XL Dub).mp3" },
-                    { num: "15", title: "Everybody", file: "15 - Everybody (Main Version).mp3" }
-                ]
-            },
-            {
-                id: "circus", folder: "06 Circus", title: "Circus", artist: "Britney Spears", year: "2008", genre: "Pop", cover: "capa.jfif", video: "video.mp4", type: "main",
-                tracks: [
-                    { num: "1", title: "Womanizer", file: "01 Womanizer.mp3" },
-                    { num: "2", title: "Circus", file: "02 Circus.mp3" },
-                    { num: "3", title: "Out from Under", file: "03 Out from Under.mp3" },
-                    { num: "4", title: "Kill the Lights", file: "04 Kill the Lights.mp3" },
-                    { num: "5", title: "Shattered Glass", file: "05 Shattered Glass.mp3" },
-                    { num: "6", title: "If U Seek Amy", file: "06 If U Seek Amy.mp3" },
-                    { num: "7", title: "Unusual You", file: "07 Unusual You.mp3" },
-                    { num: "8", title: "Blur", file: "08 Blur.mp3" },
-                    { num: "9", title: "Mmm Papi", file: "09 Mmm Papi.mp3" },
-                    { num: "10", title: "Mannequin", file: "10 Mannequin.mp3" },
-                    { num: "11", title: "Lace and Leather", file: "11 Lace and Leather.mp3" },
-                    { num: "12", title: "My Baby", file: "12 My Baby.mp3" },
-                    { num: "13", title: "Radar", file: "03 - Radar (Main Version).mp3", folder: "05 Blackout" },
-                    { num: "14", title: "Rock Me In", file: "14 Rock Me In.mp3" },
-                    { num: "15", title: "Phonography", file: "15 Phonography.mp3" },
-                    { num: "16", title: "Amnesia", file: "16 Amnesia.mp3" },
-                    { num: "17", title: "Trouble", file: "17 Trouble.mp3" },
-                    { num: "18", title: "Quicksand", file: "18 Quicksand.mp3" },
-                    { num: "19", title: "Rock Boy", file: "19 Rock Boy.mp3" }
-                ]
-            },
-            {
-                id: "femme-fatale", folder: "07 Femme Fatale", title: "Femme Fatale", artist: "Britney Spears", year: "2011", genre: "Pop", cover: "capa.jpg", video: "video.mp4", type: "main",
-                tracks: [
-                    { "num": "1", "title": "Till The World Ends", "file": "01 Till The World Ends.mp3" },
-                    { "num": "2", "title": "Hold It Against Me ", "file": "02 Hold It Against Me .mp3" },
-                    { "num": "3", "title": "Inside Out", "file": "03 Inside Out.mp3" },
-                    { "num": "4", "title": "I Wanna Go", "file": "04 I Wanna Go.mp3" },
-                    { "num": "5", "title": "How I Roll", "file": "05 How I Roll.mp3" },
-                    { "num": "6", "title": "(Drop Dead) Beautiful (Feat. Sabi)", "file": "06 (Drop Dead) Beautiful (Feat. Sabi).mp3" },
-                    { "num": "7", "title": "Seal It With A Kiss", "file": "07 Seal It With A Kiss.mp3" },
-                    { "num": "8", "title": "Big Fat Bass (Feat. Will.i.am)", "file": "08 Big Fat Bass (Feat. Will.i.am).mp3" },
-                    { "num": "9", "title": "Trouble For Me", "file": "09 Trouble For Me.mp3" },
-                    { "num": "10", "title": "Trip To Your Heart", "file": "10 Trip To Your Heart.mp3" },
-                    { "num": "11", "title": "Gasoline", "file": "11 Gasoline.mp3" },
-                    { "num": "12", "title": "Criminal", "file": "12 Criminal.mp3" },
-                    { "num": "13", "title": "Up N' Down", "file": "13 Up N' Down.mp3" },
-                    { "num": "14", "title": "He About To Lose Me", "file": "14 He About To Lose Me.mp3" },
-                    { "num": "15", "title": "Selfish", "file": "15 Selfish.mp3" },
-                    { "num": "16", "title": "Don't Keep Me Waiting", "file": "16 Don't Keep Me Waiting.mp3" },
-                    { "num": "17", "title": "Scary", "file": "17 Scary.mp3" }
-                ]
-            },
-			{
-                id: "britney-jean", folder: "08 Britney Jean", title: "Britney Jean", artist: "Britney Spears", year: "2013", genre: "Pop", cover: "capa.jpg", video: "video.mp4", type: "main",
-                tracks: [
-                    { "num": "1", "title": "Alien", "file": "01 Alien.m4a" },
-                    { "num": "2", "title": "Work B**ch", "file": "02 Work B__ch.m4a" },
-                    { "num": "3", "title": "Perfume", "file": "03 Perfume.m4a" },
-                    { "num": "4", "title": "It Should Be Easy (feat. Will.i.an)", "file": "04 It Should Be Easy (feat. will.i.a.m4a" },
-                    { "num": "5", "title": "Tik Tik Boom (feat. T.I.)", "file": "05 Tik Tik Boom (feat. T.I.).m4a" },
-                    { "num": "6", "title": "Body Ache", "file": "06 Body Ache.m4a" },
-                    { "num": "7", "title": "Til It's Gone", "file": "07 Til It_s Gone.m4a" },
-                    { "num": "8", "title": "Passenger", "file": "08 Passenger.m4a" },
-                    { "num": "9", "title": "Chillin' With You (feat. Jamie Lynn)", "file": "09 Chillin_ With You (feat. Jamie Ly.m4a" },
-                    { "num": "10", "title": "Don't Cry", "file": "10 Don_t Cry.m4a" },
-                    { "num": "11", "title": "Brightest Morning Star", "file": "11 Brightest Morning Star.m4a" },
-                    { "num": "12", "title": "Hold On Tight", "file": "12 Hold On Tight.m4a" },
-                    { "num": "13", "title": "Now That I Found You", "file": "13 Now That I Found You.m4a" },
-                    { "num": "14", "title": "Perfume (The Dreaming Mix)", "file": "14 Perfume (The Dreaming Mix).m4a" }
-                ]
-            },
-            
-            {
-                 "id": "glory",
-                 "folder": "09 Glory",
-                "title": "Glory",
-                "artist": "Britney Spears",
-                "year": "2016",
-                "genre": "Pop",
-                "cover": "capa.jpg",
-                "video": "video.mp4",
-				"type": "main",
-                "tracks": [
-                    { "num": "1", "title": "Invitation", "file": "1. Invitation.mp3" },
-                    { "num": "2", "title": "Do You Wanna Come Over？", "file": "2. Do You Wanna Come Over？.mp3" },
-                    { "num": "3", "title": "Make Me... (feat. G-Eazy)", "file": "3. Make Me... (feat. G-Eazy).mp3" },
-                    { "num": "4", "title": "Private Show", "file": "4. Private Show.mp3" },
-                    { "num": "5", "title": "Man On The Moon", "file": "5. Man On The Moon.mp3" },
-                    { "num": "6", "title": "Just Luv Me", "file": "6. Just Luv Me.mp3" },
-                    { "num": "7", "title": "Clumsy", "file": "7. Clumsy.mp3" },
-                    { "num": "8", "title": "Slumber Party", "file": "8. Slumber Party.mp3" },
-                    { "num": "9", "title": "Just Like Me", "file": "9. Just Like Me.mp3" },
-                    { "num": "10", "title": "Love Me Down", "file": "10. Love Me Down.mp3" },
-                    { "num": "11", "title": "Hard To Forget Ya", "file": "11. Hard To Forget Ya.mp3" },
-                    { "num": "12", "title": "What You Need", "file": "12. What You Need.mp3" },
-                    { "num": "13", "title": "Better", "file": "13. Better.mp3" },
-                    { "num": "14", "title": "Change Your Mind (No Seas Cortes)", "file": "14. Change Your Mind (No Seas Cortes).mp3" },
-                    { "num": "15", "title": "Liar", "file": "15. Liar.mp3" },
-                    { "num": "16", "title": "If I'm Dancing", "file": "16. If I'm Dancing.mp3" },
-                    { "num": "17", "title": "Coupure Électrique", "file": "17. Coupure Électrique.mp3" },
-                    { "num": "18", "title": "Mood Ring (By Demand)", "file": "18. Mood Ring (By Demand).mp3" },
-                    { "num": "19", "title": "Swimming In The Stars", "file": "19. Swimming In The Stars.mp3" },
-                    { "num": "20", "title": "Matches", "file": "20. Matches.mp3" }
-                ]
-            },
+        let albums = [];
 
-            // CATEGORIA: COMPILAÇÕES OFICIAIS (COM EXEMPLO DE DOIS DISCOS APLICADO)
-            {
-                "id": "greatest-hits:-my-prerogative",
-    "folder": "10 My Prerogative",
-    "title": "Greatest Hits: My Prerogative",
-    "artist": "Britney Spears",
-    "year": "2004",
-    "genre": "Pop",
-    "cover": "capa.jpg",
-    "video": "video.mp4",
-	"type": "compilation",
-    "tracks": [
-        { "disc": "Disco 1", "num": "1", "title": "My Prerogative", "file": "01 My Prerogative.mp3" },
-        { "disc": "Disco 1", "num": "2", "title": "Toxic", "file": "06 Toxic.m4a", "folder": "04 In The Zone" },
-        { "disc": "Disco 1", "num": "3", "title": "I'm A Slave 4 U", "file": "01 - Britney Spears - I'm A Slave 4 U.mp3", "folder": "03 Britney" },
-        { "disc": "Disco 1", "num": "4", "title": "Oops!...I Did It Again", "file": "01 - Britney Spears - Oops!...I Did It Again.mp3", "folder": "02 Oops I Did It Again" },
-        { "disc": "Disco 1", "num": "5", "title": "Me Against the Music", "file": "01 Me Against the Music.m4a", "folder": "04 In The Zone" },
-        { "disc": "Disco 1", "num": "6", "title": "Stronger", "file": "02 - Britney Spears - Stronger.mp3", "folder": "02 Oops I Did It Again" },
-        { "disc": "Disco 1", "num": "7", "title": "Everytime", "file": "12 Everytime.m4a", "folder": "04 In The Zone" },
-        { "disc": "Disco 1", "num": "8", "title": "Baby One More Time", "file": "01 - Britney Spears - Baby One More Time.mp3", "folder": "01 Baby One More Time" },
-        { "disc": "Disco 1", "num": "9", "title": "(You Drive Me) Crazy [The Stop Remix!]", "file": "09 (You Drive Me) Crazy [The Stop Remix!].mp3" },
-        { "disc": "Disco 1", "num": "10", "title": "Boys (The Co-Ed Remix)", "file": "10 Boys (The Co-Ed Remix).mp3" },
-        { "disc": "Disco 1", "num": "11", "title": "Sometimes", "file": "03 - Britney Spears - Sometimes.mp3", "folder": "01 Baby One More Time" },
-        { "disc": "Disco 1", "num": "12", "title": "Overprotected (The Darkchild Remix)", "file": "12 Overprotected (The Darkchild Remix).mp3" },
-        { "disc": "Disco 1", "num": "13", "title": "Lucky", "file": "07 - Britney Spears - Lucky.mp3", "folder": "02 Oops I Did It Again" },
-        { "disc": "Disco 1", "num": "14", "title": "Outrageous", "file": "07 Outrageous.m4a", "folder": "04 In The Zone" },
-        { "disc": "Disco 1", "num": "15", "title": "Don't Let Me Be The Last To Know", "file": "05 - Britney Spears - Don't Let Me Be The Last To Know.mp3", "folder": "02 Oops I Did It Again" },
-        { "disc": "Disco 1", "num": "16", "title": "Born To Make You Happy", "file": "05 - Britney Spears - Born To Make You Happy.mp3", "folder": "01 Baby One More Time" },
-        { "disc": "Disco 1", "num": "17", "title": "I Love Rock 'n' Roll", "file": "07 - Britney Spears - I Love Rock 'n' Roll.mp3", "folder": "03 Britney" },
-        { "disc": "Disco 1", "num": "18", "title": "I'm Not A Girl, Not Yet A Woman", "file": "04 - Britney Spears - I'm Not A Girl, Not Yet A Woman.mp3", "folder": "03 Britney" },
-        { "disc": "Disco 1", "num": "19", "title": "(I've Just Begun) Having My Fun", "file": "19 (I've Just Begun) Having My Fun.mp3" },
-        { "disc": "Disco 1", "num": "20", "title": "Do Somethin'", "file": "20 Do Somethin'.mp3" },
-        { "disc": "Disco 2", "num": "01", "title": "Toxic (Armand Van Helden Remix)", "file": "21 Toxic (Armand Van Helden Remix).mp3" },
-        { "disc": "Disco 2", "num": "02", "title": "Everytime (Hi-Bias Radio Remix)", "file": "22 Everytime (Hi-Bias Radio Remix).mp3" },
-        { "disc": "Disco 2", "num": "03", "title": "Breathe On Me (Jaques LuCont's Thin White Duke Mix)", "file": "23 Breathe On Me (Jaques LuCont's Thin White Duke Mix).mp3" },
-        { "disc": "Disco 2", "num": "04", "title": "Outrageous (Junkie XL's Dancehall Mix)", "file": "24 Outrageous (Junkie XL's Dancehall Mix).mp3" },
-        { "disc": "Disco 2", "num": "05", "title": "Chris Cox Megamix", "file": "25 Chris Cox Megamix.mp3" }
-                ]
+        function splitCatalogPath(path, baseUrl) {
+            if (!path) return { folder: '', file: '' };
+            const resolved = new URL(path, baseUrl).href;
+            const slash = resolved.lastIndexOf('/');
+            return {
+                folder: slash >= 0 ? resolved.substring(0, slash) : '',
+                file: slash >= 0 ? resolved.substring(slash + 1) : resolved
+            };
+        }
+
+        function catalogTrackToSite(track, baseUrl, fallbackFolder) {
+            const audio = splitCatalogPath(track.audioPath || track.audioUrl || '', baseUrl);
+            return {
+                disc: track.disc || '',
+                num: String(track.number || ''),
+                title: track.title || 'Faixa sem título',
+                file: audio.file,
+                folder: audio.folder || fallbackFolder,
+                duration: track.duration || ''
+            };
+        }
+
+        function catalogAlbumToSite(album, baseUrl) {
+            const cover = splitCatalogPath(album.coverPath || '', baseUrl);
+            const animation = splitCatalogPath(album.animatedCoverPath || '', baseUrl);
+            const background = splitCatalogPath(album.backgroundPath || '', baseUrl);
+            const folder = cover.folder || animation.folder || background.folder;
+            const item = {
+                id: album.id,
+                folder,
+                title: album.title,
+                artist: album.artist || 'Britney Spears',
+                year: album.year || '',
+                genre: album.genre || 'Pop',
+                cover: cover.file,
+                video: animation.file,
+                background: album.backgroundPath ? new URL(album.backgroundPath, baseUrl).href : '',
+                type: album.category === 'compilation' || album.category === 'official-compilations'
+                    ? 'compilation'
+                    : album.category === 'unreleased' ? 'unreleased' : 'main'
+            };
+
+            item.tracks = (album.tracks || []).map(track => catalogTrackToSite(track, baseUrl, folder));
+            if (Array.isArray(album.versions) && album.versions.length) {
+                item.hasVersions = true;
+                item.versions = album.versions.map(version => {
+                    const versionCover = splitCatalogPath(version.coverPath || album.coverPath || '', baseUrl);
+                    const versionAnimation = splitCatalogPath(version.animatedCoverPath || album.animatedCoverPath || '', baseUrl);
+                    const versionFolder = versionCover.folder || versionAnimation.folder || folder;
+                    return {
+                        id: version.id,
+                        versionName: version.title,
+                        year: version.year || album.year || '',
+                        genre: version.genre || album.genre || 'Pop',
+                        cover: versionCover.file,
+                        video: versionAnimation.file,
+                        tracks: (version.tracks || []).map(track => catalogTrackToSite(track, baseUrl, versionFolder))
+                    };
+                });
             }
-        ];
-	   
+            return item;
+        }
+
+        async function loadCatalog() {
+            try {
+                const response = await fetch(`catalogo.json?v=${Date.now()}`, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const catalog = await response.json();
+                const baseUrl = catalog.assetBaseUrl || new URL('.', window.location.href).href;
+                albums = (catalog.albums || []).map(album => catalogAlbumToSite(album, baseUrl));
+                if (!albums.length) throw new Error('O catálogo não possui álbuns.');
+                initApp();
+            } catch (error) {
+                console.error('Não foi possível carregar catalogo.json:', error);
+                document.getElementById('albumGrid').innerHTML = '<p style="padding:24px">Não foi possível carregar o catálogo.</p>';
+            }
+        }
+
         let selectedAlbum = null; let selectedVersion = null;
         let currentTrackIndex = 0; let playingAlbum = null; let playingTracks = []; 
         let currentRepeatMode = 0; let isShuffleActive = false;
@@ -1089,11 +897,13 @@
             const track = document.getElementById('albumCarousel');
             const gridMain = document.getElementById('albumGrid');
             const gridCompilations = document.getElementById('compilationsGrid');
+            const gridUnreleased = document.getElementById('unreleasedGrid');
             
-            track.innerHTML = ''; gridMain.innerHTML = ''; gridCompilations.innerHTML = '';
+            track.innerHTML = ''; gridMain.innerHTML = ''; gridCompilations.innerHTML = ''; gridUnreleased.innerHTML = '';
             
             albums.forEach((album, index) => {
                 const isCompilation = album.type === 'compilation';
+                const isUnreleased = album.type === 'unreleased';
 
                 const cCard = document.createElement('div');
                 cCard.className = 'carousel-card';
@@ -1105,9 +915,11 @@
                 gCard.className = 'grid-card'; gCard.onclick = () => handleAlbumClick(album);
                 gCard.innerHTML = `<div class="album-art-wrapper"><img src="${album.folder}/${album.cover}" alt="${album.title}"></div><div class="album-card-title">${album.title}</div><div class="album-card-artist">${album.artist}</div>`;
                 
-                // Separa entre Álbuns Principais e Compilações
+                // Separa as categorias usando a mesma classificação do catalogo.json.
                 if (isCompilation) {
                     gridCompilations.appendChild(gCard);
+                } else if (isUnreleased) {
+                    gridUnreleased.appendChild(gCard);
                 } else {
                     gridMain.appendChild(gCard);
                 }
@@ -1443,7 +1255,7 @@
         }
         function updateDynamicBackground() {
             const blurBg = document.getElementById('dynamicBlurBg');
-            if (document.body.classList.contains('bg-art-active') && document.getElementById('albumDetailSection').style.display === 'flex' && selectedAlbum) { blurBg.style.backgroundImage = `url('${selectedAlbum.folder}/fundo.png')`; } else { blurBg.style.backgroundImage = 'none'; }
+            if (document.body.classList.contains('bg-art-active') && document.getElementById('albumDetailSection').style.display === 'flex' && selectedAlbum) { blurBg.style.backgroundImage = `url('${selectedAlbum.background || `${selectedAlbum.folder}/fundo.png`}')`; } else { blurBg.style.backgroundImage = 'none'; }
         }
         
         function toggleSettings(event) {
@@ -1487,7 +1299,7 @@
             }
         }
 
-        initApp();
+        loadCatalog();
     </script>
 </body>
 </html>
