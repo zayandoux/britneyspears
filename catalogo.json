@@ -96,7 +96,8 @@
           "title": "Baby One More Time (Boy Wunder Radio Mix)",
           "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/16%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time%20(Boy%20Wunder%20Radio%20Mix).mp3"
         }
-      ]
+      ],
+      "versions": []
     },
     {
       "id": "oops-i-did-it-again",
@@ -1140,7 +1141,8 @@
           "title": "Chris Cox Megamix",
           "audioPath": "media/compilacoes/01%20My%20Prerogative/25%20Chris%20Cox%20Megamix.mp3"
         }
-      ]
+      ],
+      "versions": []
     },
     {
       "id": "unreleased-demo",
@@ -1173,6 +1175,18 @@
       "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
       "logoPath": "",
       "videoPath": "media/albuns/04%20In%20The%20Zone/video.mp4"
+    },
+    {
+      "id": "baby-one-more-time-clipe",
+      "title": "...Baby One More Time",
+      "artist": "Britney Spears",
+      "year": "1998",
+      "duration": "3:58",
+      "description": "Primeiro clipe",
+      "videoPath": "https://vimeo.com/299777067",
+      "thumbnailPath": "media/clipes/01-baby-one-more-time/miniatura.webp",
+      "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.jpeg",
+      "logoPath": ""
     }
   ],
   "shows": [
