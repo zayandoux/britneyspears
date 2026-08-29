@@ -1205,7 +1205,13 @@
       "thumbnailPath": "media/clipes/01-baby-one-more-time/miniatura.webp",
       "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
       "logoPath": "media/clipes/01-baby-one-more-time/logo.png",
-      "subtitles": []
+      "subtitles": [
+        {
+          "label": "Inglês",
+          "language": "en",
+          "subtitlePath": "media/clipes/01-baby-one-more-time/baby-one-more-time.srt"
+        }
+      ]
     },
     {
       "id": "teste-clipe-01",
@@ -1401,7 +1407,7 @@
         {
           "label": "Português",
           "language": "pt-BR",
-          "subtitlePath": "media/shows/baby-one-more-time.srt"
+          "subtitlePath": "media/shows/baby-one-more-time.str"
         }
       ],
       "variants": []
@@ -1493,8 +1499,8 @@
   ],
   "extras": [
     {
-      "id": "teste-extra-01",
-      "title": "[TESTE] Extra 01",
+      "id": "teste-extra-02",
+      "title": "[TESTE] Extra 02",
       "artist": "Britney Spears",
       "year": "2026",
       "duration": "00:18",
@@ -1506,8 +1512,8 @@
       "subtitles": []
     },
     {
-      "id": "teste-extra-02",
-      "title": "[TESTE] Extra 02",
+      "id": "teste-extra-01",
+      "title": "[TESTE] Extra 01",
       "artist": "Britney Spears",
       "year": "2026",
       "duration": "00:18",
