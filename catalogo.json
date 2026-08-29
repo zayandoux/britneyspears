@@ -1238,6 +1238,69 @@
           "audioPath": "media/albuns-remixes/01-Britney%20Spears%20-%20B%20In%20The%20Mix/13-%20Im%20Not%20A%20Girl%20Not%20Yet%20A%20Woman%20(Metro%20Mix).mp3"
         }
       ]
+    },
+    {
+      "id": "b-in-the-mix-vol-2",
+      "title": "B In The Mix: The Remixes Vol 2",
+      "artist": "Britney Spears",
+      "year": "2011",
+      "genre": "Pop",
+      "category": "remixes",
+      "coverPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/capa.jfif",
+      "animatedCoverPath": "",
+      "backgroundPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/fundo.png",
+      "tracks": [
+        {
+          "number": "01",
+          "title": "Criminal (Radio Mix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/01-%20Criminal%20(Radio%20Mix).mp3"
+        },
+        {
+          "number": "02",
+          "title": "Gimme More (Kaskade Club Mix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/02-%20Gimme%20More%20(Kaskade%20Club%20Mix).mp3"
+        },
+        {
+          "number": "03",
+          "title": "Piece Of Me (Tiesto Club Mix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/03-%20Piece%20Of%20Me%20(Tiesto%20Club%20Mix).mp3"
+        },
+        {
+          "number": "04",
+          "title": "Radar (Tonal Club Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/04-%20Radar%20(Tonal%20Club%20Remix).mp3"
+        },
+        {
+          "number": "05",
+          "title": "Womanizer (Benny Benassi Extended)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/05-%20Womanizer%20(Benny%20Benassi%20Extended).mp3"
+        },
+        {
+          "number": "06",
+          "title": "Circus (Linus Loves Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/06-%20Circus%20(Linus%20Loves%20Remix).mp3"
+        },
+        {
+          "number": "07",
+          "title": "If U Seek Amy (U-Tern Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/07-%20If%20U%20Seek%20Amy%20(U-Tern%20Remix).mp3"
+        },
+        {
+          "number": "08",
+          "title": "3 (Manhattan Club Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/08-%203%20(Manhattan%20Club%20Remix).mp3"
+        },
+        {
+          "number": "09",
+          "title": "Till The World Ends (Alex Suarez Club Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/09-%20Till%20The%20World%20Ends%20(Alex%20Suarez%20Club%20Remix).mp3"
+        },
+        {
+          "number": "10",
+          "title": "I Wanna Go (Gareth Emery Remix)",
+          "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/10-%20I%20Wanna%20Go%20(Gareth%20Emery%20Remix).mp3"
+        }
+      ]
     }
   ],
   "clips": [
