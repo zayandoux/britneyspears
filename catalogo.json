@@ -1349,7 +1349,7 @@
           "description": "Variante de demonstração. Substitua o vídeo pelas gravações correspondentes a cada cidade.",
           "videoPath": "media/albuns/06%20Circus/video.mp4",
           "thumbnailPath": "",
-          "backgroundPath": "",
+          "backgroundPath": "media/albuns/01%20Baby%20One%20More%20Time/fundo.png",
           "logoPath": "",
           "subtitles": []
         }
@@ -1439,7 +1439,7 @@
       "description": "Show temporário com três cidades alternativas.",
       "videoPath": "media/albuns/06%20Circus/video.mp4",
       "thumbnailPath": "media/albuns/06%20Circus/capa.jfif",
-      "backgroundPath": "media/albuns/06%20Circus/fundo.png",
+      "backgroundPath": "media/albuns/03%20Britney/fundo.png",
       "logoPath": "",
       "subtitles": [],
       "variants": [
@@ -1452,7 +1452,7 @@
           "description": "Variante temporária de Paris.",
           "videoPath": "media/albuns/06%20Circus/video.mp4",
           "thumbnailPath": "",
-          "backgroundPath": "",
+          "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
           "logoPath": "",
           "subtitles": []
         },
