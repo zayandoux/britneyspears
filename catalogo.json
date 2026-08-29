@@ -1402,7 +1402,7 @@
     },
     {
       "id": "teste-show-04",
-      "title": "[TESTE] Show 04 — Uma variante",
+      "title": "[TESTE] Show 04",
       "artist": "Britney Spears",
       "year": "2026",
       "duration": "00:18",
@@ -1416,14 +1416,14 @@
       "variants": [
         {
           "id": "teste-show-04-lisboa",
-          "title": "[TESTE] Show 04 — Uma variante",
+            "title": "[TESTE] Show 04",
           "location": "Lisboa",
           "year": "2026",
           "duration": "00:18",
           "description": "Variante temporária de Lisboa.",
           "videoPath": "media/clipes/01-baby-one-more-time/baby-one-more-time.mp4",
           "thumbnailPath": "",
-          "backgroundPath": "",
+          "backgroundPath": "media/compilacoes/01%20My%20Prerogative/fundo.png",
           "logoPath": "",
           "subtitles": []
         }
@@ -1431,7 +1431,7 @@
     },
     {
       "id": "teste-show-05",
-      "title": "[TESTE] Show 05 — Três variantes",
+      "title": "[TESTE] Show 05",
       "artist": "Britney Spears",
       "year": "2026",
       "duration": "00:18",
@@ -1445,7 +1445,7 @@
       "variants": [
         {
           "id": "teste-show-05-paris",
-          "title": "[TESTE] Show 05 — Três variantes",
+            "title": "[TESTE] Show 05",
           "location": "Paris",
           "year": "2026",
           "duration": "00:18",
@@ -1458,7 +1458,7 @@
         },
         {
           "id": "teste-show-05-toquio",
-          "title": "[TESTE] Show 05 — Três variantes",
+            "title": "[TESTE] Show 05",
           "location": "Tóquio",
           "year": "2026",
           "duration": "00:18",
@@ -1471,7 +1471,7 @@
         },
         {
           "id": "teste-show-05-rio",
-          "title": "[TESTE] Show 05 — Três variantes",
+            "title": "[TESTE] Show 05",
           "location": "Rio de Janeiro",
           "year": "2026",
           "duration": "00:18",
