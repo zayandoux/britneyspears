@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "title": "Discografia Britney Spears",
   "artist": "Britney Spears",
   "assetBaseUrl": "https://zayandoux.github.io/britneyspears/",
@@ -1191,7 +1191,8 @@
       "thumbnailPath": "media/albuns/04%20In%20The%20Zone/capa.jfif",
       "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
       "logoPath": "",
-      "videoPath": "media/albuns/04%20In%20The%20Zone/video.mp4"
+      "videoPath": "media/albuns/04%20In%20The%20Zone/video.mp4",
+      "subtitles": []
     },
     {
       "id": "baby-one-more-time-clipe",
@@ -1203,7 +1204,8 @@
       "videoPath": "media/clipes/01-baby-one-more-time/baby-one-more-time.mp4",
       "thumbnailPath": "media/clipes/01-baby-one-more-time/miniatura.webp",
       "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
-      "logoPath": "media/clipes/01-baby-one-more-time/logo.png"
+      "logoPath": "media/clipes/01-baby-one-more-time/logo.png",
+      "subtitles": []
     }
   ],
   "shows": [
@@ -1217,7 +1219,8 @@
       "thumbnailPath": "media/albuns/06%20Circus/capa.jfif",
       "backgroundPath": "media/albuns/06%20Circus/fundo.png",
       "logoPath": "",
-      "videoPath": "media/albuns/06%20Circus/video.mp4"
+      "videoPath": "media/albuns/06%20Circus/video.mp4",
+      "subtitles": []
     }
   ],
   "extras": []

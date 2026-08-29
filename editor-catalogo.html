@@ -134,6 +134,8 @@
 
         .list-toolbar { display: flex; gap: 8px; margin-bottom: 10px; }
         .list-toolbar .button { flex: 1; }
+        .list-hint { display: none; margin: 0 2px 10px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+        .list-hint.visible { display: block; }
         .item-list { display: grid; gap: 8px; }
         .list-item {
             width: 100%;
@@ -146,6 +148,10 @@
         }
         .list-item:hover { border-color: #59627e; }
         .list-item.active { border-color: var(--pink); background: var(--pink-soft); }
+        .list-item[draggable="true"] { cursor: grab; }
+        .list-item[draggable="true"]:active { cursor: grabbing; }
+        .list-item.dragging { opacity: .35; }
+        .list-item.drag-over { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(48, 185, 255, .16); }
         .list-item strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .list-item span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .empty-list { padding: 18px 10px; color: var(--muted); text-align: center; }
@@ -297,6 +303,7 @@
             <div class="list-toolbar">
                 <button class="button small" id="addItemButton" type="button">Adicionar conteúdo</button>
             </div>
+            <p class="list-hint" id="listHint">Segure e arraste os itens para mudar a ordem do catálogo.</p>
             <div class="item-list" id="itemList"></div>
         </aside>
 
@@ -333,11 +340,14 @@
         let currentSection = 'main';
         let selectedItem = null;
         let dirty = false;
+        let draggedListItem = null;
+        let draggedListSection = null;
 
         const workspace = document.getElementById('workspace');
         const itemList = document.getElementById('itemList');
         const searchInput = document.getElementById('searchInput');
         const addItemButton = document.getElementById('addItemButton');
+        const listHint = document.getElementById('listHint');
         const statusBar = document.getElementById('statusBar');
         const statusText = document.getElementById('statusText');
         const dirtyText = document.getElementById('dirtyText');
@@ -347,7 +357,7 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 2,
+                schemaVersion: 3,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
@@ -394,7 +404,22 @@
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
             if (!Array.isArray(value.extras)) value.extras = [];
-            value.schemaVersion = 2;
+            value.schemaVersion = 3;
+            ['clips', 'shows', 'extras'].forEach(section => {
+                value[section].forEach(item => {
+                    if (!Array.isArray(item.subtitles)) {
+                        item.subtitles = item.subtitlePath ? [{
+                            label: item.subtitleLabel || 'Português',
+                            language: item.subtitleLanguage || 'pt-BR',
+                            subtitlePath: item.subtitlePath
+                        }] : [];
+                    }
+                    delete item.subtitlePath;
+                    delete item.subtitleLabel;
+                    delete item.subtitleLanguage;
+                    delete item.subtitleUrl;
+                });
+            });
             if (!value.title) value.title = 'Discografia Britney Spears';
             if (!value.artist) value.artist = 'Britney Spears';
             if (!value.assetBaseUrl) value.assetBaseUrl = 'https://zayandoux.github.io/britneyspears/';
@@ -465,7 +490,7 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
-            copy.schemaVersion = 2;
+            copy.schemaVersion = 3;
             copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
@@ -542,6 +567,7 @@
             searchInput.disabled = isSettings;
             addItemButton.disabled = isSettings;
             addItemButton.textContent = isSettings ? 'Adicionar conteúdo' : `Adicionar em ${sectionDefinitions[currentSection].label}`;
+            listHint.classList.toggle('visible', !isSettings && sectionDefinitions[currentSection].kind === 'media');
         }
 
         function renderList() {
@@ -579,7 +605,56 @@
                     renderList();
                     renderEditor();
                 });
+                if (sectionDefinitions[currentSection].kind === 'media') {
+                    enableMediaListDrag(button, item);
+                }
                 itemList.appendChild(button);
+            });
+        }
+
+        function enableMediaListDrag(button, item) {
+            button.draggable = true;
+            button.title = 'Segure e arraste para mudar a ordem';
+            button.addEventListener('dragstart', event => {
+                draggedListItem = item;
+                draggedListSection = currentSection;
+                button.classList.add('dragging');
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', item.id || item.title || 'media-item');
+            });
+            button.addEventListener('dragover', event => {
+                if (!draggedListItem || draggedListSection !== currentSection || draggedListItem === item) return;
+                event.preventDefault();
+                event.stopPropagation();
+                event.dataTransfer.dropEffect = 'move';
+                button.classList.add('drag-over');
+            });
+            button.addEventListener('dragleave', event => {
+                if (!button.contains(event.relatedTarget)) button.classList.remove('drag-over');
+            });
+            button.addEventListener('drop', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                button.classList.remove('drag-over');
+                if (!draggedListItem || draggedListSection !== currentSection || draggedListItem === item) return;
+                const list = catalog[currentSection];
+                const sourceIndex = list.indexOf(draggedListItem);
+                const targetIndex = list.indexOf(item);
+                if (sourceIndex < 0 || targetIndex < 0) return;
+                const [moved] = list.splice(sourceIndex, 1);
+                list.splice(targetIndex, 0, moved);
+                selectedItem = moved;
+                markDirty();
+                renderList();
+                renderEditor();
+                setStatus('Ordem alterada. O catalogo.json será baixado nesta nova sequência.', 'success');
+            });
+            button.addEventListener('dragend', () => {
+                draggedListItem = null;
+                draggedListSection = null;
+                itemList.querySelectorAll('.dragging, .drag-over').forEach(element => {
+                    element.classList.remove('dragging', 'drag-over');
+                });
             });
         }
 
@@ -713,6 +788,59 @@
             addField(grid, item, 'logoPath', 'Caminho do logo (opcional)', { full: true, path: true });
             details.body.appendChild(grid);
             view.shell.appendChild(details.element);
+            renderSubtitlesPanel(view.shell, item);
+        }
+
+        function renderSubtitlesPanel(parent, item) {
+            if (!Array.isArray(item.subtitles)) item.subtitles = [];
+            const subtitles = item.subtitles;
+            const panel = createPanel('Legendas', 'Aceita arquivos .vtt, .srt, .ass, .ssa e .ttml. O player começa com as legendas desligadas.');
+            panel.actions.appendChild(actionButton('Adicionar legenda', 'primary', () => {
+                subtitles.push({
+                    label: subtitles.length ? `Legenda ${subtitles.length + 1}` : 'Português',
+                    language: subtitles.length ? '' : 'pt-BR',
+                    subtitlePath: ''
+                });
+                markDirty();
+                renderEditor();
+            }));
+            if (!subtitles.length) {
+                const empty = document.createElement('div');
+                empty.className = 'collection-empty';
+                empty.textContent = 'Nenhuma legenda cadastrada. Vídeos com legenda gravada na imagem continuam funcionando normalmente.';
+                panel.body.appendChild(empty);
+            }
+            subtitles.forEach((subtitle, index) => {
+                const details = document.createElement('details');
+                details.className = 'collection-item';
+                const summary = document.createElement('summary');
+                const copy = document.createElement('span');
+                copy.className = 'summary-copy';
+                const refreshSummary = () => copy.textContent = `${index + 1} — ${subtitle.label || subtitle.language || 'Legenda sem nome'}`;
+                refreshSummary();
+                const actions = document.createElement('span');
+                actions.className = 'row-actions';
+                actions.append(
+                    compactButton('↑', 'Mover legenda para cima', event => moveArrayItem(subtitles, index, -1, event)),
+                    compactButton('↓', 'Mover legenda para baixo', event => moveArrayItem(subtitles, index, 1, event)),
+                    compactButton('Excluir', 'Excluir legenda', event => {
+                        event.preventDefault(); event.stopPropagation();
+                        if (!window.confirm(`Excluir a legenda “${subtitle.label || 'sem nome'}”?`)) return;
+                        subtitles.splice(index, 1); markDirty(); renderEditor();
+                    }, true)
+                );
+                const body = document.createElement('div');
+                body.className = 'collection-body';
+                const grid = createGrid('field-grid');
+                addField(grid, subtitle, 'label', 'Nome exibido no player', { onInput: refreshSummary, placeholder: 'Português' });
+                addField(grid, subtitle, 'language', 'Código do idioma', { onInput: refreshSummary, placeholder: 'pt-BR, en ou es' });
+                addField(grid, subtitle, 'subtitlePath', 'Caminho do arquivo de legenda', { full: true, path: true, placeholder: 'media/shows/meu-show/legenda-pt.vtt' });
+                body.appendChild(grid);
+                summary.append(copy, actions);
+                details.append(summary, body);
+                panel.body.appendChild(details);
+            });
+            parent.appendChild(panel.element);
         }
 
         function createPanel(title, description) {
@@ -999,7 +1127,7 @@
                     title: mediaTitle,
                     artist: catalog.artist || 'Britney Spears',
                     year: '', duration: '', description: '',
-                    videoPath: '', thumbnailPath: '', backgroundPath: '', logoPath: ''
+                    videoPath: '', thumbnailPath: '', backgroundPath: '', logoPath: '', subtitles: []
                 };
                 catalog[currentSection].push(item);
             }
@@ -1064,6 +1192,15 @@
                 validatePath(item.thumbnailPath || item.thumbnailUrl, `${place} / miniatura`, false);
                 validatePath(item.backgroundPath || item.backgroundUrl, `${place} / fundo`, false);
                 validatePath(item.logoPath || item.logoUrl, `${place} / logo`, false);
+                (item.subtitles || []).forEach((subtitle, subtitleIndex) => {
+                    const subtitlePlace = `${place} / legenda ${subtitleIndex + 1}`;
+                    validatePath(subtitle.subtitlePath || subtitle.path || subtitle.url, subtitlePlace);
+                    const subtitlePath = String(subtitle.subtitlePath || subtitle.path || subtitle.url || '').toLowerCase().split('?')[0];
+                    if (subtitlePath && !/\.(vtt|srt|ass|ssa|ttml|xml)$/.test(subtitlePath)) {
+                        warnings.push(`${subtitlePlace}: prefira .vtt, .srt, .ass, .ssa ou .ttml.`);
+                    }
+                    if (!subtitle.label && !subtitle.language) warnings.push(`${subtitlePlace}: informe um nome ou código de idioma.`);
+                });
             }));
             showValidation(errors, warnings);
             return errors.length === 0;
