@@ -357,7 +357,7 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 3,
+                schemaVersion: 4,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
@@ -404,20 +404,27 @@
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
             if (!Array.isArray(value.extras)) value.extras = [];
-            value.schemaVersion = 3;
+            value.schemaVersion = 4;
+            const normalizeMediaSubtitles = item => {
+                if (!Array.isArray(item.subtitles)) {
+                    item.subtitles = item.subtitlePath ? [{
+                        label: item.subtitleLabel || 'Português',
+                        language: item.subtitleLanguage || 'pt-BR',
+                        subtitlePath: item.subtitlePath
+                    }] : [];
+                }
+                delete item.subtitlePath;
+                delete item.subtitleLabel;
+                delete item.subtitleLanguage;
+                delete item.subtitleUrl;
+            };
             ['clips', 'shows', 'extras'].forEach(section => {
                 value[section].forEach(item => {
-                    if (!Array.isArray(item.subtitles)) {
-                        item.subtitles = item.subtitlePath ? [{
-                            label: item.subtitleLabel || 'Português',
-                            language: item.subtitleLanguage || 'pt-BR',
-                            subtitlePath: item.subtitlePath
-                        }] : [];
+                    normalizeMediaSubtitles(item);
+                    if (section === 'shows') {
+                        if (!Array.isArray(item.variants)) item.variants = [];
+                        item.variants.forEach(normalizeMediaSubtitles);
                     }
-                    delete item.subtitlePath;
-                    delete item.subtitleLabel;
-                    delete item.subtitleLanguage;
-                    delete item.subtitleUrl;
                 });
             });
             if (!value.title) value.title = 'Discografia Britney Spears';
@@ -476,6 +483,7 @@
                 ...catalog.albums.map(item => item.id),
                 ...catalog.clips.map(item => item.id),
                 ...catalog.shows.map(item => item.id),
+                ...catalog.shows.flatMap(item => (item.variants || []).map(variant => variant.id)),
                 ...catalog.extras.map(item => item.id)
             ]);
             let id = slugify(base);
@@ -490,7 +498,7 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
-            copy.schemaVersion = 3;
+            copy.schemaVersion = 4;
             copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
@@ -781,6 +789,7 @@
             addField(grid, item, 'artist', 'Cantora ou artista');
             addField(grid, item, 'year', 'Ano');
             addField(grid, item, 'duration', 'Duração', { placeholder: '01:32:15 ou 04:20' });
+            if (currentSection === 'shows') addField(grid, item, 'location', 'Cidade ou versão principal', { placeholder: 'Miami' });
             addField(grid, item, 'description', 'Descrição', { full: true, textarea: true });
             addField(grid, item, 'videoPath', 'Caminho do vídeo', { full: true, path: true });
             addField(grid, item, 'thumbnailPath', 'Caminho da miniatura do card', { full: true, path: true });
@@ -789,12 +798,13 @@
             details.body.appendChild(grid);
             view.shell.appendChild(details.element);
             renderSubtitlesPanel(view.shell, item);
+            if (currentSection === 'shows') renderShowVariantsPanel(view.shell, item);
         }
 
-        function renderSubtitlesPanel(parent, item) {
+        function renderSubtitlesPanel(parent, item, panelTitle = 'Legendas') {
             if (!Array.isArray(item.subtitles)) item.subtitles = [];
             const subtitles = item.subtitles;
-            const panel = createPanel('Legendas', 'Aceita arquivos .vtt, .srt, .ass, .ssa e .ttml. O player começa com as legendas desligadas.');
+            const panel = createPanel(panelTitle, 'Aceita arquivos .vtt, .srt, .ass, .ssa e .ttml. O player começa com as legendas desligadas.');
             panel.actions.appendChild(actionButton('Adicionar legenda', 'primary', () => {
                 subtitles.push({
                     label: subtitles.length ? `Legenda ${subtitles.length + 1}` : 'Português',
@@ -836,6 +846,76 @@
                 addField(grid, subtitle, 'language', 'Código do idioma', { onInput: refreshSummary, placeholder: 'pt-BR, en ou es' });
                 addField(grid, subtitle, 'subtitlePath', 'Caminho do arquivo de legenda', { full: true, path: true, placeholder: 'media/shows/meu-show/legenda-pt.vtt' });
                 body.appendChild(grid);
+                summary.append(copy, actions);
+                details.append(summary, body);
+                panel.body.appendChild(details);
+            });
+            parent.appendChild(panel.element);
+        }
+
+        function renderShowVariantsPanel(parent, show) {
+            if (!Array.isArray(show.variants)) show.variants = [];
+            const variants = show.variants;
+            const panel = createPanel('Cidades e versões alternativas', 'O show continua com um único card. A seta abaixo dele abre esta lista de versões no aplicativo. Campos de arte vazios herdam as imagens do show principal.');
+            panel.actions.appendChild(actionButton('Adicionar cidade/versão', 'primary', () => {
+                const number = variants.length + 2;
+                variants.push({
+                    id: uniqueId(`${show.id || 'show'}-versao-${number}`),
+                    title: show.title || 'Show',
+                    location: `Nova cidade ${number}`,
+                    year: show.year || '',
+                    duration: '',
+                    description: show.description || '',
+                    videoPath: '',
+                    thumbnailPath: '',
+                    backgroundPath: '',
+                    logoPath: '',
+                    subtitles: []
+                });
+                markDirty();
+                renderEditor();
+            }));
+            if (!variants.length) {
+                const empty = document.createElement('div');
+                empty.className = 'collection-empty';
+                empty.textContent = 'Nenhuma variante cadastrada. O show será reproduzido diretamente, sem exibir a seta.';
+                panel.body.appendChild(empty);
+            }
+            variants.forEach((variant, index) => {
+                if (!Array.isArray(variant.subtitles)) variant.subtitles = [];
+                const details = document.createElement('details');
+                details.className = 'collection-item';
+                const summary = document.createElement('summary');
+                const copy = document.createElement('span');
+                copy.className = 'summary-copy';
+                const refreshSummary = () => copy.textContent = `${index + 2} — ${variant.location || variant.title || 'Versão sem nome'}`;
+                refreshSummary();
+                const actions = document.createElement('span');
+                actions.className = 'row-actions';
+                actions.append(
+                    compactButton('↑', 'Mover variante para cima', event => moveArrayItem(variants, index, -1, event)),
+                    compactButton('↓', 'Mover variante para baixo', event => moveArrayItem(variants, index, 1, event)),
+                    compactButton('Excluir', 'Excluir variante', event => {
+                        event.preventDefault(); event.stopPropagation();
+                        if (!window.confirm(`Excluir a versão “${variant.location || variant.title || 'sem nome'}”?`)) return;
+                        variants.splice(index, 1); markDirty(); renderEditor();
+                    }, true)
+                );
+                const body = document.createElement('div');
+                body.className = 'collection-body';
+                const grid = createGrid('field-grid');
+                addField(grid, variant, 'id', 'ID único da variante');
+                addField(grid, variant, 'location', 'Cidade ou nome da versão', { onInput: refreshSummary, placeholder: 'Lisboa' });
+                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: show.title || 'Nome do show' });
+                addField(grid, variant, 'year', 'Ano');
+                addField(grid, variant, 'duration', 'Duração', { placeholder: '01:32:15' });
+                addField(grid, variant, 'description', 'Descrição', { full: true, textarea: true });
+                addField(grid, variant, 'videoPath', 'Caminho do vídeo', { full: true, path: true });
+                addField(grid, variant, 'thumbnailPath', 'Miniatura própria (opcional)', { full: true, path: true });
+                addField(grid, variant, 'backgroundPath', 'Fundo próprio (opcional)', { full: true, path: true });
+                addField(grid, variant, 'logoPath', 'Logo próprio (opcional)', { full: true, path: true });
+                body.appendChild(grid);
+                renderSubtitlesPanel(body, variant, 'Legendas desta versão');
                 summary.append(copy, actions);
                 details.append(summary, body);
                 panel.body.appendChild(details);
@@ -1129,6 +1209,10 @@
                     year: '', duration: '', description: '',
                     videoPath: '', thumbnailPath: '', backgroundPath: '', logoPath: '', subtitles: []
                 };
+                if (isShow) {
+                    item.location = '';
+                    item.variants = [];
+                }
                 catalog[currentSection].push(item);
             }
             selectedItem = item;
@@ -1140,6 +1224,11 @@
             const copy = JSON.parse(JSON.stringify(item));
             copy.id = uniqueId(`${item.id || item.title || 'item'}-copia`);
             copy.title = `${item.title || 'Item'} — cópia`;
+            if (currentSection === 'shows' && Array.isArray(copy.variants)) {
+                copy.variants.forEach((variant, index) => {
+                    variant.id = uniqueId(`${copy.id}-${variant.location || `versao-${index + 2}`}`);
+                });
+            }
             if (sectionDefinitions[currentSection].kind === 'album') catalog.albums.push(copy);
             else catalog[currentSection].push(copy);
             selectedItem = copy;
@@ -1174,6 +1263,15 @@
                 if (value.includes('\\')) errors.push(`${location}: use / em vez de \\.`);
                 if (value.includes(' ')) warnings.push(`${location}: contém espaços; eles serão convertidos para %20 no download.`);
             };
+            const validateSubtitles = (subtitles, owner) => (subtitles || []).forEach((subtitle, subtitleIndex) => {
+                const subtitlePlace = `${owner} / legenda ${subtitleIndex + 1}`;
+                validatePath(subtitle.subtitlePath || subtitle.path || subtitle.url, subtitlePlace);
+                const subtitlePath = String(subtitle.subtitlePath || subtitle.path || subtitle.url || '').toLowerCase().split('?')[0];
+                if (subtitlePath && !/\.(vtt|srt|ass|ssa|ttml|xml)$/.test(subtitlePath)) {
+                    warnings.push(`${subtitlePlace}: prefira .vtt, .srt, .ass, .ssa ou .ttml.`);
+                }
+                if (!subtitle.label && !subtitle.language) warnings.push(`${subtitlePlace}: informe um nome ou código de idioma.`);
+            });
             catalog.albums.forEach((album, albumIndex) => {
                 const place = `Álbum ${albumIndex + 1}`;
                 addId(album, place);
@@ -1192,14 +1290,16 @@
                 validatePath(item.thumbnailPath || item.thumbnailUrl, `${place} / miniatura`, false);
                 validatePath(item.backgroundPath || item.backgroundUrl, `${place} / fundo`, false);
                 validatePath(item.logoPath || item.logoUrl, `${place} / logo`, false);
-                (item.subtitles || []).forEach((subtitle, subtitleIndex) => {
-                    const subtitlePlace = `${place} / legenda ${subtitleIndex + 1}`;
-                    validatePath(subtitle.subtitlePath || subtitle.path || subtitle.url, subtitlePlace);
-                    const subtitlePath = String(subtitle.subtitlePath || subtitle.path || subtitle.url || '').toLowerCase().split('?')[0];
-                    if (subtitlePath && !/\.(vtt|srt|ass|ssa|ttml|xml)$/.test(subtitlePath)) {
-                        warnings.push(`${subtitlePlace}: prefira .vtt, .srt, .ass, .ssa ou .ttml.`);
-                    }
-                    if (!subtitle.label && !subtitle.language) warnings.push(`${subtitlePlace}: informe um nome ou código de idioma.`);
+                validateSubtitles(item.subtitles, place);
+                if (section === 'shows') (item.variants || []).forEach((variant, variantIndex) => {
+                    const variantPlace = `${place} / variante ${variantIndex + 1}`;
+                    addId(variant, variantPlace);
+                    if (!variant.location) warnings.push(`${variantPlace}: informe a cidade ou o nome da versão.`);
+                    validatePath(variant.videoPath || variant.videoUrl, `${variantPlace} / vídeo`);
+                    validatePath(variant.thumbnailPath || variant.thumbnailUrl, `${variantPlace} / miniatura`, false);
+                    validatePath(variant.backgroundPath || variant.backgroundUrl, `${variantPlace} / fundo`, false);
+                    validatePath(variant.logoPath || variant.logoUrl, `${variantPlace} / logo`, false);
+                    validateSubtitles(variant.subtitles, variantPlace);
                 });
             }));
             showValidation(errors, warnings);
