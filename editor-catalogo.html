@@ -802,16 +802,114 @@
             return button;
         }
 
+        function albumAudioRoot(album) {
+            const category = albumCategory(album);
+            if (category === 'remixes') return 'media/albuns-remixes';
+            if (category === 'compilation') return 'media/compilacoes';
+            if (category === 'unreleased') return 'media/musicas-nao-lancadas';
+            return 'media/albuns';
+        }
+
+        function existingAlbumAudioFolder(album) {
+            const candidates = [
+                ...(Array.isArray(album.tracks) ? album.tracks.map(track => track.audioPath || track.audioUrl || '') : []),
+                album.coverPath || '',
+                album.animatedCoverPath || '',
+                album.backgroundPath || ''
+            ];
+            for (const candidate of candidates) {
+                const clean = String(candidate).trim().replace(/\\/g, '/');
+                const slash = clean.lastIndexOf('/');
+                if (slash > 0) return clean.slice(0, slash);
+            }
+            return '';
+        }
+
+        function repositoryPathFromFile(file, album) {
+            const original = String(file.path || file.webkitRelativePath || file.name || '').replace(/\\/g, '/');
+            const parts = original.split('/').filter(Boolean);
+            const lowerParts = parts.map(part => part.toLowerCase());
+            const githubIndex = lowerParts.lastIndexOf('github');
+            if (githubIndex >= 0 && parts.length > githubIndex + 2) {
+                return parts.slice(githubIndex + 2).join('/');
+            }
+            const mediaIndex = lowerParts.indexOf('media');
+            if (mediaIndex >= 0) return parts.slice(mediaIndex).join('/');
+            if (original.includes('/')) return `${albumAudioRoot(album)}/${original}`;
+            const knownFolder = existingAlbumAudioFolder(album);
+            if (knownFolder) return `${knownFolder}/${file.name}`;
+            return `${albumAudioRoot(album)}/${album.title || album.id || 'novo-album'}/${file.name}`;
+        }
+
+        function addSelectedMusicFiles(album, tracks, fileList) {
+            const audioExtensions = /\.(mp3|m4a|aac|flac|ogg|oga|wav|opus|wma)$/i;
+            const files = [...fileList]
+                .filter(file => audioExtensions.test(file.name) || String(file.type || '').startsWith('audio/'))
+                .sort((left, right) => {
+                    const leftPath = left.webkitRelativePath || left.name;
+                    const rightPath = right.webkitRelativePath || right.name;
+                    return leftPath.localeCompare(rightPath, 'pt-BR', { numeric: true, sensitivity: 'base' });
+                });
+            if (!files.length) {
+                setStatus('A pasta selecionada não contém músicas compatíveis.', 'error');
+                return;
+            }
+            const existingPaths = new Set(tracks.map(track => normalizePath(track.audioPath || track.audioUrl || '').toLowerCase()));
+            let added = 0;
+            let skipped = 0;
+            files.forEach(file => {
+                const audioPath = repositoryPathFromFile(file, album);
+                const comparablePath = normalizePath(audioPath).toLowerCase();
+                if (existingPaths.has(comparablePath)) {
+                    skipped++;
+                    return;
+                }
+                const title = file.name.replace(/\.[^.]+$/, '');
+                const numberMatch = title.match(/^\s*(\d{1,3})/);
+                const relativeParts = String(file.webkitRelativePath || '').replace(/\\/g, '/').split('/');
+                const disc = relativeParts.find(part => /^(disco|disc|cd)\s*\d+/i.test(part)) || '';
+                const track = {
+                    number: numberMatch ? numberMatch[1] : String(tracks.length + 1),
+                    title,
+                    audioPath
+                };
+                if (disc) track.disc = disc;
+                tracks.push(track);
+                existingPaths.add(comparablePath);
+                added++;
+            });
+            if (!added) {
+                setStatus('Todas as músicas selecionadas já estavam cadastradas.', 'error');
+                return;
+            }
+            markDirty();
+            renderEditor();
+            renderCounts();
+            setStatus(`${added} música(s) adicionada(s)${skipped ? `; ${skipped} repetida(s) ignorada(s)` : ''}. Você pode abrir cada faixa para editar.`, 'success');
+        }
+
+        function chooseAlbumMusicFolder(album, tracks) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'audio/*,.mp3,.m4a,.aac,.flac,.ogg,.oga,.wav,.opus,.wma';
+            input.multiple = true;
+            input.setAttribute('webkitdirectory', '');
+            input.setAttribute('directory', '');
+            input.style.display = 'none';
+            input.addEventListener('change', () => {
+                addSelectedMusicFiles(album, tracks, input.files);
+                input.remove();
+            }, { once: true });
+            input.addEventListener('cancel', () => input.remove(), { once: true });
+            document.body.appendChild(input);
+            input.click();
+        }
+
         function renderTracksPanel(parent, owner, key, title) {
             if (!Array.isArray(owner[key])) owner[key] = [];
             const tracks = owner[key];
-            const panel = createPanel(title, `${tracks.length} faixa(s).`);
-            panel.actions.appendChild(actionButton('Adicionar faixa', 'primary', () => {
-                tracks.push({ number: String(tracks.length + 1), title: 'Nova faixa', audioPath: '' });
-                markDirty();
-                renderEditor();
-                renderCounts();
-            }));
+            const panel = createPanel(title, `${tracks.length} faixa(s). Clique em “Adicionar músicas” e escolha a pasta do álbum; todos os arquivos de áudio serão importados em ordem.`);
+            panel.actions.appendChild(actionButton('Adicionar músicas', 'primary', () => chooseAlbumMusicFolder(owner, tracks)));
 
             if (!tracks.length) {
                 const empty = document.createElement('div');
