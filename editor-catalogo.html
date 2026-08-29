@@ -283,9 +283,11 @@
                 <button class="section-button" type="button" data-section="settings"><span>Configurações</span></button>
                 <button class="section-button" type="button" data-section="main"><span>Álbuns</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="compilation"><span>Compilações</span><span class="section-count">0</span></button>
+                <button class="section-button" type="button" data-section="remixes"><span>Álbuns Remixes</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="unreleased"><span>Não lançadas</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="clips"><span>Clipes</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="shows"><span>Shows</span><span class="section-count">0</span></button>
+                <button class="section-button" type="button" data-section="extras"><span>Extra</span><span class="section-count">0</span></button>
             </nav>
 
             <div class="search">
@@ -319,9 +321,11 @@
         const sectionDefinitions = {
             main: { label: 'Álbuns', category: 'main', kind: 'album' },
             compilation: { label: 'Compilações', category: 'compilation', kind: 'album' },
+            remixes: { label: 'Álbuns Remixes', category: 'remixes', kind: 'album' },
             unreleased: { label: 'Músicas não lançadas', category: 'unreleased', kind: 'album' },
             clips: { label: 'Clipes', kind: 'media' },
-            shows: { label: 'Shows', kind: 'media' }
+            shows: { label: 'Shows', kind: 'media' },
+            extras: { label: 'Extra', kind: 'media' }
         };
         const CATALOG_SOURCE_URL = 'https://zayandoux.github.io/britneyspears/catalogo.json';
 
@@ -343,23 +347,54 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 1,
+                schemaVersion: 2,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
                 assetUrlRule: 'O aplicativo deve juntar assetBaseUrl com cada campo terminado em Path.',
                 albums: [],
                 clips: [],
-                shows: []
+                shows: [],
+                extras: []
             };
+        }
+
+        function flattenAlbumVersions(albums) {
+            const used = new Set(albums.map(album => String(album.id || '')));
+            const result = [];
+            albums.forEach(album => {
+                const versions = Array.isArray(album.versions) ? album.versions : [];
+                if (!versions.length) {
+                    const cleanAlbum = { ...album };
+                    delete cleanAlbum.versions;
+                    result.push(cleanAlbum);
+                    return;
+                }
+                versions.forEach((version, index) => {
+                    let id = index === 0 ? String(album.id || slugify(version.title)) : `${album.id || 'album'}-${slugify(version.title || `edicao-${index + 1}`)}`;
+                    const baseId = id;
+                    let suffix = 2;
+                    while (result.some(item => item.id === id) || (index > 0 && used.has(id))) id = `${baseId}-${suffix++}`;
+                    const standalone = { ...album, ...version, id };
+                    standalone.artist = version.artist || album.artist || 'Britney Spears';
+                    standalone.category = album.category || 'main';
+                    standalone.backgroundPath = version.backgroundPath || album.backgroundPath || '';
+                    standalone.tracks = Array.isArray(version.tracks) ? version.tracks : [];
+                    delete standalone.versions;
+                    result.push(standalone);
+                });
+            });
+            return result;
         }
 
         function normalizeCatalog(value) {
             if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('O conteúdo não é um objeto JSON válido.');
             if (!Array.isArray(value.albums)) value.albums = [];
+            value.albums = flattenAlbumVersions(value.albums);
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
-            if (!value.schemaVersion) value.schemaVersion = 1;
+            if (!Array.isArray(value.extras)) value.extras = [];
+            value.schemaVersion = 2;
             if (!value.title) value.title = 'Discografia Britney Spears';
             if (!value.artist) value.artist = 'Britney Spears';
             if (!value.assetBaseUrl) value.assetBaseUrl = 'https://zayandoux.github.io/britneyspears/';
@@ -369,6 +404,7 @@
         function albumCategory(album) {
             const value = String(album.category || 'main').toLowerCase();
             if (value === 'compilation' || value === 'official-compilations') return 'compilation';
+            if (value === 'remixes' || value === 'albums-remixes') return 'remixes';
             if (value === 'unreleased' || value === 'unreleased-music' || value === 'musicas-nao-lancadas') return 'unreleased';
             return 'main';
         }
@@ -377,15 +413,12 @@
             if (section === 'settings') return [];
             if (section === 'clips') return catalog.clips;
             if (section === 'shows') return catalog.shows;
+            if (section === 'extras') return catalog.extras;
             return catalog.albums.filter(album => albumCategory(album) === section);
         }
 
         function countAlbumTracks(album) {
-            let total = Array.isArray(album.tracks) ? album.tracks.length : 0;
-            if (Array.isArray(album.versions)) {
-                total += album.versions.reduce((sum, version) => sum + (Array.isArray(version.tracks) ? version.tracks.length : 0), 0);
-            }
-            return total;
+            return Array.isArray(album.tracks) ? album.tracks.length : 0;
         }
 
         function setStatus(message, kind = '') {
@@ -417,7 +450,8 @@
             const used = new Set([
                 ...catalog.albums.map(item => item.id),
                 ...catalog.clips.map(item => item.id),
-                ...catalog.shows.map(item => item.id)
+                ...catalog.shows.map(item => item.id),
+                ...catalog.extras.map(item => item.id)
             ]);
             let id = slugify(base);
             let suffix = 2;
@@ -431,6 +465,8 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
+            copy.schemaVersion = 2;
+            copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
                 if (!node || typeof node !== 'object') return;
@@ -450,7 +486,7 @@
             searchInput.value = '';
             clearDirty();
             renderAll();
-            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s) e ${catalog.shows.length} show(s).`, 'success');
+            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s), ${catalog.shows.length} show(s) e ${catalog.extras.length} extra(s).`, 'success');
         }
 
         async function loadCatalogFromSite(force = false) {
@@ -492,7 +528,7 @@
             const totalTracks = catalog.albums.reduce((sum, album) => sum + countAlbumTracks(album), 0);
             document.getElementById('albumCount').textContent = catalog.albums.length;
             document.getElementById('trackCount').textContent = totalTracks;
-            document.getElementById('videoCount').textContent = catalog.clips.length + catalog.shows.length;
+            document.getElementById('videoCount').textContent = catalog.clips.length + catalog.shows.length + catalog.extras.length;
             document.querySelectorAll('.section-button[data-section]').forEach(button => {
                 const section = button.dataset.section;
                 const count = button.querySelector('.section-count');
@@ -633,6 +669,7 @@
                 select: [
                     ['main', 'Álbum'],
                     ['compilation', 'Compilação'],
+                    ['remixes', 'Álbum Remix'],
                     ['unreleased', 'Música não lançada']
                 ],
                 onChange: value => {
@@ -653,11 +690,10 @@
             view.shell.appendChild(details.element);
 
             renderTracksPanel(view.shell, album, 'tracks', 'Faixas do álbum');
-            renderVersionsPanel(view.shell, album);
         }
 
         function renderMediaEditor(item) {
-            const singular = currentSection === 'clips' ? 'clipe' : 'show';
+            const singular = currentSection === 'clips' ? 'clipe' : currentSection === 'shows' ? 'show' : 'vídeo extra';
             const view = editorShell(item.title || `${singular} sem título`, sectionDefinitions[currentSection].label);
             view.actions.append(
                 actionButton('Duplicar', '', () => duplicateItem(item)),
@@ -819,66 +855,6 @@
             parent.appendChild(panel.element);
         }
 
-        function renderVersionsPanel(parent, album) {
-            if (!Array.isArray(album.versions)) album.versions = [];
-            const versions = album.versions;
-            const panel = createPanel('Versões do álbum', 'Use para edições padrão, deluxe ou comemorativas.');
-            panel.actions.appendChild(actionButton('Adicionar versão', '', () => {
-                versions.push({
-                    id: uniqueId(`${album.id || 'album'}-versao`),
-                    title: `${album.title || 'Álbum'} — nova versão`,
-                    year: album.year || '',
-                    genre: album.genre || 'Pop',
-                    coverPath: album.coverPath || '',
-                    animatedCoverPath: album.animatedCoverPath || '',
-                    tracks: []
-                });
-                markDirty(); renderEditor();
-            }));
-            if (!versions.length) {
-                const empty = document.createElement('div');
-                empty.className = 'collection-empty';
-                empty.textContent = 'Este álbum não possui versões separadas.';
-                panel.body.appendChild(empty);
-            }
-            versions.forEach((version, index) => {
-                if (!Array.isArray(version.tracks)) version.tracks = [];
-                const details = document.createElement('details');
-                details.className = 'collection-item';
-                const summary = document.createElement('summary');
-                const copy = document.createElement('span');
-                copy.className = 'summary-copy';
-                const refreshSummary = () => copy.textContent = `${version.title || 'Versão sem título'} • ${version.tracks.length} faixa(s)`;
-                refreshSummary();
-                const actions = document.createElement('span');
-                actions.className = 'row-actions';
-                actions.append(
-                    compactButton('↑', 'Mover versão para cima', event => moveArrayItem(versions, index, -1, event)),
-                    compactButton('↓', 'Mover versão para baixo', event => moveArrayItem(versions, index, 1, event)),
-                    compactButton('Excluir', 'Excluir versão', event => {
-                        event.preventDefault(); event.stopPropagation();
-                        if (!window.confirm(`Excluir a versão “${version.title || 'sem título'}” e suas faixas?`)) return;
-                        versions.splice(index, 1); markDirty(); renderEditor(); renderCounts();
-                    }, true)
-                );
-                summary.append(copy, actions);
-                const body = document.createElement('div');
-                body.className = 'collection-body';
-                const grid = createGrid('field-grid');
-                addField(grid, version, 'id', 'ID da versão');
-                addField(grid, version, 'title', 'Título da versão', { onInput: refreshSummary });
-                addField(grid, version, 'year', 'Ano');
-                addField(grid, version, 'genre', 'Gênero');
-                addField(grid, version, 'coverPath', 'Caminho da capa', { full: true, path: true });
-                addField(grid, version, 'animatedCoverPath', 'Caminho da capa animada', { full: true, path: true });
-                body.appendChild(grid);
-                renderTracksPanel(body, version, 'tracks', 'Faixas desta versão');
-                details.append(summary, body);
-                panel.body.appendChild(details);
-            });
-            parent.appendChild(panel.element);
-        }
-
         function compactButton(label, ariaLabel, handler, danger = false) {
             const button = document.createElement('button');
             button.type = 'button';
@@ -901,7 +877,7 @@
             if (currentSection === 'settings') return;
             let item;
             if (sectionDefinitions[currentSection].kind === 'album') {
-                const label = currentSection === 'compilation' ? 'Nova compilação' : currentSection === 'unreleased' ? 'Músicas não lançadas' : 'Novo álbum';
+                const label = currentSection === 'compilation' ? 'Nova compilação' : currentSection === 'remixes' ? 'Novo álbum remix' : currentSection === 'unreleased' ? 'Músicas não lançadas' : 'Novo álbum';
                 item = {
                     id: uniqueId(label),
                     title: label,
@@ -917,9 +893,12 @@
                 catalog.albums.push(item);
             } else {
                 const isClip = currentSection === 'clips';
+                const isShow = currentSection === 'shows';
+                const mediaLabel = isClip ? 'novo-clipe' : isShow ? 'novo-show' : 'novo-extra';
+                const mediaTitle = isClip ? 'Novo clipe' : isShow ? 'Novo show' : 'Novo vídeo extra';
                 item = {
-                    id: uniqueId(isClip ? 'novo-clipe' : 'novo-show'),
-                    title: isClip ? 'Novo clipe' : 'Novo show',
+                    id: uniqueId(mediaLabel),
+                    title: mediaTitle,
                     artist: catalog.artist || 'Britney Spears',
                     year: '', duration: '', description: '',
                     videoPath: '', thumbnailPath: '', backgroundPath: '', logoPath: ''
@@ -972,21 +951,16 @@
             catalog.albums.forEach((album, albumIndex) => {
                 const place = `Álbum ${albumIndex + 1}`;
                 addId(album, place);
-                if (!['main', 'compilation', 'official-compilations', 'unreleased', 'unreleased-music', 'musicas-nao-lancadas'].includes(String(album.category || 'main').toLowerCase())) warnings.push(`${place}: categoria “${album.category}” será tratada como álbum principal.`);
+                if (!['main', 'compilation', 'official-compilations', 'remixes', 'albums-remixes', 'unreleased', 'unreleased-music', 'musicas-nao-lancadas'].includes(String(album.category || 'main').toLowerCase())) warnings.push(`${place}: categoria “${album.category}” será tratada como álbum principal.`);
                 validatePath(album.coverPath, `${place} / capa`, false);
                 const validateTracks = (tracks, owner) => (tracks || []).forEach((track, index) => {
                     if (!track.title) warnings.push(`${owner} / faixa ${index + 1}: título vazio.`);
                     validatePath(track.audioPath || track.audioUrl, `${owner} / faixa ${index + 1} / áudio`);
                 });
                 validateTracks(album.tracks, place);
-                (album.versions || []).forEach((version, versionIndex) => {
-                    if (!version.id) warnings.push(`${place} / versão ${versionIndex + 1}: ID vazio.`);
-                    if (!version.title) warnings.push(`${place} / versão ${versionIndex + 1}: título vazio.`);
-                    validateTracks(version.tracks, `${place} / versão ${versionIndex + 1}`);
-                });
             });
-            ['clips', 'shows'].forEach(section => catalog[section].forEach((item, index) => {
-                const place = `${section === 'clips' ? 'Clipe' : 'Show'} ${index + 1}`;
+            ['clips', 'shows', 'extras'].forEach(section => catalog[section].forEach((item, index) => {
+                const place = `${section === 'clips' ? 'Clipe' : section === 'shows' ? 'Show' : 'Extra'} ${index + 1}`;
                 addId(item, place);
                 validatePath(item.videoPath || item.videoUrl, `${place} / vídeo`);
                 validatePath(item.thumbnailPath || item.thumbnailUrl, `${place} / miniatura`, false);
