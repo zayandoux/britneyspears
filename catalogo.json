@@ -1397,7 +1397,13 @@
       "thumbnailPath": "media/albuns/06%20Circus/capa.jfif",
       "backgroundPath": "media/albuns/06%20Circus/fundo.png",
       "logoPath": "",
-      "subtitles": [],
+      "subtitles": [
+        {
+          "label": "Português",
+          "language": "pt-BR",
+          "subtitlePath": "media/shows/baby-one-more-time.str"
+        }
+      ],
       "variants": []
     },
     {
@@ -1416,7 +1422,7 @@
       "variants": [
         {
           "id": "teste-show-04-lisboa",
-            "title": "[TESTE] Show 04",
+          "title": "[TESTE] Show 04",
           "location": "Lisboa",
           "year": "2026",
           "duration": "00:18",
@@ -1445,7 +1451,7 @@
       "variants": [
         {
           "id": "teste-show-05-paris",
-            "title": "[TESTE] Show 05",
+          "title": "[TESTE] Show 05",
           "location": "Paris",
           "year": "2026",
           "duration": "00:18",
@@ -1458,7 +1464,7 @@
         },
         {
           "id": "teste-show-05-toquio",
-            "title": "[TESTE] Show 05",
+          "title": "[TESTE] Show 05",
           "location": "Tóquio",
           "year": "2026",
           "duration": "00:18",
@@ -1471,7 +1477,7 @@
         },
         {
           "id": "teste-show-05-rio",
-            "title": "[TESTE] Show 05",
+          "title": "[TESTE] Show 05",
           "location": "Rio de Janeiro",
           "year": "2026",
           "duration": "00:18",
