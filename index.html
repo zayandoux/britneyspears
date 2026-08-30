@@ -576,17 +576,7 @@
                 </button>
             </div>
 
-            <h2 class="category-title">Álbuns Principais</h2>
-            <div class="album-grid" id="albumGrid"></div>
-
-            <h2 class="category-title">Compilações Oficiais</h2>
-            <div class="album-grid" id="compilationsGrid"></div>
-
-            <h2 class="category-title">Álbuns Remixes</h2>
-            <div class="album-grid" id="remixesGrid"></div>
-
-            <h2 class="category-title">Músicas não lançadas</h2>
-            <div class="album-grid" id="unreleasedGrid"></div>
+            <div id="musicCategoryGrids"></div>
         </section>
 
         <section id="albumDetailSection" class="album-detail-section">
@@ -714,6 +704,7 @@
 
     <script>
         let albums = [];
+        let musicCategories = [];
 
         function splitCatalogPath(path, baseUrl) {
             if (!path) return { folder: '', file: '' };
@@ -752,11 +743,10 @@
                 cover: cover.file,
                 video: animation.file,
                 background: album.backgroundPath ? new URL(album.backgroundPath, baseUrl).href : '',
-                type: album.category === 'compilation' || album.category === 'official-compilations'
-                    ? 'compilation'
-                    : album.category === 'remixes' || album.category === 'albums-remixes'
-                        ? 'remixes'
-                        : album.category === 'unreleased' ? 'unreleased' : 'main'
+                type: album.category === 'official-compilations' ? 'compilation'
+                    : album.category === 'albums-remixes' ? 'remixes'
+                        : album.category === 'unreleased-music' || album.category === 'musicas-nao-lancadas'
+                            ? 'unreleased' : (album.category || 'main')
             };
 
             item.tracks = (album.tracks || []).map(track => catalogTrackToSite(track, baseUrl, folder));
@@ -769,12 +759,25 @@
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const catalog = await response.json();
                 const baseUrl = catalog.assetBaseUrl || new URL('.', window.location.href).href;
+                musicCategories = Array.isArray(catalog.musicCategories) && catalog.musicCategories.length
+                    ? catalog.musicCategories
+                    : [
+                        { id: 'main', title: 'Álbuns de Estúdio' },
+                        { id: 'compilation', title: 'Compilações Oficiais' },
+                        { id: 'remixes', title: 'Álbuns Remixes' },
+                        { id: 'unreleased', title: 'Músicas Não Lançadas' }
+                    ];
                 albums = (catalog.albums || []).map(album => catalogAlbumToSite(album, baseUrl));
+                albums.forEach(album => {
+                    if (!musicCategories.some(category => category.id === album.type)) {
+                        musicCategories.push({ id: album.type, title: album.type.replace(/[-_]/g, ' ') });
+                    }
+                });
                 if (!albums.length) throw new Error('O catálogo não possui álbuns.');
                 initApp();
             } catch (error) {
                 console.error('Não foi possível carregar catalogo.json:', error);
-                document.getElementById('albumGrid').innerHTML = '<p style="padding:24px">Não foi possível carregar o catálogo.</p>';
+                document.getElementById('musicCategoryGrids').innerHTML = '<p style="padding:24px">Não foi possível carregar o catálogo.</p>';
             }
         }
 
@@ -862,18 +865,23 @@
 
         function renderDashboard() {
             const track = document.getElementById('albumCarousel');
-            const gridMain = document.getElementById('albumGrid');
-            const gridCompilations = document.getElementById('compilationsGrid');
-            const gridRemixes = document.getElementById('remixesGrid');
-            const gridUnreleased = document.getElementById('unreleasedGrid');
-            
-            track.innerHTML = ''; gridMain.innerHTML = ''; gridCompilations.innerHTML = ''; gridRemixes.innerHTML = ''; gridUnreleased.innerHTML = '';
+            const categoryContainer = document.getElementById('musicCategoryGrids');
+            track.innerHTML = '';
+            categoryContainer.innerHTML = '';
+            const categoryGrids = new Map();
+            musicCategories.forEach(category => {
+                if (!albums.some(album => album.type === category.id)) return;
+                const title = document.createElement('h2');
+                title.className = 'category-title';
+                title.textContent = category.title || category.id;
+                const grid = document.createElement('div');
+                grid.className = 'album-grid';
+                grid.dataset.category = category.id;
+                categoryContainer.append(title, grid);
+                categoryGrids.set(category.id, grid);
+            });
             
             albums.forEach((album, index) => {
-                const isCompilation = album.type === 'compilation';
-                const isRemix = album.type === 'remixes';
-                const isUnreleased = album.type === 'unreleased';
-
                 const cCard = document.createElement('div');
                 cCard.className = 'carousel-card';
                 cCard.onclick = () => { if (currentCarouselIndex === index) handleAlbumClick(album); else { currentCarouselIndex = index; updateCarousel(); } };
@@ -884,16 +892,8 @@
                 gCard.className = 'grid-card'; gCard.onclick = () => handleAlbumClick(album);
                 gCard.innerHTML = `<div class="album-art-wrapper"><img src="${album.folder}/${album.cover}" alt="${album.title}"></div><div class="album-card-title">${album.title}</div><div class="album-card-artist">${album.artist}</div>`;
                 
-                // Separa as categorias usando a mesma classificação do catalogo.json.
-                if (isCompilation) {
-                    gridCompilations.appendChild(gCard);
-                } else if (isRemix) {
-                    gridRemixes.appendChild(gCard);
-                } else if (isUnreleased) {
-                    gridUnreleased.appendChild(gCard);
-                } else {
-                    gridMain.appendChild(gCard);
-                }
+                const grid = categoryGrids.get(album.type);
+                if (grid) grid.appendChild(gCard);
             });
             carouselCards = document.querySelectorAll('#albumCarousel .carousel-card');
             updateCarousel();

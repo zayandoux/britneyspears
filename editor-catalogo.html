@@ -128,6 +128,8 @@
         .section-button:hover { color: var(--text); background: var(--surface-2); }
         .section-button.active { color: white; border-color: rgba(255, 56, 150, .45); background: var(--pink-soft); }
         .section-count { min-width: 28px; padding: 2px 7px; border-radius: 999px; background: var(--surface-3); text-align: center; font-size: 12px; }
+        .section-group-label { margin: 9px 7px 1px; color: var(--pink); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+        .section-group { display: grid; gap: 6px; }
 
         .search { margin: 14px 0 10px; }
         .search input { width: 100%; }
@@ -287,13 +289,13 @@
 
             <nav class="sections" aria-label="Categorias">
                 <button class="section-button" type="button" data-section="settings"><span>Configurações</span></button>
-                <button class="section-button" type="button" data-section="main"><span>Álbuns</span><span class="section-count">0</span></button>
-                <button class="section-button" type="button" data-section="compilation"><span>Compilações</span><span class="section-count">0</span></button>
-                <button class="section-button" type="button" data-section="remixes"><span>Álbuns Remixes</span><span class="section-count">0</span></button>
-                <button class="section-button" type="button" data-section="unreleased"><span>Não lançadas</span><span class="section-count">0</span></button>
+                <div class="section-group-label">Músicas</div>
+                <div class="section-group" id="musicSectionButtons"></div>
+                <div class="section-group-label">Vídeos</div>
                 <button class="section-button" type="button" data-section="clips"><span>Clipes</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="shows"><span>Shows</span><span class="section-count">0</span></button>
-                <button class="section-button" type="button" data-section="extras"><span>Extra</span><span class="section-count">0</span></button>
+                <div class="section-group-label">Extras</div>
+                <div class="section-group" id="extraSectionButtons"></div>
             </nav>
 
             <div class="search">
@@ -325,19 +327,15 @@
     </dialog>
 
     <script>
-        const sectionDefinitions = {
-            main: { label: 'Álbuns', category: 'main', kind: 'album' },
-            compilation: { label: 'Compilações', category: 'compilation', kind: 'album' },
-            remixes: { label: 'Álbuns Remixes', category: 'remixes', kind: 'album' },
-            unreleased: { label: 'Músicas não lançadas', category: 'unreleased', kind: 'album' },
-            clips: { label: 'Clipes', kind: 'media' },
-            shows: { label: 'Shows', kind: 'media' },
-            extras: { label: 'Extra', kind: 'media' }
+        let sectionDefinitions = {
+            settings: { label: 'Configurações', kind: 'settings' },
+            clips: { label: 'Clipes', kind: 'media', storage: 'clips' },
+            shows: { label: 'Shows', kind: 'media', storage: 'shows' }
         };
         const CATALOG_SOURCE_URL = 'https://zayandoux.github.io/britneyspears/catalogo.json';
 
         let catalog = createEmptyCatalog();
-        let currentSection = 'main';
+        let currentSection = 'music:main';
         let selectedItem = null;
         let dirty = false;
         let draggedListItem = null;
@@ -357,16 +355,36 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 4,
+                schemaVersion: 5,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
                 assetUrlRule: 'O aplicativo deve juntar assetBaseUrl com cada campo terminado em Path.',
+                musicCategories: defaultMusicCategories(),
+                extraCategories: defaultExtraCategories(),
                 albums: [],
                 clips: [],
                 shows: [],
                 extras: []
             };
+        }
+
+        function defaultMusicCategories() {
+            return [
+                { id: 'main', title: 'Álbuns de Estúdio', iconPath: '' },
+                { id: 'compilation', title: 'Compilações Oficiais', iconPath: '' },
+                { id: 'remixes', title: 'Álbuns Remixes', iconPath: '' },
+                { id: 'unreleased', title: 'Músicas Não Lançadas', iconPath: '' }
+            ];
+        }
+
+        function defaultExtraCategories() {
+            return [
+                { id: 'documentarios', title: 'Documentários', iconPath: '', continueWatching: true, autoAdvance: false },
+                { id: 'apresentacoes-tv', title: 'Apresentações na TV', iconPath: '', continueWatching: false, autoAdvance: false },
+                { id: 'comerciais', title: 'Comerciais', iconPath: '', continueWatching: false, autoAdvance: true },
+                { id: 'outros', title: 'Outros', iconPath: '', continueWatching: true, autoAdvance: false }
+            ];
         }
 
         function flattenAlbumVersions(albums) {
@@ -401,10 +419,28 @@
             if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('O conteúdo não é um objeto JSON válido.');
             if (!Array.isArray(value.albums)) value.albums = [];
             value.albums = flattenAlbumVersions(value.albums);
+            if (!Array.isArray(value.musicCategories) || !value.musicCategories.length) {
+                value.musicCategories = defaultMusicCategories();
+            }
+            if (!Array.isArray(value.extraCategories) || !value.extraCategories.length) {
+                value.extraCategories = defaultExtraCategories();
+            }
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
             if (!Array.isArray(value.extras)) value.extras = [];
-            value.schemaVersion = 4;
+            value.schemaVersion = 5;
+            value.albums.forEach(album => {
+                album.category = normalizedMusicCategoryId(album.category);
+                if (!value.musicCategories.some(category => category.id === album.category)) {
+                    value.musicCategories.push({ id: album.category, title: album.category.replace(/[-_]/g, ' '), iconPath: '' });
+                }
+            });
+            value.extras.forEach(item => {
+                item.category = String(item.category || 'outros').trim().toLowerCase() || 'outros';
+                if (!value.extraCategories.some(category => category.id === item.category)) {
+                    value.extraCategories.push({ id: item.category, title: item.category.replace(/[-_]/g, ' '), iconPath: '', continueWatching: true, autoAdvance: false });
+                }
+            });
             const normalizeMediaSubtitles = item => {
                 if (!Array.isArray(item.subtitles)) {
                     item.subtitles = item.subtitlePath ? [{
@@ -434,19 +470,55 @@
         }
 
         function albumCategory(album) {
-            const value = String(album.category || 'main').toLowerCase();
-            if (value === 'compilation' || value === 'official-compilations') return 'compilation';
-            if (value === 'remixes' || value === 'albums-remixes') return 'remixes';
-            if (value === 'unreleased' || value === 'unreleased-music' || value === 'musicas-nao-lancadas') return 'unreleased';
-            return 'main';
+            return normalizedMusicCategoryId(album.category);
+        }
+
+        function normalizedMusicCategoryId(value) {
+            const category = String(value || 'main').trim().toLowerCase();
+            if (category === 'official-compilations') return 'compilation';
+            if (category === 'albums-remixes') return 'remixes';
+            if (category === 'unreleased-music' || category === 'musicas-nao-lancadas') return 'unreleased';
+            return category || 'main';
+        }
+
+        function musicSectionKey(id) { return `music:${id}`; }
+        function extraSectionKey(id) { return `extra:${id}`; }
+
+        function rebuildSectionDefinitions() {
+            sectionDefinitions = {
+                settings: { label: 'Configurações', kind: 'settings' },
+                clips: { label: 'Clipes', kind: 'media', storage: 'clips' },
+                shows: { label: 'Shows', kind: 'media', storage: 'shows' }
+            };
+            catalog.musicCategories.forEach(category => {
+                sectionDefinitions[musicSectionKey(category.id)] = {
+                    label: category.title || category.id,
+                    kind: 'album', category: category.id, storage: 'albums'
+                };
+            });
+            catalog.extraCategories.forEach(category => {
+                sectionDefinitions[extraSectionKey(category.id)] = {
+                    label: category.title || category.id,
+                    kind: 'media', category: category.id, storage: 'extras'
+                };
+            });
         }
 
         function itemsForSection(section = currentSection) {
             if (section === 'settings') return [];
-            if (section === 'clips') return catalog.clips;
-            if (section === 'shows') return catalog.shows;
-            if (section === 'extras') return catalog.extras;
-            return catalog.albums.filter(album => albumCategory(album) === section);
+            const definition = sectionDefinitions[section];
+            if (!definition) return [];
+            if (definition.storage === 'clips') return catalog.clips;
+            if (definition.storage === 'shows') return catalog.shows;
+            if (definition.storage === 'extras') {
+                return catalog.extras.filter(item => String(item.category || 'outros') === definition.category);
+            }
+            return catalog.albums.filter(album => albumCategory(album) === definition.category);
+        }
+
+        function storageForSection(section = currentSection) {
+            const definition = sectionDefinitions[section];
+            return definition && definition.storage ? catalog[definition.storage] : [];
         }
 
         function countAlbumTracks(album) {
@@ -498,7 +570,7 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
-            copy.schemaVersion = 4;
+            copy.schemaVersion = 5;
             copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
@@ -514,7 +586,8 @@
 
         function applyLoadedCatalog(value, sourceLabel) {
             catalog = normalizeCatalog(value);
-            currentSection = 'main';
+            rebuildSectionDefinitions();
+            currentSection = musicSectionKey(catalog.musicCategories[0].id);
             selectedItem = itemsForSection()[0] || null;
             searchInput.value = '';
             clearDirty();
@@ -551,6 +624,8 @@
         }
 
         function renderAll() {
+            rebuildSectionDefinitions();
+            renderCategoryNavigation();
             renderCounts();
             renderSectionButtons();
             renderList();
@@ -570,12 +645,45 @@
             });
         }
 
+        function renderCategoryNavigation() {
+            const renderGroup = (containerId, categories, keyForCategory) => {
+                const container = document.getElementById(containerId);
+                container.replaceChildren();
+                categories.forEach(category => {
+                    const section = keyForCategory(category.id);
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'section-button';
+                    button.dataset.section = section;
+                    const label = document.createElement('span');
+                    label.textContent = category.title || category.id;
+                    const count = document.createElement('span');
+                    count.className = 'section-count';
+                    count.textContent = itemsForSection(section).length;
+                    button.append(label, count);
+                    button.addEventListener('click', () => selectSection(section));
+                    container.appendChild(button);
+                });
+            };
+            renderGroup('musicSectionButtons', catalog.musicCategories, musicSectionKey);
+            renderGroup('extraSectionButtons', catalog.extraCategories, extraSectionKey);
+        }
+
+        function selectSection(section) {
+            if (!sectionDefinitions[section]) return;
+            currentSection = section;
+            selectedItem = itemsForSection()[0] || null;
+            searchInput.value = '';
+            renderAll();
+        }
+
         function renderSectionButtons() {
             const isSettings = currentSection === 'settings';
+            const definition = sectionDefinitions[currentSection] || sectionDefinitions.settings;
             searchInput.disabled = isSettings;
             addItemButton.disabled = isSettings;
-            addItemButton.textContent = isSettings ? 'Adicionar conteúdo' : `Adicionar em ${sectionDefinitions[currentSection].label}`;
-            listHint.classList.toggle('visible', !isSettings && sectionDefinitions[currentSection].kind === 'media');
+            addItemButton.textContent = isSettings ? 'Adicionar conteúdo' : `Adicionar em ${definition.label}`;
+            listHint.classList.toggle('visible', !isSettings && definition.kind === 'media');
         }
 
         function renderList() {
@@ -645,7 +753,7 @@
                 event.stopPropagation();
                 button.classList.remove('drag-over');
                 if (!draggedListItem || draggedListSection !== currentSection || draggedListItem === item) return;
-                const list = catalog[currentSection];
+                const list = storageForSection(currentSection);
                 const sourceIndex = list.indexOf(draggedListItem);
                 const targetIndex = list.indexOf(item);
                 if (sourceIndex < 0 || targetIndex < 0) return;
@@ -736,6 +844,93 @@
             addField(grid, catalog, 'assetUrlRule', 'Regra dos caminhos', { full: true, textarea: true });
             panel.body.appendChild(grid);
             view.shell.appendChild(panel.element);
+            renderCategoryManager(view.shell, 'musicCategories', 'Categorias de Músicas', 'album');
+            renderCategoryManager(view.shell, 'extraCategories', 'Categorias de Extras', 'extra');
+        }
+
+        function renderCategoryManager(parent, key, title, kind) {
+            const categories = catalog[key];
+            const panel = createPanel(title, 'A ordem abaixo é a mesma exibida no aplicativo. Categorias vazias ficam ocultas na TV.');
+            panel.actions.appendChild(actionButton('Adicionar categoria', 'primary', () => {
+                const baseTitle = kind === 'album' ? 'Nova categoria musical' : 'Nova categoria de extras';
+                const category = {
+                    id: uniqueId(baseTitle), title: baseTitle, iconPath: ''
+                };
+                if (kind === 'extra') {
+                    category.continueWatching = true;
+                    category.autoAdvance = false;
+                }
+                categories.push(category);
+                markDirty();
+                renderAll();
+            }));
+            categories.forEach((category, index) => {
+                const details = document.createElement('details');
+                details.className = 'collection-item';
+                details.open = false;
+                const summary = document.createElement('summary');
+                const label = document.createElement('strong');
+                label.textContent = category.title || category.id || 'Categoria';
+                const actions = document.createElement('span');
+                actions.className = 'collection-actions';
+                actions.append(
+                    compactButton('↑', 'Mover para cima', event => moveCategoryItem(categories, index, -1, event)),
+                    compactButton('↓', 'Mover para baixo', event => moveCategoryItem(categories, index, 1, event)),
+                    compactButton('×', 'Excluir categoria', event => {
+                        event.preventDefault(); event.stopPropagation();
+                        const used = kind === 'album'
+                            ? catalog.albums.filter(item => albumCategory(item) === category.id).length
+                            : catalog.extras.filter(item => String(item.category || 'outros') === category.id).length;
+                        if (used) {
+                            window.alert(`Esta categoria contém ${used} item(ns). Mova o conteúdo para outra categoria antes de excluí-la.`);
+                            return;
+                        }
+                        categories.splice(index, 1);
+                        markDirty(); renderAll();
+                    }, true)
+                );
+                const body = document.createElement('div');
+                body.className = 'collection-body';
+                const grid = createGrid('field-grid');
+                const oldId = category.id;
+                addField(grid, category, 'id', 'ID da categoria', {
+                    onChange: value => {
+                        const normalized = slugify(value) || (kind === 'album' ? 'musicas' : 'extras');
+                        category.id = normalized;
+                        const items = kind === 'album' ? catalog.albums : catalog.extras;
+                        items.forEach(item => {
+                            const itemCategory = kind === 'album' ? albumCategory(item) : String(item.category || 'outros');
+                            if (itemCategory === oldId) item.category = normalized;
+                        });
+                        markDirty(); renderAll();
+                    }
+                });
+                addField(grid, category, 'title', 'Nome exibido', { onChange: () => { markDirty(); renderAll(); } });
+                addField(grid, category, 'iconPath', 'Ícone da categoria (opcional)', { full: true, path: true });
+                if (kind === 'extra') {
+                    addField(grid, category, 'continueWatching', 'Salvar em Continue Assistindo', {
+                        select: [['true', 'Sim'], ['false', 'Não']],
+                        onChange: value => { category.continueWatching = value === 'true'; markDirty(); }
+                    });
+                    addField(grid, category, 'autoAdvance', 'Reproduzir próximo automaticamente', {
+                        select: [['false', 'Não'], ['true', 'Sim']],
+                        onChange: value => { category.autoAdvance = value === 'true'; markDirty(); }
+                    });
+                }
+                body.appendChild(grid);
+                summary.append(label, actions);
+                details.append(summary, body);
+                panel.body.appendChild(details);
+            });
+            parent.appendChild(panel.element);
+        }
+
+        function moveCategoryItem(categories, index, direction, event) {
+            event.preventDefault(); event.stopPropagation();
+            const destination = index + direction;
+            if (destination < 0 || destination >= categories.length) return;
+            [categories[index], categories[destination]] = [categories[destination], categories[index]];
+            markDirty(); renderAll();
         }
 
         function renderAlbumEditor(album) {
@@ -749,15 +944,10 @@
             const grid = createGrid('field-grid');
             addField(grid, album, 'id', 'ID único');
             addField(grid, album, 'category', 'Categoria', {
-                select: [
-                    ['main', 'Álbum'],
-                    ['compilation', 'Compilação'],
-                    ['remixes', 'Álbum Remix'],
-                    ['unreleased', 'Música não lançada']
-                ],
+                select: catalog.musicCategories.map(category => [category.id, category.title]),
                 onChange: value => {
                     album.category = value;
-                    currentSection = value;
+                    currentSection = musicSectionKey(value);
                     markDirty();
                     renderAll();
                 }
@@ -776,7 +966,8 @@
         }
 
         function renderMediaEditor(item) {
-            const singular = currentSection === 'clips' ? 'clipe' : currentSection === 'shows' ? 'show' : 'vídeo extra';
+            const definition = sectionDefinitions[currentSection];
+            const singular = definition.storage === 'clips' ? 'clipe' : definition.storage === 'shows' ? 'show' : 'vídeo extra';
             const view = editorShell(item.title || `${singular} sem título`, sectionDefinitions[currentSection].label);
             view.actions.append(
                 actionButton('Duplicar', '', () => duplicateItem(item)),
@@ -785,11 +976,15 @@
             const details = createPanel('Informações', `Dados exibidos na tela de detalhes do ${singular}.`);
             const grid = createGrid('field-grid');
             addField(grid, item, 'id', 'ID único');
+            if (definition.storage === 'extras') addField(grid, item, 'category', 'Categoria de Extra', {
+                select: catalog.extraCategories.map(category => [category.id, category.title]),
+                onChange: value => { item.category = value; currentSection = extraSectionKey(value); markDirty(); renderAll(); }
+            });
             addField(grid, item, 'title', 'Título', { onInput: () => { view.heading.textContent = item.title || `${singular} sem título`; renderList(); } });
             addField(grid, item, 'artist', 'Cantora ou artista');
             addField(grid, item, 'year', 'Ano');
             addField(grid, item, 'duration', 'Duração', { placeholder: '01:32:15 ou 04:20' });
-            if (currentSection === 'shows') addField(grid, item, 'location', 'Cidade ou versão principal', { placeholder: 'Miami' });
+            if (definition.storage === 'shows') addField(grid, item, 'location', 'Cidade ou versão principal', { placeholder: 'Miami' });
             addField(grid, item, 'description', 'Descrição', { full: true, textarea: true });
             addField(grid, item, 'videoPath', 'Caminho do vídeo', { full: true, path: true });
             addField(grid, item, 'thumbnailPath', 'Caminho da miniatura do card', { full: true, path: true });
@@ -798,7 +993,7 @@
             details.body.appendChild(grid);
             view.shell.appendChild(details.element);
             renderSubtitlesPanel(view.shell, item);
-            if (currentSection === 'shows') renderShowVariantsPanel(view.shell, item);
+            if (definition.storage === 'shows') renderShowVariantsPanel(view.shell, item);
         }
 
         function renderSubtitlesPanel(parent, item, panelTitle = 'Legendas') {
@@ -1181,16 +1376,17 @@
 
         function addItem() {
             if (currentSection === 'settings') return;
+            const definition = sectionDefinitions[currentSection];
             let item;
-            if (sectionDefinitions[currentSection].kind === 'album') {
-                const label = currentSection === 'compilation' ? 'Nova compilação' : currentSection === 'remixes' ? 'Novo álbum remix' : currentSection === 'unreleased' ? 'Músicas não lançadas' : 'Novo álbum';
+            if (definition.kind === 'album') {
+                const label = `Novo item — ${definition.label}`;
                 item = {
                     id: uniqueId(label),
                     title: label,
                     artist: catalog.artist || 'Britney Spears',
                     year: '',
                     genre: 'Pop',
-                    category: sectionDefinitions[currentSection].category,
+                    category: definition.category,
                     coverPath: '',
                     animatedCoverPath: '',
                     backgroundPath: '',
@@ -1198,8 +1394,8 @@
                 };
                 catalog.albums.push(item);
             } else {
-                const isClip = currentSection === 'clips';
-                const isShow = currentSection === 'shows';
+                const isClip = definition.storage === 'clips';
+                const isShow = definition.storage === 'shows';
                 const mediaLabel = isClip ? 'novo-clipe' : isShow ? 'novo-show' : 'novo-extra';
                 const mediaTitle = isClip ? 'Novo clipe' : isShow ? 'Novo show' : 'Novo vídeo extra';
                 item = {
@@ -1213,7 +1409,8 @@
                     item.location = '';
                     item.variants = [];
                 }
-                catalog[currentSection].push(item);
+                if (definition.storage === 'extras') item.category = definition.category;
+                catalog[definition.storage].push(item);
             }
             selectedItem = item;
             searchInput.value = '';
@@ -1224,13 +1421,14 @@
             const copy = JSON.parse(JSON.stringify(item));
             copy.id = uniqueId(`${item.id || item.title || 'item'}-copia`);
             copy.title = `${item.title || 'Item'} — cópia`;
-            if (currentSection === 'shows' && Array.isArray(copy.variants)) {
+            const definition = sectionDefinitions[currentSection];
+            if (definition.storage === 'shows' && Array.isArray(copy.variants)) {
                 copy.variants.forEach((variant, index) => {
                     variant.id = uniqueId(`${copy.id}-${variant.location || `versao-${index + 2}`}`);
                 });
             }
-            if (sectionDefinitions[currentSection].kind === 'album') catalog.albums.push(copy);
-            else catalog[currentSection].push(copy);
+            if (definition.kind === 'album') catalog.albums.push(copy);
+            else catalog[definition.storage].push(copy);
             selectedItem = copy;
             markDirty(); renderAll();
         }
@@ -1238,7 +1436,8 @@
         function deleteCurrentItem() {
             if (!selectedItem) return;
             if (!window.confirm(`Excluir “${selectedItem.title || selectedItem.id || 'este item'}” do catálogo?`)) return;
-            const array = sectionDefinitions[currentSection].kind === 'album' ? catalog.albums : catalog[currentSection];
+            const definition = sectionDefinitions[currentSection];
+            const array = definition.kind === 'album' ? catalog.albums : catalog[definition.storage];
             const index = array.indexOf(selectedItem);
             if (index >= 0) array.splice(index, 1);
             selectedItem = itemsForSection()[0] || null;
@@ -1272,10 +1471,28 @@
                 }
                 if (!subtitle.label && !subtitle.language) warnings.push(`${subtitlePlace}: informe um nome ou código de idioma.`);
             });
+            const musicCategoryIds = new Set();
+            catalog.musicCategories.forEach((category, index) => {
+                const place = `Categoria musical ${index + 1}`;
+                if (!category.id) errors.push(`${place}: ID vazio.`);
+                else if (musicCategoryIds.has(category.id)) errors.push(`${place}: ID repetido “${category.id}”.`);
+                else musicCategoryIds.add(category.id);
+                if (!category.title) errors.push(`${place}: nome vazio.`);
+                validatePath(category.iconPath || category.iconUrl, `${place} / ícone`, false);
+            });
+            const extraCategoryIds = new Set();
+            catalog.extraCategories.forEach((category, index) => {
+                const place = `Categoria de Extra ${index + 1}`;
+                if (!category.id) errors.push(`${place}: ID vazio.`);
+                else if (extraCategoryIds.has(category.id)) errors.push(`${place}: ID repetido “${category.id}”.`);
+                else extraCategoryIds.add(category.id);
+                if (!category.title) errors.push(`${place}: nome vazio.`);
+                validatePath(category.iconPath || category.iconUrl, `${place} / ícone`, false);
+            });
             catalog.albums.forEach((album, albumIndex) => {
                 const place = `Álbum ${albumIndex + 1}`;
                 addId(album, place);
-                if (!['main', 'compilation', 'official-compilations', 'remixes', 'albums-remixes', 'unreleased', 'unreleased-music', 'musicas-nao-lancadas'].includes(String(album.category || 'main').toLowerCase())) warnings.push(`${place}: categoria “${album.category}” será tratada como álbum principal.`);
+                if (!musicCategoryIds.has(albumCategory(album))) errors.push(`${place}: categoria “${album.category}” não existe.`);
                 validatePath(album.coverPath, `${place} / capa`, false);
                 const validateTracks = (tracks, owner) => (tracks || []).forEach((track, index) => {
                     if (!track.title) warnings.push(`${owner} / faixa ${index + 1}: título vazio.`);
@@ -1286,6 +1503,9 @@
             ['clips', 'shows', 'extras'].forEach(section => catalog[section].forEach((item, index) => {
                 const place = `${section === 'clips' ? 'Clipe' : section === 'shows' ? 'Show' : 'Extra'} ${index + 1}`;
                 addId(item, place);
+                if (section === 'extras' && !extraCategoryIds.has(String(item.category || 'outros'))) {
+                    errors.push(`${place}: categoria de Extra “${item.category || 'outros'}” não existe.`);
+                }
                 validatePath(item.videoPath || item.videoUrl, `${place} / vídeo`);
                 validatePath(item.thumbnailPath || item.thumbnailUrl, `${place} / miniatura`, false);
                 validatePath(item.backgroundPath || item.backgroundUrl, `${place} / fundo`, false);
@@ -1358,12 +1578,7 @@
         }
 
         document.querySelectorAll('.section-button[data-section]').forEach(button => {
-            button.addEventListener('click', () => {
-                currentSection = button.dataset.section;
-                selectedItem = itemsForSection()[0] || null;
-                searchInput.value = '';
-                renderAll();
-            });
+            button.addEventListener('click', () => selectSection(button.dataset.section));
         });
         searchInput.addEventListener('input', renderList);
         addItemButton.addEventListener('click', addItem);

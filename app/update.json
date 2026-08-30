@@ -1,6 +1,6 @@
 {
-  "versionCode": 52,
-  "versionName": "3.18.0",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.18.0.apk",
-  "releaseNotes": "Nova opção para escolher entre legenda branca ou amarela, com contorno escuro e preferência salva para todos os vídeos."
+  "versionCode": 53,
+  "versionName": "3.19.0",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.19.0.apk",
+  "releaseNotes": "Novo menu principal com Músicas e Extras organizados por categorias dinâmicas configuradas pelo catalogo.json, mantendo Continue Assistindo e Favoritos no mesmo lugar."
 }

@@ -1,9 +1,61 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "title": "Discografia Britney Spears",
   "artist": "Britney Spears",
   "assetBaseUrl": "https://zayandoux.github.io/britneyspears/",
   "assetUrlRule": "O aplicativo deve juntar assetBaseUrl com cada campo terminado em Path.",
+  "musicCategories": [
+    {
+      "id": "main",
+      "title": "Álbuns de Estúdio",
+      "iconPath": ""
+    },
+    {
+      "id": "compilation",
+      "title": "Compilações Oficiais",
+      "iconPath": ""
+    },
+    {
+      "id": "remixes",
+      "title": "Álbuns Remixes",
+      "iconPath": ""
+    },
+    {
+      "id": "unreleased",
+      "title": "Músicas Não Lançadas",
+      "iconPath": ""
+    }
+  ],
+  "extraCategories": [
+    {
+      "id": "documentarios",
+      "title": "Documentários",
+      "iconPath": "",
+      "continueWatching": true,
+      "autoAdvance": false
+    },
+    {
+      "id": "apresentacoes-tv",
+      "title": "Apresentações na TV",
+      "iconPath": "",
+      "continueWatching": false,
+      "autoAdvance": false
+    },
+    {
+      "id": "comerciais",
+      "title": "Comerciais",
+      "iconPath": "",
+      "continueWatching": false,
+      "autoAdvance": true
+    },
+    {
+      "id": "outros",
+      "title": "Outros",
+      "iconPath": "",
+      "continueWatching": true,
+      "autoAdvance": false
+    }
+  ],
   "albums": [
     {
       "id": "baby-one-more-time",
@@ -1351,6 +1403,7 @@
   "extras": [
     {
       "id": "teste-extra-02",
+      "category": "outros",
       "title": "[TESTE] Extra 02",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1364,6 +1417,7 @@
     },
     {
       "id": "teste-extra-01",
+      "category": "outros",
       "title": "[TESTE] Extra 01",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1377,6 +1431,7 @@
     },
     {
       "id": "teste-extra-03",
+      "category": "outros",
       "title": "[TESTE] Extra 03",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1390,6 +1445,7 @@
     },
     {
       "id": "teste-extra-04",
+      "category": "outros",
       "title": "[TESTE] Extra 04",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1403,6 +1459,7 @@
     },
     {
       "id": "teste-extra-05",
+      "category": "outros",
       "title": "[TESTE] Extra 05",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1416,6 +1473,7 @@
     },
     {
       "id": "teste-extra-06",
+      "category": "outros",
       "title": "[TESTE] Extra 06",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1429,6 +1487,7 @@
     },
     {
       "id": "teste-extra-07",
+      "category": "outros",
       "title": "[TESTE] Extra 07",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1442,6 +1501,7 @@
     },
     {
       "id": "teste-extra-08",
+      "category": "outros",
       "title": "[TESTE] Extra 08",
       "artist": "Britney Spears",
       "year": "2026",
@@ -1455,6 +1515,7 @@
     },
     {
       "id": "teste-extra-09",
+      "category": "outros",
       "title": "[TESTE] Extra 09",
       "artist": "Britney Spears",
       "year": "2026",
