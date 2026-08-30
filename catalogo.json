@@ -1479,7 +1479,7 @@
   "musicCategories": [
     {
       "id": "main",
-      "title": "LP's",
+      "title": "Álbuns de Estúdio",
       "iconPath": ""
     },
     {
@@ -1495,11 +1495,6 @@
     {
       "id": "unreleased",
       "title": "Músicas Não Lançadas",
-      "iconPath": ""
-    },
-    {
-      "id": "albuns-de-estudio",
-      "title": "Álbums de estúdio",
       "iconPath": ""
     }
   ],
