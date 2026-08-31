@@ -1,6 +1,6 @@
 {
-  "versionCode": 56,
-  "versionName": "3.21.1",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.1.apk",
-  "releaseNotes": "Fundo correto aplicado às telas de Músicas e Extras. Capas e miniaturas agora aparecem retas, sem moldura ou quadrado atrás, e imagens repetidas são eliminadas da prévia. Novo modal temático mostra o progresso real do download e as etapas da instalação."
+  "versionCode": 57,
+  "versionName": "3.21.2",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.2.apk",
+  "releaseNotes": "Nova arte de fundo com acabamento natural e braços cobertos. O mesmo visual agora aparece no menu inicial, nas listas de Músicas e Extras, na Playlist e na seleção de álbuns, sem alterar os fundos próprios de videoclipes, shows e reprodução."
 }
