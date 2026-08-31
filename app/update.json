@@ -1,6 +1,6 @@
 {
-  "versionCode": 54,
-  "versionName": "3.20.0",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.20.0.apk",
-  "releaseNotes": "Nova identidade visual com banner, ícone e logotipo atualizados. Imagens remotas e durações das músicas agora ficam armazenadas no aparelho e são atualizadas automaticamente quando o conteúdo muda."
+  "versionCode": 55,
+  "versionName": "3.21.0",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.0.apk",
+  "releaseNotes": "Nova tela intermediária em lista para Músicas e Extras, com prévias automáticas do conteúdo, transições suaves e categorias carregadas dinamicamente pelo catálogo. Novo logotipo, tela de abertura, ícone do aplicativo e banner para Android TV."
 }
