@@ -1,6 +1,6 @@
 {
-  "versionCode": 53,
-  "versionName": "3.19.0",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.19.0.apk",
-  "releaseNotes": "Novo menu principal com Músicas e Extras organizados por categorias dinâmicas configuradas pelo catalogo.json, mantendo Continue Assistindo e Favoritos no mesmo lugar."
+  "versionCode": 54,
+  "versionName": "3.20.0",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.20.0.apk",
+  "releaseNotes": "Nova identidade visual com banner, ícone e logotipo atualizados. Imagens remotas e durações das músicas agora ficam armazenadas no aparelho e são atualizadas automaticamente quando o conteúdo muda."
 }
