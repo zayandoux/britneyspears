@@ -1343,7 +1343,13 @@
       "thumbnailPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/196d5a7ba13989b6c825aad8dd6f95e44f9aef03/onyx-hotel/miniatrura.jpg",
       "backgroundPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/196d5a7ba13989b6c825aad8dd6f95e44f9aef03/onyx-hotel/fundo.jpg",
       "logoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/0606231d63dffd4ffdc70233311d6dea414ceac3/onyx-hotel/logo.png",
-      "subtitles": [],
+      "subtitles": [
+        {
+          "label": "Inglês",
+          "language": "en",
+          "subtitlePath": ""
+        }
+      ],
       "location": "Miami",
       "variants": []
     }
