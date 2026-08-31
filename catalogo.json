@@ -1347,7 +1347,7 @@
         {
           "label": "Inglês",
           "language": "en",
-          "subtitlePath": ""
+          "subtitlePath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/Britney_Onyx_Hotel_Live_Miami_EN.srt"
         }
       ],
       "location": "Miami",
