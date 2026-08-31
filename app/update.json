@@ -1,6 +1,6 @@
 {
-  "versionCode": 55,
-  "versionName": "3.21.0",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.0.apk",
-  "releaseNotes": "Nova tela intermediária em lista para Músicas e Extras, com prévias automáticas do conteúdo, transições suaves e categorias carregadas dinamicamente pelo catálogo. Novo logotipo, tela de abertura, ícone do aplicativo e banner para Android TV."
+  "versionCode": 56,
+  "versionName": "3.21.1",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.1.apk",
+  "releaseNotes": "Fundo correto aplicado às telas de Músicas e Extras. Capas e miniaturas agora aparecem retas, sem moldura ou quadrado atrás, e imagens repetidas são eliminadas da prévia. Novo modal temático mostra o progresso real do download e as etapas da instalação."
 }
