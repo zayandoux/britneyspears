@@ -1345,9 +1345,19 @@
       "logoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/0606231d63dffd4ffdc70233311d6dea414ceac3/onyx-hotel/logo.png",
       "subtitles": [
         {
+          "label": "Português",
+          "language": "pt-BR",
+          "subtitlePath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/Britney_Onyx_Hotel_Miami_Falas_PTBR_Musicas_EN.srt"
+        },
+        {
           "label": "Inglês",
           "language": "en",
           "subtitlePath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/Britney_Onyx_Hotel_Live_Miami_EN.srt"
+        },
+        {
+          "label": "Português Total",
+          "language": "pt-BR",
+          "subtitlePath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/Britney_Onyx_Hotel_Miami_Falas_PTBR_Musicas_EN.srt"
         }
       ],
       "location": "Miami",
