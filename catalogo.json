@@ -1406,6 +1406,20 @@
       "logoPath": "",
       "subtitles": [],
       "category": "outros"
+    },
+    {
+      "id": "novo-extra",
+      "title": "Novo vídeo extra",
+      "artist": "Britney Spears",
+      "year": "",
+      "duration": "",
+      "description": "",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-hotel-miami.mp4",
+      "thumbnailPath": "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/16155/production/_116935409_cabf0091-c70c-434a-9433-06c263d0e231.jpg.webp",
+      "backgroundPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmgsNF8w5NafzjB5Nyd8_HArTeU-9ZKtNzITv6eD-QOsd2jDgcj-B8xn_b&s=10",
+      "logoPath": "",
+      "subtitles": [],
+      "category": "outros"
     }
   ],
   "musicCategories": [
