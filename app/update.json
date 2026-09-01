@@ -1,6 +1,6 @@
 {
-  "versionCode": 60,
-  "versionName": "3.22.1",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.1.apk",
-  "releaseNotes": "O seletor do menu inicial agora completa toda a borda do card. A seleção de álbuns, o player de músicas e as playlists receberam vidro mais forte e foco mais visível, sem texto azul. A capa permanece visível ao pausar, o contorno duplicado dos álbuns foi removido e Videoclipes não exibe mais o botão Assistir."
+  "versionCode": 61,
+  "versionName": "3.22.2",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.2.apk",
+  "releaseNotes": "O menu inicial recebeu o novo seletor preenchido e um pequeno aumento para completar a borda do card. O modal principal de Nova playlist voltou ao vidro anterior, enquanto a lista de escolha dos álbuns ganhou um fundo reforçado. O painel de músicas e controles da playlist agora acompanha a intensidade dos cards do menu, e os textos com + ficaram brancos."
 }
