@@ -1,6 +1,6 @@
 {
-  "versionCode": 58,
-  "versionName": "3.21.3",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.21.3.apk",
-  "releaseNotes": "As prévias de Músicas e Extras agora mostram até quatro imagens diferentes, mantendo miniaturas repetidas apenas uma vez. O menu inicial recebeu efeito de vidro fosco, cartões mais discretos, maior espaçamento e o novo seletor rosa e azul sem deformação."
+  "versionCode": 59,
+  "versionName": "3.22.0",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.0.apk",
+  "releaseNotes": "O seletor do menu agora acompanha a borda externa do card e o menu foi reposicionado para evitar recortes. Extras aceitam variantes como Shows. Modais, álbuns, músicas, player e playlists receberam o mesmo visual de vidro, com as durações alinhadas na seleção da playlist."
 }

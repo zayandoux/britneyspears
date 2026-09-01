@@ -355,7 +355,7 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 5,
+                schemaVersion: 6,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
@@ -428,7 +428,7 @@
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
             if (!Array.isArray(value.extras)) value.extras = [];
-            value.schemaVersion = 5;
+            value.schemaVersion = 6;
             value.albums.forEach(album => {
                 album.category = normalizedMusicCategoryId(album.category);
                 if (!value.musicCategories.some(category => category.id === album.category)) {
@@ -457,7 +457,7 @@
             ['clips', 'shows', 'extras'].forEach(section => {
                 value[section].forEach(item => {
                     normalizeMediaSubtitles(item);
-                    if (section === 'shows') {
+                    if (section === 'shows' || section === 'extras') {
                         if (!Array.isArray(item.variants)) item.variants = [];
                         item.variants.forEach(normalizeMediaSubtitles);
                     }
@@ -556,7 +556,8 @@
                 ...catalog.clips.map(item => item.id),
                 ...catalog.shows.map(item => item.id),
                 ...catalog.shows.flatMap(item => (item.variants || []).map(variant => variant.id)),
-                ...catalog.extras.map(item => item.id)
+                ...catalog.extras.map(item => item.id),
+                ...catalog.extras.flatMap(item => (item.variants || []).map(variant => variant.id))
             ]);
             let id = slugify(base);
             let suffix = 2;
@@ -570,7 +571,7 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
-            copy.schemaVersion = 5;
+            copy.schemaVersion = 6;
             copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
@@ -993,7 +994,9 @@
             details.body.appendChild(grid);
             view.shell.appendChild(details.element);
             renderSubtitlesPanel(view.shell, item);
-            if (definition.storage === 'shows') renderShowVariantsPanel(view.shell, item);
+            if (definition.storage === 'shows' || definition.storage === 'extras') {
+                renderMediaVariantsPanel(view.shell, item, definition.storage);
+            }
         }
 
         function renderSubtitlesPanel(parent, item, panelTitle = 'Legendas') {
@@ -1048,19 +1051,23 @@
             parent.appendChild(panel.element);
         }
 
-        function renderShowVariantsPanel(parent, show) {
-            if (!Array.isArray(show.variants)) show.variants = [];
-            const variants = show.variants;
-            const panel = createPanel('Cidades e versões alternativas', 'O show continua com um único card. A seta abaixo dele abre esta lista de versões no aplicativo. Campos de arte vazios herdam as imagens do show principal.');
-            panel.actions.appendChild(actionButton('Adicionar cidade/versão', 'primary', () => {
+        function renderMediaVariantsPanel(parent, media, storage) {
+            const isShow = storage === 'shows';
+            if (!Array.isArray(media.variants)) media.variants = [];
+            const variants = media.variants;
+            const panel = createPanel(
+                isShow ? 'Cidades e versões alternativas' : 'Versões alternativas',
+                `O ${isShow ? 'show' : 'extra'} continua com um único card. A seta abaixo dele abre esta lista no aplicativo. Campos de arte vazios herdam as imagens do conteúdo principal.`
+            );
+            panel.actions.appendChild(actionButton(isShow ? 'Adicionar cidade/versão' : 'Adicionar versão', 'primary', () => {
                 const number = variants.length + 2;
                 variants.push({
-                    id: uniqueId(`${show.id || 'show'}-versao-${number}`),
-                    title: show.title || 'Show',
-                    location: `Nova cidade ${number}`,
-                    year: show.year || '',
+                    id: uniqueId(`${media.id || (isShow ? 'show' : 'extra')}-versao-${number}`),
+                    title: media.title || (isShow ? 'Show' : 'Extra'),
+                    location: isShow ? `Nova cidade ${number}` : `Versão ${number}`,
+                    year: media.year || '',
                     duration: '',
-                    description: show.description || '',
+                    description: media.description || '',
                     videoPath: '',
                     thumbnailPath: '',
                     backgroundPath: '',
@@ -1073,7 +1080,7 @@
             if (!variants.length) {
                 const empty = document.createElement('div');
                 empty.className = 'collection-empty';
-                empty.textContent = 'Nenhuma variante cadastrada. O show será reproduzido diretamente, sem exibir a seta.';
+                empty.textContent = `Nenhuma variante cadastrada. O ${isShow ? 'show' : 'extra'} será reproduzido diretamente, sem exibir a seta.`;
                 panel.body.appendChild(empty);
             }
             variants.forEach((variant, index) => {
@@ -1100,8 +1107,8 @@
                 body.className = 'collection-body';
                 const grid = createGrid('field-grid');
                 addField(grid, variant, 'id', 'ID único da variante');
-                addField(grid, variant, 'location', 'Cidade ou nome da versão', { onInput: refreshSummary, placeholder: 'Lisboa' });
-                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: show.title || 'Nome do show' });
+                addField(grid, variant, 'location', isShow ? 'Cidade ou nome da versão' : 'Nome da versão', { onInput: refreshSummary, placeholder: isShow ? 'Lisboa' : 'Versão alternativa' });
+                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: media.title || (isShow ? 'Nome do show' : 'Nome do extra') });
                 addField(grid, variant, 'year', 'Ano');
                 addField(grid, variant, 'duration', 'Duração', { placeholder: '01:32:15' });
                 addField(grid, variant, 'description', 'Descrição', { full: true, textarea: true });
@@ -1396,6 +1403,7 @@
             } else {
                 const isClip = definition.storage === 'clips';
                 const isShow = definition.storage === 'shows';
+                const supportsVariants = isShow || definition.storage === 'extras';
                 const mediaLabel = isClip ? 'novo-clipe' : isShow ? 'novo-show' : 'novo-extra';
                 const mediaTitle = isClip ? 'Novo clipe' : isShow ? 'Novo show' : 'Novo vídeo extra';
                 item = {
@@ -1407,6 +1415,8 @@
                 };
                 if (isShow) {
                     item.location = '';
+                }
+                if (supportsVariants) {
                     item.variants = [];
                 }
                 if (definition.storage === 'extras') item.category = definition.category;
@@ -1422,7 +1432,7 @@
             copy.id = uniqueId(`${item.id || item.title || 'item'}-copia`);
             copy.title = `${item.title || 'Item'} — cópia`;
             const definition = sectionDefinitions[currentSection];
-            if (definition.storage === 'shows' && Array.isArray(copy.variants)) {
+            if ((definition.storage === 'shows' || definition.storage === 'extras') && Array.isArray(copy.variants)) {
                 copy.variants.forEach((variant, index) => {
                     variant.id = uniqueId(`${copy.id}-${variant.location || `versao-${index + 2}`}`);
                 });
@@ -1511,7 +1521,7 @@
                 validatePath(item.backgroundPath || item.backgroundUrl, `${place} / fundo`, false);
                 validatePath(item.logoPath || item.logoUrl, `${place} / logo`, false);
                 validateSubtitles(item.subtitles, place);
-                if (section === 'shows') (item.variants || []).forEach((variant, variantIndex) => {
+                if (section === 'shows' || section === 'extras') (item.variants || []).forEach((variant, variantIndex) => {
                     const variantPlace = `${place} / variante ${variantIndex + 1}`;
                     addId(variant, variantPlace);
                     if (!variant.location) warnings.push(`${variantPlace}: informe a cidade ou o nome da versão.`);

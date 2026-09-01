@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "title": "Discografia Britney Spears",
   "artist": "Britney Spears",
   "assetBaseUrl": "https://zayandoux.github.io/britneyspears/",
@@ -1377,7 +1377,8 @@
       "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
       "logoPath": "",
       "subtitles": [],
-      "category": "outros"
+      "category": "outros",
+      "variants": []
     },
     {
       "id": "My GoD",
@@ -1391,7 +1392,8 @@
       "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
       "logoPath": "",
       "subtitles": [],
-      "category": "outros"
+      "category": "outros",
+      "variants": []
     },
     {
       "id": "teste-extra-09",
@@ -1405,7 +1407,8 @@
       "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
       "logoPath": "",
       "subtitles": [],
-      "category": "outros"
+      "category": "outros",
+      "variants": []
     },
     {
       "id": "novo-extra",
@@ -1419,7 +1422,8 @@
       "backgroundPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmgsNF8w5NafzjB5Nyd8_HArTeU-9ZKtNzITv6eD-QOsd2jDgcj-B8xn_b&s=10",
       "logoPath": "",
       "subtitles": [],
-      "category": "outros"
+      "category": "outros",
+      "variants": []
     }
   ],
   "musicCategories": [
