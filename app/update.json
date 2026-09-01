@@ -1,6 +1,6 @@
 {
-  "versionCode": 61,
-  "versionName": "3.22.2",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/31a09af1a47eb93b1db45ec18b40a04ad36ff31c/app/Its-Britney-App-3.22.2.apk",
-  "releaseNotes": "O menu inicial recebeu o novo seletor preenchido e um pequeno aumento para completar a borda do card. O modal principal de Nova playlist voltou ao vidro anterior, enquanto a lista de escolha dos álbuns ganhou um fundo reforçado. O painel de músicas e controles da playlist agora acompanha a intensidade dos cards do menu, e os textos com + ficaram brancos."
+  "versionCode": 62,
+  "versionName": "3.22.3",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.3.apk",
+  "releaseNotes": "O painel grande da playlist aberta recebeu vidro bem mais forte para impedir que a imagem de fundo atrapalhe a leitura. Videoclipes agora reproduzem automaticamente o próximo clipe ao terminar; depois do último, o aplicativo volta para a seleção de clipes."
 }
