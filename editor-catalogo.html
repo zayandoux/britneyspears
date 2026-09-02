@@ -294,7 +294,7 @@
                 <div class="section-group-label">Vídeos</div>
                 <button class="section-button" type="button" data-section="clips"><span>Clipes</span><span class="section-count">0</span></button>
                 <button class="section-button" type="button" data-section="shows"><span>Shows</span><span class="section-count">0</span></button>
-                <div class="section-group-label">Extras</div>
+                <div class="section-group-label">Especiais</div>
                 <div class="section-group" id="extraSectionButtons"></div>
             </nav>
 
@@ -593,7 +593,7 @@
             searchInput.value = '';
             clearDirty();
             renderAll();
-            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s), ${catalog.shows.length} show(s) e ${catalog.extras.length} extra(s).`, 'success');
+            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s), ${catalog.shows.length} show(s) e ${catalog.extras.length} especial(is).`, 'success');
         }
 
         async function loadCatalogFromSite(force = false) {
@@ -846,14 +846,14 @@
             panel.body.appendChild(grid);
             view.shell.appendChild(panel.element);
             renderCategoryManager(view.shell, 'musicCategories', 'Categorias de Músicas', 'album');
-            renderCategoryManager(view.shell, 'extraCategories', 'Categorias de Extras', 'extra');
+            renderCategoryManager(view.shell, 'extraCategories', 'Categorias de Especiais', 'extra');
         }
 
         function renderCategoryManager(parent, key, title, kind) {
             const categories = catalog[key];
             const panel = createPanel(title, 'A ordem abaixo é a mesma exibida no aplicativo. Categorias vazias ficam ocultas na TV.');
             panel.actions.appendChild(actionButton('Adicionar categoria', 'primary', () => {
-                const baseTitle = kind === 'album' ? 'Nova categoria musical' : 'Nova categoria de extras';
+                const baseTitle = kind === 'album' ? 'Nova categoria musical' : 'Nova categoria de especiais';
                 const category = {
                     id: uniqueId(baseTitle), title: baseTitle, iconPath: ''
                 };
@@ -968,7 +968,7 @@
 
         function renderMediaEditor(item) {
             const definition = sectionDefinitions[currentSection];
-            const singular = definition.storage === 'clips' ? 'clipe' : definition.storage === 'shows' ? 'show' : 'vídeo extra';
+            const singular = definition.storage === 'clips' ? 'clipe' : definition.storage === 'shows' ? 'show' : 'especial';
             const view = editorShell(item.title || `${singular} sem título`, sectionDefinitions[currentSection].label);
             view.actions.append(
                 actionButton('Duplicar', '', () => duplicateItem(item)),
@@ -977,7 +977,7 @@
             const details = createPanel('Informações', `Dados exibidos na tela de detalhes do ${singular}.`);
             const grid = createGrid('field-grid');
             addField(grid, item, 'id', 'ID único');
-            if (definition.storage === 'extras') addField(grid, item, 'category', 'Categoria de Extra', {
+            if (definition.storage === 'extras') addField(grid, item, 'category', 'Categoria do especial', {
                 select: catalog.extraCategories.map(category => [category.id, category.title]),
                 onChange: value => { item.category = value; currentSection = extraSectionKey(value); markDirty(); renderAll(); }
             });
@@ -1057,13 +1057,13 @@
             const variants = media.variants;
             const panel = createPanel(
                 isShow ? 'Cidades e versões alternativas' : 'Versões alternativas',
-                `O ${isShow ? 'show' : 'extra'} continua com um único card. A seta abaixo dele abre esta lista no aplicativo. Campos de arte vazios herdam as imagens do conteúdo principal.`
+                `O ${isShow ? 'show' : 'especial'} continua com um único card. A seta abaixo dele abre esta lista no aplicativo. Campos de arte vazios herdam as imagens do conteúdo principal.`
             );
             panel.actions.appendChild(actionButton(isShow ? 'Adicionar cidade/versão' : 'Adicionar versão', 'primary', () => {
                 const number = variants.length + 2;
                 variants.push({
                     id: uniqueId(`${media.id || (isShow ? 'show' : 'extra')}-versao-${number}`),
-                    title: media.title || (isShow ? 'Show' : 'Extra'),
+                    title: media.title || (isShow ? 'Show' : 'Especial'),
                     location: isShow ? `Nova cidade ${number}` : `Versão ${number}`,
                     year: media.year || '',
                     duration: '',
@@ -1080,7 +1080,7 @@
             if (!variants.length) {
                 const empty = document.createElement('div');
                 empty.className = 'collection-empty';
-                empty.textContent = `Nenhuma variante cadastrada. O ${isShow ? 'show' : 'extra'} será reproduzido diretamente, sem exibir a seta.`;
+                empty.textContent = `Nenhuma variante cadastrada. O ${isShow ? 'show' : 'especial'} será reproduzido diretamente, sem exibir a seta.`;
                 panel.body.appendChild(empty);
             }
             variants.forEach((variant, index) => {
@@ -1108,7 +1108,7 @@
                 const grid = createGrid('field-grid');
                 addField(grid, variant, 'id', 'ID único da variante');
                 addField(grid, variant, 'location', isShow ? 'Cidade ou nome da versão' : 'Nome da versão', { onInput: refreshSummary, placeholder: isShow ? 'Lisboa' : 'Versão alternativa' });
-                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: media.title || (isShow ? 'Nome do show' : 'Nome do extra') });
+                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: media.title || (isShow ? 'Nome do show' : 'Nome do especial') });
                 addField(grid, variant, 'year', 'Ano');
                 addField(grid, variant, 'duration', 'Duração', { placeholder: '01:32:15' });
                 addField(grid, variant, 'description', 'Descrição', { full: true, textarea: true });
@@ -1405,7 +1405,7 @@
                 const isShow = definition.storage === 'shows';
                 const supportsVariants = isShow || definition.storage === 'extras';
                 const mediaLabel = isClip ? 'novo-clipe' : isShow ? 'novo-show' : 'novo-extra';
-                const mediaTitle = isClip ? 'Novo clipe' : isShow ? 'Novo show' : 'Novo vídeo extra';
+                const mediaTitle = isClip ? 'Novo clipe' : isShow ? 'Novo show' : 'Novo especial';
                 item = {
                     id: uniqueId(mediaLabel),
                     title: mediaTitle,
@@ -1492,7 +1492,7 @@
             });
             const extraCategoryIds = new Set();
             catalog.extraCategories.forEach((category, index) => {
-                const place = `Categoria de Extra ${index + 1}`;
+                const place = `Categoria de Especial ${index + 1}`;
                 if (!category.id) errors.push(`${place}: ID vazio.`);
                 else if (extraCategoryIds.has(category.id)) errors.push(`${place}: ID repetido “${category.id}”.`);
                 else extraCategoryIds.add(category.id);
@@ -1511,10 +1511,10 @@
                 validateTracks(album.tracks, place);
             });
             ['clips', 'shows', 'extras'].forEach(section => catalog[section].forEach((item, index) => {
-                const place = `${section === 'clips' ? 'Clipe' : section === 'shows' ? 'Show' : 'Extra'} ${index + 1}`;
+                const place = `${section === 'clips' ? 'Clipe' : section === 'shows' ? 'Show' : 'Especial'} ${index + 1}`;
                 addId(item, place);
                 if (section === 'extras' && !extraCategoryIds.has(String(item.category || 'outros'))) {
-                    errors.push(`${place}: categoria de Extra “${item.category || 'outros'}” não existe.`);
+                    errors.push(`${place}: categoria de Especial “${item.category || 'outros'}” não existe.`);
                 }
                 validatePath(item.videoPath || item.videoUrl, `${place} / vídeo`);
                 validatePath(item.thumbnailPath || item.thumbnailUrl, `${place} / miniatura`, false);
