@@ -1,6 +1,6 @@
 {
-  "versionCode": 64,
-  "versionName": "3.22.5",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.5.apk",
-  "releaseNotes": "Nova identidade visual oficial com logo dourado renovado, ícone normal B! no vidro grafite dos menus e banner horizontal da TV com o nome completo do aplicativo. Logo atualizado também na abertura e cantos dos ícones com transparência."
+  "versionCode": 65,
+  "versionName": "3.22.6",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.6.apk",
+  "releaseNotes": "Nova abertura em vidro grafite com o logo dourado aprovado. Seletores de álbuns e músicas mais visíveis, com preenchimento uniforme e sem degradê. Logo da prévia restaurado à direita, acima do artista, ano, faixas, duração e botão Ouvir álbum. Ajuste no preenchimento das bordas da capa animada, mantendo posição, tamanho e cantos arredondados."
 }
