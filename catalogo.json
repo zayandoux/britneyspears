@@ -1277,7 +1277,21 @@
         }
       ],
       "location": "Miami",
-      "variants": []
+      "variants": [
+        {
+          "id": "onyx-hotel-lisboa",
+          "title": "The Onyx Hotel Tour - Live From Lisboa",
+          "location": "Lisboa - Portugal",
+          "year": "2004",
+          "duration": "01:17:53",
+          "description": "Em sua primeira e única performance em Portugal, a \"Princesa do Pop\" levou a grandiosa e provocante estética da turnê The Onyx Hotel Tour para o Palco Mundo do Rock in Rio. Ambientado em um hotel conceitual e misterioso, o espetáculo combinou coreografias complexas, cenografia teatral de alto nível e uma sequência implacável de hits globais.",
+          "videoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/the-onyx-hotel-lisboa.mp4",
+          "thumbnailPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-hotel-lisboa-miniatura.png",
+          "backgroundPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-lisboa-fundo.png",
+          "logoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-lisboa-logo.PNG",
+          "subtitles": []
+        }
+      ]
     }
   ],
   "extras": [
