@@ -1,6 +1,6 @@
 {
-  "versionCode": 68,
-  "versionName": "3.22.9",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.22.9.apk",
-  "releaseNotes": "Nova abertura em vidro grafite com o logo dourado aprovado. Seletores de álbuns e músicas mais visíveis, com preenchimento uniforme e sem degradê. Logo da prévia restaurado à direita, acima do artista, ano, faixas, duração e botão Ouvir álbum. Ajuste no preenchimento das bordas da capa animada, mantendo posição, tamanho e cantos arredondados."
+  "versionCode": 69,
+  "versionName": "3.23.0",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.23.0.apk",
+  "releaseNotes": "Variantes de shows e especiais agora mantêm título, imagens e legendas próprios e aparecem corretamente em Continue Assistindo. O editor ganhou nome de grupo separado dos títulos exibidos, versões recolhidas, totais que incluem todas as variantes e organização dos álbuns por arrastar."
 }

@@ -355,7 +355,7 @@
 
         function createEmptyCatalog() {
             return {
-                schemaVersion: 6,
+                schemaVersion: 7,
                 title: 'Discografia Britney Spears',
                 artist: 'Britney Spears',
                 assetBaseUrl: 'https://zayandoux.github.io/britneyspears/',
@@ -428,7 +428,7 @@
             if (!Array.isArray(value.clips)) value.clips = [];
             if (!Array.isArray(value.shows)) value.shows = [];
             if (!Array.isArray(value.extras)) value.extras = [];
-            value.schemaVersion = 6;
+            value.schemaVersion = 7;
             value.albums.forEach(album => {
                 album.category = normalizedMusicCategoryId(album.category);
                 if (!value.musicCategories.some(category => category.id === album.category)) {
@@ -458,6 +458,7 @@
                 value[section].forEach(item => {
                     normalizeMediaSubtitles(item);
                     if (section === 'shows' || section === 'extras') {
+                        item.groupTitle = String(item.groupTitle || item.title || '').trim();
                         if (!Array.isArray(item.variants)) item.variants = [];
                         item.variants.forEach(normalizeMediaSubtitles);
                     }
@@ -571,7 +572,7 @@
 
         function normalizedExportCatalog() {
             const copy = JSON.parse(JSON.stringify(catalog));
-            copy.schemaVersion = 6;
+            copy.schemaVersion = 7;
             copy.albums.forEach(album => delete album.versions);
             const visit = node => {
                 if (Array.isArray(node)) return node.forEach(visit);
@@ -593,7 +594,7 @@
             searchInput.value = '';
             clearDirty();
             renderAll();
-            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s), ${catalog.shows.length} show(s) e ${catalog.extras.length} especial(is).`, 'success');
+            setStatus(`${sourceLabel} — ${catalog.albums.length} álbuns, ${catalog.clips.length} clipe(s), ${versionCount(catalog.shows)} show(s) e ${versionCount(catalog.extras)} especial(is).`, 'success');
         }
 
         async function loadCatalogFromSite(force = false) {
@@ -637,13 +638,34 @@
             const totalTracks = catalog.albums.reduce((sum, album) => sum + countAlbumTracks(album), 0);
             document.getElementById('albumCount').textContent = catalog.albums.length;
             document.getElementById('trackCount').textContent = totalTracks;
-            document.getElementById('videoCount').textContent = catalog.clips.length + catalog.shows.length + catalog.extras.length;
+            document.getElementById('videoCount').textContent = catalog.clips.length
+                + versionCount(catalog.shows) + versionCount(catalog.extras);
             document.querySelectorAll('.section-button[data-section]').forEach(button => {
                 const section = button.dataset.section;
                 const count = button.querySelector('.section-count');
-                if (count) count.textContent = itemsForSection(section).length;
+                if (count) count.textContent = sectionVersionCount(section);
                 button.classList.toggle('active', section === currentSection);
             });
+        }
+
+        function versionCount(items) {
+            return items.reduce((total, item) => total + 1
+                + (Array.isArray(item.variants) ? item.variants.length : 0), 0);
+        }
+
+        function sectionVersionCount(section) {
+            const definition = sectionDefinitions[section];
+            const items = itemsForSection(section);
+            return definition && (definition.storage === 'shows' || definition.storage === 'extras')
+                ? versionCount(items) : items.length;
+        }
+
+        function listTitle(item) {
+            const definition = sectionDefinitions[currentSection];
+            const supportsVersions = definition
+                && (definition.storage === 'shows' || definition.storage === 'extras');
+            return supportsVersions ? (item.groupTitle || item.title || 'Sem título')
+                : (item.title || 'Sem título');
         }
 
         function renderCategoryNavigation() {
@@ -660,7 +682,7 @@
                     label.textContent = category.title || category.id;
                     const count = document.createElement('span');
                     count.className = 'section-count';
-                    count.textContent = itemsForSection(section).length;
+                    count.textContent = sectionVersionCount(section);
                     button.append(label, count);
                     button.addEventListener('click', () => selectSection(section));
                     container.appendChild(button);
@@ -684,7 +706,7 @@
             searchInput.disabled = isSettings;
             addItemButton.disabled = isSettings;
             addItemButton.textContent = isSettings ? 'Adicionar conteúdo' : `Adicionar em ${definition.label}`;
-            listHint.classList.toggle('visible', !isSettings && definition.kind === 'media');
+            listHint.classList.toggle('visible', !isSettings);
         }
 
         function renderList() {
@@ -713,7 +735,7 @@
                 button.type = 'button';
                 button.className = `list-item${item === selectedItem ? ' active' : ''}`;
                 const title = document.createElement('strong');
-                title.textContent = item.title || 'Sem título';
+                title.textContent = listTitle(item);
                 const subtitle = document.createElement('span');
                 subtitle.textContent = `${item.id || 'sem-id'}${item.year ? ` • ${item.year}` : ''}`;
                 button.append(title, subtitle);
@@ -722,7 +744,8 @@
                     renderList();
                     renderEditor();
                 });
-                if (sectionDefinitions[currentSection].kind === 'media') {
+                if (sectionDefinitions[currentSection].kind === 'media'
+                        || sectionDefinitions[currentSection].kind === 'album') {
                     enableMediaListDrag(button, item);
                 }
                 itemList.appendChild(button);
@@ -969,23 +992,42 @@
         function renderMediaEditor(item) {
             const definition = sectionDefinitions[currentSection];
             const singular = definition.storage === 'clips' ? 'clipe' : definition.storage === 'shows' ? 'show' : 'especial';
-            const view = editorShell(item.title || `${singular} sem título`, sectionDefinitions[currentSection].label);
+            const supportsVersions = definition.storage === 'shows' || definition.storage === 'extras';
+            const view = editorShell(supportsVersions
+                ? (item.groupTitle || item.title || `${singular} sem título`)
+                : (item.title || `${singular} sem título`), sectionDefinitions[currentSection].label);
             view.actions.append(
                 actionButton('Duplicar', '', () => duplicateItem(item)),
                 actionButton('Excluir', 'danger', () => deleteCurrentItem())
             );
+
+            if (supportsVersions) {
+                const grouping = createPanel('Card e agrupamento',
+                    `O nome do grupo aparece apenas na lista lateral. Cada versão abaixo possui suas próprias informações e arquivos.`);
+                const groupGrid = createGrid('field-grid');
+                addField(groupGrid, item, 'id', 'ID único do grupo');
+                if (definition.storage === 'extras') addField(groupGrid, item, 'category', 'Categoria do especial', {
+                    select: catalog.extraCategories.map(category => [category.id, category.title]),
+                    onChange: value => { item.category = value; currentSection = extraSectionKey(value); markDirty(); renderAll(); }
+                });
+                addField(groupGrid, item, 'groupTitle', 'Nome exibido na lista lateral', {
+                    full: definition.storage === 'shows',
+                    onInput: value => { view.heading.textContent = value || item.title || `${singular} sem título`; renderList(); },
+                    placeholder: definition.storage === 'shows' ? 'The Onyx Hotel Tour' : 'Nome do especial'
+                });
+                grouping.body.appendChild(groupGrid);
+                view.shell.appendChild(grouping.element);
+                renderMediaVariantsPanel(view.shell, item, definition.storage);
+                return;
+            }
+
             const details = createPanel('Informações', `Dados exibidos na tela de detalhes do ${singular}.`);
             const grid = createGrid('field-grid');
             addField(grid, item, 'id', 'ID único');
-            if (definition.storage === 'extras') addField(grid, item, 'category', 'Categoria do especial', {
-                select: catalog.extraCategories.map(category => [category.id, category.title]),
-                onChange: value => { item.category = value; currentSection = extraSectionKey(value); markDirty(); renderAll(); }
-            });
             addField(grid, item, 'title', 'Título', { onInput: () => { view.heading.textContent = item.title || `${singular} sem título`; renderList(); } });
             addField(grid, item, 'artist', 'Cantora ou artista');
             addField(grid, item, 'year', 'Ano');
             addField(grid, item, 'duration', 'Duração', { placeholder: '01:32:15 ou 04:20' });
-            if (definition.storage === 'shows') addField(grid, item, 'location', 'Cidade ou versão principal', { placeholder: 'Miami' });
             addField(grid, item, 'description', 'Descrição', { full: true, textarea: true });
             addField(grid, item, 'videoPath', 'Caminho do vídeo', { full: true, path: true });
             addField(grid, item, 'thumbnailPath', 'Caminho da miniatura do card', { full: true, path: true });
@@ -994,9 +1036,6 @@
             details.body.appendChild(grid);
             view.shell.appendChild(details.element);
             renderSubtitlesPanel(view.shell, item);
-            if (definition.storage === 'shows' || definition.storage === 'extras') {
-                renderMediaVariantsPanel(view.shell, item, definition.storage);
-            }
         }
 
         function renderSubtitlesPanel(parent, item, panelTitle = 'Legendas') {
@@ -1056,18 +1095,19 @@
             if (!Array.isArray(media.variants)) media.variants = [];
             const variants = media.variants;
             const panel = createPanel(
-                isShow ? 'Cidades e versões alternativas' : 'Versões alternativas',
-                `O ${isShow ? 'show' : 'especial'} continua com um único card. A seta abaixo dele abre esta lista no aplicativo. Campos de arte vazios herdam as imagens do conteúdo principal.`
+                isShow ? 'Versões e cidades do show' : 'Versões do especial',
+                `A versão principal e as alternativas ficam recolhidas. Cada uma usa somente seus próprios textos, vídeo, imagens, logo e legendas; campos vazios não herdam conteúdo de outra versão.`
             );
             panel.actions.appendChild(actionButton(isShow ? 'Adicionar cidade/versão' : 'Adicionar versão', 'primary', () => {
                 const number = variants.length + 2;
                 variants.push({
                     id: uniqueId(`${media.id || (isShow ? 'show' : 'extra')}-versao-${number}`),
-                    title: media.title || (isShow ? 'Show' : 'Especial'),
+                    title: '',
                     location: isShow ? `Nova cidade ${number}` : `Versão ${number}`,
-                    year: media.year || '',
+                    artist: '',
+                    year: '',
                     duration: '',
-                    description: media.description || '',
+                    description: '',
                     videoPath: '',
                     thumbnailPath: '',
                     backgroundPath: '',
@@ -1077,50 +1117,51 @@
                 markDirty();
                 renderEditor();
             }));
-            if (!variants.length) {
-                const empty = document.createElement('div');
-                empty.className = 'collection-empty';
-                empty.textContent = `Nenhuma variante cadastrada. O ${isShow ? 'show' : 'especial'} será reproduzido diretamente, sem exibir a seta.`;
-                panel.body.appendChild(empty);
-            }
-            variants.forEach((variant, index) => {
+
+            const renderVersion = (variant, displayIndex, alternativeIndex = -1) => {
                 if (!Array.isArray(variant.subtitles)) variant.subtitles = [];
                 const details = document.createElement('details');
                 details.className = 'collection-item';
                 const summary = document.createElement('summary');
                 const copy = document.createElement('span');
                 copy.className = 'summary-copy';
-                const refreshSummary = () => copy.textContent = `${index + 2} — ${variant.location || variant.title || 'Versão sem nome'}`;
+                const refreshSummary = () => copy.textContent = `${displayIndex} — ${variant.title || variant.location || 'Versão sem nome'}`;
                 refreshSummary();
                 const actions = document.createElement('span');
                 actions.className = 'row-actions';
-                actions.append(
-                    compactButton('↑', 'Mover variante para cima', event => moveArrayItem(variants, index, -1, event)),
-                    compactButton('↓', 'Mover variante para baixo', event => moveArrayItem(variants, index, 1, event)),
+                if (alternativeIndex >= 0) actions.append(
+                    compactButton('↑', 'Mover variante para cima', event => moveArrayItem(variants, alternativeIndex, -1, event)),
+                    compactButton('↓', 'Mover variante para baixo', event => moveArrayItem(variants, alternativeIndex, 1, event)),
                     compactButton('Excluir', 'Excluir variante', event => {
                         event.preventDefault(); event.stopPropagation();
                         if (!window.confirm(`Excluir a versão “${variant.location || variant.title || 'sem nome'}”?`)) return;
-                        variants.splice(index, 1); markDirty(); renderEditor();
+                        variants.splice(alternativeIndex, 1); markDirty(); renderEditor(); renderCounts();
                     }, true)
                 );
                 const body = document.createElement('div');
                 body.className = 'collection-body';
                 const grid = createGrid('field-grid');
-                addField(grid, variant, 'id', 'ID único da variante');
+                if (alternativeIndex >= 0) addField(grid, variant, 'id', 'ID único da versão');
                 addField(grid, variant, 'location', isShow ? 'Cidade ou nome da versão' : 'Nome da versão', { onInput: refreshSummary, placeholder: isShow ? 'Lisboa' : 'Versão alternativa' });
-                addField(grid, variant, 'title', 'Título (opcional)', { onInput: refreshSummary, placeholder: media.title || (isShow ? 'Nome do show' : 'Nome do especial') });
+                addField(grid, variant, 'title', 'Título exibido no aplicativo', { onInput: refreshSummary, placeholder: isShow ? 'The Onyx Hotel Tour - Live From Miami' : 'Nome desta versão' });
+                addField(grid, variant, 'artist', 'Cantora ou artista');
                 addField(grid, variant, 'year', 'Ano');
                 addField(grid, variant, 'duration', 'Duração', { placeholder: '01:32:15' });
                 addField(grid, variant, 'description', 'Descrição', { full: true, textarea: true });
                 addField(grid, variant, 'videoPath', 'Caminho do vídeo', { full: true, path: true });
-                addField(grid, variant, 'thumbnailPath', 'Miniatura própria (opcional)', { full: true, path: true });
-                addField(grid, variant, 'backgroundPath', 'Fundo próprio (opcional)', { full: true, path: true });
-                addField(grid, variant, 'logoPath', 'Logo próprio (opcional)', { full: true, path: true });
+                addField(grid, variant, 'thumbnailPath', 'Caminho da miniatura desta versão', { full: true, path: true });
+                addField(grid, variant, 'backgroundPath', 'Caminho do fundo desta versão', { full: true, path: true });
+                addField(grid, variant, 'logoPath', 'Caminho do logo desta versão (opcional)', { full: true, path: true });
                 body.appendChild(grid);
                 renderSubtitlesPanel(body, variant, 'Legendas desta versão');
                 summary.append(copy, actions);
                 details.append(summary, body);
                 panel.body.appendChild(details);
+            };
+
+            renderVersion(media, 1);
+            variants.forEach((variant, index) => {
+                renderVersion(variant, index + 2, index);
             });
             parent.appendChild(panel.element);
         }
@@ -1417,6 +1458,7 @@
                     item.location = '';
                 }
                 if (supportsVariants) {
+                    item.groupTitle = mediaTitle;
                     item.variants = [];
                 }
                 if (definition.storage === 'extras') item.category = definition.category;
@@ -1432,6 +1474,9 @@
             copy.id = uniqueId(`${item.id || item.title || 'item'}-copia`);
             copy.title = `${item.title || 'Item'} — cópia`;
             const definition = sectionDefinitions[currentSection];
+            if ((definition.storage === 'shows' || definition.storage === 'extras') && copy.groupTitle) {
+                copy.groupTitle = `${copy.groupTitle} — cópia`;
+            }
             if ((definition.storage === 'shows' || definition.storage === 'extras') && Array.isArray(copy.variants)) {
                 copy.variants.forEach((variant, index) => {
                     variant.id = uniqueId(`${copy.id}-${variant.location || `versao-${index + 2}`}`);
