@@ -1249,22 +1249,6 @@
   ],
   "shows": [
     {
-      "id": "las-vegas",
-      "title": "Novo show",
-      "artist": "Britney Spears",
-      "year": "2002",
-      "duration": "01:29:52",
-      "description": "Em *Britney Spears: Live from Las Vegas*, Britney leva ao palco um espetáculo grandioso que mistura música, dança e fantasia. Com cenários elaborados, efeitos especiais, plataformas suspensas e até uma impressionante cascata, a cantora apresenta sucessos como “...Baby One More Time”, “Oops!... I Did It Again”, “Stronger” e “I’m a Slave 4 U”. Inspirado na ideia de um sonho dentro de outro sonho, o show acompanha diferentes fases da carreira de Britney e captura um dos momentos mais marcantes de sua trajetória como estrela do pop.",
-      "videoPath": "https://www.youtube.com/watch?v=oG2L4bJyprc",
-      "thumbnailPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-miniatura.jpg",
-      "backgroundPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-miniatura.jpg",
-      "logoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-miniatura.jpg",
-      "subtitles": [],
-      "location": "Las Vegas",
-      "groupTitle": "Live From Las Vegas",
-      "variants": []
-    },
-    {
       "id": "onyx-hotel-miami",
       "groupTitle": "The Onyx Hotel Tour",
       "title": "The Onyx Hotel Tour - Live From Miami",
@@ -1310,6 +1294,22 @@
           "subtitles": []
         }
       ]
+    },
+    {
+      "id": "las-vegas",
+      "title": "Live From las Vegas",
+      "artist": "Britney Spears",
+      "year": "2002",
+      "duration": "01:29:52",
+      "description": "Em *Britney Spears: Live from Las Vegas*, Britney leva ao palco um espetáculo grandioso que mistura música, dança e fantasia. Com cenários elaborados, efeitos especiais, plataformas suspensas e até uma impressionante cascata, a cantora apresenta sucessos como “...Baby One More Time”, “Oops!... I Did It Again”, “Stronger” e “I’m a Slave 4 U”. Inspirado na ideia de um sonho dentro de outro sonho, o show acompanha diferentes fases da carreira de Britney e captura um dos momentos mais marcantes de sua trajetória como estrela do pop.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/Dream-Within-a-Dream-Las-Vegas.mp4",
+      "thumbnailPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-miniatura.jpg",
+      "backgroundPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-fundo.jfif",
+      "logoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/dream-whithin-a-dream/las-vegas-logo.png",
+      "subtitles": [],
+      "location": "Las Vegas",
+      "groupTitle": "Live From Las Vegas",
+      "variants": []
     }
   ],
   "extras": [
