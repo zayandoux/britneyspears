@@ -1288,6 +1288,24 @@
           "audioPath": ""
         }
       ]
+    },
+    {
+      "id": "novo-item-musicas-nao-lancadas",
+      "title": "Baby One More Time",
+      "artist": "Britney Spears",
+      "year": "",
+      "genre": "Pop",
+      "category": "nao-lancadas",
+      "coverPath": "media/albuns/04%20In%20The%20Zone/capa.jfif",
+      "animatedCoverPath": "media/albuns/04%20In%20The%20Zone/video.mp4",
+      "backgroundPath": "media/albuns/04%20In%20The%20Zone/fundo.png",
+      "tracks": [
+        {
+          "number": "22",
+          "title": "22-When I Say So",
+          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
+        }
+      ]
     }
   ],
   "clips": [
@@ -1520,6 +1538,11 @@
     {
       "id": "anniversary-edition",
       "title": "Anniversary Edition",
+      "iconPath": ""
+    },
+    {
+      "id": "nao-lancadas",
+      "title": "Músicas Não Lançadas",
       "iconPath": ""
     }
   ],
