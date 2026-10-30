@@ -1021,24 +1021,6 @@
       ]
     },
     {
-      "id": "unreleased-demo",
-      "title": "Músicas não lançadas — Demonstração",
-      "artist": "Britney Spears",
-      "year": "2026",
-      "genre": "Demonstração",
-      "category": "unreleased",
-      "coverPath": "media/albuns/01%20Baby%20One%20More%20Time/capa.jpg",
-      "animatedCoverPath": "media/albuns/01%20Baby%20One%20More%20Time/video.mp4",
-      "backgroundPath": "media/albuns/01%20Baby%20One%20More%20Time/fundo.png",
-      "tracks": [
-        {
-          "number": "1",
-          "title": "Faixa de demonstração",
-          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
-        }
-      ]
-    },
-    {
       "id": "b-in-the-remixes",
       "title": "B in the Mix: The Remixes",
       "artist": "Britney Spears",
@@ -1176,6 +1158,134 @@
           "number": "10",
           "title": "I Wanna Go (Gareth Emery Remix)",
           "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/10-%20I%20Wanna%20Go%20(Gareth%20Emery%20Remix).mp3"
+        }
+      ]
+    },
+    {
+      "id": "britney25th",
+      "title": "Britney (25th Anniversary Edition)",
+      "artist": "Britney Spears",
+      "year": "2026",
+      "genre": "Pop",
+      "category": "anniversary-edition",
+      "coverPath": "https://raw.githubusercontent.com/zayandoux/britneyspears/refs/heads/main/media/25th-anniversary/britney-25th-anniversary-edition/britney25th.jpg",
+      "animatedCoverPath": "",
+      "backgroundPath": "https://raw.githubusercontent.com/zayandoux/britneyspears/refs/heads/main/media/25th-anniversary/britney-25th-anniversary-edition/Imagem%20do%20ChatGPT%2027%20de%20out.%20de%202026%2C%2013_54_58.png",
+      "tracks": [
+        {
+          "number": "01",
+          "title": "I'm A Slave 4 u",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
+        },
+        {
+          "number": "02",
+          "title": "Overprotected",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/02%20-%20Britney%20Spears%20-%20Overprotected.mp3"
+        },
+        {
+          "number": "03",
+          "title": "Lonely",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/03%20-%20Britney%20Spears%20-%20Lonely.mp3"
+        },
+        {
+          "number": "04",
+          "title": "I'm Not A Girl Not Yet A Woman",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/04%20-%20Britney%20Spears%20-%20I'm%20Not%20A%20Girl%2C%20Not%20Yet%20A%20Woman.mp3"
+        },
+        {
+          "number": "05",
+          "title": "Boys",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/05%20-%20Britney%20Spears%20-%20Boys.mp3"
+        },
+        {
+          "number": "06",
+          "title": "Anticipating",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/06%20-%20Britney%20Spears%20-%20Anticipating.mp3"
+        },
+        {
+          "number": "07",
+          "title": "I Love Rock 'N' Roll",
+          "audioPath": "media/albuns/Imagens/19-Right%20Now%20(Taste%20The%20Victory).mp3"
+        },
+        {
+          "number": "8",
+          "title": "Cinderella",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/08%20-%20Britney%20Spears%20-%20Cinderella.mp3"
+        },
+        {
+          "number": "09",
+          "title": "Let Me Be",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/09%20-%20Britney%20Spears%20-%20Let%20Me%20Be.mp3"
+        },
+        {
+          "number": "10",
+          "title": "Bombastic Love",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/10%20-%20Britney%20Spears%20-%20Bombastic%20Love.mp3"
+        },
+        {
+          "number": "11",
+          "title": "That's Where You Take Me",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/11%20-%20Britney%20Spears%20-%20That's%20Where%20You%20Take%20Me.mp3"
+        },
+        {
+          "number": "12",
+          "title": "When I Found You",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/12%20-%20Britney%20Spears%20-%20When%20I%20Found%20You.mp3"
+        },
+        {
+          "number": "13",
+          "title": "I Run Away",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/13%20-%20Britney%20Spears%20-%20I%20Run%20Away.mp3"
+        },
+        {
+          "number": "14",
+          "title": "What It's Like To Be Me.mp3",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/14%20-%20Britney%20Spears%20-%20What%20It's%20Like%20To%20Be%20Me.mp3"
+        },
+        {
+          "number": "15",
+          "title": "Before The Goodbye.mp3",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/albuns/03%20Britney/15%20-%20Britney%20Spears%20-%20Before%20The%20Goodbye.mp3"
+        },
+        {
+          "number": "16",
+          "title": "Intimidated",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/25th-anniversary/britney-25th-anniversary-edition/16-Intimidated.mp3"
+        },
+        {
+          "number": "17",
+          "title": "Overprotected (The Darkchild Remix)",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/compilacoes/01%20My%20Prerogative/12%20Overprotected%20(The%20Darkchild%20Remix).mp3"
+        },
+        {
+          "number": "18",
+          "title": "Boys (The Co-Ed Remix)",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/compilacoes/01%20My%20Prerogative/10%20Boys%20(The%20Co-Ed%20Remix).mp3"
+        },
+        {
+          "number": "19",
+          "title": "Right Now (Taste The Victory)",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/25th-anniversary/britney-25th-anniversary-edition/19-Right%20Now%20(Taste%20The%20Victory).mp3"
+        },
+        {
+          "number": "20",
+          "title": "She'll Never Be Me",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/25th-anniversary/britney-25th-anniversary-edition/20-She'll%20Never%20Be%20Me.mp3"
+        },
+        {
+          "number": "21",
+          "title": "Am I A Sinner",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/25th-anniversary/britney-25th-anniversary-edition/21-Am%20I%20A%20Sinner.mp3"
+        },
+        {
+          "number": "22",
+          "title": "When I Say So",
+          "audioPath": "https://github.com/zayandoux/britneyspears/blob/main/media/25th-anniversary/britney-25th-anniversary-edition/22-When%20I%20Say%20So.mp3"
+        },
+        {
+          "number": "23",
+          "title": "My Big Secret",
+          "audioPath": ""
         }
       ]
     }
@@ -1408,8 +1518,8 @@
       "iconPath": ""
     },
     {
-      "id": "unreleased",
-      "title": "Músicas Não Lançadas",
+      "id": "anniversary-edition",
+      "title": "Anniversary Edition",
       "iconPath": ""
     }
   ],
@@ -1438,6 +1548,13 @@
     {
       "id": "outros",
       "title": "Outros",
+      "iconPath": "",
+      "continueWatching": true,
+      "autoAdvance": false
+    },
+    {
+      "id": "anniversary-edition",
+      "title": "Anniversary Edition",
       "iconPath": "",
       "continueWatching": true,
       "autoAdvance": false
