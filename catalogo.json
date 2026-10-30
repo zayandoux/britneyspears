@@ -1551,13 +1551,6 @@
       "iconPath": "",
       "continueWatching": true,
       "autoAdvance": false
-    },
-    {
-      "id": "anniversary-edition",
-      "title": "Anniversary Edition",
-      "iconPath": "",
-      "continueWatching": true,
-      "autoAdvance": false
     }
   ]
 }
