@@ -1027,14 +1027,14 @@
       "year": "2026",
       "genre": "Demonstração",
       "category": "unreleased",
-      "coverPath": "media/albuns/01%20Baby%20One%20More%20Time/capa.jpg",
-      "animatedCoverPath": "media/albuns/01%20Baby%20One%20More%20Time/video.mp4",
-      "backgroundPath": "media/albuns/01%20Baby%20One%20More%20Time/fundo.png",
+      "coverPath": "media/25th-anniversary/britney-25th-anniversary-edition/britney25th.jpg",
+      "animatedCoverPath": "",
+      "backgroundPath": "media/25th-anniversary/britney-25th-anniversary-edition/Imagem%20do%20ChatGPT%2027%20de%20out.%20de%202026%2C%2013_54_58.png",
       "tracks": [
         {
           "number": "1",
-          "title": "Faixa de demonstração",
-          "audioPath": "media/albuns/01%20Baby%20One%20More%20Time/01%20-%20Britney%20Spears%20-%20Baby%20One%20More%20Time.mp3"
+          "title": "I'm A Slave 4 U",
+          "audioPath": "media/albuns/03%20Britney/01%20-%20Britney%20Spears%20-%20I'm%20A%20Slave%204%20U.mp3"
         }
       ]
     },
