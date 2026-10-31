@@ -1134,7 +1134,7 @@
         {
           "number": "21",
           "title": "Am I A Sinner",
-          "audioPath": "main/media/25th-anniversary/britney-25th-anniversary-edition/21-Am%20I%20A%20Sinner.mp3"
+          "audioPath": "media/25th-anniversary/britney-25th-anniversary-edition/21-Am%20I%20A%20Sinner.mp3"
         },
         {
           "number": "22",
@@ -1145,11 +1145,6 @@
           "number": "23",
           "title": "My Big Secret",
           "audioPath": ""
-        },
-        {
-          "number": "22",
-          "title": "22-When I Say So",
-          "audioPath": "media/musicas-nao-lancadas/Imagens/22-When%20I%20Say%20So.mp3"
         }
       ]
     },
