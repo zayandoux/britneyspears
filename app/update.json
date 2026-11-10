@@ -1,6 +1,6 @@
 {
-  "versionCode": 70,
-  "versionName": "3.23.1",
-  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.23.1.apk",
-  "releaseNotes": "As categorias de Músicas e Especiais foram ajustadas para usar as categorias definidas no catálogo."
+  "versionCode": 71,
+  "versionName": "3.23.2",
+  "apkUrl": "https://raw.githubusercontent.com/zayandoux/britneyspears/main/app/Its-Britney-App-3.23.2.apk",
+  "releaseNotes": "Adicionado suporte a capas animadas em formato M3U8, além das categorias configuráveis no catálogo."
 }
