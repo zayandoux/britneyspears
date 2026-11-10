@@ -1021,14 +1021,14 @@
       ]
     },
     {
-      "id": "unreleased-demo",
+      "id": "britney25th",
       "title": "Britney 25th Anniversary Edition",
       "artist": "Britney Spears",
       "year": "2026",
       "genre": "pop",
       "category": "unreleased",
       "coverPath": "media/25th-anniversary/britney-25th-anniversary-edition/britney25th.jpg",
-      "animatedCoverPath": "",
+      "animatedCoverPath": "https://huggingface.co/datasets/zayandoux/25th/resolve/main/britney25th.mp4",
       "backgroundPath": "media/25th-anniversary/britney-25th-anniversary-edition/Imagem%20do%20ChatGPT%2027%20de%20out.%20de%202026%2C%2013_54_58.png",
       "tracks": [
         {
