@@ -1001,6 +1001,129 @@
       ]
     },
     {
+      "id": "oops25th",
+      "title": "Oops!... I Did It Again (25th Anniversary Edition)",
+      "artist": "Britney Spears",
+      "year": "2025",
+      "genre": "Pop",
+      "category": "unreleased",
+      "coverPath": "media/25th-anniversary/oops-25th-anniversary-edition/oops%2025.jpeg",
+      "animatedCoverPath": "media/25th-anniversary/oops-25th-anniversary-edition/oops%2025.mp4",
+      "backgroundPath": "media/25th-anniversary/oops-25th-anniversary-edition/fundo.png",
+      "tracks": [
+        {
+          "number": "01",
+          "title": "Oops!...I Did It Again",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
+        },
+        {
+          "number": "02",
+          "title": "Stronger",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
+        },
+        {
+          "number": "03",
+          "title": "Don't Go Knockin' On My Door",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
+        },
+        {
+          "number": "04",
+          "title": "(I Can't Get No) Satisfaction",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
+        },
+        {
+          "number": "05",
+          "title": "Don't Let Me Be The Last To Know",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
+        },
+        {
+          "number": "06",
+          "title": "What U See (Is What U Get)",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
+        },
+        {
+          "number": "07",
+          "title": "Lucky",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
+        },
+        {
+          "number": "08",
+          "title": "One Kiss From You",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
+        },
+        {
+          "number": "09",
+          "title": "Where Are You Now",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
+        },
+        {
+          "number": "10",
+          "title": "Can't Make You Love Me",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
+        },
+        {
+          "number": "11",
+          "title": "When Your Eyes Say It",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
+        },
+        {
+          "number": "12",
+          "title": "Dear Diary",
+          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
+        },
+        {
+          "number": "13",
+          "title": "Girl In The Mirror",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
+        },
+        {
+          "number": "14",
+          "title": "You Got It All",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
+        },
+        {
+          "number": "15",
+          "title": "Heart",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/15%20-%20Britney%20Spears%20-%20Heart.mp3"
+        },
+        {
+          "number": "16",
+          "title": "Walk On By",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/16%20Walk%20On%20By.mp3"
+        },
+        {
+          "number": "17",
+          "title": "Oops!...I Did It Again (Riprock 'n' Alex G. Ooops! We Remixed Again! - RadioMix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/17%20Oops!...I%20Did%20It%20Again%20(Riprock%20'n'%20Alex%20G.%20Ooops!%20We%20Remixed%20Again!%20-%20RadioMix).mp3"
+        },
+        {
+          "number": "18",
+          "title": "Lucky (Jack D. Elliot Radio Mix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/18%20Lucky%20(Jack%20D.%20Elliot%20Radio%20Mix).mp3"
+        },
+        {
+          "number": "19",
+          "title": "Stronger (Miguel 'Migs' Vocal Mix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/19%20Stronger%20(Miguel%20'Migs'%20Vocal%20Mix).mp3"
+        },
+        {
+          "number": "20",
+          "title": "Don't Let Me Be The Last To Know (Thunderpuss Radio Mix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/20%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know%20(Thunderpuss%20Radio%20Mix).mp3"
+        },
+        {
+          "number": "21",
+          "title": "Stronger (Adamusic Remix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/21%20Stronger%20(Adamusic%20Remix).mp3"
+        },
+        {
+          "number": "22",
+          "title": "Oops!...I Did It Again (Pessto Remix)",
+          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/22%20Oops!...I%20Did%20It%20Again%20(Pessto%20Remix).mp3"
+        }
+      ]
+    },
+    {
       "id": "britney25th",
       "title": "Britney 25th Anniversary Edition",
       "artist": "Britney Spears",
@@ -1266,129 +1389,6 @@
           "number": "10",
           "title": "I Wanna Go (Gareth Emery Remix)",
           "audioPath": "media/albuns-remixes/02-B%20In%20The%20Mix%20Vol%202/10-%20I%20Wanna%20Go%20(Gareth%20Emery%20Remix).mp3"
-        }
-      ]
-    },
-    {
-      "id": "oops25th",
-      "title": "Oops!... I Did It Again (25th Anniversary Edition)",
-      "artist": "Britney Spears",
-      "year": "2025",
-      "genre": "Pop",
-      "category": "unreleased",
-      "coverPath": "media/25th-anniversary/oops-25th-anniversary-edition/oops%2025.jpeg",
-      "animatedCoverPath": "media/25th-anniversary/oops-25th-anniversary-edition/oops%2025.mp4",
-      "backgroundPath": "media/25th-anniversary/oops-25th-anniversary-edition/fundo.png",
-      "tracks": [
-        {
-          "number": "01",
-          "title": "Oops!...I Did It Again",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/01%20-%20Britney%20Spears%20-%20Oops!...I%20Did%20It%20Again.mp3"
-        },
-        {
-          "number": "02",
-          "title": "Stronger",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/02%20-%20Britney%20Spears%20-%20Stronger.mp3"
-        },
-        {
-          "number": "03",
-          "title": "Don't Go Knockin' On My Door",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/03%20-%20Britney%20Spears%20-%20Don't%20Go%20Knockin'%20On%20My%20Door.mp3"
-        },
-        {
-          "number": "04",
-          "title": "(I Can't Get No) Satisfaction",
-          "audioPath": "media/musicas-nao-lancadas/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
-        },
-        {
-          "number": "05",
-          "title": "Don't Let Me Be The Last To Know",
-          "audioPath": "media/musicas-nao-lancadas/02%20Oops%20I%20Did%20It%20Again/05%20-%20Britney%20Spears%20-%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know.mp3"
-        },
-        {
-          "number": "06",
-          "title": "What U See (Is What U Get)",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/04%20-%20Britney%20Spears%20-%20(I%20Can't%20Get%20No)%20Satisfaction.mp3"
-        },
-        {
-          "number": "07",
-          "title": "Lucky",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/07%20-%20Britney%20Spears%20-%20Lucky.mp3"
-        },
-        {
-          "number": "08",
-          "title": "One Kiss From You",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/08%20-%20Britney%20Spears%20-%20One%20Kiss%20From%20You.mp3"
-        },
-        {
-          "number": "09",
-          "title": "Where Are You Now",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
-        },
-        {
-          "number": "10",
-          "title": "Can't Make You Love Me",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/09%20-%20Britney%20Spears%20-%20Where%20Are%20You%20Now.mp3"
-        },
-        {
-          "number": "11",
-          "title": "When Your Eyes Say It",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/11%20-%20Britney%20Spears%20-%20When%20Your%20Eyes%20Say%20It.mp3"
-        },
-        {
-          "number": "12",
-          "title": "Dear Diary",
-          "audioPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/12%20-%20Britney%20Spears%20-%20Dear%20Diary.mp3"
-        },
-        {
-          "number": "13",
-          "title": "Girl In The Mirror",
-          "audioPath": "media/musicas-nao-lancadas/oops-25th-anniversary-edition/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3media/25th-anniversary/oops-25th-anniversary-edition/13%20-%20Britney%20Spears%20-%20Girl%20In%20The%20Mirror.mp3"
-        },
-        {
-          "number": "14",
-          "title": "You Got It All",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/14%20-%20Britney%20Spears%20-%20You%20Got%20It%20All.mp3"
-        },
-        {
-          "number": "15",
-          "title": "Heart",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/15%20-%20Britney%20Spears%20-%20Heart.mp3"
-        },
-        {
-          "number": "16",
-          "title": "Walk On By",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/16%20Walk%20On%20By.mp3"
-        },
-        {
-          "number": "17",
-          "title": "Oops!...I Did It Again (Riprock 'n' Alex G. Ooops! We Remixed Again! - RadioMix)",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/17%20Oops!...I%20Did%20It%20Again%20(Riprock%20'n'%20Alex%20G.%20Ooops!%20We%20Remixed%20Again!%20-%20RadioMix).mp3"
-        },
-        {
-          "number": "18",
-          "title": "Lucky (Jack D. Elliot Radio Mix)",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/18%20Lucky%20(Jack%20D.%20Elliot%20Radio%20Mix).mp3"
-        },
-        {
-          "number": "19",
-          "title": "Stronger (Miguel 'Migs' Vocal Mix)",
-          "audioPath": "main/media/25th-anniversary/oops-25th-anniversary-edition/19%20Stronger%20(Miguel%20'Migs'%20Vocal%20Mix).mp3"
-        },
-        {
-          "number": "20",
-          "title": "Don't Let Me Be The Last To Know (Thunderpuss Radio Mix)",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/20%20Don't%20Let%20Me%20Be%20The%20Last%20To%20Know%20(Thunderpuss%20Radio%20Mix).mp3"
-        },
-        {
-          "number": "21",
-          "title": "Stronger (Adamusic Remix)",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/21%20Stronger%20(Adamusic%20Remix).mp3"
-        },
-        {
-          "number": "22",
-          "title": "Oops!...I Did It Again (Pessto Remix)",
-          "audioPath": "media/25th-anniversary/oops-25th-anniversary-edition/22%20Oops!...I%20Did%20It%20Again%20(Pessto%20Remix).mp3"
         }
       ]
     }
