@@ -1521,16 +1521,16 @@
       "albumCoverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.jfif"
     },
     {
-      "id": "novo-clipe",
-      "title": "Novo clipe",
+      "id": "slave-4-u",
+      "title": "I'm A Slave 4 U",
       "artist": "Britney Spears",
-      "year": "",
-      "duration": "",
-      "description": "",
-      "videoPath": "",
+      "year": "2001",
+      "duration": "03:24",
+      "description": "Em um prédio tomado pelo calor, Britney e seus dançarinos se entregam a uma festa intensa. Entre suor, luzes baixas e movimentos envolventes, a cantora apresenta uma coreografia marcante e revela uma nova fase de sua carreira.\n",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/I'm%20A%20Slave%204%20U.mp4",
       "thumbnailPath": "",
       "backgroundPath": "",
-      "logoPath": "",
+      "logoPath": "media/imagens/slave-4-u/Im_A_Slave_4_U.png",
       "subtitles": []
     }
   ],
