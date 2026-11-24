@@ -1491,6 +1491,20 @@
       "logoPath": "media/imagens/lucky/Lucky.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.jfif"
+    },
+    {
+      "id": "stronger",
+      "title": "Stronger",
+      "artist": "Britney Spears",
+      "year": "2000",
+      "duration": "3:38",
+      "description": "Depois de encontrar o namorado acompanhado de outra pessoa, Britney deixa a festa e segue seu próprio caminho. Em meio a uma tempestade, ela enfrenta a estrada sozinha e transforma a decepção em força. A coreografia com uma cadeira completa um dos momentos mais marcantes do clipe.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Stronger.mp4",
+      "thumbnailPath": "media/imagens/stronger/stronger-miniatura.png",
+      "backgroundPath": "media/imagens/stronger/stronger-fundo.png",
+      "logoPath": "media/imagens/stronger/Stronger.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/02%20Oops%20I%20Did%20It%20Again/oops.jfif"
     }
   ],
   "shows": [
