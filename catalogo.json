@@ -1599,72 +1599,7 @@
       ]
     }
   ],
-  "extras": [
-    {
-      "id": "Oh La LA",
-      "title": "[TESTE] Especial 02",
-      "artist": "Britney Spears",
-      "year": "2026",
-      "duration": "00:18",
-      "description": "Conteúdo temporário para testar a categoria Especiais.",
-      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-hotel-miami.mp4",
-      "thumbnailPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlwrnyJPepRRk4iBhhbAaIRh1Zf1fwqQi2IriTOOOqzg&s=10",
-      "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
-      "logoPath": "",
-      "subtitles": [],
-      "category": "outros",
-      "variants": [],
-      "groupTitle": "[TESTE] Especial 02"
-    },
-    {
-      "id": "My GoD",
-      "title": "[TESTE] Especial 01",
-      "artist": "Britney Spears",
-      "year": "2026",
-      "duration": "00:18",
-      "description": "Conteúdo temporário para testar a categoria Especiais.",
-      "videoPath": "media/clipes/01-baby-one-more-time/baby-one-more-time.mp4",
-      "thumbnailPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIQ_f8mwacNlEY0x0s0NF_K7gkXg-SlXe41rq0MVVD7uyDrRmxk9EkSIlV&s=10",
-      "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
-      "logoPath": "",
-      "subtitles": [],
-      "category": "outros",
-      "variants": [],
-      "groupTitle": "[TESTE] Especial 01"
-    },
-    {
-      "id": "teste-extra-09",
-      "title": "[TESTE] Especial 09",
-      "artist": "Britney Spears",
-      "year": "2026",
-      "duration": "00:18",
-      "description": "Conteúdo temporário para testar a categoria Especiais.",
-      "videoPath": "media/albuns/04%20In%20The%20Zone/video.mp4",
-      "thumbnailPath": "media/clipes/01-baby-one-more-time/miniatura.webp",
-      "backgroundPath": "media/clipes/01-baby-one-more-time/fundo.png",
-      "logoPath": "",
-      "subtitles": [],
-      "category": "outros",
-      "variants": [],
-      "groupTitle": "[TESTE] Especial 09"
-    },
-    {
-      "id": "novo-extra",
-      "title": "Novo vídeo especial",
-      "artist": "Britney Spears",
-      "year": "",
-      "duration": "",
-      "description": "",
-      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-shows/resolve/main/onyx-hotel/onyx-hotel-miami.mp4",
-      "thumbnailPath": "https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/16155/production/_116935409_cabf0091-c70c-434a-9433-06c263d0e231.jpg.webp",
-      "backgroundPath": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmgsNF8w5NafzjB5Nyd8_HArTeU-9ZKtNzITv6eD-QOsd2jDgcj-B8xn_b&s=10",
-      "logoPath": "",
-      "subtitles": [],
-      "category": "outros",
-      "variants": [],
-      "groupTitle": "Novo vídeo especial"
-    }
-  ],
+  "extras": [],
   "musicCategories": [
     {
       "id": "main",
