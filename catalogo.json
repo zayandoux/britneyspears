@@ -1561,6 +1561,20 @@
       "logoPath": "media/imagens/im-not-a-girl/Im_Not_A_Girl_Not_Yet_A_Woman.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
+    },
+    {
+      "id": "overprotected-remix",
+      "title": "Overprotected (Dark Child Remix)",
+      "artist": "Britney Spears",
+      "year": "2002",
+      "duration": "03:36",
+      "description": "Depois de escapar da atenção de fotógrafos, Britney e suas amigas saem em busca de diversão pela cidade. Entre um hotel, uma limusine e uma rua iluminada pela chuva, ela encontra espaço para dançar e aproveitar a noite longe das regras.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Overprotected%20(Dark%20Child%20Remix).mp4",
+      "thumbnailPath": "media/imagens/overprotected-remix/overprotected-remix-miniatura.png",
+      "backgroundPath": "media/imagens/overprotected-remix/Overprotected-remix-fundo.png",
+      "logoPath": "media/imagens/overprotected-remix/Overprotected_The_Darkchild_Remix.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
     }
   ],
   "shows": [
