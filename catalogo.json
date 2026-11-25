@@ -1533,6 +1533,20 @@
       "logoPath": "media/imagens/slave-4-u/Im_A_Slave_4_U.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
+    },
+    {
+      "id": "overprotected",
+      "title": "Overprotected",
+      "artist": "Britney Spears",
+      "year": "2001",
+      "duration": "",
+      "description": "Cansada de ter cada passo observado, Britney encontra refúgio em um espaço abandonado com seus amigos. Entre revistas e manchetes sobre sua vida, ela transforma a vontade de ser livre em uma coreografia cheia de atitude.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Overprotected.mp4",
+      "thumbnailPath": "media/imagens/overprotected/overprotected-miniatura.png",
+      "backgroundPath": "media/imagens/overprotected/overprotected-fundo.png",
+      "logoPath": "media/imagens/overprotected/Overprotected.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
     }
   ],
   "shows": [
