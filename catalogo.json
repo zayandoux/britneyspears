@@ -1528,8 +1528,8 @@
       "duration": "03:24",
       "description": "Em um prédio tomado pelo calor, Britney e seus dançarinos se entregam a uma festa intensa. Entre suor, luzes baixas e movimentos envolventes, a cantora apresenta uma coreografia marcante e revela uma nova fase de sua carreira.\n",
       "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/I'm%20A%20Slave%204%20U.mp4",
-      "thumbnailPath": "",
-      "backgroundPath": "",
+      "thumbnailPath": "media/imagens/slave-4-u/slave4u.webp",
+      "backgroundPath": "media/imagens/slave-4-u/slave4u-fun.png",
       "logoPath": "media/imagens/slave-4-u/Im_A_Slave_4_U.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
