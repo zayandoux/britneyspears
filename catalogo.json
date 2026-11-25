@@ -1547,6 +1547,20 @@
       "logoPath": "media/imagens/overprotected/Overprotected.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
+    },
+    {
+      "id": "im-not-a-girl",
+      "title": "I'm Not A Girl, Not Yet A Woman",
+      "artist": "Britney Spears",
+      "year": "2001",
+      "duration": "03:48",
+      "description": "Diante de paisagens imponentes, Britney canta sobre as dúvidas e descobertas da passagem para a vida adulta. Cercada por cânions e penhascos, ela dá voz a um momento de transformação em um clipe delicado, também associado ao filme “Crossroads”.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Novo%20clipe.mp4",
+      "thumbnailPath": "media/imagens/im-not-a-girl/i'm-not-a-girl-miniatura.png",
+      "backgroundPath": "media/imagens/im-not-a-girl/i'm-not-a-girl-fundo.png",
+      "logoPath": "media/imagens/im-not-a-girl/Im_Not_A_Girl_Not_Yet_A_Woman.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
     }
   ],
   "shows": [
