@@ -1575,6 +1575,20 @@
       "logoPath": "media/imagens/overprotected-remix/Overprotected_The_Darkchild_Remix.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
+    },
+    {
+      "id": "love-rock-n-roll",
+      "title": "I Love Rock 'N' Roll",
+      "artist": "Britney Spears",
+      "year": "2002",
+      "duration": "03:07",
+      "description": "Britney assume o comando de uma banda em um cenário cheio de atitude. Com jaqueta de couro, motocicleta e muita energia, ela troca o glamour pop por uma atmosfera roqueira em sua versão do clássico.",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/I%20Love%20Rock%20'N'%20Roll.mp4",
+      "thumbnailPath": "media/imagens/love-rock-n-roll/rock-miniatura.png",
+      "backgroundPath": "media/imagens/love-rock-n-roll/rock-fundo.png",
+      "logoPath": "media/imagens/love-rock-n-roll/I_Love_Rock_N_Roll.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
     }
   ],
   "shows": [
