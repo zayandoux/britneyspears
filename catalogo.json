@@ -1599,7 +1599,7 @@
       "description": "Em uma festa extravagante, Britney atravessa um universo cheio de convidados excêntricos, dança e flertes. Ao lado de Pharrell Williams, ela dá vida a uma noite divertida e cheia de surpresas, com direito a uma participação de Austin Powers.",
       "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Boys%20(The%20Co-Ed%20Remix).mp4",
       "thumbnailPath": "media/imagens/boys-remix/boys-miniatura.png",
-      "backgroundPath": "",
+      "backgroundPath": "media/imagens/boys-remix/boys-fundo.png",
       "logoPath": "media/imagens/boys-remix/Boys_The_Co_Ed_Remix.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
