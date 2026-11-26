@@ -1398,7 +1398,7 @@
       "id": "me-against-the-music",
       "title": "Me Against The Music (feat. Madonna)",
       "artist": "Britney Spears",
-      "year": "200304",
+      "year": "2003",
       "duration": "04:09",
       "description": "Britney entra em uma festa e segue uma misteriosa Madonna por corredores e salas cheias de dança. Entre coreografias intensas e um jogo de aproximações, as duas estrelas transformam a busca uma pela outra em um encontro inesquecível do pop.\n",
       "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Me%20Against%20The%20Music%20(feat.%20Madonna).mp4",
@@ -1617,6 +1617,19 @@
       "logoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/01_baby-one-more-time.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/01%20Baby%20One%20More%20Time/capa.jpg"
+    },
+    {
+      "id": "novo-clipe",
+      "title": "Novo clipe",
+      "artist": "Britney Spears",
+      "year": "",
+      "duration": "",
+      "description": "",
+      "videoPath": "",
+      "thumbnailPath": "",
+      "backgroundPath": "",
+      "logoPath": "",
+      "subtitles": []
     }
   ],
   "shows": [
