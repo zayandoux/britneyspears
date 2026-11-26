@@ -1589,6 +1589,20 @@
       "logoPath": "media/imagens/love-rock-n-roll/I_Love_Rock_N_Roll.png",
       "subtitles": [],
       "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
+    },
+    {
+      "id": "boys-remix",
+      "title": "Boys (The Co-Ed Remix)",
+      "artist": "Britney Spears",
+      "year": "2002",
+      "duration": "03:36",
+      "description": "",
+      "videoPath": "https://huggingface.co/datasets/zayandoux/britney-clipes/resolve/main/Boys%20(The%20Co-Ed%20Remix).mp4",
+      "thumbnailPath": "",
+      "backgroundPath": "",
+      "logoPath": "media/imagens/boys-remix/Boys_The_Co_Ed_Remix.png",
+      "subtitles": [],
+      "albumCoverPath": "media/albuns/03%20Britney/capa.jpg"
     }
   ],
   "shows": [
