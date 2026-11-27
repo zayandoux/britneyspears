@@ -548,17 +548,6 @@
       .transport button[aria-pressed="true"] {
         color: #ffffff;
       }
-      .volume {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-top: 26px;
-        font-size: 13px;
-        color: #c8bfcd;
-      }
-      .volume input {
-        accent-color: white;
-      }
       #expanded.video-player {
         width: min(1100px, 100vw);
         height: auto;
@@ -567,8 +556,7 @@
         max-height: 70dvh;
       }
       .video-player .timeline,
-      .video-player .transport,
-      .video-player .volume {
+      .video-player .transport {
         display: none;
       }
       @media (max-width: 640px) {
@@ -1141,6 +1129,121 @@
           transition: none;
         }
       }
+
+      #miniPrev {
+        width: 34px;
+        height: 44px;
+        padding: 5px;
+        background: none;
+        border: 0;
+        color: white;
+        flex: none;
+      }
+      #miniPrev .skip {
+        width: 19px;
+        height: 19px;
+      }
+      .transport button:disabled {
+        opacity: 0.28;
+        cursor: default;
+      }
+      @media (min-width: 821px) {
+        body.album-detail {
+          background: var(--bg);
+          color: var(--text);
+        }
+        .album-detail main {
+          max-width: 1280px;
+          display: grid;
+          grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+          column-gap: clamp(32px, 5vw, 76px);
+          align-items: start;
+          padding-top: 28px;
+        }
+        .album-detail main > .crumb {
+          grid-column: 1 / -1;
+          margin-bottom: 20px;
+        }
+        .album-detail .detail {
+          display: contents;
+          min-height: 0;
+          background: none;
+          color: inherit;
+        }
+        .album-detail .album-scene {
+          position: sticky;
+          inset: auto;
+          top: 90px;
+          grid-column: 1;
+          grid-row: 2 / 4;
+          z-index: auto;
+          width: 100%;
+          aspect-ratio: 1;
+          transform: none;
+          filter: none;
+          opacity: 1;
+          will-change: auto;
+        }
+        .album-detail .album-scene:after {
+          display: none;
+        }
+        .album-detail .album-scene .art {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1;
+          border-radius: 18px;
+          box-shadow: 0 18px 45px #0004;
+          background: var(--panel);
+        }
+        .album-detail .album-scene .art img,
+        .album-detail .album-scene .art video {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+        .album-detail .detail > div.album-info {
+          grid-column: 2;
+          grid-row: 2;
+          padding: 0 0 16px;
+          text-align: left;
+          background: none;
+          min-width: 0;
+        }
+        .album-detail .album-info h1 {
+          font-size: clamp(28px, 3vw, 44px);
+        }
+        .album-detail .meta,
+        .album-detail small {
+          color: var(--muted);
+        }
+        .album-detail .desktop-tracks {
+          grid-column: 2;
+          grid-row: 3;
+          min-width: 0;
+        }
+        .desktop-tracks h2 {
+          margin-top: 12px;
+        }
+        .album-detail .row {
+          color: var(--text);
+          border-color: var(--line);
+        }
+        .album-detail .row span:first-child {
+          color: var(--muted);
+        }
+        .album-detail .row:hover {
+          background: var(--panel);
+        }
+        .album-detail .row.current {
+          background: var(--panel);
+          font-weight: 700;
+        }
+        .album-detail .detail > div.album-info > button {
+          color: #201d29;
+          background: #f8f6fa;
+          margin-top: 10px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1182,6 +1285,8 @@
             ><strong id="now"></strong
             ><small id="miniArtist">Britney Spears</small></span
           ></button
+        ><button id="miniPrev" aria-label="Faixa anterior" hidden>
+          <span class="skip previous" aria-hidden="true"></span></button
         ><button id="toggle" aria-label="Reproduzir">▶</button
         ><button id="miniNext" aria-label="Próxima faixa">
           <span class="skip" aria-hidden="true"></span>
@@ -1259,10 +1364,6 @@
             <option>Repetir discografia</option>
           </select>
         </div>
-        <label class="volume"
-          >Volume
-          <input id="volume" type="range" min="0" max="1" step=".05" value="1"
-        /></label>
         <p id="expandedProblem" role="status"></p>
       </div>
     </dialog>
@@ -1920,10 +2021,12 @@
           return;
         }
         document.body.classList.add("album-detail");
+        const desktop = desktopLayout.matches;
         const head = el("div", null, "detail"),
           visual = el("div"),
           info = el("div");
         visual.className = "album-scene";
+        info.className = "album-info";
         visual.append(art(item));
         info.append(
           el("h1", item.title),
@@ -1940,20 +2043,26 @@
         detailCleanup = animate(
           {
             ...item,
-            anim: item.tall || item.anim,
-            backup: item.tall ? "" : item.backup,
+            anim: desktop ? item.anim : item.tall || item.anim,
+            backup: desktop ? item.backup : item.tall ? "" : item.backup,
           },
           visual,
         );
-        setupAlbumScroll(item, head, visual);
-        main.append(el("h2", key === "musicas" ? "Faixas" : "Conteúdo"));
+        if (!desktop) setupAlbumScroll(item, head, visual);
+        const tracksParent = desktop
+          ? el("section", null, "desktop-tracks")
+          : main;
+        if (desktop) main.append(tracksParent);
+        tracksParent.append(
+          el("h2", key === "musicas" ? "Faixas" : "Conteúdo"),
+        );
         if (!item.tracks.length)
-          main.append(el("p", "Este item está sem mídia no catálogo."));
+          tracksParent.append(el("p", "Este item está sem mídia no catálogo."));
         let disc = "";
         item.tracks.forEach((t, i) => {
           if (t.disc && t.disc !== disc) {
             disc = t.disc;
-            main.append(el("h3", disc));
+            tracksParent.append(el("h3", disc));
           }
           const b = el("button", null, "row");
           b.entry = t;
@@ -1964,7 +2073,7 @@
             el("small", t.src ? t.duration || "▷" : "Indisponível"),
           );
           b.onclick = () => play(playable, playable.indexOf(t));
-          main.append(b);
+          tracksParent.append(b);
         });
         highlight();
       }
@@ -2088,6 +2197,9 @@
         renderPlayerArt();
       }
       function sync() {
+        const hasPrevious = queue.length > 0 && idx > 0;
+        $("#miniPrev").hidden = !hasPrevious;
+        $("#prev").disabled = !hasPrevious;
         $("#toggle").textContent = media.paused ? "▶" : "Ⅱ";
         $("#toggle").setAttribute(
           "aria-label",
@@ -2190,8 +2302,11 @@
             );
         };
       }
-      $("#prev").onclick = () =>
-        play(queue, (idx + queue.length - 1) % queue.length);
+      function previousTrack() {
+        if (idx > 0) play(queue, idx - 1);
+      }
+      $("#prev").onclick = previousTrack;
+      $("#miniPrev").onclick = previousTrack;
       $("#next").onclick = () => next(false);
       $("#toggle").onclick = () => {
         if (!media.paused) media.pause();
@@ -2273,8 +2388,7 @@
           play: () => media.play().catch((e) => reportError(e.message)),
           pause: () => media.pause(),
           nexttrack: () => next(false),
-          previoustrack: () =>
-            play(queue, (idx + queue.length - 1) % queue.length),
+          previoustrack: previousTrack,
         })) {
           try {
             navigator.mediaSession.setActionHandler(action, handler);
@@ -2324,10 +2438,6 @@
       $("#seek").oninput = (e) => {
         if (Number.isFinite(media.duration))
           media.currentTime = (media.duration * Number(e.target.value)) / 1000;
-      };
-      $("#volume").oninput = (e) => {
-        for (const v of [$("audio"), $("#film")])
-          v.volume = Number(e.target.value);
       };
       let gestureY;
       $("#collapse").addEventListener(
@@ -2944,6 +3054,10 @@
           location.hash === "#"
         )
           draw();
+      });
+      const desktopLayout = matchMedia("(min-width: 821px)");
+      desktopLayout.addEventListener("change", () => {
+        if (document.body.classList.contains("album-detail")) draw();
       });
       draw();
       load();
