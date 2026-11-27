@@ -21,7 +21,7 @@
         --text: #fff7fa;
         --muted: #c4b5c5;
         --line: #493b4c;
-        --pink: #ffaccb;
+        --accent: #f3f3f5;
       }
       body.light {
         color-scheme: light;
@@ -30,7 +30,7 @@
         --text: #33232e;
         --muted: #675966;
         --line: #dccfd5;
-        --pink: #922b52;
+        --accent: #35343a;
       }
       body {
         margin: 0;
@@ -83,8 +83,14 @@
         cursor: default;
       }
       :focus-visible {
-        outline: 3px solid var(--pink);
+        outline: none;
+      }
+      body.keyboard-navigation :focus-visible {
+        outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+      dialog:focus {
+        outline: none !important;
       }
       h1 {
         font:
@@ -156,7 +162,7 @@
         gap: 14px;
       }
       .tile i {
-        color: var(--pink);
+        color: var(--accent);
         font: normal 26px Georgia;
       }
       .tile strong,
@@ -165,7 +171,7 @@
       }
       .tile:hover,
       .card:hover strong {
-        color: var(--pink);
+        color: var(--accent);
       }
       small,
       .meta,
@@ -202,7 +208,7 @@
       }
       .crumb {
         display: inline-block;
-        color: var(--pink);
+        color: var(--accent);
         padding: 8px 0 16px;
       }
       .detail {
@@ -223,14 +229,14 @@
         padding: 13px 4px;
       }
       .row span:first-child {
-        color: var(--pink);
+        color: var(--accent);
         min-width: 2em;
       }
       .row span:nth-child(2) {
         flex: 1;
       }
       .current {
-        color: var(--pink);
+        color: var(--accent);
         font-weight: 700;
       }
       .tools {
@@ -280,7 +286,7 @@
         margin: auto;
       }
       button[aria-pressed="true"] {
-        color: var(--pink);
+        color: var(--accent);
       }
       dialog {
         background: var(--panel);
@@ -540,7 +546,7 @@
         font-size: 15px;
       }
       .transport button[aria-pressed="true"] {
-        color: #ffa6ca;
+        color: #ffffff;
       }
       .volume {
         display: flex;
@@ -1044,6 +1050,97 @@
           will-change: auto;
         }
       }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+      #navigation {
+        background: rgba(25, 23, 26, 0.18);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0 24px 32px;
+      }
+      #navigation::backdrop {
+        background: rgba(20, 18, 22, 0.32);
+        backdrop-filter: blur(32px) saturate(1.2);
+        -webkit-backdrop-filter: blur(32px) saturate(1.2);
+        opacity: 0;
+        transition: opacity 340ms ease;
+      }
+      #navigation.menu-visible::backdrop {
+        opacity: 1;
+      }
+      #navigation nav {
+        margin: 26px auto 0;
+      }
+      #navigation nav a {
+        font-size: 17px;
+        line-height: 24px;
+        font-weight: 400;
+        padding: 12px 12px;
+        margin: 2px 0;
+        border: 0;
+        border-radius: 9px;
+      }
+      #navigation nav a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      #navigation #optionsBtn {
+        font-size: 15px;
+        margin-top: 22px;
+      }
+      #closeNavigation {
+        font-size: 28px;
+      }
+      .album-detail .album-scene .art {
+        background: var(--album-color);
+      }
+      .album-detail .album-scene .art img,
+      .album-detail .album-scene .art video {
+        width: 100%;
+        height: auto;
+        max-width: none;
+        min-height: 0;
+        bottom: auto;
+        object-fit: contain;
+        object-position: center top;
+      }
+      .album-detail .detail {
+        min-height: 0;
+      }
+      .album-detail .detail > div:last-child {
+        padding-top: max(220px, calc(var(--art-height, 560px) - 110px));
+      }
+      .album-detail .album-scene:after {
+        background: linear-gradient(
+          0deg,
+          var(--album-color),
+          rgba(var(--album-rgb), 0.04) 65%,
+          transparent
+        );
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #navigation::backdrop {
+          transition: none;
+        }
+      }
+      main,
+      #backdrop {
+        transition: filter 340ms ease;
+      }
+      body.menu-blur main,
+      body.menu-blur #backdrop {
+        filter: blur(24px);
+      }
+      body.menu-open #topbar {
+        visibility: hidden;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        main,
+        #backdrop {
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1057,7 +1154,7 @@
         <span></span><span></span></button
       ><a href="#" class="brand">Britney Spears</a>
     </header>
-    <dialog id="navigation" aria-label="Navegação">
+    <dialog id="navigation" tabindex="-1" aria-label="Navegação">
       <div class="menu-header">
         <button id="closeNavigation" aria-label="Fechar menu">×</button
         ><span>Britney Spears</span>
@@ -1123,7 +1220,7 @@
       <p id="pickerStatus" role="status"></p>
       <div id="pickerResults"></div>
     </dialog>
-    <dialog id="expanded">
+    <dialog id="expanded" tabindex="-1">
       <button id="collapse" aria-label="Recolher player">⌄</button>
       <div id="panel">
         <div id="playerArt"></div>
@@ -1979,7 +2076,10 @@
       }
       function expand(open) {
         const dialog = $("#expanded");
-        if (open && !dialog.open) dialog.showModal();
+        if (open && !dialog.open) {
+          dialog.showModal();
+          dialog.focus({ preventScroll: true });
+        }
         if (!open && dialog.open) dialog.close();
         $("#expand").setAttribute("aria-expanded", String(open));
         $("#expandedTitle").textContent = queue[idx]?.title || "";
@@ -2103,8 +2203,8 @@
         $("#shuffle").setAttribute("aria-pressed", String(shuffle));
       };
       $("#expand").onclick = () => expand(!$("#expanded").open);
-      $("#optionsBtn").onclick = () => {
-        closeMenu();
+      $("#optionsBtn").onclick = async () => {
+        await closeMenu();
         $("#settingsDialog").showModal();
       };
       $("#close").onclick = () => $("#settingsDialog").close();
@@ -2308,21 +2408,78 @@
       let editingPlaylistId = null;
       let pickerPlaylistId = null;
 
-      function closeMenu() {
-        $("#navigation").close();
-        $("#menuButton").setAttribute("aria-expanded", "false");
+      let menuAnimation = null;
+      let menuTransition = 0;
+      async function setMenuOpen(open) {
+        const dialog = $("#navigation");
+        if (!open && !dialog.open) return;
+        const transition = ++menuTransition;
+        const from = dialog.open
+          ? getComputedStyle(dialog).clipPath
+          : "inset(0 0 100% 0)";
+        menuAnimation?.cancel();
+        if (open && !dialog.open) {
+          dialog.showModal();
+          dialog.focus({ preventScroll: true });
+        }
+        document.body.classList.add("menu-open");
+        document.body.classList.toggle("menu-blur", open);
+        dialog.classList.toggle("menu-visible", open);
+        $("#menuButton").setAttribute("aria-expanded", String(open));
+        const duration = matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? 1
+          : 340;
+        menuAnimation = dialog.animate(
+          [
+            { clipPath: from === "none" ? "inset(0 0 0% 0)" : from },
+            { clipPath: open ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)" },
+          ],
+          { duration, easing: "cubic-bezier(.22,.61,.36,1)", fill: "forwards" },
+        );
+        try {
+          await menuAnimation.finished;
+        } catch {
+          return;
+        }
+        if (transition !== menuTransition) return;
+        if (!open) {
+          dialog.close();
+          document.body.classList.remove("menu-open", "menu-blur");
+        }
+        menuAnimation.cancel();
+        menuAnimation = null;
       }
-      $("#menuButton").onclick = () => {
-        $("#navigation").showModal();
-        $("#menuButton").setAttribute("aria-expanded", "true");
-      };
-      $("#navigation").addEventListener("close", () =>
-        $("#menuButton").setAttribute("aria-expanded", "false"),
-      );
+      function closeMenu() {
+        return setMenuOpen(false);
+      }
+      $("#menuButton").onclick = () => setMenuOpen(true);
+      $("#navigation").addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closeMenu();
+      });
+      $("#navigation").addEventListener("close", () => {
+        if (!$("#navigation").open) {
+          document.body.classList.remove("menu-open", "menu-blur");
+          $("#menuButton").setAttribute("aria-expanded", "false");
+        }
+      });
       $("#closeNavigation").onclick = closeMenu;
-      $("#navigation nav").onclick = (event) => {
-        if (event.target.closest("a")) closeMenu();
+      $("#navigation nav").onclick = async (event) => {
+        const link = event.target.closest("a");
+        if (!link) return;
+        event.preventDefault();
+        await closeMenu();
+        location.hash = link.hash || "#";
       };
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Tab" || event.key.startsWith("Arrow"))
+          document.body.classList.add("keyboard-navigation");
+      });
+      document.addEventListener(
+        "pointerdown",
+        () => document.body.classList.remove("keyboard-navigation"),
+        { passive: true },
+      );
       $("#miniNext").onclick = () => next(false);
       $("#miniCover").onerror = () => {
         $("#miniCover").hidden = true;
@@ -2371,6 +2528,17 @@
           wash.style.opacity = String(progress);
         }
         function measure() {
+          const video = visual.querySelector("video");
+          const ratio =
+            video?.videoWidth && video?.videoHeight
+              ? video.videoWidth / video.videoHeight
+              : item.tall
+                ? 3 / 4
+                : 1;
+          head.style.setProperty(
+            "--art-height",
+            head.clientWidth / ratio + "px",
+          );
           start = head.getBoundingClientRect().top + window.scrollY - 52;
           height = head.offsetHeight;
           update();
@@ -2380,6 +2548,8 @@
         }
         window.addEventListener("scroll", scroll, { passive: true });
         window.addEventListener("resize", measure);
+        const artVideo = visual.querySelector("video");
+        artVideo?.addEventListener("loadedmetadata", measure);
         measure();
         const preset = albumPalette[item.id];
         if (preset) {
@@ -2442,6 +2612,7 @@
           cancelAnimationFrame(frame);
           window.removeEventListener("scroll", scroll);
           window.removeEventListener("resize", measure);
+          artVideo?.removeEventListener("loadedmetadata", measure);
           wash.remove();
         };
       }
