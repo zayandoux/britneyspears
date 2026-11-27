@@ -651,21 +651,478 @@
       .skip.previous {
         transform: rotate(180deg);
       }
+      body {
+        padding-top: 52px;
+      }
+      #topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        max-width: none;
+        margin: 0;
+        padding: 0 16px;
+        display: grid;
+        grid-template-columns: 44px 1fr 44px;
+        z-index: 20;
+        background: rgba(25, 22, 31, 0.78);
+        border-bottom: 1px solid #ffffff15;
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+      #topbar .brand {
+        grid-column: 2;
+        text-align: center;
+        font:
+          600 19px system-ui,
+          sans-serif;
+        letter-spacing: -0.4px;
+        color: white;
+      }
+      #menuButton {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        background: none;
+        border: 0;
+      }
+      #menuButton span {
+        height: 2px;
+        width: 23px;
+        background: white;
+        border-radius: 2px;
+      }
+      #navigation {
+        inset: 0;
+        margin: 0;
+        width: 100vw;
+        max-width: 100vw;
+        height: 100dvh;
+        max-height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        padding: 0 24px 40px;
+        background: rgba(24, 21, 31, 0.72);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        color: white;
+      }
+      #navigation::backdrop {
+        background: rgba(10, 8, 15, 0.3);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+      .menu-header {
+        display: grid;
+        grid-template-columns: 44px 1fr 44px;
+        align-items: center;
+        height: 52px;
+        margin: 0 -8px;
+      }
+      .menu-header span {
+        text-align: center;
+        font-size: 19px;
+        font-weight: 600;
+      }
+      #closeNavigation {
+        border: 0;
+        background: none;
+        color: white;
+        font-size: 32px;
+        padding: 0;
+      }
+      #navigation nav {
+        max-width: 650px;
+        margin: 28px auto;
+      }
+      #navigation nav a {
+        display: block;
+        font-size: 26px;
+        color: white;
+        text-decoration: none;
+        padding: 17px 0;
+        border-bottom: 1px solid #ffffff20;
+        font-weight: 500;
+      }
+      #navigation #optionsBtn {
+        display: block;
+        margin: 35px auto;
+        background: #ffffff16;
+        border-color: #ffffff30;
+        color: white;
+      }
+      #player {
+        position: fixed;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: min(680px, calc(100% - 24px));
+        padding: 6px 10px;
+        border-radius: 18px;
+        background: rgba(35, 32, 44, 0.83);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid #ffffff30;
+        color: white;
+        box-shadow: 0 6px 28px #0004;
+        z-index: 25;
+        max-height: 180px;
+      }
+      .compact-player {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #expand {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        text-align: left;
+        background: none;
+        border: 0;
+        color: white;
+        padding: 0;
+      }
+      #miniCover,
+      #miniPlaceholder {
+        width: 42px;
+        height: 42px;
+        flex: none;
+        object-fit: cover;
+        border-radius: 7px;
+        background: #ffffff22;
+      }
+      #miniPlaceholder {
+        display: grid;
+        place-items: center;
+        font-size: 25px;
+      }
+      .mini-meta {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      #now {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+      }
+      #miniArtist {
+        font-size: 11px;
+        color: #c6bdce;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #player #toggle,
+      #miniNext {
+        width: 40px;
+        height: 44px;
+        padding: 5px;
+        background: none;
+        border: 0;
+        color: white;
+        font:
+          25px Arial,
+          sans-serif;
+        flex: none;
+      }
+      #miniNext .skip {
+        width: 19px;
+        height: 19px;
+      }
+      #player #problem {
+        font-size: 12px;
+        margin: 3px;
+      }
+      body.album-detail {
+        --album-color: rgb(32, 30, 45);
+        --album-rgb: 32, 30, 45;
+        background: var(--album-color);
+        color: white;
+      }
+      .album-detail #topbar {
+        background: rgba(var(--album-rgb), 0.8);
+      }
+      .album-detail main {
+        position: relative;
+        z-index: 1;
+      }
+      .album-detail .detail {
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .album-detail .album-scene {
+        will-change: transform, filter;
+        transform-origin: center top;
+      }
+      .album-detail .album-scene:after {
+        background: linear-gradient(
+          0deg,
+          var(--album-color),
+          rgba(var(--album-rgb), 0.1) 75%,
+          transparent
+        );
+      }
+      .album-detail .detail > div:last-child {
+        text-align: center;
+        background: linear-gradient(0deg, var(--album-color), transparent);
+        position: relative;
+      }
+      .album-detail .detail h1 {
+        font:
+          700 27px/1.18 system-ui,
+          sans-serif;
+        letter-spacing: -0.5px;
+      }
+      .album-detail .detail > div:last-child > button {
+        background: white;
+        color: var(--album-color);
+        border: 0;
+        border-radius: 24px;
+        min-width: 145px;
+        font-weight: 600;
+        margin-top: 12px;
+      }
+      .album-detail .row {
+        color: white;
+        border-color: #ffffff22;
+      }
+      .album-detail .row span:first-child {
+        color: #c7d5e2;
+      }
+      .album-detail .meta,
+      .album-detail small {
+        color: #e3dfeb;
+      }
+      #albumWash {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+        background: var(--album-color);
+        opacity: 0;
+      }
+      #albumWash img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(100px) saturate(1.4);
+        transform: scale(1.3);
+        opacity: 0.22;
+      }
+      .playlist-grid {
+        margin-top: 24px;
+      }
+      #playlistEditor,
+      #trackPicker {
+        width: min(650px, calc(100% - 24px));
+        max-height: 85dvh;
+        overflow: auto;
+      }
+      #playlistName {
+        display: block;
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        color: var(--text);
+        padding: 12px;
+        border-radius: 8px;
+        margin: 12px 0;
+      }
+      #trackPicker > .tools {
+        position: sticky;
+        top: -16px;
+        background: var(--panel);
+        padding: 12px 0;
+        justify-content: space-between;
+        z-index: 1;
+      }
+      #trackPicker h2 {
+        margin: 0;
+        font-size: 19px;
+      }
+      #pickerSearch {
+        width: 100%;
+      }
+      .picker-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        padding: 12px 0;
+      }
+      .picker-row > div {
+        min-width: 0;
+        flex: 1;
+      }
+      .picker-row strong,
+      .picker-row small {
+        display: block;
+      }
+      .picker-row strong {
+        font-size: 14px;
+      }
+      .picker-row button {
+        font-size: 13px;
+      }
+      .playlist-track {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .playlist-track .row {
+        min-width: 0;
+        flex: 1;
+      }
+      .playlist-track > button:last-child:not(.row) {
+        border: 0;
+        background: transparent;
+        font-size: 24px;
+      }
+      body.light #player {
+        background: rgba(35, 32, 44, 0.88);
+      }
+      @media (max-width: 640px) {
+        .album-detail main {
+          padding-top: 0;
+        }
+        .album-detail .crumb {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          z-index: 3;
+          font-size: 0;
+          width: 38px;
+          height: 38px;
+          margin: 0;
+          border-radius: 50%;
+          background: #0003;
+          color: white;
+          backdrop-filter: blur(12px);
+          display: grid;
+          place-items: center;
+          padding: 0;
+        }
+        .album-detail .crumb:before {
+          content: "‹";
+          font-size: 30px;
+          line-height: 1;
+        }
+        .album-detail .detail {
+          min-height: 0;
+        }
+        .album-detail .detail > div:last-child {
+          padding: 105vw 24px 24px;
+        }
+        .album-detail .detail h1 {
+          font-size: 24px;
+        }
+        .album-detail .row {
+          padding-top: 16px;
+          padding-bottom: 16px;
+          font-size: 14px;
+        }
+        #player {
+          border-radius: 18px;
+        }
+        #navigation nav {
+          margin-top: 22px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .album-detail .album-scene {
+          will-change: auto;
+        }
+      }
     </style>
   </head>
   <body>
-    <header>
-      <a href="#" class="brand">Britney Spears</a
-      ><button id="optionsBtn">Opções</button>
+    <header id="topbar">
+      <button
+        id="menuButton"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="navigation"
+      >
+        <span></span><span></span></button
+      ><a href="#" class="brand">Britney Spears</a>
     </header>
+    <dialog id="navigation" aria-label="Navegação">
+      <div class="menu-header">
+        <button id="closeNavigation" aria-label="Fechar menu">×</button
+        ><span>Britney Spears</span>
+      </div>
+      <nav>
+        <a href="#">Início</a><a href="#musicas">Álbuns</a
+        ><a href="#videoclipes">Videoclipes</a><a href="#shows">Shows</a
+        ><a href="#especiais">Especiais</a><a href="#playlists">Playlists</a>
+      </nav>
+      <button id="optionsBtn">Opções</button>
+    </dialog>
     <main></main>
     <aside id="player" aria-label="Reprodutor" hidden>
-      <div class="tools">
-        <strong id="now"></strong><button id="toggle">Reproduzir</button
-        ><button id="expand" aria-expanded="false">Expandir</button>
+      <div class="compact-player">
+        <button
+          id="expand"
+          aria-label="Abrir player expandido"
+          aria-expanded="false"
+        >
+          <img id="miniCover" alt="" hidden /><span
+            id="miniPlaceholder"
+            aria-hidden="true"
+            >♫</span
+          ><span class="mini-meta"
+            ><strong id="now"></strong
+            ><small id="miniArtist">Britney Spears</small></span
+          ></button
+        ><button id="toggle" aria-label="Reproduzir">▶</button
+        ><button id="miniNext" aria-label="Próxima faixa">
+          <span class="skip" aria-hidden="true"></span>
+        </button>
       </div>
       <p id="problem" class="status" role="status"></p>
     </aside>
+    <dialog id="playlistEditor" aria-labelledby="playlistHeading">
+      <form id="playlistForm">
+        <h2 id="playlistHeading">Criar playlist</h2>
+        <label
+          >Nome<input
+            id="playlistName"
+            required
+            maxlength="100"
+            autocomplete="off"
+        /></label>
+        <div class="tools">
+          <button type="button" id="cancelPlaylist">Cancelar</button
+          ><button type="submit">Salvar</button>
+        </div>
+        <p id="playlistError" role="status"></p>
+      </form>
+    </dialog>
+    <dialog id="trackPicker" aria-labelledby="pickerHeading">
+      <div class="tools">
+        <h2 id="pickerHeading">Adicionar à playlist</h2>
+        <button id="closePicker">Concluir</button>
+      </div>
+      <input
+        id="pickerSearch"
+        type="search"
+        placeholder="Buscar músicas e vídeos"
+        aria-label="Buscar músicas e vídeos"
+      />
+      <p id="pickerStatus" role="status"></p>
+      <div id="pickerResults"></div>
+    </dialog>
     <dialog id="expanded">
       <button id="collapse" aria-label="Recolher player">⌄</button>
       <div id="panel">
@@ -726,7 +1183,7 @@
       const sections = [
         [
           "musicas",
-          "Músicas",
+          "Álbuns",
           "♫",
           ["albums", "musicas", "music", "discography"],
         ],
@@ -1233,7 +1690,7 @@
           v.remove();
         };
       }
-      let videoVariant = 0;
+
       let library = {},
         names = {},
         message = "Carregando catálogo…",
@@ -1254,13 +1711,22 @@
       }
       function draw() {
         detailCleanup();
+        albumScrollCleanup();
         detailCleanup = () => {};
+        albumScrollCleanup = () => {};
+        $("#albumWash")?.remove();
+        document.body.style.removeProperty("--album-color");
+        document.body.style.removeProperty("--album-rgb");
         document.body.classList.remove("video-detail", "album-detail");
         $("#backdrop")?.remove();
         const main = $("main");
         main.replaceChildren();
         const [key, id, version] = location.hash.slice(1).split("/"),
           section = sections.find((s) => s[0] === key);
+        if (key === "playlists") {
+          renderPlaylists(main, id, version);
+          return;
+        }
         const status = el("p", message, "status");
         status.setAttribute("role", "status");
         if (!section) {
@@ -1277,7 +1743,11 @@
               el("strong", title),
               el(
                 "small",
-                library[k] ? library[k].length + " no catálogo" : "Abrir seção",
+                k === "playlists"
+                  ? playlistCount() + " playlists"
+                  : library[k]
+                    ? library[k].length + " no catálogo"
+                    : "Abrir seção",
               ),
             );
             a.append(mark, txt);
@@ -1357,14 +1827,14 @@
           visual = el("div"),
           info = el("div");
         visual.className = "album-scene";
-        visual.append(art({ ...item, cover: item.tall ? "" : item.cover }));
+        visual.append(art(item));
         info.append(
           el("h1", item.title),
           el("p", [item.artist, item.year].filter(Boolean).join(" · "), "meta"),
         );
         if (item.desc) info.append(el("p", item.desc));
         const playable = item.tracks.filter((t) => t.src),
-          start = el("button", "▶︎ Reproduzir");
+          start = el("button", "Reproduzir");
         start.disabled = !playable.length;
         start.onclick = () => play(playable, 0);
         info.append(start);
@@ -1378,6 +1848,7 @@
           },
           visual,
         );
+        setupAlbumScroll(item, head, visual);
         main.append(el("h2", key === "musicas" ? "Faixas" : "Conteúdo"));
         if (!item.tracks.length)
           main.append(el("p", "Este item está sem mídia no catálogo."));
@@ -1455,7 +1926,7 @@
           label.append(select);
           content.append(label);
         }
-        const button = el("button", "▶︎ Reproduzir", "primary");
+        const button = el("button", "Reproduzir", "primary");
         button.disabled = !selected.tracks.some((t) => t.src);
         button.onclick = () =>
           play(
@@ -1517,7 +1988,11 @@
         renderPlayerArt();
       }
       function sync() {
-        $("#toggle").textContent = media.paused ? "Reproduzir" : "Pausar";
+        $("#toggle").textContent = media.paused ? "▶" : "Ⅱ";
+        $("#toggle").setAttribute(
+          "aria-label",
+          media.paused ? "Reproduzir" : "Pausar",
+        );
         $("#bigPlay").textContent = media.paused ? "▶︎" : "Ⅱ";
         $("#bigPlay").setAttribute(
           "aria-label",
@@ -1541,6 +2016,10 @@
         $("audio").hidden = t.video;
         $("#player").hidden = false;
         $("#now").textContent = t.title;
+        $("#miniArtist").textContent = t.album?.artist || "Britney Spears";
+        $("#miniCover").hidden = !t.album?.cover;
+        $("#miniPlaceholder").hidden = !!t.album?.cover;
+        if (t.album?.cover) $("#miniCover").src = t.album.cover;
         reportError("");
         $("#expandedTitle").textContent = t.title;
         $("#expandedArtist").textContent = t.album?.artist || "Britney Spears";
@@ -1624,7 +2103,10 @@
         $("#shuffle").setAttribute("aria-pressed", String(shuffle));
       };
       $("#expand").onclick = () => expand(!$("#expanded").open);
-      $("#optionsBtn").onclick = () => $("#settingsDialog").showModal();
+      $("#optionsBtn").onclick = () => {
+        closeMenu();
+        $("#settingsDialog").showModal();
+      };
       $("#close").onclick = () => $("#settingsDialog").close();
       function theme(light) {
         document.body.classList.toggle("light", light);
@@ -1816,10 +2298,482 @@
         }
       });
       window.onhashchange = () => {
+        closeMenu();
         if (!!$("#expanded").open) expand(false);
         draw();
         window.scrollTo(0, 0);
       };
+      const playlistKey = "britney.personalPlaylists.v1";
+      let albumScrollCleanup = () => {};
+      let editingPlaylistId = null;
+      let pickerPlaylistId = null;
+
+      function closeMenu() {
+        $("#navigation").close();
+        $("#menuButton").setAttribute("aria-expanded", "false");
+      }
+      $("#menuButton").onclick = () => {
+        $("#navigation").showModal();
+        $("#menuButton").setAttribute("aria-expanded", "true");
+      };
+      $("#navigation").addEventListener("close", () =>
+        $("#menuButton").setAttribute("aria-expanded", "false"),
+      );
+      $("#closeNavigation").onclick = closeMenu;
+      $("#navigation nav").onclick = (event) => {
+        if (event.target.closest("a")) closeMenu();
+      };
+      $("#miniNext").onclick = () => next(false);
+      $("#miniCover").onerror = () => {
+        $("#miniCover").hidden = true;
+        $("#miniPlaceholder").hidden = false;
+      };
+
+      const albumPalette = {
+        "baby-one-more-time": "4c3a3d",
+        "oops-i-did-it-again": "382410",
+        britney: "0b3666",
+        "in-the-zone": "0b3e58",
+        blackout: "604a44",
+        circus: "0a0d0d",
+        "femme-fatale": "f7f4ef",
+        "britney-jean": "020101",
+        glory: "65543b",
+        oops25th: "1e1816",
+        britney25th: "2b5f97",
+      };
+      function setupAlbumScroll(item, head, visual) {
+        let active = true;
+        let frame = 0;
+        let start = 0;
+        let height = 1;
+        const wash = el("div");
+        wash.id = "albumWash";
+        if (item.cover) {
+          const image = el("img");
+          image.src = item.cover;
+          image.alt = "";
+          wash.append(image);
+        }
+        document.body.prepend(wash);
+        const reducedMotion = matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        function update() {
+          frame = 0;
+          const scroll = Math.max(0, window.scrollY - start);
+          const progress = Math.min(1, scroll / Math.max(height * 0.75, 1));
+          visual.style.transform = reducedMotion
+            ? "none"
+            : "translateY(" + Math.min(scroll * 0.4, height * 0.8) + "px)";
+          visual.style.filter = "blur(" + progress * 42 + "px)";
+          visual.style.opacity = String(1 - progress * 0.72);
+          wash.style.opacity = String(progress);
+        }
+        function measure() {
+          start = head.getBoundingClientRect().top + window.scrollY - 52;
+          height = head.offsetHeight;
+          update();
+        }
+        function scroll() {
+          if (!frame) frame = requestAnimationFrame(update);
+        }
+        window.addEventListener("scroll", scroll, { passive: true });
+        window.addEventListener("resize", measure);
+        measure();
+        const preset = albumPalette[item.id];
+        if (preset) {
+          const source = [0, 2, 4].map((i) =>
+            parseInt(preset.slice(i, i + 2), 16),
+          );
+          const brightness = Math.min(0.65, 95 / Math.max(...source, 1));
+          const rgb = source.map((channel) => Math.round(channel * brightness));
+          document.body.style.setProperty("--album-rgb", rgb.join(","));
+          document.body.style.setProperty(
+            "--album-color",
+            "rgb(" + rgb.join(",") + ")",
+          );
+        }
+        if (item.cover && !preset) {
+          const image = new Image();
+          image.crossOrigin = "anonymous";
+          image.onload = () => {
+            if (!active) return;
+            try {
+              const canvas = document.createElement("canvas");
+              canvas.width = canvas.height = 24;
+              const context = canvas.getContext("2d", {
+                willReadFrequently: true,
+              });
+              context.drawImage(image, 0, 0, 24, 24);
+              const pixels = context.getImageData(0, 0, 24, 24).data;
+              const colors = new Map();
+              for (let i = 0; i < pixels.length; i += 4) {
+                const rgb = [pixels[i], pixels[i + 1], pixels[i + 2]];
+                const high = Math.max(...rgb),
+                  low = Math.min(...rgb);
+                if (high < 35 || low > 225) continue;
+                const key = rgb.map((v) => Math.floor(v / 40)).join("-");
+                const color = colors.get(key) || { weight: 0, sum: [0, 0, 0] };
+                const weight = 1 + (high - low) / 60;
+                color.weight += weight;
+                rgb.forEach((v, j) => (color.sum[j] += v * weight));
+                colors.set(key, color);
+              }
+              const color = [...colors.values()].sort(
+                (a, b) => b.weight - a.weight,
+              )[0];
+              if (color) {
+                const rgb = color.sum.map((v) =>
+                  Math.round((v / color.weight) * 0.42),
+                );
+                document.body.style.setProperty("--album-rgb", rgb.join(","));
+                document.body.style.setProperty(
+                  "--album-color",
+                  "rgb(" + rgb.join(",") + ")",
+                );
+              }
+            } catch {}
+          };
+          image.src = item.cover;
+        }
+        albumScrollCleanup = () => {
+          active = false;
+          cancelAnimationFrame(frame);
+          window.removeEventListener("scroll", scroll);
+          window.removeEventListener("resize", measure);
+          wash.remove();
+        };
+      }
+
+      function readPlaylists() {
+        const lists = JSON.parse(localStorage.getItem(playlistKey) || "[]");
+        if (
+          !Array.isArray(lists) ||
+          lists.some(
+            (p) =>
+              !p ||
+              typeof p.id !== "string" ||
+              typeof p.name !== "string" ||
+              !Array.isArray(p.tracks),
+          )
+        ) {
+          throw Error("As playlists salvas não puderam ser lidas.");
+        }
+        return lists;
+      }
+      async function changePlaylists(change) {
+        const save = () => {
+          const lists = readPlaylists();
+          const result = change(lists);
+          localStorage.setItem(playlistKey, JSON.stringify(lists));
+          return result;
+        };
+        if (navigator.locks) return navigator.locks.request(playlistKey, save);
+        return save();
+      }
+      function playlistCount() {
+        try {
+          return readPlaylists().length + (library.playlists?.length || 0);
+        } catch {
+          return library.playlists?.length || 0;
+        }
+      }
+      function availableTracks() {
+        const tracks = [];
+        for (const kind of ["musicas", "videoclipes", "shows", "especiais"]) {
+          for (const item of library[kind] || []) {
+            for (const version of [item, ...(item.variants || [])]) {
+              for (const track of version.tracks || [])
+                if (track.src) tracks.push(track);
+            }
+          }
+        }
+        return [...new Map(tracks.map((t) => [t.src, t])).values()];
+      }
+      function snapshot(track) {
+        return {
+          src: track.src,
+          title: track.title,
+          artist: track.artist,
+          duration: track.duration,
+          video: !!track.video,
+          subtitles: track.subtitles || [],
+          album: {
+            id: track.album?.id,
+            title: track.album?.title,
+            artist: track.album?.artist || "Britney Spears",
+            cover: track.album?.cover || "",
+            anim: track.album?.anim || "",
+            backup: track.album?.backup || "",
+          },
+        };
+      }
+      function resolveTracks(saved) {
+        const current = new Map(availableTracks().map((t) => [t.src, t]));
+        return saved
+          .filter((t) => t && url(t.src, location.href))
+          .map(
+            (t) =>
+              current.get(t.src) || {
+                ...t,
+                album: t.album || { artist: "Britney Spears" },
+              },
+          );
+      }
+      function openPlaylistEditor(playlist = null) {
+        editingPlaylistId = playlist?.id || null;
+        $("#playlistHeading").textContent = playlist
+          ? "Renomear playlist"
+          : "Criar playlist";
+        $("#playlistName").value = playlist?.name || "";
+        $("#playlistError").textContent = "";
+        $("#playlistEditor").showModal();
+        $("#playlistName").focus();
+      }
+      $("#cancelPlaylist").onclick = () => $("#playlistEditor").close();
+      $("#playlistForm").onsubmit = async (event) => {
+        event.preventDefault();
+        const name = $("#playlistName").value.trim();
+        if (!name) {
+          $("#playlistError").textContent = "Digite um nome para a playlist.";
+          return;
+        }
+        const button = event.submitter;
+        button.disabled = true;
+        try {
+          const id = await changePlaylists((lists) => {
+            if (editingPlaylistId) {
+              const list = lists.find((p) => p.id === editingPlaylistId);
+              if (!list) throw Error("Playlist não encontrada.");
+              list.name = name;
+              return list.id;
+            }
+            const id =
+              globalThis.crypto?.randomUUID?.() ||
+              Date.now() + "-" + Math.random().toString(36).slice(2);
+            lists.push({ id, name, tracks: [] });
+            return id;
+          });
+          $("#playlistEditor").close();
+          const route = "#playlists/local/" + id;
+          if (location.hash === route) draw();
+          else location.hash = route;
+        } catch (error) {
+          $("#playlistError").textContent =
+            "Não foi possível salvar. " + error.message;
+        } finally {
+          button.disabled = false;
+        }
+      };
+      function openPicker(id) {
+        pickerPlaylistId = id;
+        $("#pickerSearch").value = "";
+        $("#pickerStatus").textContent = "";
+        renderPicker();
+        $("#trackPicker").showModal();
+      }
+      function renderPicker() {
+        const container = $("#pickerResults");
+        container.replaceChildren();
+        try {
+          const playlist = readPlaylists().find(
+            (p) => p.id === pickerPlaylistId,
+          );
+          if (!playlist) {
+            $("#pickerStatus").textContent = "Playlist não encontrada.";
+            return;
+          }
+          const selected = new Set(playlist.tracks.map((t) => t.src));
+          const query = norm($("#pickerSearch").value);
+          const tracks = availableTracks().filter((t) =>
+            norm(t.title + " " + t.album?.title).includes(query),
+          );
+          if (!tracks.length)
+            container.append(el("p", "Nenhum item encontrado."));
+          for (const track of tracks) {
+            const row = el("div", null, "picker-row"),
+              text = el("div");
+            text.append(
+              el("strong", track.title),
+              el("small", track.album?.title || track.artist),
+            );
+            const button = el(
+              "button",
+              selected.has(track.src) ? "Adicionado" : "Adicionar",
+            );
+            button.disabled = selected.has(track.src);
+            button.setAttribute(
+              "aria-label",
+              (button.disabled ? "Adicionado " : "Adicionar ") + track.title,
+            );
+            button.onclick = async () => {
+              button.disabled = true;
+              try {
+                await changePlaylists((lists) => {
+                  const list = lists.find((p) => p.id === pickerPlaylistId);
+                  if (!list) throw Error("Playlist não encontrada.");
+                  if (!list.tracks.some((t) => t.src === track.src))
+                    list.tracks.push(snapshot(track));
+                });
+                button.textContent = "Adicionado";
+                $("#pickerStatus").textContent = track.title + " adicionado.";
+              } catch (error) {
+                button.disabled = false;
+                $("#pickerStatus").textContent =
+                  "Não foi possível salvar. " + error.message;
+              }
+            };
+            row.append(text, button);
+            container.append(row);
+          }
+        } catch (error) {
+          $("#pickerStatus").textContent = error.message;
+        }
+      }
+      $("#pickerSearch").oninput = renderPicker;
+      $("#closePicker").onclick = () => {
+        $("#trackPicker").close();
+        draw();
+      };
+      $("#trackPicker").addEventListener("cancel", () =>
+        requestAnimationFrame(draw),
+      );
+      function renderPlaylists(main, id, version) {
+        main.append(
+          link(
+            id ? "‹ Playlists" : "‹ Início",
+            id ? "#playlists" : "#",
+            "crumb",
+          ),
+        );
+        let personal;
+        try {
+          personal = readPlaylists();
+        } catch (error) {
+          main.append(
+            el("h1", "Playlists"),
+            el(
+              "p",
+              error.message +
+                " O navegador precisa permitir o armazenamento local.",
+            ),
+          );
+          return;
+        }
+        if (id === undefined) {
+          main.append(el("h1", "Playlists"));
+          const create = el("button", "+ Criar playlist");
+          create.onclick = () => openPlaylistEditor();
+          main.append(create);
+          if (!personal.length)
+            main.append(
+              el(
+                "p",
+                "Crie uma playlist e adicione suas músicas e vídeos.",
+                "meta",
+              ),
+            );
+          const grid = el("div", null, "grid playlist-grid");
+          main.append(grid);
+          for (const list of personal) {
+            const a = link("", "#playlists/local/" + list.id, "card");
+            a.append(
+              art({ cover: list.tracks[0]?.album?.cover }),
+              el("strong", list.name),
+              el("small", list.tracks.length + " itens"),
+            );
+            grid.append(a);
+          }
+          if (library.playlists?.length) {
+            main.append(el("h2", "Do catálogo"));
+            const grid = el("div", null, "grid");
+            main.append(grid);
+            library.playlists.forEach((list, i) => {
+              const a = link("", "#playlists/" + i, "card");
+              a.append(art(list), el("strong", list.title));
+              grid.append(a);
+            });
+          }
+          return;
+        }
+        const personalList =
+          id === "local" ? personal.find((p) => p.id === version) : null;
+        const catalogList = /^\d+$/.test(id)
+          ? library.playlists?.[Number(id)]
+          : null;
+        if (!personalList && !catalogList) {
+          main.append(el("p", "Playlist não encontrada."));
+          return;
+        }
+        const tracks = personalList
+          ? resolveTracks(personalList.tracks)
+          : catalogList.tracks.filter((t) => t.src);
+        main.append(
+          el("h1", personalList?.name || catalogList.title),
+          el("p", tracks.length + " itens", "meta"),
+        );
+        const controls = el("div", null, "tools");
+        main.append(controls);
+        const playButton = el("button", "Reproduzir");
+        playButton.disabled = !tracks.length;
+        playButton.onclick = () => play(tracks, 0);
+        controls.append(playButton);
+        if (personalList) {
+          const add = el("button", "Adicionar músicas e vídeos");
+          add.onclick = () => openPicker(personalList.id);
+          const rename = el("button", "Renomear");
+          rename.onclick = () => openPlaylistEditor(personalList);
+          controls.append(add, rename);
+        }
+        const feedback = el("p", null, "status");
+        feedback.setAttribute("role", "status");
+        main.append(feedback);
+        tracks.forEach((track, i) => {
+          const wrapper = el("div", null, "playlist-track"),
+            row = el("button", null, "row");
+          row.entry = track;
+          row.append(
+            el("span", i + 1),
+            el("span", track.title),
+            el("small", track.duration || ""),
+          );
+          row.onclick = () => play(tracks, i);
+          wrapper.append(row);
+          if (personalList) {
+            const remove = el("button", "×");
+            remove.setAttribute("aria-label", "Remover " + track.title);
+            remove.onclick = async () => {
+              remove.disabled = true;
+              try {
+                await changePlaylists((lists) => {
+                  const list = lists.find((p) => p.id === personalList.id);
+                  if (!list) throw Error("Playlist não encontrada.");
+                  list.tracks = list.tracks.filter((t) => t.src !== track.src);
+                });
+                draw();
+              } catch (error) {
+                remove.disabled = false;
+                feedback.textContent =
+                  "Não foi possível salvar. " + error.message;
+              }
+            };
+            wrapper.append(remove);
+          }
+          main.append(wrapper);
+        });
+        highlight();
+      }
+      window.addEventListener("storage", (event) => {
+        if (event.key !== playlistKey) return;
+        if ($("#trackPicker").open) renderPicker();
+        if (
+          location.hash.startsWith("#playlists") ||
+          !location.hash ||
+          location.hash === "#"
+        )
+          draw();
+      });
       draw();
       load();
     </script>
