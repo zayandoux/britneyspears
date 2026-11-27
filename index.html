@@ -1,148 +1,1827 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Acervo Britney Spears</title>
-<style>
-*{box-sizing:border-box}[hidden]{display:none!important}
-:root{color-scheme:dark;--bg:#17121b;--panel:#231d29;--text:#fff7fa;--muted:#c4b5c5;--line:#493b4c;--pink:#ffaccb}
-body.light{color-scheme:light;--bg:#fcf7fa;--panel:white;--text:#33232e;--muted:#675966;--line:#dccfd5;--pink:#922b52}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,sans-serif}
-header,main{max-width:1200px;margin:auto;padding:18px clamp(16px,4vw,54px)}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}main{padding-bottom:160px}
-.brand{font:italic bold 25px Georgia;color:inherit;text-decoration:none}
-button,input,select{font:inherit}button,select,input[type=search]{min-height:44px;border:1px solid var(--line);padding:9px 14px;border-radius:10px;background:var(--panel);color:var(--text)}button{cursor:pointer}button:disabled{opacity:.55;cursor:default}
-:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
-h1{font:normal clamp(36px,6vw,72px)/1.04 Georgia,serif;letter-spacing:-.04em;margin:10px 0 16px}h2{font-size:22px;margin:28px 0 12px}p{margin:8px 0}
-.hero{position:relative;isolation:isolate;overflow:hidden;min-height:220px;display:flex;align-items:end;background:linear-gradient(115deg,#47243e,#a44b70);color:white;border-radius:18px;padding:clamp(22px,5vw,60px)}.hero h1{max-width:70%;text-shadow:0 2px 18px #382235}.hero:after{content:'';position:absolute;z-index:-1;right:-3%;top:-20%;width:clamp(210px,36vw,420px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#432035 0 3%,#efa8c3 3.2% 16%,transparent 16.2%),repeating-radial-gradient(circle,#321d2e 0 2px,#5c3e4c 3px 4px);box-shadow:-12px 12px 40px #351a2a80}
-.tiles,.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:15px}.tile,.card{color:inherit;text-decoration:none;min-width:0}.tile{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px;display:grid;gap:14px}.tile i{color:var(--pink);font:normal 26px Georgia}.tile strong,.card strong{display:block}.tile:hover,.card:hover strong{color:var(--pink)}small,.meta,.status{color:var(--muted)}.status:empty{display:none}
-.art{background:linear-gradient(135deg,#783f5d,#322137);border-radius:12px;aspect-ratio:1;display:grid;place-items:center;position:relative;overflow:hidden;font:italic 32px Georgia;color:#f2cddd}.art.wide{aspect-ratio:16/10}.art img,.art video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.card strong{margin-top:8px}.crumb{display:inline-block;color:var(--pink);padding:8px 0 16px}
-.detail{display:grid;grid-template-columns:minmax(150px,32%) 1fr;gap:26px;align-items:center}.row{width:100%;text-align:left;display:flex;align-items:center;gap:12px;border-radius:0;border-width:0 0 1px;background:transparent;padding:13px 4px}.row span:first-child{color:var(--pink);min-width:2em}.row span:nth-child(2){flex:1}.current{color:var(--pink);font-weight:700}
-.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}#player{position:fixed;bottom:max(10px,env(safe-area-inset-bottom));right:max(12px,calc((100vw - 1120px)/2));z-index:3;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 42px #0008;padding:12px;width:min(490px,calc(100% - 24px));max-height:75dvh;overflow:auto}#player .tools{margin:0}#now{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}#panel{padding-top:12px}#panel audio,#film{width:100%}#film{max-height:38dvh;background:black}#playerArt{width:min(180px,38vw);margin:auto}button[aria-pressed=true]{color:var(--pink)}
-dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;width:min(400px,92vw)}dialog::backdrop{background:#0009}dialog label{display:block;margin:16px 0}input[type=file]{max-width:100%}
-@media(max-width:640px){header{padding-block:12px}.tiles,.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.hero{min-height:160px}.hero:after{right:-17%}.detail{grid-template-columns:1fr;gap:12px}.detail .art{width:min(285px,100%);margin:auto}}
-</style></head><body><header><a href="#" class="brand">Britney Spears</a><button id="optionsBtn">Opções</button></header><main></main>
-<aside id="player" aria-label="Reprodutor" hidden><div class="tools"><strong id="now"></strong><button id="toggle">Reproduzir</button><button id="expand" aria-expanded="false">Expandir</button></div><div id="panel" hidden><div id="playerArt"></div><audio controls></audio><video id="film" controls playsinline hidden></video><div class="tools"><button id="prev">Anterior</button><button id="next">Próxima</button><button id="shuffle" aria-pressed="false">Aleatório</button><select id="repeat" aria-label="Repetição"><option>Sem repetir</option><option>Repetir faixa</option><option>Repetir lista</option></select></div></div><p id="problem" class="status" role="status"></p></aside>
-<dialog><h2>Opções</h2><label><input type="checkbox" id="light"> Modo claro</label><label>Abrir catálogo JSON <input type="file" accept=".json,application/json" id="file"></label><button id="close">Fechar</button></dialog>
-<script>
-'use strict';
-const $=s=>document.querySelector(s);
-const sections=[
- ['musicas','Músicas','♫',['albums','musicas','music','discography']],
- ['videoclipes','Videoclipes','▷',['musicVideos','videoClips','clips','videos','videoclipes']],
- ['shows','Shows','✦',['concerts','shows','liveShows','tours']],
- ['especiais','Especiais','✧',['specials','especiais','tvSpecials']],
- ['playlists','Playlists','≡',['playlists','playlist']]
-];
-const appleRoot='https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/ac/98/a8/ac98a855-1024-baa2-f0ab-2ef4ca72fc42/P1542761448_';
-const anniversaryMp4=appleRoot+'Anull_video_gr240_sdr_768x768-.mp4',anniversaryHls=appleRoot+'default.m3u8';
-const norm=s=>String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
-function url(p,base){if(typeof p!=='string'||!p.trim())return '';try{const u=new URL(p,base);return ['http:','https:','file:'].includes(u.protocol)?u.href:''}catch{return ''}}
-function el(tag,text,cls){const n=document.createElement(tag);if(text!=null)n.textContent=text;if(cls)n.className=cls;return n}
-function link(text,href,cls){const a=el('a',text,cls);a.href=href;return a}
-function normalize(raw,origin){
- if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('O JSON precisa conter um objeto de catálogo.');
- const data=raw.catalog||raw.catalogo||raw,base=data.assetBaseUrl||raw.assetBaseUrl;
- const asset=p=>url(p,base?url(String(base).replace(/\/?$/,'/'),origin):origin);
- const result={},refs=new Map(),scoped=new Map();
- const names=Object.assign(Object.create(null),{main:'Álbuns de estúdio','official-compilations':'Compilações oficiais','albums-remixes':'Álbuns de remixes','unreleased-music':'Músicas não lançadas'});
- for(const c of Array.isArray(data.musicCategories)?data.musicCategories:[])names[c.id]=c.title;
- const childKeys=['items','entries','tracks','songs','faixas','episodes','segments','parts','chapters','videos','clips','trackIds','videoIds'];
- function register(map,k,t){if(k==null)return;k=String(k);if(!map.has(k))map.set(k,t);else if(map.get(k)!==t)map.set(k,null)}
- function source(o){return o.videoPath||o.videoUrl||o.audioPath||o.audioUrl||o.mediaPath||o.mediaUrl||o.streamUrl||o.playbackUrl||o.url||o.src||o.file}
- for(const [kind,,,aliases] of sections){
-  const list=result[kind]=[];
-  function add(o,group=''){
-   if(!o||typeof o!=='object')return;
-   const nested=['albums','categories','specials','concerts','shows','musicVideos','playlists'].find(k=>Array.isArray(o[k]));
-   if(nested){o[nested].forEach(v=>add(v,o.title||o.name||group));return}
-   const item={title:o.title||o.name||'Sem título',artist:o.artist||'Britney Spears',year:o.year,desc:o.description||o.synopsis,category:group||o.category||(kind==='musicas'?'main':''),cover:asset(o.coverPath||o.coverUrl||o.thumbnailPath||o.thumbnailUrl||o.posterPath||o.cover||o.thumbnail),anim:asset(o.animatedCoverPath||o.animatedCoverUrl)};
-   if(kind==='musicas'&&((/britney/i.test(item.title)&&/25(th)?\s*(anniversary|anivers[aá]rio|anos)|25th/i.test(item.title))||String(o.id)==='6818422876')){
-    if(!item.anim||new URL(item.anim).hostname==='music.apple.com'||item.anim===anniversaryHls)item.anim=anniversaryMp4;
-    item.backup=item.anim===anniversaryMp4?anniversaryHls:anniversaryMp4;
-   }
-   const child=childKeys.find(k=>Array.isArray(o[k])),rows=child?o[child]:source(o)?[o]:[];
-   item.tracks=rows.map(t=>{
-    if(typeof t!=='object'||!t)return {ref:t};
-    const src=asset(source(t)),entry={src,title:t.title||t.name||item.title,artist:t.artist||item.artist,number:t.number,disc:t.disc,duration:t.duration,album:item,ref:t.trackId??t.videoId??t.itemId??t.ref??t.id,albumId:t.albumId,video:!!(t.videoPath||t.videoUrl||t.type==='video'||/\.(mp4|webm|mov)(?:[?#]|$)/i.test(src)||(!t.audioPath&&!t.audioUrl&&['shows','especiais','videoclipes'].includes(kind)))};
-    if(src&&kind!=='playlists'){register(refs,t.id,entry);if(o.id!=null&&t.id!=null)register(scoped,JSON.stringify([String(o.id),String(t.id)]),entry)}
-    return entry
-   });
-   if(kind!=='playlists'&&rows.length===1&&item.tracks[0].src)register(refs,o.id,item.tracks[0]);
-   list.push(item)
-  }
-  for(const [key,v] of Object.entries(data)){
-   if(!aliases.some(a=>norm(a)===norm(key)))continue;
-   if(Array.isArray(v))v.forEach(o=>add(o));else if(v&&typeof v==='object'){
-    if(v.title||v.name||v.albums||childKeys.some(k=>Array.isArray(v[k])))add(v);
-    else for(const [g,rows] of Object.entries(v))if(Array.isArray(rows))rows.forEach(o=>add(o,g))
-   }
-  }
- }
- for(const p of result.playlists)p.tracks=p.tracks.map(t=>t.src?t:(t.albumId==null?refs.get(String(t.ref)):scoped.get(JSON.stringify([String(t.albumId),String(t.ref)])))||{...t,title:t.title||String(t.ref??'Item sem referência')});
- return {result,names}
-}
-const engines=new WeakMap();
-let hlsReady;
-function hls(){if(!hlsReady)hlsReady=new Promise((ok,fail)=>{const script=el('script');script.src='https://cdn.jsdelivr.net/npm/hls.js@1.6.13/dist/hls.min.js';script.onload=()=>ok(window.Hls);script.onerror=()=>{hlsReady=null;fail(Error('Falha ao carregar o suporte a HLS.'))};document.head.append(script)});return hlsReady}
-function release(v){engines.get(v)?.destroy();engines.delete(v);v.pause();v.removeAttribute('src');v.load()}
-async function attach(v,src,active,fail){
- if(new URL(src).hostname==='music.apple.com')throw Error('Informe o endereço direto do vídeo da capa.');
- if(/\.m3u8(?:[?#]|$)/i.test(src)&&!v.canPlayType('application/vnd.apple.mpegurl')){
-  const Hls=await hls();if(!active())return;if(!Hls?.isSupported())throw Error('Este navegador não oferece suporte a HLS.');
-  const h=new Hls();engines.set(v,h);h.on(Hls.Events.ERROR,(_,d)=>{if(d.fatal&&active())fail('Erro de HLS: '+d.details)});h.loadSource(src);h.attachMedia(v)
- }else v.src=src;
-}
-function art(item,wide){const box=el('div','BS','art'+(wide?' wide':''));if(item.cover){const im=el('img');im.alt='';im.loading='lazy';im.onerror=()=>im.remove();im.src=item.cover;box.append(im)}return box}
-function animate(item,host){
- if(!item.anim)return ()=>{};
- const box=host.querySelector('.art'),note=el('small',null,'status');host.append(note);
- let active=true,version=0,v;
- function attempt(src,backup){
-  const id=++version;if(v){v.onerror=null;release(v);v.remove()}
-  v=el('video');v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.style.opacity=0;box.append(v);
-  const current=()=>active&&id===version;
-  const fail=()=>{if(!current())return;if(backup){attempt(backup,'');return}v.style.opacity=0;note.textContent='Capa animada indisponível. Verifique o endereço da mídia.'};
-  v.onplaying=()=>{if(current()){v.style.opacity=1;note.replaceChildren()}};
-  v.onerror=fail;
-  const start=()=>v.play().catch(e=>{if(!current()||e.name==='AbortError')return;if(e.name==='NotAllowedError'){const b=el('button','Animar capa');b.onclick=start;note.replaceChildren(b)}else fail()});
-  attach(v,src,current,fail).then(()=>{if(current())start()}).catch(fail)
- }
- attempt(item.anim,item.backup);
- return ()=>{active=false;v.onerror=null;release(v);v.remove()}
-}
-let library={},names={},message='Carregando catálogo…',loadVersion=0,detailCleanup=()=>{},playerCleanup=()=>{};
-let queue=[],idx=0,media=$('audio'),playVersion=0,shuffle=false;
-function highlight(){for(const b of document.querySelectorAll('.row'))b.classList.toggle('current',b.entry===queue[idx]&&!media.paused)}
-function draw(){
- detailCleanup();detailCleanup=()=>{};const main=$('main');main.replaceChildren();
- const [key,id]=location.hash.slice(1).split('/'),section=sections.find(s=>s[0]===key);
- const status=el('p',message,'status');status.setAttribute('role','status');
- if(!section){const hero=el('div',null,'hero');hero.append(el('h1','Acervo Britney Spears'));main.append(hero,el('h2','Explorar o acervo'),status);
-  const nav=el('nav',null,'tiles');for(const [k,title,icon] of sections){const a=link('','#'+k,'tile'),txt=el('div'),mark=el('i',icon);mark.setAttribute('aria-hidden','true');txt.append(el('strong',title),el('small',library[k]?library[k].length+' no catálogo':'Abrir seção'));a.append(mark,txt);nav.append(a)}main.append(nav);return}
- const items=library[key]||[],item=/^\d+$/.test(id??'')?items[Number(id)]:null;main.append(link(item?'‹ '+section[1]:'‹ Início',item?'#'+key:'#','crumb'));
- if(!item){main.append(el('h1',section[1]),status);if(!items.length){main.append(el('p','Nenhum item disponível nesta seção.','meta'));return}
-  const search=el('input');search.type='search';search.placeholder='Buscar em '+section[1].toLowerCase();search.setAttribute('aria-label',search.placeholder);const bar=el('div',null,'tools'),results=el('div');bar.append(search);main.append(bar,results);
-  function filter(){results.replaceChildren();const buckets=new Map();items.forEach((it,i)=>{if(!norm([it.title,it.artist,...it.tracks.map(t=>t.title)].join(' ')).includes(norm(search.value)))return;
-   if(!buckets.has(it.category)){if(it.category)results.append(el('h2',names[it.category]||String(it.category).replace(/[-_]/g,' ')));const grid=el('div',null,'grid');results.append(grid);buckets.set(it.category,grid)}
-   const a=link('','#'+key+'/'+i,'card');a.append(art(it,!['musicas','playlists'].includes(key)),el('strong',it.title),el('small',it.year||it.artist));buckets.get(it.category).append(a)
-  });if(!buckets.size)results.append(el('p','Nenhum resultado.'))}search.oninput=filter;filter();return
- }
- const head=el('div',null,'detail'),visual=el('div'),info=el('div');visual.append(art(item));info.append(el('h1',item.title),el('p',[item.artist,item.year].filter(Boolean).join(' · '),'meta'));if(item.desc)info.append(el('p',item.desc));
- const playable=item.tracks.filter(t=>t.src),start=el('button','▶ Reproduzir');start.disabled=!playable.length;start.onclick=()=>play(playable,0);info.append(start);head.append(visual,info);main.append(head);detailCleanup=animate(item,visual);
- main.append(el('h2',key==='musicas'?'Faixas':'Conteúdo'));if(!item.tracks.length)main.append(el('p','Este item está sem mídia no catálogo.'));
- let disc='';item.tracks.forEach((t,i)=>{if(t.disc&&t.disc!==disc){disc=t.disc;main.append(el('h3',disc))}const b=el('button',null,'row');b.entry=t;b.disabled=!t.src;b.append(el('span',t.number||i+1),el('span',t.title||'Sem título'),el('small',t.src?t.duration||'▷':'Indisponível'));b.onclick=()=>play(playable,playable.indexOf(t));main.append(b)});highlight()
-}
-function renderPlayerArt(){playerCleanup();playerCleanup=()=>{};const host=$('#playerArt'),t=queue[idx];host.replaceChildren();host.hidden=!t||t.video||$('#panel').hidden;if(host.hidden)return;host.append(art(t.album));playerCleanup=animate(t.album,host)}
-function expand(open){$('#panel').hidden=!open;$('#expand').textContent=open?'Recolher':'Expandir';$('#expand').setAttribute('aria-expanded',String(open));renderPlayerArt()}
-function sync(){$('#toggle').textContent=media.paused?'Reproduzir':'Pausar';highlight()}
-async function play(list,i){const t=list[i];if(!t)return;const g=++playVersion;release(media);queue=list;idx=i;media=t.video?$('#film'):$('audio');$('#film').hidden=!t.video;$('audio').hidden=t.video;$('#player').hidden=false;$('#now').textContent=t.title;$('#problem').textContent='';if(t.video)expand(true);else renderPlayerArt();
- const current=()=>g===playVersion;const fail=m=>{if(current())$('#problem').textContent=m};try{await attach(media,t.src,current,fail);if(current())await media.play()}catch(e){if(e.name!=='AbortError')fail(e.name==='NotAllowedError'?'Toque em Reproduzir para começar.':e.message)}sync()}
-function next(auto){if(!queue.length)return;const mode=$('#repeat').selectedIndex;if(auto&&mode===1)return play(queue,idx);if(shuffle&&queue.length>1)return play(queue,(idx+1+Math.floor(Math.random()*(queue.length-1)))%queue.length);if(idx+1<queue.length)return play(queue,idx+1);if(!auto||mode===2)return play(queue,0);sync()}
-for(const v of [$('audio'),$('#film')]){v.onplay=v.onpause=sync;v.onended=()=>{if(v===media)next(true)};v.onerror=()=>{if(v===media&&v.error)$('#problem').textContent='Não foi possível reproduzir esta mídia. Confira o endereço e o formato.'}}
-$('#prev').onclick=()=>play(queue,(idx+queue.length-1)%queue.length);$('#next').onclick=()=>next(false);$('#toggle').onclick=()=>{if(!media.paused)media.pause();else if(media.error||!media.currentSrc)play(queue,idx);else media.play().catch(e=>$('#problem').textContent=e.message)};
-$('#shuffle').onclick=()=>{shuffle=!shuffle;$('#shuffle').setAttribute('aria-pressed',String(shuffle))};$('#expand').onclick=()=>expand($('#panel').hidden);
-$('#optionsBtn').onclick=()=>$('dialog').showModal();$('#close').onclick=()=>$('dialog').close();
-function theme(light){document.body.classList.toggle('light',light);$('#light').checked=light}try{theme(localStorage.getItem('theme')==='light')}catch{}$('#light').onchange=e=>{theme(e.target.checked);try{localStorage.setItem('theme',e.target.checked?'light':'dark')}catch{}};
-async function load(file){const g=++loadVersion;try{let raw,base=new URL('.',location.href).href;if(file)raw=JSON.parse(await file.text());else{const r=await fetch(new URL('catalogo.json',base),{cache:'no-cache'});if(!r.ok)throw Error('HTTP '+r.status);raw=await r.json();base=new URL('.',r.url).href}
- const parsed=normalize(raw,base);if(g!==loadVersion)return;library=parsed.result;names=parsed.names;message=Object.values(library).some(a=>a.length)?'':'Nenhuma coleção reconhecida neste JSON.';if(file){++playVersion;release(media);queue=[];renderPlayerArt();$('#player').hidden=true;location.hash=''}
- }catch(e){if(g!==loadVersion)return;message='Não foi possível abrir o catálogo. Use Opções → Abrir catálogo JSON. '+(file?e.message:'')}draw()}
-$('#file').onchange=e=>{const file=e.target.files[0];if(file){$('dialog').close();load(file)}e.target.value=''};
-window.onhashchange=()=>{if(!$('#panel').hidden)expand(false);draw();window.scrollTo(0,0)};draw();load()
-</script></body></html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Acervo Britney Spears</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      :root {
+        color-scheme: dark;
+        --bg: #17121b;
+        --panel: #231d29;
+        --text: #fff7fa;
+        --muted: #c4b5c5;
+        --line: #493b4c;
+        --pink: #ffaccb;
+      }
+      body.light {
+        color-scheme: light;
+        --bg: #fcf7fa;
+        --panel: white;
+        --text: #33232e;
+        --muted: #675966;
+        --line: #dccfd5;
+        --pink: #922b52;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.45 system-ui,
+          sans-serif;
+      }
+      header,
+      main {
+        max-width: 1200px;
+        margin: auto;
+        padding: 18px clamp(16px, 4vw, 54px);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+      main {
+        padding-bottom: 160px;
+      }
+      .brand {
+        font: italic bold 25px Georgia;
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      select,
+      input[type="search"] {
+        min-height: 44px;
+        border: 1px solid var(--line);
+        padding: 9px 14px;
+        border-radius: 10px;
+        background: var(--panel);
+        color: var(--text);
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: default;
+      }
+      :focus-visible {
+        outline: 3px solid var(--pink);
+        outline-offset: 3px;
+      }
+      h1 {
+        font:
+          normal clamp(36px, 6vw, 72px) / 1.04 Georgia,
+          serif;
+        letter-spacing: -0.04em;
+        margin: 10px 0 16px;
+      }
+      h2 {
+        font-size: 22px;
+        margin: 28px 0 12px;
+      }
+      p {
+        margin: 8px 0;
+      }
+      .hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 220px;
+        display: flex;
+        align-items: end;
+        background: linear-gradient(115deg, #47243e, #a44b70);
+        color: white;
+        border-radius: 18px;
+        padding: clamp(22px, 5vw, 60px);
+      }
+      .hero h1 {
+        max-width: 70%;
+        text-shadow: 0 2px 18px #382235;
+      }
+      .hero:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        right: -3%;
+        top: -20%;
+        width: clamp(210px, 36vw, 420px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(
+            circle,
+            #432035 0 3%,
+            #efa8c3 3.2% 16%,
+            transparent 16.2%
+          ),
+          repeating-radial-gradient(circle, #321d2e 0 2px, #5c3e4c 3px 4px);
+        box-shadow: -12px 12px 40px #351a2a80;
+      }
+      .tiles,
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        gap: 15px;
+      }
+      .tile,
+      .card {
+        color: inherit;
+        text-decoration: none;
+        min-width: 0;
+      }
+      .tile {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 17px;
+        display: grid;
+        gap: 14px;
+      }
+      .tile i {
+        color: var(--pink);
+        font: normal 26px Georgia;
+      }
+      .tile strong,
+      .card strong {
+        display: block;
+      }
+      .tile:hover,
+      .card:hover strong {
+        color: var(--pink);
+      }
+      small,
+      .meta,
+      .status {
+        color: var(--muted);
+      }
+      .status:empty {
+        display: none;
+      }
+      .art {
+        background: linear-gradient(135deg, #783f5d, #322137);
+        border-radius: 12px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        font: italic 32px Georgia;
+        color: #f2cddd;
+      }
+      .art.wide {
+        aspect-ratio: 16/10;
+      }
+      .art img,
+      .art video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card strong {
+        margin-top: 8px;
+      }
+      .crumb {
+        display: inline-block;
+        color: var(--pink);
+        padding: 8px 0 16px;
+      }
+      .detail {
+        display: grid;
+        grid-template-columns: minmax(150px, 32%) 1fr;
+        gap: 26px;
+        align-items: center;
+      }
+      .row {
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-radius: 0;
+        border-width: 0 0 1px;
+        background: transparent;
+        padding: 13px 4px;
+      }
+      .row span:first-child {
+        color: var(--pink);
+        min-width: 2em;
+      }
+      .row span:nth-child(2) {
+        flex: 1;
+      }
+      .current {
+        color: var(--pink);
+        font-weight: 700;
+      }
+      .tools {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      #player {
+        position: fixed;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        right: max(12px, calc((100vw - 1120px) / 2));
+        z-index: 3;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 10px 42px #0008;
+        padding: 12px;
+        width: min(490px, calc(100% - 24px));
+        max-height: 75dvh;
+        overflow: auto;
+      }
+      #player .tools {
+        margin: 0;
+      }
+      #now {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        min-width: 0;
+      }
+      #panel {
+        padding-top: 12px;
+      }
+      #panel audio,
+      #film {
+        width: 100%;
+      }
+      #film {
+        max-height: 38dvh;
+        background: black;
+      }
+      #playerArt {
+        width: min(180px, 38vw);
+        margin: auto;
+      }
+      button[aria-pressed="true"] {
+        color: var(--pink);
+      }
+      dialog {
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        width: min(400px, 92vw);
+      }
+      dialog::backdrop {
+        background: #0009;
+      }
+      dialog label {
+        display: block;
+        margin: 16px 0;
+      }
+      input[type="file"] {
+        max-width: 100%;
+      }
+      @media (max-width: 640px) {
+        header {
+          padding-block: 12px;
+        }
+        .tiles,
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+        .hero {
+          min-height: 160px;
+        }
+        .hero:after {
+          right: -17%;
+        }
+        .detail {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .detail .art {
+          width: min(285px, 100%);
+          margin: auto;
+        }
+      }
+
+      body.video-detail {
+        background: #100e15;
+        color: #fff;
+      }
+      body.video-detail header {
+        position: relative;
+        z-index: 1;
+        border-color: #ffffff22;
+      }
+      .video-detail .meta {
+        color: #e7e0e7;
+      }
+      .video-detail .crumb {
+        color: white;
+      }
+      #backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: #18131e;
+      }
+      #backdrop img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right center;
+      }
+      #backdrop:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(13, 10, 19, 0.93),
+            rgba(13, 10, 19, 0.42) 62%,
+            rgba(13, 10, 19, 0.12)
+          ),
+          linear-gradient(0deg, rgba(13, 10, 19, 0.9), transparent 65%);
+      }
+      .video-info {
+        padding-top: clamp(30px, 10vh, 110px);
+        min-height: 60vh;
+        max-width: 620px;
+      }
+      .video-logo {
+        display: block;
+        max-width: min(360px, 85%);
+        max-height: 160px;
+        object-fit: contain;
+        object-position: left;
+        margin-bottom: 25px;
+      }
+      .description {
+        font-size: 16px;
+        line-height: 1.75;
+        text-shadow: 0 1px 4px #000;
+      }
+      .video-info label {
+        display: block;
+        margin: 20px 0;
+      }
+      .primary {
+        display: block;
+        background: #f7f1f5;
+        color: #221422;
+        padding: 12px 30px;
+        border: 0;
+        margin-top: 25px;
+        font-weight: 700;
+      }
+      .clip-rail {
+        display: flex;
+        overflow-x: auto;
+        gap: 18px;
+        scroll-snap-type: x mandatory;
+        padding: 8px 2px 20px;
+      }
+      .clip-rail .card {
+        flex: 0 0 240px;
+        scroll-snap-align: start;
+      }
+      .rail-logo {
+        display: block;
+        height: 44px;
+        max-width: 90%;
+        object-fit: contain;
+        object-position: left;
+        margin-top: 12px;
+      }
+      .album-detail .detail {
+        align-items: end;
+        position: relative;
+        display: block;
+        padding: 0;
+        isolation: isolate;
+        min-height: 560px;
+        border-radius: 18px;
+        overflow: hidden;
+        color: white;
+      }
+      .album-detail .album-scene {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+      }
+      .album-detail .album-scene .art {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        background: #362739;
+      }
+      .album-detail .album-scene:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          #17121b 0%,
+          #17121b55 45%,
+          transparent 80%
+        );
+      }
+      .album-detail .detail > div:last-child {
+        padding: 360px 24px 28px;
+      }
+      .album-detail .detail h1 {
+        font-size: 42px;
+      }
+      .album-detail .detail .meta {
+        color: #e2d4e0;
+      }
+      .album-detail .album-scene small {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 2;
+      }
+      .album-detail main {
+        max-width: 900px;
+      }
+      #expanded {
+        border: 0;
+        margin: auto;
+        width: min(500px, 100vw);
+        max-width: 100vw;
+        height: min(900px, 100dvh);
+        max-height: 100dvh;
+        padding: 20px 30px 30px;
+        background: linear-gradient(155deg, #423242, #17141e 65%);
+        color: white;
+        overflow: auto;
+      }
+      #expanded::backdrop {
+        background: #08060bd9;
+        backdrop-filter: blur(20px);
+      }
+      #collapse {
+        display: block;
+        margin: 0 auto 14px;
+        border: 0;
+        background: transparent;
+        color: #ddd;
+        font-size: 30px;
+        width: 70px;
+      }
+      #expanded #playerArt {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto 28px;
+      }
+      #expandedTitle {
+        margin: 12px 0 2px;
+        font-size: 24px;
+      }
+      #expandedArtist {
+        color: #c8bfcd;
+        margin: 0 0 24px;
+      }
+      #expanded .timeline input {
+        width: 100%;
+        accent-color: white;
+        min-height: 24px;
+      }
+      #expanded .timeline > div {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #c8bfcd;
+      }
+      .transport {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .transport button {
+        border: 0;
+        background: transparent;
+        color: white;
+        padding: 8px;
+        font-size: 23px;
+      }
+      .transport #bigPlay {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: white;
+        color: #19141e;
+        font-size: 30px;
+      }
+      .transport #repeatButton {
+        font-size: 15px;
+      }
+      .transport button[aria-pressed="true"] {
+        color: #ffa6ca;
+      }
+      .volume {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 26px;
+        font-size: 13px;
+        color: #c8bfcd;
+      }
+      .volume input {
+        accent-color: white;
+      }
+      #expanded.video-player {
+        width: min(1100px, 100vw);
+        height: auto;
+      }
+      .video-player #film {
+        max-height: 70dvh;
+      }
+      .video-player .timeline,
+      .video-player .transport,
+      .video-player .volume {
+        display: none;
+      }
+      @media (max-width: 640px) {
+        #backdrop img {
+          width: 125%;
+          height: auto;
+          max-width: none;
+          transform: translateX(-20%);
+          object-fit: contain;
+          object-position: right top;
+        }
+        #backdrop:after {
+          background: linear-gradient(
+            0deg,
+            #100e15e8 3%,
+            #100e15a8 65%,
+            #100e1520
+          );
+        }
+        .video-info {
+          padding-top: 22vh;
+          min-height: 68vh;
+        }
+        .video-logo {
+          max-height: 110px;
+          max-width: 80%;
+        }
+        .clip-rail .card {
+          flex-basis: 190px;
+        }
+        .album-detail main {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .album-detail .crumb,
+        .album-detail main > h2,
+        .album-detail main > .row,
+        .album-detail main > h3 {
+          margin-left: 16px;
+          margin-right: 16px;
+        }
+        .album-detail main > .row {
+          width: calc(100% - 32px);
+        }
+        .album-detail .detail {
+          border-radius: 0;
+          min-height: 68vh;
+        }
+        .album-detail .detail > div:last-child {
+          padding-top: 48vh;
+        }
+        #expanded {
+          height: 100dvh;
+          width: 100vw;
+          border-radius: 0;
+          padding: max(16px, env(safe-area-inset-top)) 25px
+            max(25px, env(safe-area-inset-bottom));
+        }
+        #expanded.video-player {
+          height: 100dvh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        #expanded.video-player:not([open]) {
+          display: none;
+        }
+      }
+      .skip {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: currentColor;
+        clip-path: polygon(
+          0 0,
+          80% 50%,
+          0 100%,
+          0 0,
+          85% 0,
+          100% 0,
+          100% 100%,
+          85% 100%,
+          85% 0
+        );
+      }
+      .skip.previous {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="brand">Britney Spears</a
+      ><button id="optionsBtn">Opções</button>
+    </header>
+    <main></main>
+    <aside id="player" aria-label="Reprodutor" hidden>
+      <div class="tools">
+        <strong id="now"></strong><button id="toggle">Reproduzir</button
+        ><button id="expand" aria-expanded="false">Expandir</button>
+      </div>
+      <p id="problem" class="status" role="status"></p>
+    </aside>
+    <dialog id="expanded">
+      <button id="collapse" aria-label="Recolher player">⌄</button>
+      <div id="panel">
+        <div id="playerArt"></div>
+        <video id="film" controls playsinline hidden></video
+        ><audio preload="metadata"></audio>
+        <h2 id="expandedTitle"></h2>
+        <p id="expandedArtist"></p>
+        <div class="timeline">
+          <input
+            id="seek"
+            type="range"
+            min="0"
+            max="1000"
+            step="1"
+            value="0"
+            aria-label="Posição da reprodução"
+          />
+          <div>
+            <span id="elapsed">0:00</span><span id="remaining">−0:00</span>
+          </div>
+        </div>
+        <div class="transport">
+          <button id="shuffle" aria-pressed="false" aria-label="Aleatório">
+            ⤨</button
+          ><button id="prev" aria-label="Faixa anterior">
+            <span class="skip previous" aria-hidden="true"></span></button
+          ><button id="bigPlay" aria-label="Reproduzir">▶︎</button
+          ><button id="next" aria-label="Próxima faixa">
+            <span class="skip" aria-hidden="true"></span></button
+          ><button id="repeatButton" aria-label="Repetição desligada">
+            Off</button
+          ><select id="repeat" hidden>
+            <option>Sem repetir</option>
+            <option>Repetir faixa</option>
+            <option>Repetir lista</option>
+            <option>Repetir discografia</option>
+          </select>
+        </div>
+        <label class="volume"
+          >Volume
+          <input id="volume" type="range" min="0" max="1" step=".05" value="1"
+        /></label>
+        <p id="expandedProblem" role="status"></p>
+      </div>
+    </dialog>
+    <dialog id="settingsDialog">
+      <h2>Opções</h2>
+      <label><input type="checkbox" id="light" /> Modo claro</label
+      ><label
+        >Abrir catálogo JSON
+        <input type="file" accept=".json,application/json" id="file" /></label
+      ><button id="close">Fechar</button>
+    </dialog>
+    <script>
+      "use strict";
+      const $ = (s) => document.querySelector(s);
+      const sections = [
+        [
+          "musicas",
+          "Músicas",
+          "♫",
+          ["albums", "musicas", "music", "discography"],
+        ],
+        [
+          "videoclipes",
+          "Videoclipes",
+          "▷",
+          ["musicVideos", "videoClips", "clips", "videos", "videoclipes"],
+        ],
+        ["shows", "Shows", "✦", ["concerts", "shows", "liveShows", "tours"]],
+        [
+          "especiais",
+          "Especiais",
+          "✧",
+          ["specials", "especiais", "tvSpecials", "extras"],
+        ],
+        ["playlists", "Playlists", "≡", ["playlists", "playlist"]],
+      ];
+      const appleMotion = {
+        "baby-one-more-time": {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/a2/df/55/a2df55d4-970d-45b9-983a-a7e3729c95bf/P1128400538_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/69/ce/e8/69cee8b1-6b60-daea-13d5-d3ed76316163/P1128359256_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/a2/df/55/a2df55d4-970d-45b9-983a-a7e3729c95bf/P1128400538_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/69/ce/e8/69cee8b1-6b60-daea-13d5-d3ed76316163/P1128359256_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        "oops-i-did-it-again": {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/cd/4c/92/cd4c92aa-1a1c-9b4c-5ade-58b2c531646e/P1095095442_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/46/4a/c6/464ac691-8416-3795-21fd-002fecdd4aec/P1095068753_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/cd/4c/92/cd4c92aa-1a1c-9b4c-5ade-58b2c531646e/P1095095442_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/46/4a/c6/464ac691-8416-3795-21fd-002fecdd4aec/P1095068753_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        britney: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/2b/49/f0/2b49f03d-3156-a320-3e4c-87de8b1fb01a/P1095082442_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/d7/ae/32/d7ae324e-8f86-479a-06a8-c2777881953c/P1095060539_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/2b/49/f0/2b49f03d-3156-a320-3e4c-87de8b1fb01a/P1095082442_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/d7/ae/32/d7ae324e-8f86-479a-06a8-c2777881953c/P1095060539_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        "in-the-zone": {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/b7/29/f6/b729f64b-7877-5214-e973-9b8ae1cb03cb/P1095151982_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/84/ac/c5/84acc58d-c9b8-d06e-68e9-54028922387e/P1095116425_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/b7/29/f6/b729f64b-7877-5214-e973-9b8ae1cb03cb/P1095151982_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/84/ac/c5/84acc58d-c9b8-d06e-68e9-54028922387e/P1095116425_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        blackout: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/02/2c/bd/022cbdd5-176a-3659-5954-72c8ca9941b5/P1103155265_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/12/dd/55/12dd5595-697d-ae71-bb6f-d9db3c25fc1f/P1103144188_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/02/2c/bd/022cbdd5-176a-3659-5954-72c8ca9941b5/P1103155265_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/12/dd/55/12dd5595-697d-ae71-bb6f-d9db3c25fc1f/P1103144188_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        circus: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/84/91/c7/8491c778-dd9a-187c-e0bc-f17b542b3561/P1103141841_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/82/62/ec/8262ec31-463b-c0f6-ba7c-dc7aeb4c04ad/P1103133000_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/84/91/c7/8491c778-dd9a-187c-e0bc-f17b542b3561/P1103141841_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/82/62/ec/8262ec31-463b-c0f6-ba7c-dc7aeb4c04ad/P1103133000_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        "femme-fatale": {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/3a/d6/54/3ad6545e-13bf-7caf-9139-74af22b73b10/P1103110608_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/89/da/2f/89da2fbe-a82e-521f-bf0e-2cf9b5c606aa/P1103102093_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/3a/d6/54/3ad6545e-13bf-7caf-9139-74af22b73b10/P1103110608_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/89/da/2f/89da2fbe-a82e-521f-bf0e-2cf9b5c606aa/P1103102093_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        "britney-jean": {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/e8/c6/4e/e8c64e7e-ea2c-f703-fafe-1286d7e8ad82/P1126734646_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/6c/e0/49/6ce04971-70bc-d534-4e44-ed0bf62d6232/P1126728529_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/e8/c6/4e/e8c64e7e-ea2c-f703-fafe-1286d7e8ad82/P1126734646_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/6c/e0/49/6ce04971-70bc-d534-4e44-ed0bf62d6232/P1126728529_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        glory: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/a2/cf/a9/a2cfa9ea-5e92-210f-e283-e1c501ec8b6b/P1126717844_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/a4/76/95/a47695b2-6062-3cbb-60c5-d93133ed0651/P1126711508_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/a2/cf/a9/a2cfa9ea-5e92-210f-e283-e1c501ec8b6b/P1126717844_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/a4/76/95/a47695b2-6062-3cbb-60c5-d93133ed0651/P1126711508_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        oops25th: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/8d/38/9b/8d389b53-6196-0127-3765-4ffeb14f7f4a/P1063596366_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/87/11/69/871169b0-fd6c-0c72-313d-f5388956868f/P1063549618_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/8d/38/9b/8d389b53-6196-0127-3765-4ffeb14f7f4a/P1063596366_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/87/11/69/871169b0-fd6c-0c72-313d-f5388956868f/P1063549618_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+        britney25th: {
+          square:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/ac/98/a8/ac98a855-1024-baa2-f0ab-2ef4ca72fc42/P1542761448_default.m3u8",
+          tall: "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/5b/76/92/5b7692ce-6635-7773-1001-9aa48ac274d1/P1542764026_default.m3u8",
+          squareMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/ac/98/a8/ac98a855-1024-baa2-f0ab-2ef4ca72fc42/P1542761448_Anull_video_gr240_sdr_768x768-.mp4",
+          tallMp4:
+            "https://mvod.itunes.apple.com/itunes-assets/HLSVideo211/v4/5b/76/92/5b7692ce-6635-7773-1001-9aa48ac274d1/P1542764026_Anull_video_gr250_sdr_830x1106-.mp4",
+        },
+      };
+      function matchMotion(item) {
+        return appleMotion[item.id] || null;
+      }
+      const appleRoot =
+        "https://mvod.itunes.apple.com/itunes-assets/HLSVideo221/v4/ac/98/a8/ac98a855-1024-baa2-f0ab-2ef4ca72fc42/P1542761448_";
+      const anniversaryMp4 = appleRoot + "Anull_video_gr240_sdr_768x768-.mp4",
+        anniversaryHls = appleRoot + "default.m3u8";
+      const norm = (s) =>
+        String(s ?? "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "");
+      function url(p, base) {
+        if (typeof p !== "string" || !p.trim()) return "";
+        try {
+          const u = new URL(p, base);
+          return ["http:", "https:", "file:"].includes(u.protocol)
+            ? u.href
+            : "";
+        } catch {
+          return "";
+        }
+      }
+      function el(tag, text, cls) {
+        const n = document.createElement(tag);
+        if (text != null) n.textContent = text;
+        if (cls) n.className = cls;
+        return n;
+      }
+      function link(text, href, cls) {
+        const a = el("a", text, cls);
+        a.href = href;
+        return a;
+      }
+      function normalize(raw, origin) {
+        if (!raw || typeof raw !== "object" || Array.isArray(raw))
+          throw Error("O JSON precisa conter um objeto de catálogo.");
+        const data = raw.catalog || raw.catalogo || raw,
+          base = data.assetBaseUrl || raw.assetBaseUrl;
+        const asset = (p) =>
+          url(
+            p,
+            base ? url(String(base).replace(/\/?$/, "/"), origin) : origin,
+          );
+        const result = {},
+          refs = new Map(),
+          scoped = new Map();
+        const names = Object.assign(Object.create(null), {
+          main: "Álbuns de estúdio",
+          "official-compilations": "Compilações oficiais",
+          "albums-remixes": "Álbuns de remixes",
+          "unreleased-music": "Músicas não lançadas",
+        });
+        for (const c of [
+          ...(Array.isArray(data.musicCategories) ? data.musicCategories : []),
+          ...(Array.isArray(data.extraCategories) ? data.extraCategories : []),
+        ])
+          names[c.id] = c.title;
+        const childKeys = [
+          "items",
+          "entries",
+          "tracks",
+          "songs",
+          "faixas",
+          "episodes",
+          "segments",
+          "parts",
+          "chapters",
+          "videos",
+          "clips",
+          "trackIds",
+          "videoIds",
+        ];
+        function register(map, k, t) {
+          if (k == null) return;
+          k = String(k);
+          if (!map.has(k)) map.set(k, t);
+          else if (map.get(k) !== t) map.set(k, null);
+        }
+        function source(o) {
+          return (
+            o.videoPath ||
+            o.videoUrl ||
+            o.audioPath ||
+            o.audioUrl ||
+            o.mediaPath ||
+            o.mediaUrl ||
+            o.streamUrl ||
+            o.playbackUrl ||
+            o.url ||
+            o.src ||
+            o.file
+          );
+        }
+        for (const [kind, , , aliases] of sections) {
+          const list = (result[kind] = []);
+          function add(o, group = "") {
+            if (!o || typeof o !== "object") return;
+            const nested = [
+              "albums",
+              "categories",
+              "specials",
+              "concerts",
+              "shows",
+              "musicVideos",
+              "playlists",
+            ].find((k) => Array.isArray(o[k]));
+            if (nested) {
+              o[nested].forEach((v) => add(v, o.title || o.name || group));
+              return;
+            }
+            const item = {
+              id: o.id,
+              raw: o,
+              kind,
+              background: asset(o.backgroundPath || o.backgroundUrl),
+              logo: asset(o.logoPath || o.logoUrl),
+              albumCover: asset(o.albumCoverPath),
+              duration: o.duration,
+              location: o.location,
+              subtitles: o.subtitles || [],
+              title: o.title || o.name || "Sem título",
+              artist: o.artist || "Britney Spears",
+              year: o.year,
+              desc: o.description || o.synopsis,
+              category:
+                group || o.category || (kind === "musicas" ? "main" : ""),
+              cover: asset(
+                o.coverPath ||
+                  o.coverUrl ||
+                  o.thumbnailPath ||
+                  o.thumbnailUrl ||
+                  o.posterPath ||
+                  o.cover ||
+                  o.thumbnail,
+              ),
+              anim: asset(o.animatedCoverPath || o.animatedCoverUrl),
+            };
+            if (
+              kind === "musicas" &&
+              ((/britney/i.test(item.title) &&
+                /25(th)?\s*(anniversary|anivers[aá]rio|anos)|25th/i.test(
+                  item.title,
+                )) ||
+                String(o.id) === "6818422876")
+            ) {
+              if (
+                !item.anim ||
+                new URL(item.anim).hostname === "music.apple.com" ||
+                item.anim === anniversaryHls
+              )
+                item.anim = anniversaryMp4;
+              item.backup =
+                item.anim === anniversaryMp4 ? anniversaryHls : anniversaryMp4;
+            }
+            const child = childKeys.find((k) => Array.isArray(o[k])),
+              rows = child ? o[child] : source(o) ? [o] : [];
+            item.tracks = rows.map((t) => {
+              if (typeof t !== "object" || !t) return { ref: t };
+              const src = asset(source(t)),
+                entry = {
+                  src,
+                  title: t.title || t.name || item.title,
+                  artist: t.artist || item.artist,
+                  number: t.number,
+                  disc: t.disc,
+                  duration: t.duration,
+                  album: item,
+                  ref: t.trackId ?? t.videoId ?? t.itemId ?? t.ref ?? t.id,
+                  albumId: t.albumId,
+                  video: !!(
+                    t.videoPath ||
+                    t.videoUrl ||
+                    t.type === "video" ||
+                    /\.(mp4|webm|mov)(?:[?#]|$)/i.test(src) ||
+                    (!t.audioPath &&
+                      !t.audioUrl &&
+                      ["shows", "especiais", "videoclipes"].includes(kind))
+                  ),
+                };
+              if (src && kind !== "playlists") {
+                register(refs, t.id, entry);
+                if (o.id != null && t.id != null)
+                  register(
+                    scoped,
+                    JSON.stringify([String(o.id), String(t.id)]),
+                    entry,
+                  );
+              }
+              return entry;
+            });
+            if (kind !== "playlists" && rows.length === 1 && item.tracks[0].src)
+              register(refs, o.id, item.tracks[0]);
+            item.variants = (o.variants || []).map((v) => ({
+              ...item,
+              id: v.id,
+              title: v.title || item.title,
+              raw: v,
+              year: v.year || item.year,
+              duration: v.duration || item.duration,
+              location: v.location || item.location,
+              desc: v.description || item.desc,
+              background: asset(v.backgroundPath) || item.background,
+              logo: asset(v.logoPath) || item.logo,
+              subtitles: v.subtitles || [],
+              tracks: [
+                {
+                  src: asset(source(v)),
+                  title: v.title || item.title,
+                  video: true,
+                  subtitles: v.subtitles || [],
+                },
+              ],
+            }));
+            item.tracks.forEach((t) => {
+              t.subtitles = o.subtitles || [];
+            });
+            item.variants.forEach((v) =>
+              v.tracks.forEach((t) => (t.album = v)),
+            );
+            const motion = matchMotion(item);
+            item.anim =
+              asset(o.animatedCoverSquarePath) ||
+              motion?.squareMp4 ||
+              motion?.square ||
+              asset(o.animatedCoverPath) ||
+              item.anim;
+            if (item.anim === anniversaryHls) item.anim = anniversaryMp4;
+            item.tall =
+              asset(o.animatedCoverTallPath || o.verticalAnimatedCoverPath) ||
+              motion?.tallMp4 ||
+              motion?.tall ||
+              "";
+            list.push(item);
+          }
+          for (const [key, v] of Object.entries(data)) {
+            if (!aliases.some((a) => norm(a) === norm(key))) continue;
+            if (Array.isArray(v)) v.forEach((o) => add(o));
+            else if (v && typeof v === "object") {
+              if (
+                v.title ||
+                v.name ||
+                v.albums ||
+                childKeys.some((k) => Array.isArray(v[k]))
+              )
+                add(v);
+              else
+                for (const [g, rows] of Object.entries(v))
+                  if (Array.isArray(rows)) rows.forEach((o) => add(o, g));
+            }
+          }
+        }
+        for (const p of result.playlists)
+          p.tracks = p.tracks.map((t) =>
+            t.src
+              ? t
+              : (t.albumId == null
+                  ? refs.get(String(t.ref))
+                  : scoped.get(
+                      JSON.stringify([String(t.albumId), String(t.ref)]),
+                    )) || {
+                  ...t,
+                  title: t.title || String(t.ref ?? "Item sem referência"),
+                },
+          );
+        return { result, names };
+      }
+      const engines = new WeakMap();
+      let hlsReady;
+      function hls() {
+        if (!hlsReady)
+          hlsReady = new Promise((ok, fail) => {
+            const script = el("script");
+            script.src =
+              "https://cdn.jsdelivr.net/npm/hls.js@1.6.13/dist/hls.min.js";
+            script.onload = () => ok(window.Hls);
+            script.onerror = () => {
+              hlsReady = null;
+              fail(Error("Falha ao carregar o suporte a HLS."));
+            };
+            document.head.append(script);
+          });
+        return hlsReady;
+      }
+      function release(v) {
+        engines.get(v)?.destroy();
+        engines.delete(v);
+        v.pause();
+        v.removeAttribute("src");
+        v.load();
+      }
+      async function attach(v, src, active, fail) {
+        if (new URL(src).hostname === "music.apple.com")
+          throw Error("Informe o endereço direto do vídeo da capa.");
+        if (
+          /\.m3u8(?:[?#]|$)/i.test(src) &&
+          !v.canPlayType("application/vnd.apple.mpegurl")
+        ) {
+          const Hls = await hls();
+          if (!active()) return;
+          if (!Hls?.isSupported())
+            throw Error("Este navegador não oferece suporte a HLS.");
+          const h = new Hls();
+          engines.set(v, h);
+          h.on(Hls.Events.ERROR, (_, d) => {
+            if (d.fatal && active()) fail("Erro de HLS: " + d.details);
+          });
+          h.loadSource(src);
+          h.attachMedia(v);
+        } else v.src = src;
+      }
+      function art(item, wide) {
+        const box = el("div", "BS", "art" + (wide ? " wide" : ""));
+        if (item.cover) {
+          const im = el("img");
+          im.alt = "";
+          im.loading = "lazy";
+          im.onerror = () => im.remove();
+          im.src = item.cover;
+          box.append(im);
+        }
+        return box;
+      }
+      function animate(item, host) {
+        if (!item.anim) return () => {};
+        const box = host.querySelector(".art"),
+          note = el("small", null, "status");
+        host.append(note);
+        let active = true,
+          version = 0,
+          v;
+        function attempt(src, backup) {
+          const id = ++version;
+          if (v) {
+            v.onerror = null;
+            release(v);
+            v.remove();
+          }
+          v = el("video");
+          v.muted = true;
+          v.defaultMuted = true;
+          v.loop = true;
+          v.playsInline = true;
+          v.style.opacity = 0;
+          box.append(v);
+          const current = () => active && id === version;
+          const fail = () => {
+            if (!current()) return;
+            if (backup) {
+              attempt(backup, "");
+              return;
+            }
+            v.style.opacity = 0;
+            note.textContent =
+              "Capa animada indisponível. Verifique o endereço da mídia.";
+          };
+          v.onplaying = () => {
+            if (current()) {
+              v.style.opacity = 1;
+              note.replaceChildren();
+            }
+          };
+          v.onerror = fail;
+          const start = () =>
+            v.play().catch((e) => {
+              if (!current() || e.name === "AbortError") return;
+              if (e.name === "NotAllowedError") {
+                const b = el("button", "Animar capa");
+                b.onclick = start;
+                note.replaceChildren(b);
+              } else fail();
+            });
+          attach(v, src, current, fail)
+            .then(() => {
+              if (current()) start();
+            })
+            .catch(fail);
+        }
+        attempt(item.anim, item.backup);
+        return () => {
+          active = false;
+          v.onerror = null;
+          release(v);
+          v.remove();
+        };
+      }
+      let videoVariant = 0;
+      let library = {},
+        names = {},
+        message = "Carregando catálogo…",
+        loadVersion = 0,
+        detailCleanup = () => {},
+        playerCleanup = () => {};
+      let queue = [],
+        idx = 0,
+        media = $("audio"),
+        playVersion = 0,
+        shuffle = false;
+      function highlight() {
+        for (const b of document.querySelectorAll(".row"))
+          b.classList.toggle(
+            "current",
+            b.entry === queue[idx] && !media.paused,
+          );
+      }
+      function draw() {
+        detailCleanup();
+        detailCleanup = () => {};
+        document.body.classList.remove("video-detail", "album-detail");
+        $("#backdrop")?.remove();
+        const main = $("main");
+        main.replaceChildren();
+        const [key, id, version] = location.hash.slice(1).split("/"),
+          section = sections.find((s) => s[0] === key);
+        const status = el("p", message, "status");
+        status.setAttribute("role", "status");
+        if (!section) {
+          const hero = el("div", null, "hero");
+          hero.append(el("h1", "Acervo Britney Spears"));
+          main.append(hero, el("h2", "Explorar o acervo"), status);
+          const nav = el("nav", null, "tiles");
+          for (const [k, title, icon] of sections) {
+            const a = link("", "#" + k, "tile"),
+              txt = el("div"),
+              mark = el("i", icon);
+            mark.setAttribute("aria-hidden", "true");
+            txt.append(
+              el("strong", title),
+              el(
+                "small",
+                library[k] ? library[k].length + " no catálogo" : "Abrir seção",
+              ),
+            );
+            a.append(mark, txt);
+            nav.append(a);
+          }
+          main.append(nav);
+          return;
+        }
+        const items = library[key] || [],
+          item = /^\d+$/.test(id ?? "") ? items[Number(id)] : null;
+        main.append(
+          link(
+            item ? "‹ " + section[1] : "‹ Início",
+            item ? "#" + key : "#",
+            "crumb",
+          ),
+        );
+        if (!item) {
+          main.append(el("h1", section[1]), status);
+          if (!items.length) {
+            main.append(el("p", "Nenhum item disponível nesta seção.", "meta"));
+            return;
+          }
+          const search = el("input");
+          search.type = "search";
+          search.placeholder = "Buscar em " + section[1].toLowerCase();
+          search.setAttribute("aria-label", search.placeholder);
+          const bar = el("div", null, "tools"),
+            results = el("div");
+          bar.append(search);
+          main.append(bar, results);
+          function filter() {
+            results.replaceChildren();
+            const buckets = new Map();
+            items.forEach((it, i) => {
+              if (
+                !norm(
+                  [it.title, it.artist, ...it.tracks.map((t) => t.title)].join(
+                    " ",
+                  ),
+                ).includes(norm(search.value))
+              )
+                return;
+              if (!buckets.has(it.category)) {
+                if (it.category)
+                  results.append(
+                    el(
+                      "h2",
+                      names[it.category] ||
+                        String(it.category).replace(/[-_]/g, " "),
+                    ),
+                  );
+                const grid = el("div", null, "grid");
+                results.append(grid);
+                buckets.set(it.category, grid);
+              }
+              const a = link("", "#" + key + "/" + i, "card");
+              a.append(
+                art(it, !["musicas", "playlists"].includes(key)),
+                el("strong", it.title),
+                el("small", it.year || it.artist),
+              );
+              buckets.get(it.category).append(a);
+            });
+            if (!buckets.size) results.append(el("p", "Nenhum resultado."));
+          }
+          search.oninput = filter;
+          filter();
+          return;
+        }
+        if (["videoclipes", "shows", "especiais"].includes(key)) {
+          renderVideo(items, item, key, Number(id), version, main);
+          return;
+        }
+        document.body.classList.add("album-detail");
+        const head = el("div", null, "detail"),
+          visual = el("div"),
+          info = el("div");
+        visual.className = "album-scene";
+        visual.append(art({ ...item, cover: item.tall ? "" : item.cover }));
+        info.append(
+          el("h1", item.title),
+          el("p", [item.artist, item.year].filter(Boolean).join(" · "), "meta"),
+        );
+        if (item.desc) info.append(el("p", item.desc));
+        const playable = item.tracks.filter((t) => t.src),
+          start = el("button", "▶︎ Reproduzir");
+        start.disabled = !playable.length;
+        start.onclick = () => play(playable, 0);
+        info.append(start);
+        head.append(visual, info);
+        main.append(head);
+        detailCleanup = animate(
+          {
+            ...item,
+            anim: item.tall || item.anim,
+            backup: item.tall ? "" : item.backup,
+          },
+          visual,
+        );
+        main.append(el("h2", key === "musicas" ? "Faixas" : "Conteúdo"));
+        if (!item.tracks.length)
+          main.append(el("p", "Este item está sem mídia no catálogo."));
+        let disc = "";
+        item.tracks.forEach((t, i) => {
+          if (t.disc && t.disc !== disc) {
+            disc = t.disc;
+            main.append(el("h3", disc));
+          }
+          const b = el("button", null, "row");
+          b.entry = t;
+          b.disabled = !t.src;
+          b.append(
+            el("span", t.number || i + 1),
+            el("span", t.title || "Sem título"),
+            el("small", t.src ? t.duration || "▷" : "Indisponível"),
+          );
+          b.onclick = () => play(playable, playable.indexOf(t));
+          main.append(b);
+        });
+        highlight();
+      }
+
+      function renderVideo(items, item, key, id, version, main) {
+        const choices = [item, ...item.variants];
+        const selected = choices[Number(version) || 0] || item;
+        document.body.classList.add("video-detail");
+        const background = el("div");
+        background.id = "backdrop";
+        if (selected.background) {
+          const img = el("img");
+          img.src = selected.background;
+          img.alt = "";
+          background.append(img);
+        }
+        document.body.prepend(background);
+        const content = el("section", null, "video-info");
+        const heading = el("h1", selected.title);
+        if (selected.logo) {
+          const logo = el("img");
+          logo.src = selected.logo;
+          logo.alt = selected.title;
+          logo.className = "video-logo";
+          heading.hidden = true;
+          logo.onerror = () => {
+            logo.remove();
+            heading.hidden = false;
+          };
+          content.append(logo);
+        }
+        content.append(
+          heading,
+          el(
+            "p",
+            [selected.year, selected.duration, selected.location]
+              .filter(Boolean)
+              .join(" · "),
+            "meta",
+          ),
+        );
+        if (selected.desc)
+          content.append(el("p", selected.desc, "description"));
+        if (choices.length > 1) {
+          const label = el("label", "Versão "),
+            select = el("select");
+          select.setAttribute("aria-label", "Versão do show");
+          choices.forEach((choice, i) => {
+            const option = el("option", choice.location || choice.title);
+            option.value = i;
+            option.selected = choice === selected;
+            select.append(option);
+          });
+          select.onchange = () =>
+            (location.hash = key + "/" + id + "/" + select.value);
+          label.append(select);
+          content.append(label);
+        }
+        const button = el("button", "▶︎ Reproduzir", "primary");
+        button.disabled = !selected.tracks.some((t) => t.src);
+        button.onclick = () =>
+          play(
+            selected.tracks.filter((t) => t.src),
+            0,
+          );
+        content.append(button);
+        main.append(content);
+        if (key === "videoclipes" && item.albumCover) {
+          const related = items
+            .map((clip, i) => ({ clip, i }))
+            .filter(
+              (o) => o.clip.albumCover === item.albumCover && o.clip !== item,
+            );
+          if (related.length) {
+            const title =
+              library.musicas?.find((a) => a.cover === item.albumCover)
+                ?.title || "Mesmo álbum";
+            const section = el("section", null, "related");
+            section.append(el("h2", title));
+            const rail = el("div", null, "clip-rail");
+            related.forEach(({ clip, i }) => {
+              const card = link("", "#" + key + "/" + i, "card");
+              card.append(art(clip, true));
+              if (clip.logo) {
+                const logo = el("img");
+                logo.className = "rail-logo";
+                logo.src = clip.logo;
+                logo.alt = clip.title;
+                logo.onerror = () => logo.replaceWith(el("strong", clip.title));
+                card.append(logo);
+              } else card.append(el("strong", clip.title));
+              rail.append(card);
+            });
+            section.append(rail);
+            main.append(section);
+          }
+        }
+      }
+      function renderPlayerArt() {
+        playerCleanup();
+        playerCleanup = () => {};
+        const host = $("#playerArt"),
+          t = queue[idx];
+        host.replaceChildren();
+        host.hidden = !t || t.video || !$("#expanded").open;
+        if (host.hidden) return;
+        host.append(art(t.album));
+        playerCleanup = animate(t.album, host);
+      }
+      function expand(open) {
+        const dialog = $("#expanded");
+        if (open && !dialog.open) dialog.showModal();
+        if (!open && dialog.open) dialog.close();
+        $("#expand").setAttribute("aria-expanded", String(open));
+        $("#expandedTitle").textContent = queue[idx]?.title || "";
+        $("#expandedArtist").textContent =
+          queue[idx]?.album?.artist || "Britney Spears";
+        renderPlayerArt();
+      }
+      function sync() {
+        $("#toggle").textContent = media.paused ? "Reproduzir" : "Pausar";
+        $("#bigPlay").textContent = media.paused ? "▶︎" : "Ⅱ";
+        $("#bigPlay").setAttribute(
+          "aria-label",
+          media.paused ? "Reproduzir" : "Pausar",
+        );
+        if ("mediaSession" in navigator)
+          navigator.mediaSession.playbackState = media.paused
+            ? "paused"
+            : "playing";
+        highlight();
+      }
+      async function play(list, i) {
+        const t = list[i];
+        if (!t) return;
+        const g = ++playVersion;
+        release(media);
+        queue = list;
+        idx = i;
+        media = t.video ? $("#film") : $("audio");
+        $("#film").hidden = !t.video;
+        $("audio").hidden = t.video;
+        $("#player").hidden = false;
+        $("#now").textContent = t.title;
+        reportError("");
+        $("#expandedTitle").textContent = t.title;
+        $("#expandedArtist").textContent = t.album?.artist || "Britney Spears";
+        $("#expanded").classList.toggle("video-player", t.video);
+        if (t.video) expand(true);
+        else renderPlayerArt();
+        loadSubtitles(t, g);
+        if ("mediaSession" in navigator && window.MediaMetadata) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: t.title,
+            artist: t.album?.artist || "Britney Spears",
+            album: t.album?.title || "",
+            artwork: t.album?.cover ? [{ src: t.album.cover }] : [],
+          });
+        }
+        const current = () => g === playVersion;
+        const fail = (m) => {
+          if (current()) reportError(m);
+        };
+        try {
+          await attach(media, t.src, current, fail);
+          if (current()) await media.play();
+        } catch (e) {
+          if (e.name !== "AbortError")
+            fail(
+              e.name === "NotAllowedError"
+                ? "Toque em Reproduzir para começar."
+                : e.message,
+            );
+        }
+        sync();
+      }
+      function next(auto) {
+        if (!queue.length) return;
+        const mode = $("#repeat").selectedIndex;
+        if (auto && mode === 1) return play(queue, idx);
+        if (shuffle && queue.length > 1)
+          return play(
+            queue,
+            (idx + 1 + Math.floor(Math.random() * (queue.length - 1))) %
+              queue.length,
+          );
+        if (idx + 1 < queue.length) return play(queue, idx + 1);
+        if (!auto || mode === 2) return play(queue, 0);
+        if (mode === 3) {
+          const albums = (library.musicas || []).filter((a) =>
+            a.tracks.some((t) => t.src),
+          );
+          if (albums.length) {
+            const current = albums.indexOf(queue[idx]?.album);
+            return play(
+              albums[(current + 1) % albums.length].tracks.filter((t) => t.src),
+              0,
+            );
+          }
+        }
+        sync();
+      }
+      for (const v of [$("audio"), $("#film")]) {
+        v.onplay = v.onpause = sync;
+        v.onended = () => {
+          if (v === media) next(true);
+        };
+        v.onerror = () => {
+          if (v === media && v.error)
+            reportError(
+              "Não foi possível reproduzir esta mídia. Confira o endereço e o formato.",
+            );
+        };
+      }
+      $("#prev").onclick = () =>
+        play(queue, (idx + queue.length - 1) % queue.length);
+      $("#next").onclick = () => next(false);
+      $("#toggle").onclick = () => {
+        if (!media.paused) media.pause();
+        else if (media.error || !media.currentSrc) play(queue, idx);
+        else media.play().catch((e) => reportError(e.message));
+      };
+      $("#shuffle").onclick = () => {
+        shuffle = !shuffle;
+        $("#shuffle").setAttribute("aria-pressed", String(shuffle));
+      };
+      $("#expand").onclick = () => expand(!$("#expanded").open);
+      $("#optionsBtn").onclick = () => $("#settingsDialog").showModal();
+      $("#close").onclick = () => $("#settingsDialog").close();
+      function theme(light) {
+        document.body.classList.toggle("light", light);
+        $("#light").checked = light;
+      }
+      try {
+        theme(localStorage.getItem("theme") === "light");
+      } catch {}
+      $("#light").onchange = (e) => {
+        theme(e.target.checked);
+        try {
+          localStorage.setItem("theme", e.target.checked ? "light" : "dark");
+        } catch {}
+      };
+      async function load(file) {
+        const g = ++loadVersion;
+        try {
+          let raw,
+            base = new URL(".", location.href).href;
+          if (file) raw = JSON.parse(await file.text());
+          else {
+            const r = await fetch(
+              "https://zayandoux.github.io/britneyspears/catalogo.json",
+              { cache: "no-cache" },
+            );
+            if (!r.ok) throw Error("HTTP " + r.status);
+            raw = await r.json();
+            base = new URL(".", r.url).href;
+          }
+          const parsed = normalize(raw, base);
+          if (g !== loadVersion) return;
+          library = parsed.result;
+          names = parsed.names;
+          message = Object.values(library).some((a) => a.length)
+            ? ""
+            : "Nenhuma coleção reconhecida neste JSON.";
+          if (file) {
+            expand(false);
+            ++playVersion;
+            release(media);
+            queue = [];
+            renderPlayerArt();
+            $("#player").hidden = true;
+            location.hash = "";
+          }
+        } catch (e) {
+          if (g !== loadVersion) return;
+          message =
+            "Não foi possível abrir o catálogo. Use Opções → Abrir catálogo JSON. " +
+            (file ? e.message : "");
+        }
+        draw();
+      }
+      $("#file").onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          $("#settingsDialog").close();
+          load(file);
+        }
+        e.target.value = "";
+      };
+      if ("mediaSession" in navigator) {
+        for (const [action, handler] of Object.entries({
+          play: () => media.play().catch((e) => reportError(e.message)),
+          pause: () => media.pause(),
+          nexttrack: () => next(false),
+          previoustrack: () =>
+            play(queue, (idx + queue.length - 1) % queue.length),
+        })) {
+          try {
+            navigator.mediaSession.setActionHandler(action, handler);
+          } catch {}
+        }
+      }
+      $("#collapse").onclick = () => expand(false);
+      $("#expanded").addEventListener("close", () => {
+        playerCleanup();
+        $("#expand").setAttribute("aria-expanded", "false");
+      });
+      $("#bigPlay").onclick = () => $("#toggle").click();
+      $("#repeatButton").onclick = () => {
+        const select = $("#repeat");
+        select.selectedIndex = (select.selectedIndex + 1) % 4;
+        $("#repeatButton").textContent = ["Off", "1", "↻", "D"][
+          select.selectedIndex
+        ];
+        $("#repeatButton").setAttribute(
+          "aria-label",
+          select.options[select.selectedIndex].text,
+        );
+        $("#repeatButton").setAttribute(
+          "aria-pressed",
+          String(select.selectedIndex !== 0),
+        );
+      };
+      function formatTime(seconds) {
+        if (!Number.isFinite(seconds)) return "0:00";
+        return (
+          Math.floor(seconds / 60) +
+          ":" +
+          String(Math.floor(seconds % 60)).padStart(2, "0")
+        );
+      }
+      for (const v of [$("audio"), $("#film")])
+        v.addEventListener("timeupdate", () => {
+          if (v !== media) return;
+          $("#seek").disabled = !Number.isFinite(v.duration);
+          $("#seek").value = v.duration
+            ? (v.currentTime / v.duration) * 1000
+            : 0;
+          $("#elapsed").textContent = formatTime(v.currentTime);
+          $("#remaining").textContent =
+            "−" + formatTime(v.duration - v.currentTime);
+        });
+      $("#seek").oninput = (e) => {
+        if (Number.isFinite(media.duration))
+          media.currentTime = (media.duration * Number(e.target.value)) / 1000;
+      };
+      $("#volume").oninput = (e) => {
+        for (const v of [$("audio"), $("#film")])
+          v.volume = Number(e.target.value);
+      };
+      let gestureY;
+      $("#collapse").addEventListener(
+        "touchstart",
+        (e) => (gestureY = e.touches[0].clientY),
+        { passive: true },
+      );
+      $("#collapse").addEventListener(
+        "touchend",
+        (e) => {
+          if (e.changedTouches[0].clientY - gestureY > 45) expand(false);
+        },
+        { passive: true },
+      );
+      function reportError(message) {
+        $("#problem").textContent = message;
+        $("#expandedProblem").textContent = message;
+      }
+      let subtitleUrls = [];
+      async function loadSubtitles(track, g) {
+        $("#film")
+          .querySelectorAll("track")
+          .forEach((t) => t.remove());
+        subtitleUrls.forEach(URL.revokeObjectURL);
+        subtitleUrls = [];
+        for (const sub of track.subtitles || []) {
+          try {
+            const src = url(
+              sub.subtitlePath || sub.url,
+              "https://zayandoux.github.io/britneyspears/",
+            );
+            const response = await fetch(src);
+            if (!response.ok) throw Error();
+            let text = await response.text();
+            if (g !== playVersion) return;
+            if (!text.trimStart().startsWith("WEBVTT"))
+              text =
+                "WEBVTT\n\n" +
+                text
+                  .replace(/^\uFEFF/, "")
+                  .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2");
+            const blob = URL.createObjectURL(
+              new Blob([text], { type: "text/vtt" }),
+            );
+            subtitleUrls.push(blob);
+            const node = el("track");
+            node.kind = "subtitles";
+            node.label = sub.label || "Legenda";
+            node.srclang = sub.language || "pt";
+            node.src = blob;
+            $("#film").append(node);
+          } catch {
+            if (g === playVersion)
+              reportError(
+                "Uma legenda está indisponível. Você pode continuar assistindo.",
+              );
+          }
+        }
+      }
+      document.addEventListener("keydown", (e) => {
+        if (
+          e.code === "Space" &&
+          !e.target.closest("button,input,select,textarea,a,video") &&
+          queue.length
+        ) {
+          e.preventDefault();
+          $("#toggle").click();
+        }
+      });
+      window.onhashchange = () => {
+        if (!!$("#expanded").open) expand(false);
+        draw();
+        window.scrollTo(0, 0);
+      };
+      draw();
+      load();
+    </script>
+  </body>
+</html>
